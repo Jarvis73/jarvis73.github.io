@@ -1,15 +1,15 @@
 <header id="top">
     <div class="wrapper">
-        <a href="{{ site.baseurl }}" class="brand">{{ site.title }}</a>
+        <a href="{{ site.baseurl }}/index.html" class="brand">{{ site.title }}</a>
         <small>{{site.brief-intro}}</small>
         <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
         <nav id="headerNav">
             <ul>
                 <li>
                     {% if page.url == '/' %}
-                    <a class="active" href="{{site.baseurl}}">
+                    <a class="active" href="{{site.baseurl}}/index.html">
                         {% else %}
-                    <a href="{{site.baseurl}}">
+                    <a href="{{site.baseurl}}/index.html">
                     {% endif %}
                         <i class="fa fa-home"></i>Home
                     </a>
