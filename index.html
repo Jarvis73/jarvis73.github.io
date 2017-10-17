@@ -1,6 +1,4 @@
----
-layout: default
----
+--- layout: default ---
 
 <div class="page clearfix" index>
     <div class="left">
@@ -9,38 +7,40 @@ layout: default
         <hr>
         <ul>
             {% for post in paginator.posts %}
-              <li>
+            <li>
                 <h2>
-                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
                 </h2>
                 <div class="label">
                     <div class="label-card">
                         <i class="fa fa-calendar"></i>{{ post.date | date: "%F" }}
                     </div>
                     <div class="label-card">
-                        {% if post.author %}<i class="fa fa-user"></i>{{ post.author }}
-                        {% endif %}
+                        {% if post.author %}
+                        <i class="fa fa-user"></i>{{ post.author }} {% endif %}
                     </div>
                     <div class="label-card">
-                        {% if page.meta %}<i class="fa fa-key"></i>{{ page.meta }}  {% endif %}
-                    </div>
-
-                    <div class="label-card">
-                    {% include category.html %}
+                        {% if page.meta %}
+                        <i class="fa fa-key"></i>{{ page.meta }} {% endif %}
                     </div>
 
                     <div class="label-card">
-                    {% include tag.html %}
+                        {% include category.html %}
+                    </div>
+
+                    <div class="label-card">
+                        {% include tag.html %}
                     </div>
                 </div>
                 <div class="excerpt">
                     {{post.excerpt}}
                 </div>
                 <div class="read-all">
-                    <a  href="{{ post.url | prepend: site.baseurl }}"><i class="fa fa-newspaper-o"></i>Read All</a>
+                    <a href="{{ post.url | prepend: site.baseurl }}">
+                        <i class="fa fa-newspaper-o"></i>Read All</a>
                 </div>
                 <hr>
-              </li>
+            </li>
             {% endfor %}
         </ul>
 
@@ -48,21 +48,37 @@ layout: default
 
         <!-- Pagination links -->
         <div class="pagination">
-          {% if paginator.previous_page %}
-            <a href="/index.html" class="previous"><i class="fa fa-angle-double-left"></i></a>
-            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous"><i class="fa fa-angle-left"></i></a>
-          {% else %}
-            <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
-            <span class="previous disable"><i class="fa fa-angle-left"></i></span>
-          {% endif %}
-          <span class="page_number ">{{ paginator.page }}/{{ paginator.total_pages }}</span>
-          {% if paginator.next_page %}
-            <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-angle-right"></i></a>
-            <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}" class="next"><i class="fa fa-angle-double-right"></i></a>
-          {% else %}
-            <span class="next disable"><i class="fa fa-angle-right"></i></span>
-            <span class="next disable"><i class="fa fa-angle-double-right"></i></span>
-          {% endif %}
+            {% if paginator.previous_page %}
+            <a href="/index.html" class="previous">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            {% else %}
+            <span class="previous disable">
+                <i class="fa fa-angle-double-left"></i>
+            </span>
+            <span class="previous disable">
+                <i class="fa fa-angle-left"></i>
+            </span>
+            {% endif %}
+            <span class="page_number ">{{ paginator.page }}/{{ paginator.total_pages }}</span>
+            {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path }}" class="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}" class="next">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+            {% else %}
+            <span class="next disable">
+                <i class="fa fa-angle-right"></i>
+            </span>
+            <span class="next disable">
+                <i class="fa fa-angle-double-right"></i>
+            </span>
+            {% endif %}
         </div>
     </div>
     <!-- <button class="anchor"><i class="fa fa-anchor"></i></button> -->
@@ -74,8 +90,10 @@ layout: default
                     Recent Posts
                 </div>
                 <ul class="content-ul" recent>
-                    {% for post in site.posts offset: 0 limit: 10  %}
-                        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+                    {% for post in site.posts offset: 0 limit: 10 %}
+                    <li>
+                        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -106,68 +124,32 @@ layout: default
                     Tags
                 </div>
                 <div class="tags-cloud">
-                    {% assign first = site.tags.first %}
-                    {% assign max = first[1].size %}
-                    {% assign min = max %}
-                    {% for tag in site.tags offset:1 %}
-                      {% if tag[1].size > max %}
-                        {% assign max = tag[1].size %}
-                      {% elsif tag[1].size < min %}
-                        {% assign min = tag[1].size %}
-                      {% endif %}
-                    {% endfor %}
-
-                    {% if max == min %}
-                        {% assign diff = 1 %}
-                    {% else %}
-                        {% assign diff = max | minus: min %}
-                    {% endif %}
-
-                    {% for tag in site.tags %}
-                      {% assign temp = tag[1].size | minus: min | times: 36 | divided_by: diff %}
-                      {% assign base = temp | divided_by: 4 %}
-                      {% assign remain = temp | modulo: 4 %}
-                      {% if remain == 0 %}
-                        {% assign size = base | plus: 9 %}
-                      {% elsif remain == 1 or remain == 2 %}
-                        {% assign size = base | plus: 9 | append: '.5' %}
-                      {% else %}
-                        {% assign size = base | plus: 10 %}
-                      {% endif %}
-                      {% if remain == 0 or remain == 1 %}
-                        {% assign color = 9 | minus: base %}
-                      {% else %}
-                        {% assign color = 8 | minus: base %}
-                      {% endif %}
-                      <a href="{{ root_url }}/{{ site.tag_dir }}#{{ tag[0] }}" style="font-size: {{ size }}pt; color: #{{ color }}{{ color }}{{ color }};">{{ tag[0] }}</a>
-                    {% endfor %}
+                    {% assign first = site.tags.first %} {% assign max = first[1].size %} {% assign min = max %} {% for tag in site.tags offset:1
+                    %} {% if tag[1].size > max %} {% assign max = tag[1].size %} {% elsif tag[1].size
+                    <
+                        min %} {% assign min=t ag[1].size %} {% endif %} {% endfor %} {% if max==m in %} {% assign diff=1 %}
+                        {% else %} {% assign diff=m ax | minus: min %} {% endif %} {% for tag in site.tags %} {% assign temp=t
+                        ag[1].size | minus: min | times: 36 | divided_by: diff %} {% assign base=t emp | divided_by: 4 %} {%
+                        assign remain=t emp | modulo: 4 %} {% if remain==0 %} {% assign size=b ase | plus: 9 %} {% elsif remain==1
+                        or remain==2 %} {% assign size=b ase | plus: 9 | append: '.5' %} {% else %} {% assign size=b ase | plus:
+                        10 %} {% endif %} {% if remain==0 or remain==1 %} {% assign color=9 | minus: base %} {% else %} {% assign
+                        color=8 | minus: base %} {% endif %} <a href="{{ root_url }}/{{ site.tag_dir }}#{{ tag[0] }}" style="font-size: {{ size }}pt; color: #{{ color }}{{ color }}{{ color }};">{{ tag[0] }}</a>
+                        {% endfor %}
                 </div>
             </div>
 
             <div class="side">
                 <div>
-                    <i class="fa fa-external-link"></i>
-                    Images
+                    <i class="fa fa-camera-retro fa-lg"></i>
+                    Image
                 </div>
-                <div class="imgRotation">
-                    <div class="img-list">
-                        <img src="/images/1.jpg" alt="">
-                        <img src="/images/2.jpg" alt="">
-                        <img src="/images/3.jpg" alt="">
-                        <img src="/images/4.jpg" alt="">
-                        <img src="/images/5.jpg" alt="">
-                    </div>
-                    <div class="circle">
-                        <a href="javascript:;" class="active"></a>
-                        <a href="javascript:;"></a>
-                        <a href="javascript:;"></a>
-                        <a href="javascript:;"></a>
-                        <a href="javascript:;"></a>
-                    </div>
+                <div>
+                    <img src="/images/2.jpg" alt="">
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- <script src="{{ "/js/scroll.min.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
 <!-- <script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
