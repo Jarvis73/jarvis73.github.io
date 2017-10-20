@@ -52,7 +52,7 @@
       key_word: '喜剧 / 动作 / 冒险',
       score: 7.3,
       description: "英国秘密特工组织Kingsman的总部被摧毁，世界已经被劫持，同时，Kingsman们在美国发现了一个盟军间谍组织，这两个精英秘密组织必须团结起来，一同打败敌人......"
-    }
+    } 
   ];
 
   contentInit(demoContent) //内容初始化
