@@ -20,21 +20,23 @@
       key_word: '悬疑 / 惊悚 / 犯罪',
       score: 8.7,
       description: '艾德里安（马里奥·卡萨斯 Mario Casas 饰）经营着一间科技公司，事业蒸蒸日上，家中有美丽贤惠的妻子和活泼可爱的女儿，事业家庭双丰收的他是旁人羡慕的对象。然而，野心勃勃的艾德里安并未珍惜眼前来之不易的生活，一直以来，他和一位名叫劳拉（芭芭拉·蓝妮 Bárbara Lennie 饰）的女摄影师保持着肉体关系......'
-    }, {
+    }, 
+    {
       demo_link: 'https://movie.douban.com/subject/26387939/',
       img_link: 'https://img3.doubanio.com/view/photo/l/public/p2457983084.webp',
       title: '摔跤吧！爸爸',
       key_word: '剧情 / 传记 / 运动',
       score: 9.1,
       description: '马哈维亚（阿米尔·汗 Aamir Khan 饰）曾经是一名前途无量的摔跤运动员，在放弃了职业生涯后，他最大的遗憾就是没有能够替国家赢得金牌。马哈维亚将这份希望寄托在了尚未出生的儿子身上，哪知道妻子接连给他生了两个女儿。让马哈维亚没有想到的是，两个姑娘展现出了杰出的摔跤天赋，让他幡然醒悟，就算是女孩，也能够昂首挺胸的站在比赛场上，为了国家和她们自己赢得荣誉......'
-    }, {
-      demo_link: 'https://movie.douban.com/subject/26378579/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2499792043.webp',
-      title: '王牌特工2：黄金圈',
-      key_word: '喜剧 / 动作 / 冒险',
-      score: 7.3,
-      description: "英国秘密特工组织Kingsman的总部被摧毁，世界已经被劫持，同时，Kingsman们在美国发现了一个盟军间谍组织，这两个精英秘密组织必须团结起来，一同打败敌人。"
-    }
+    }//, 
+    // {
+    //   demo_link: 'https://movie.douban.com/subject/26378579/',
+    //   img_link: 'https://img3.doubanio.com/view/photo/l/public/p2499792043.webp',
+    //   title: '王牌特工2：黄金圈',
+    //   key_word: '喜剧 / 动作 / 冒险',
+    //   score: 7.3,
+    //   description: "英国秘密特工组织Kingsman的总部被摧毁，世界已经被劫持，同时，Kingsman们在美国发现了一个盟军间谍组织，这两个精英秘密组织必须团结起来，一同打败敌人。"
+    // }
   ];
 
   contentInit(demoContent) //内容初始化
