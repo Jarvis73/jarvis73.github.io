@@ -15,7 +15,7 @@
   var demoContent = [
     {
       demo_link: 'https://movie.douban.com/subject/26387939/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2457983084.webp',
+      img_link: 'https://img1.doubanio.com/view/photo/l/public/p2456570038.webp',
       title: '摔跤吧！爸爸',
       key_word: '剧情 / 传记 / 运动',
       score: 9.1,
@@ -46,13 +46,21 @@
       description: '拥有着强大力量的创世神杖被四大神之一的埃及神拉（李璐 配音）盗走。为了令宇宙免于被毁灭的悲惨命运，希腊神宙斯（藤新 配音）派出了自己的女儿雅典娜（山新 配音）追踪神杖的下落。\n小金刚（皇贞季 配音）是自幼生长在孤儿院里的平凡少年，常年凭借着机灵的脑瓜靠着坑蒙拐骗赚钱度日，只为了有朝一日身患重病的青梅竹马小青（C小调 配音）能够康复。一次偶然中，小金刚得到了藏有创世神杖下落的藏宝图，随后遭到了雷神托尔（李姝洁 饰）的伏击，在争抢之中，藏宝图被破坏，就这样，小金刚成为了唯一一个知道创世神杖在哪里的凡人。就这样，小金刚、雅典娜、托尔，再加上一个来自东方的脱线河神（郝祥海 饰），一行四人踏上了寻找创世神杖的旅途......'
     }, 
     {
-      demo_link: 'https://movie.douban.com/subject/26378579/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2499792043.webp',
-      title: '王牌特工2：黄金圈',
-      key_word: '喜剧 / 动作 / 冒险',
-      score: 7.3,
-      description: "英国秘密特工组织Kingsman的总部被摧毁，世界已经被劫持，同时，Kingsman们在美国发现了一个盟军间谍组织，这两个精英秘密组织必须团结起来，一同打败敌人......"
-    } 
+      demo_link: 'https://movie.douban.com/subject/27024903/',
+      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2501863104.webp',
+      title: '天才枪手',
+      key_word: '剧情 / 悬疑 / 犯罪',
+      score: 8.3,
+      description: '影片根据2014年轰动一时的亚洲考场作弊案改编，讲述了天才学霸利用高智商考场作弊牟取暴利的故事。出生平凡的天才少女Lynn（茱蒂蒙·琼查容苏因 饰）在进入贵族学校后，结识了富二代同学Grace（依莎亚·贺苏汪饰）与Pat（披纳若·苏潘平佑饰），从此开始了考场作弊生涯，与此同时，另一名记忆力极佳的天才学霸Bank（查侬·散顶腾古 饰）发现了Lynn不为人知的“交易”。经过多场险象环生的“作弊战争”后，Lynn接下最后一单在国际考场上为富家子弟作弊的天价委托。一场横跨两大洲的完美作弊方案横空出世，然而一切并不像他们想的那么简单......'
+    },
+    {
+      demo_link: 'https://movie.douban.com/subject/10512661/',
+      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2501623796.webp',
+      title: '银翼杀手',
+      key_word: '科幻 / 惊悚',
+      score: 8.4,
+      description: '本片发生在前作30年后，新的银翼杀手、瑞恩·高斯林饰演的洛杉矶警察K发现一个足以颠覆社会的惊天秘密，这个发现让他开始寻找已经消失匿迹30年的前银翼杀手瑞克·戴克（哈里森·福特饰）......'
+    }
   ];
 
   contentInit(demoContent) //内容初始化
