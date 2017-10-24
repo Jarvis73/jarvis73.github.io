@@ -15,7 +15,7 @@
   var demoContent = [
     {
       demo_link: 'https://movie.douban.com/subject/26387939/',
-      img_link: 'https://img1.doubanio.com/view/photo/l/public/p2456570038.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2bd0016.png',
       title: '摔跤吧！爸爸',
       key_word: '剧情 / 传记 / 运动',
       score: 9.1,
@@ -23,7 +23,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26580232/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2449229311.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2bd002c.png',
       title: '看不见的客人',
       key_word: '悬疑 / 惊悚 / 犯罪',
       score: 8.7,
@@ -31,7 +31,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26363254/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2485983612.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2b5383b.png',
       title: '战狼2',
       key_word: '动作',
       score: 7.4,
@@ -39,7 +39,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26759539/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2492917402.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2b687a5.png',
       title: '十万个冷笑话2',
       key_word: '喜剧 / 动画 / 奇幻',
       score: 7.5,
@@ -47,7 +47,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/27024903/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2501863104.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2bcafa8.png',
       title: '天才枪手',
       key_word: '剧情 / 悬疑 / 犯罪',
       score: 8.3,
@@ -55,7 +55,7 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/10512661/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2501623796.webp',
+      img_link: 'https://i.loli.net/2017/10/24/59eefa2bc4df7.png',
       title: '银翼杀手',
       key_word: '科幻 / 惊悚',
       score: 8.4,
