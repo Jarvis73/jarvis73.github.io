@@ -60,7 +60,15 @@
       key_word: '科幻 / 惊悚',
       score: 8.4,
       description: '本片发生在前作30年后，新的银翼杀手、瑞恩·高斯林饰演的洛杉矶警察K发现一个足以颠覆社会的惊天秘密，这个发现让他开始寻找已经消失匿迹30年的前银翼杀手瑞克·戴克（哈里森·福特饰）......'
-    }
+    },
+    {
+      demo_link: 'https://movie.douban.com/subject/25933890/',
+      img_link: 'https://i.loli.net/2017/10/27/59f30de0e32ed.png',
+      title: '极盗车神',
+      key_word: '动作 / 音乐 / 犯罪',
+      score: 7.1,
+      description: 'Baby（安塞尔·艾尔高特 Ansel Elgort 饰）专门负责帮银行抢劫犯开车逃脱。Baby因童年的一场事故导致耳疾，要靠专属的音乐来掌控开车节奏。偶然的一次邂逅，他与餐厅女服务生（莉莉·詹姆斯 Lily James 饰）坠入爱河，并想就此金盆洗手。头目老大道哥（凯文·史派西 Kevin Spacey 饰）表示，只要Baby再完成最后一次任务，就可以给他自由。殊不知，巨大的危险和挑战在等待着Baby......'
+    },
   ];
 
   contentInit(demoContent) //内容初始化
