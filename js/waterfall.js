@@ -69,6 +69,14 @@
       score: 7.1,
       description: 'Baby（安塞尔·艾尔高特 Ansel Elgort 饰）专门负责帮银行抢劫犯开车逃脱。Baby因童年的一场事故导致耳疾，要靠专属的音乐来掌控开车节奏。偶然的一次邂逅，他与餐厅女服务生（莉莉·詹姆斯 Lily James 饰）坠入爱河，并想就此金盆洗手。头目老大道哥（凯文·史派西 Kevin Spacey 饰）表示，只要Baby再完成最后一次任务，就可以给他自由。殊不知，巨大的危险和挑战在等待着Baby......'
     },
+    {
+      demo_link: 'https://movie.douban.com/subject/26908002/',
+      img_link: 'http://i2.bvimg.com/617101/39e00e752576fa1at.jpg',
+      title: '天赋异禀 The Gifted (2017)',
+      key_word: '动作 / 科幻 / 奇幻',
+      score: 8.2,
+      description: 'Fox将推出全新X战警剧集，马特·尼克斯(《火线警告》)负责开发本剧。该剧讲述一对夫妇发现他们的孩子具有超能力，平静生活瞬间瓦解。而他们也不得不铤而走险，躲避当局，尼克斯表示本剧和大表哥的《军团》不同，该剧和“X战警”电影宇宙有密切联系，至于剧集角色，电影中熟悉的面孔或将亮相......'
+    }
   ];
 
   contentInit(demoContent) //内容初始化
