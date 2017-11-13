@@ -15,7 +15,7 @@
   var demoContent = [
     {
       demo_link: 'https://movie.douban.com/subject/26387939/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2bd0016.png',
+      img_link: 'http://i1.bvimg.com/617101/4f7cbb726ecbffdft.jpg',
       title: '摔跤吧！爸爸',
       key_word: '剧情 / 传记 / 运动',
       score: 9.1,
@@ -23,7 +23,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26580232/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2b5383b.png',
+      img_link: 'http://i1.bvimg.com/617101/d588fe39f72b82d1t.jpg',
       title: '看不见的客人',
       key_word: '悬疑 / 惊悚 / 犯罪',
       score: 8.7,
@@ -31,7 +31,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26363254/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2bc4df7.png',
+      img_link: 'http://i1.bvimg.com/617101/8926d5924db02b7at.jpg',
       title: '战狼2',
       key_word: '动作',
       score: 7.4,
@@ -39,7 +39,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26759539/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2bcafa8.png',
+      img_link: 'http://i1.bvimg.com/617101/7aed6af515e0568ct.jpg',
       title: '十万个冷笑话2',
       key_word: '喜剧 / 动画 / 奇幻',
       score: 7.5,
@@ -47,7 +47,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/27024903/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2b687a5.png',
+      img_link: 'http://i1.bvimg.com/617101/889dbedef047507et.jpg',
       title: '天才枪手',
       key_word: '剧情 / 悬疑 / 犯罪',
       score: 8.3,
@@ -55,15 +55,15 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/10512661/',
-      img_link: 'https://i.loli.net/2017/10/24/59eefa2bd002c.png',
-      title: '银翼杀手',
+      img_link: 'http://i1.bvimg.com/617101/e51511daea6be202t.jpg',
+      title: '银翼杀手 2049',
       key_word: '科幻 / 惊悚',
       score: 8.4,
       description: '本片发生在前作30年后，新的银翼杀手、瑞恩·高斯林饰演的洛杉矶警察K发现一个足以颠覆社会的惊天秘密，这个发现让他开始寻找已经消失匿迹30年的前银翼杀手瑞克·戴克（哈里森·福特饰）......'
     },
     {
       demo_link: 'https://movie.douban.com/subject/25933890/',
-      img_link: 'https://i.loli.net/2017/10/27/59f30de0e32ed.png',
+      img_link: 'http://i1.bvimg.com/617101/6910fe5a2d7a026at.jpg',
       title: '极盗车神',
       key_word: '动作 / 音乐 / 犯罪',
       score: 7.1,
@@ -84,6 +84,14 @@
       key_word: '喜剧',
       score: 8.3,
       description: '森山实栗（新垣结衣 饰）自研究生毕业之后就一直仕途不顺，最近更是惨遭解雇。经由父亲的介绍，实栗来到了名为津崎平匡（星野源 饰）的单身男子家中，为其料理家事，就这样，二十五岁的实栗成为了一名家政妇。然而好景不长，实栗的父母决定搬离此地，这也就意味着实栗必须“离职”。实在无法接受此事的实栗决定和平匡“契约结婚”，在外装做夫妻，在内依旧是雇主和职员。就这样，这对“孤男寡女”开始了他们的同居生活......'
+    },
+    {
+      demo_link: 'https://movie.douban.com/subject/26593587/',
+      img_link: 'http://i1.bvimg.com/617101/872842cc39a5afbat.jpg',
+      title: '天才少女 Gifted (2017)',
+      key_word: '剧情 / 家庭',
+      score: 8.1,
+      description: 'Frank(Chris Evans 饰) 在姐姐自杀后领养了外甥女Mary, Mary是一个天才女孩儿, 7岁就在搞PDE(lll￢ω￢). 舅舅Frank想让她有着平凡的一生, 而外婆得知了Mary的天赋后想培养她解 Navier-Stokes方程. 小菇凉简直不要太可爱(★ ω ★)......'
     }
   ];
 
