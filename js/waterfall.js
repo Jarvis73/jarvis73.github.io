@@ -15,7 +15,7 @@
   var demoContent = [
     {
       demo_link: 'https://movie.douban.com/subject/26387939/',
-      img_link: 'http://i1.bvimg.com/617101/4f7cbb726ecbffdft.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2457983084.webp',
       title: '摔跤吧！爸爸',
       key_word: '剧情 / 传记 / 运动',
       score: 9.1,
@@ -23,7 +23,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26580232/',
-      img_link: 'http://i1.bvimg.com/617101/d588fe39f72b82d1t.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2498971355.webp',
       title: '看不见的客人',
       key_word: '悬疑 / 惊悚 / 犯罪',
       score: 8.7,
@@ -31,7 +31,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26363254/',
-      img_link: 'http://i1.bvimg.com/617101/8926d5924db02b7at.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2494701965.webp',
       title: '战狼2',
       key_word: '动作',
       score: 7.4,
@@ -39,7 +39,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/26759539/',
-      img_link: 'http://i1.bvimg.com/617101/7aed6af515e0568ct.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2492917402.webp',
       title: '十万个冷笑话2',
       key_word: '喜剧 / 动画 / 奇幻',
       score: 7.5,
@@ -47,7 +47,7 @@
     }, 
     {
       demo_link: 'https://movie.douban.com/subject/27024903/',
-      img_link: 'http://i1.bvimg.com/617101/889dbedef047507et.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2501863104.webp',
       title: '天才枪手',
       key_word: '剧情 / 悬疑 / 犯罪',
       score: 8.3,
@@ -55,7 +55,7 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/10512661/',
-      img_link: 'http://i1.bvimg.com/617101/e51511daea6be202t.jpg',
+      img_link: 'https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2501864539.webp',
       title: '银翼杀手 2049',
       key_word: '科幻 / 惊悚',
       score: 8.4,
@@ -63,7 +63,7 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/25933890/',
-      img_link: 'http://i1.bvimg.com/617101/6910fe5a2d7a026at.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2496901482.webp',
       title: '极盗车神',
       key_word: '动作 / 音乐 / 犯罪',
       score: 7.1,
@@ -71,23 +71,23 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/26908002/',
-      img_link: 'http://i2.bvimg.com/617101/39e00e752576fa1at.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2493581990.webp',
       title: '天赋异禀 The Gifted (2017)',
       key_word: '动作 / 科幻 / 奇幻',
       score: 8.2,
-      description: 'Fox将推出全新X战警剧集，马特·尼克斯(《火线警告》)负责开发本剧。该剧讲述一对夫妇发现他们的孩子具有超能力，平静生活瞬间瓦解。而他们也不得不铤而走险，躲避当局，尼克斯表示本剧和大表哥的《军团》不同，该剧和“X战警”电影宇宙有密切联系，至于剧集角色，电影中熟悉的面孔或将亮相......'
+      description: 'X战警的后续? 或者是分支故事吧, 剧情仍然是变种人和人类打架, 不过主角换成了两个娃娃......'
     },
     {
       demo_link: 'https://movie.douban.com/subject/26816519/',
-      img_link: 'http://i4.bvimg.com/617101/e72d4392218f86f2t.jpg',
+      img_link: 'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2400201631.webp',
       title: '逃避虽可耻但有用',
       key_word: '喜剧',
       score: 8.3,
-      description: '森山实栗（新垣结衣 饰）自研究生毕业之后就一直仕途不顺，最近更是惨遭解雇。经由父亲的介绍，实栗来到了名为津崎平匡（星野源 饰）的单身男子家中，为其料理家事，就这样，二十五岁的实栗成为了一名家政妇。然而好景不长，实栗的父母决定搬离此地，这也就意味着实栗必须“离职”。实在无法接受此事的实栗决定和平匡“契约结婚”，在外装做夫妻，在内依旧是雇主和职员。就这样，这对“孤男寡女”开始了他们的同居生活......'
+      description: '诸位的老婆 Aragaki, 大概被程序员抢走了吧. 我发现这种日剧和日漫一个套路啊, 为什么男主都可以得到女主的无脑付出( ﹁ ﹁ ) ~→......'
     },
     {
       demo_link: 'https://movie.douban.com/subject/26593587/',
-      img_link: 'http://i1.bvimg.com/617101/872842cc39a5afbat.jpg',
+      img_link: 'https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2394315478.webp',
       title: '天才少女 Gifted (2017)',
       key_word: '剧情 / 家庭',
       score: 8.1,
