@@ -92,6 +92,14 @@
       key_word: '剧情 / 家庭',
       score: 8.1,
       description: 'Frank(Chris Evans 饰) 在姐姐自杀后领养了外甥女Mary, Mary是一个天才女孩儿, 7岁就在搞PDE(lll￢ω￢). 舅舅Frank想让她有着平凡的一生, 而外婆得知了Mary的天赋后想培养她解 Navier-Stokes方程. 小菇凉简直不要太可爱(★ ω ★)......'
+    },
+    {
+      demo_link: 'https://movie.douban.com/subject/26844438/',
+      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2502853643.webp',
+      title: '怪奇物语 Stranger Things',
+      key_word: '剧情 / 科幻 / 悬疑 / 惊悚',
+      score: 8.9,
+      description: '本剧背景设置在上世纪八十年代的印第安纳州，一个小男孩神秘的消失了；他的朋友、家人以及当地的警方开始竭力找寻答案，但却被卷入了一个充斥秘密试验和恐怖超自然力量的神秘事件中，一个陌生的小女孩看似也与这起事件有莫大的关系......'
     }
   ];
 
