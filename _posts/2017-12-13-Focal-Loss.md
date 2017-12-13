@@ -36,7 +36,7 @@ mathjax: true
 在一阶段检测器中通常每张图片会产生大约 100k 的候选目标, 而通常仍然使用 bootstraping、hard example mining (HEM) 来选择训练样本, 这样就会导致训练过程很大程度上被负样本主宰.
 
 <center>
-<img src="/images/2017-12-13/focal-loss.png", width="512" /><br />
+<img src="/images/2017-12-13/focal-loss.png", width="512"><br />
 ​图 1: Cross Entropy 和 Focal Loss
 </center>
 
@@ -45,18 +45,23 @@ mathjax: true
 ## 2. Focal Loss
 
 首先考虑二分类任务的交叉熵损失函数:
+
 $$
 CE(p, y) = \left\{\begin{array}{ll}-\log(p) & \text{if}~y=1, \\ -\log(1-p) & \text{otherwise}. \end{array}\right.
 $$
+
 其中 $y\in\{\pm1\}$ 指 ground truth 类别, $p\in[0, 1]$ 是模型预测类别 $y=1$ 的概率. 为了表示简单, 定义记号
+
 $$
-p_t = \left\{\begin{array}{ll}p & \text{if}~y=1, \\ 1-p & \text{otherwise}.\end{array}\right.这样可以把式 (1) 重写为 $CE(p, y) = CE(p_t) = -\log(p_t)$ .
+p_t = \left\{\begin{array}{ll}p & \text{if}~y=1, \\ 1-p & \text{otherwise}.\end{array}\right.这样可以把式 (1) 重写为 $CE(p, y) = CE(p_t) = -\log(p_t) .
 $$
+
 这样可以把式 (1) 重写为 $CE(p, y) = CE(p_t) = -\log(p_t)$ .
 
 ### 2.1 加权交叉熵
 
 用于类别不平衡通用的方法是使用加权交叉熵, 即对类别 $y=1$ 引入权重因子 $\alpha\in[0, 1]$ , 对类别 $y=-1$ 引入权重因子 $1-\alpha$ . 在实际中 $\alpha$ 一般被设置为类别比例的倒数或者直接置为超参数 (即人为指定的参数), 列式如下:
+
 $$
 CE(p_t) = -\alpha_t\log(p_t)
 $$
@@ -64,15 +69,18 @@ $$
 ### 2.2 Focal Loss 的定义
 
 我们引入一个比例因子 $(1-p_t)^{\gamma}$ , 其中 $\gamma$ 为超参数, 定义 Focal Loss 如下:
+
 $$
 FL(p_t) = -(1-p_t)^{\gamma}\log(p_t).
 $$
+
 我们对该函数做如下解释:
 
 * 当一个样本被分类错误时 $p_t$ 会很小, 这样比例因子会很接近 $1$ , 从而损失基本上与交叉熵一致; 而当 $p_t\rightarrow1$ 时比例因子很接近 $0$ , 从而分类正确的样本的权重遭到削减. 
 * 聚焦因子 $\gamma$ 用于调整简单样本权重被削减的程度. 当 $\gamma=0$ 时, 权重始终不被削减, 当其增加时比例因子的影响力也在增加. 
 
 在实践中我们把上面提到的两种方法结合起来可以进一步获得效果的提升:
+
 $$
 FL(p_t) = -\alpha_t(1-p_t)^{\gamma}\log(p_t).
 $$
@@ -86,13 +94,14 @@ $$
 本文设计了一个简单的网络用来检验 Focal Loss 的效果, 网络结构如图 2 所示. 
 
 <center>
-<img src="/images/2017-12-13/RetinaNet.png" width="512"><br />
+<img src="/images/2017-12-13/RetinaNet.png"><br />
 图 2: RetinaNet 网络结构
 </center>
 
 #### 特征金字塔主干网络
 
 特征金字塔的思想是从多个尺度的特征图中提取 proposals, 本文的特征金字塔是基于 ResNet 的. RetinaNet 使用了特征层 $P_3$ 到 $P_7$ , 由于每经过一层特征图的大小会缩小一倍, 所以形成了一个金字塔形. 其中 $P_3$ 到 $P_5$ 层均直接来自于 ResNet 的残差块 $C_3$ 到 $C_5$ , 剩余的两层均通过步长为 2 的卷积得到. 注意到图 2 (b) 中每一个特征层会把来自上层经过上采样得到的特征图和横向连接得到的特征图加起来作为该层的特征图, 这样的连接方式与 FCN 其实是一样的, 与 FCN 不同的是我们在上采样路径中提取了每一层的输出转入分类和回归子网络:
+
 $$
 RetinaNet = \underbrace{ResNet+FCN}_{FPN} + \left\{\begin{array}{l}Classification \\ Regression\end{array}\right.
 $$
