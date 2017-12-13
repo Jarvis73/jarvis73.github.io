@@ -7,6 +7,9 @@ tags: 物体检测 分类 RCNN
 mathjax: true
 ---
 
+* content
+{:toc}
+
 论文题目: Focal Loss for Dense Object Detection
 
 作者: Tsung-Yi Lin Priya Goyal Ross Girshick Kaiming He Piotr Dollar
@@ -36,7 +39,7 @@ mathjax: true
 在一阶段检测器中通常每张图片会产生大约 100k 的候选目标, 而通常仍然使用 bootstraping、hard example mining (HEM) 来选择训练样本, 这样就会导致训练过程很大程度上被负样本主宰.
 
 <center>
-<img src="/images/2017-12-13/focal-loss.png", width="512"><br />
+<img src="/images/2017-12-13/focal-loss.png"><br />
 ​图 1: Cross Entropy 和 Focal Loss
 </center>
 
@@ -53,7 +56,7 @@ $$
 其中 $y\in\{\pm1\}$ 指 ground truth 类别, $p\in[0, 1]$ 是模型预测类别 $y=1$ 的概率. 为了表示简单, 定义记号
 
 $$
-p_t = \left\{\begin{array}{ll}p & \text{if}~y=1, \\ 1-p & \text{otherwise}.\end{array}\right.这样可以把式 (1) 重写为 $CE(p, y) = CE(p_t) = -\log(p_t) .
+p_t = \left\{\begin{array}{ll}p & \text{if}~y=1, \\ 1-p & \text{otherwise}.\end{array}\right.
 $$
 
 这样可以把式 (1) 重写为 $CE(p, y) = CE(p_t) = -\log(p_t)$ .
