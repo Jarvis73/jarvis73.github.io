@@ -86,7 +86,7 @@ $$
 本文设计了一个简单的网络用来检验 Focal Loss 的效果, 网络结构如图 2 所示. 
 
 <center>
-<img src="photos/Focal Loss/RetinaNet.png"><br />
+<img src="/images/2017-12-13/RetinaNet.png" width="512"><br />
 图 2: RetinaNet 网络结构
 </center>
 
