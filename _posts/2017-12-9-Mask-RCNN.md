@@ -10,8 +10,6 @@ mathjax: true
 * content
 {:toc}
 
-# Mask R-CNN
-
 作者: Kaiming He, Georgia Gkioxari, Piotr Dollar, Ross Girshick
 
 研究机构: Facebook AI Research
