@@ -39,7 +39,7 @@ mathjax: true
 在一阶段检测器中通常每张图片会产生大约 100k 的候选目标, 而通常仍然使用 bootstraping、hard example mining (HEM) 来选择训练样本, 这样就会导致训练过程很大程度上被负样本主宰.
 
 <center>
-<img src="/images/2017-12-13/focal-loss.png"><br />
+<img src="/images/2017-12-13/focal-loss.png", width="512"><br />
 ​图 1: Cross Entropy 和 Focal Loss
 </center>
 
