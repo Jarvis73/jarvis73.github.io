@@ -66,7 +66,7 @@ $$
 当然了这里 $\mathcal{T}(\cdot)$ 可以通过多种方法来实现, 文中使用了一个小型的全连接网络 (2-layer, LeakyReLU). 由于 Bbox 分支包含分类和回归两部分的权重 $w^c_{cls} \& w^c_{box}$, 所以, 可以单独使用其中的一种进行迁移 (即 $w^c_{det}=w^c_{cls}~or~w^c_{det}=w^c_{box}$) 或者拼接在一起迁移 (即 $w^c_{det} = [w^c_{cls}, w^c_{box}]$) . 网络结构如图 1 所示:
 
 <center>
-<img src="images/2017-12-14/MaskX R-CNN.png" /><br />
+<img src="/images/2017-12-14/MaskX R-CNN.png" /><br />
 图 1: MaskX R-CNN 网络结构示意图. 基本结构延续 Mask R-CNN , 在 Bbox 分支使用可学习 (使用分割标注学习) 的权重迁移函数 $\mathcal{T}$ 进行权重迁移, 在验证时可以使用所有的数据验证. 另外还使用了一个附加的全连接多层感知机来增广 mask 的头部. 
 </center>
 
@@ -117,12 +117,12 @@ $$
 | :----------------------- | ---------------------------------------- | ---------------------------------------- |
 | 加权迁移函数 $\mathcal{T}$ 的输入 | 1. 随机高斯向量 (randn)<br />2. 预训练的 GloVe 向量<br />3. Mask R-CNN 的 box 分支的分类权重 cls<br />4. Mask R-CNN 的 box 分支的回归权重 box<br />5. cls + box (concatenate) | cls + box                                |
 | 加权迁移函数 $\mathcal{T}$ 的结构 | 1. 1-fc-layer + 不激活<br />2. 2-fc-layer + ReLU<br />3. 2-fc-layer + LeakyReLU<br />4. 3-fc-layer + ReLU<br />5. 3-fc-layer + LeakyReLU | 2-fc-layer + LeakyReLU                   |
-| MLP 分支的影响                | 1. baseline<br />2. baseline + MLP<br />3. transfer<br />4. transfer + MLP | 加上 MLP 对 Mask R-CNN 和 MaskX R-CNN 的结果均有提升 |
+| MLP 分支的影响                | 1. baseline<br />2. baseline + MLP<br />3. transfer<br />4. transfer + MLP | 加上 MLP 对 Mask R-CNN 和<br /> MaskX R-CNN 的结果均有提升 |
 | 训练策略                     | 1. baseline + stage-wise<br />2. transfer + stage-wise<br />3. baseline + end2end<br />4. transfer + end2end<br />5. transfer + end2end + stop gradient on $w_{det}$ | 端到端并且阻止部分梯度传播最好                          |
-| 类别组 $A/B$ 的划分方法          | 1. 20 ~ 80<br />2. 30 ~ 50<br />3. ......<br />4. 60 ~ 20<br />5. 20 VOC ~ 60 non-VOC<br />6. 60 non-VOC ~ 20 VOC | 集合 A 中实例分割样本数越多, 网络在集合 B 上的预测结果越好, 如图 2 所示. |
+| 类别组 $A/B$ 的划分方法          | 1. 20 ~ 80<br />2. 30 ~ 50<br />3. ......<br />4. 60 ~ 20<br />5. 20 VOC ~ 60 non-VOC<br />6. 60 non-VOC ~ 20 VOC | 集合 A 中实例分割样本数越多, <br />网络在集合 B 上的预测结果越好, <br />如图 2 所示. |
 
 <center>
-<img src="images/2017-12-14/setAB.png" width="512" /><br />
+<img src="/images/2017-12-14/setAB.png" width="512" /><br />
 <div class="box">图 2: 每个点表示一种集合划分的方法. 纵坐标为采用每一种划分方法训练一次网络得到集合 B 上相应的 mask AP 值, 横坐标为集合 A 中所有类别拥有的平均的分割标注的数量<div>
 </center>
 
