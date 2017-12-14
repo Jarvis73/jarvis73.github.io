@@ -66,7 +66,7 @@ $$
 当然了这里 $\mathcal{T}(\cdot)$ 可以通过多种方法来实现, 文中使用了一个小型的全连接网络 (2-layer, LeakyReLU). 由于 Bbox 分支包含分类和回归两部分的权重 $w^c_{cls} \& w^c_{box}$, 所以, 可以单独使用其中的一种进行迁移 (即 $w^c_{det}=w^c_{cls}~or~w^c_{det}=w^c_{box}$) 或者拼接在一起迁移 (即 $w^c_{det} = [w^c_{cls}, w^c_{box}]$) . 网络结构如图 1 所示:
 
 <center>
-<img src="/images/2017-12-14/MaskX R-CNN.png" /><br />
+<img src="/images/2017-12-14/maskX-rcnn.png" /><br />
 图 1: MaskX R-CNN 网络结构示意图. 基本结构延续 Mask R-CNN , 在 Bbox 分支使用可学习 (使用分割标注学习) 的权重迁移函数 $\mathcal{T}$ 进行权重迁移, 在验证时可以使用所有的数据验证. 另外还使用了一个附加的全连接多层感知机来增广 mask 的头部. 
 </center>
 
