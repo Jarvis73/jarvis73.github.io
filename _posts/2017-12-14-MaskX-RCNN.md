@@ -119,7 +119,7 @@ $$
 | 加权迁移函数 $\mathcal{T}$ 的结构 | 1. 1-fc-layer + 不激活<br />2. 2-fc-layer + ReLU<br />3. 2-fc-layer + LeakyReLU<br />4. 3-fc-layer + ReLU<br />5. 3-fc-layer + LeakyReLU | 2-fc-layer + LeakyReLU                   |
 | MLP 分支的影响                | 1. baseline<br />2. baseline + MLP<br />3. transfer<br />4. transfer + MLP | 加上 MLP 对 Mask R-CNN 和 MaskX R-CNN 的结果均有提升 |
 | 训练策略                     | 1. baseline + stage-wise<br />2. transfer + stage-wise<br />3. baseline + end2end<br />4. transfer + end2end<br />5. transfer + end2end + stop gradient on $w_{det}$ | 端到端并且阻止部分梯度传播最好                          |
-| 类别组 $A/B$ 的划分方法          | <table><thead><tr><th>划分方法</th><th>A</th><th>B</th></tr></thead><tbody><tr><td>random</td><td>20</td><td>60</td></tr><tr><td>random</td><td>30</td><td>50</td></tr><tr><td>random</td><td>40</td><td>40</td></tr><tr><td>random</td><td>50</td><td>30</td></tr><tr><td>random</td><td>60</td><td>20</td></tr></tbody></table> | 集合 A 中实例分割样本数越多, 网络在集合 B 上的预测结果越好, 如图 2 所示. |
+| 类别组 $A/B$ 的划分方法          | 1. 20 ~ 80<br />2. 30 ~ 50<br />3. ......<br />4. 60 ~ 20<br />5. 20 VOC ~ 60 non-VOC<br />6. 60 non-VOC ~ 20 VOC | 集合 A 中实例分割样本数越多, 网络在集合 B 上的预测结果越好, 如图 2 所示. |
 
 <center>
 <img src="images/2017-12-14/setAB.png" width="512" /><br />
