@@ -30,8 +30,8 @@ description_footer: 总有美丽的风景让人流连
 # 两种评论插件，选一个就好了，使用自己的 short_name
 duoshuo_shortname: 
 disqus_shortname: 
-gitment_id: 61c846777cb8ed832519
-gitment_secret: 9bbbc8bc9db5fab6294bdbef460d241241a0a69e
+gitment_id: 01d9221acf3b43e667f0
+gitment_secret: f6899a32188afe9260ce0bfa293c7c51285463f2
 
 # statistic analysis 统计代码
 # 百度统计 id，将统计代码替换为自己的百度统计id，即
