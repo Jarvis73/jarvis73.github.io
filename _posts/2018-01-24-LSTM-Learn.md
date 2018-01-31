@@ -5,6 +5,7 @@ data: 2018-01-24 19:03:00
 categories: 深度学习
 tags: RNN LSTM
 mathjax: true
+figure: http://static.open-open.com/lib/uploadImg/20150829/20150829181723_640.png
 ---
 
 * content
