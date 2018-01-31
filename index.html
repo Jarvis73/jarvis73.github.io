@@ -36,6 +36,11 @@ layout: default
                 <div class="excerpt">
                     {{post.excerpt}}
                 </div>
+                {% if post.figure %}
+                <div class="excerpt-image">
+                    <img src="{{ post.figure }}" />
+                </div>
+                {% endif %}
                 <div class="read-all">
                     <a  href="{{ post.url | prepend: site.baseurl }}"><i class="fa fa-newspaper-o"></i>Read All</a>
                 </div>
@@ -162,3 +167,9 @@ layout: default
 </div>
 <!-- <script src="{{ "/js/scroll.min.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
 <!-- <script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script> -->
+<style type="text/css">
+    excerpt-image {
+        width: 500px;
+        align-content: center
+    }
+</style>
