@@ -95,7 +95,7 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/26844438/',
-      img_link: 'https://img3.doubanio.com/view/photo/l/public/p2502853643.webp',
+      img_link: '/waterfall_images/p2502853643.png',
       title: '怪奇物语 Stranger Things',
       key_word: '剧情 / 科幻 / 悬疑 / 惊悚',
       score: 8.9,
@@ -103,7 +103,7 @@
     },
     {
       demo_link: 'https://movie.douban.com/subject/20495023/',
-      img_link: 'https://img1.doubanio.com/view/photo/l/public/p2503997609.webp',
+      img_link: '/waterfall_images/p2503997609.png',
       title: '寻梦环游记 Coco',
       key_word: '喜剧 / 动画 / 音乐 / 家庭 / 冒险',
       score: 9.1,
