@@ -49,9 +49,10 @@
 {% if site.gitment_secret %}
 <div id="gitmentContainer"></div>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://jarvis73.github.io/js/gitment.browser.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
     var gitment = new Gitment({
+    id: '<%= post.date %>',
     owner: 'Jarvis73',
     repo: 'BlogComments',
     oauth: {
