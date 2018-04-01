@@ -108,3 +108,18 @@ target_link_libraries(projectName ${VTK_LIBRARIES})
 * 库目标的名称
 * 库文件的完整路径
 * 一个普通的库名称
+
+### `add_definitions`
+
+**格式:** `add_definitions(-DFOO -DBAR ...)`
+
+用于添加项目的**预处理器定义**, 在命令行中显示为 `/D FOO, /D BAR `.  
+
+### `include_directories`
+
+附加包含目录
+
+### `link_directories`
+
+附加库目录
+
