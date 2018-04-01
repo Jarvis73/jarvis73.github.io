@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LSTM 学习
-data: 2018-01-24 19:03:00
+date: 2018-01-24 19:03:00
 categories: 深度学习
 tags: RNN LSTM
 mathjax: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Focal Loss 阅读笔记
-data: 2017-12-13 20:31:00
+date: 2017-12-13 20:31:00
 categories: 深度学习
 tags: 物体检测 分类 RCNN
 mathjax: true

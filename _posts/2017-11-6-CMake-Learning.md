@@ -1,7 +1,7 @@
 ---
 layout: post
 title: CMake 学习笔记
-data: 2017-11-6 21:38:00
+date: 2017-11-6 21:38:00
 categories: CMake
 tags: tools script
 ---
