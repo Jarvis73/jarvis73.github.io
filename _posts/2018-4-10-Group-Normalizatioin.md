@@ -66,7 +66,7 @@ $$
 | Batch Norm    | $\mathcal{S}_i = \{k\lvert k_C = i_C\}$                            | $i_C$(和 $k_C$) 表示沿着 $C$ 轴的指标. 左式的意思是同一个通道的像素在一起标准化. 即对于每个通道, BN 沿着 $(N, H, W)$ 轴计算 $\mu$ 和 $\sigma$ , 得到的形状为 $C$ . |
 | Layer Norm    | $\mathcal{S}_i = \{k\lvert k_N = i_N\}$                            | 对于每个样本, LN 沿着 $(C, H, W)$ 轴计算 $\mu$ 和 $\sigma$ , 得到的形状为 $N$. |
 | Instance Norm | $\mathcal{S}_i = \{k\lvert k_N = i_N, k_C = i_C\}$                 | 对每个样本每个通道, IN 沿着 $(H, W)$ 轴计算 $\mu$ 和 $\sigma$ , 得到的形状为 $N\times C$. |
-| Group Norm    | $S_i = \{k|k_N = i_N, \lfloor\frac{k_C}{C/G}\rfloor = \lfloor\frac{i_C}{C/G}\rfloor\}$ | $G$ 表示分组的数量, 是一个预定义的超参数(一般选择 $G=32$). $C/G$ 是每个组的通道数, 第二个等式条件表示对处于同一组的像素计算均值和标准差. 最终得到的形状为 $N\times (C/G)$ . |
+| Group Norm    | $S_i = \{k\lvert k_N = i_N, \lfloor\frac{k_C}{C/G}\rfloor = \lfloor\frac{i_C}{C/G}\rfloor\}$ | $G$ 表示分组的数量, 是一个预定义的超参数(一般选择 $G=32$). $C/G$ 是每个组的通道数, 第二个等式条件表示对处于同一组的像素计算均值和标准差. 最终得到的形状为 $N\times (C/G)$ . |
 
 最后三种方法都会再做一个 scale 和 shift:
 
