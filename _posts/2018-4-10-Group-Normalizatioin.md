@@ -69,9 +69,11 @@ $$
 | Group Norm    | $S_i = \{k|k_N = i_N, \lfloor\frac{k_C}{C/G}\rfloor = \lfloor\frac{i_C}{C/G}\rfloor\}$ | $G$ 表示分组的数量, 是一个预定义的超参数(一般选择 $G=32$). $C/G$ 是每个组的通道数, 第二个等式条件表示对处于同一组的像素计算均值和标准差. 最终得到的形状为 $N\times (C/G)$ . |
 
 最后三种方法都会再做一个 scale 和 shift:
+
 $$
 y_i= \gamma\hat{x_i} + \beta
 $$
+
 其中 $\gamma$ 和 $\beta$ 是可学习的参数, 对于所有的四种情况其形状均为 $C$.
 
 ### 实现
