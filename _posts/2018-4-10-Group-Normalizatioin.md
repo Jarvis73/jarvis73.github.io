@@ -26,7 +26,7 @@ figure: /images/2018-4-10/normalization.png
 但是 BN 也存在一些问题. 顾名思义, BN 的效果是依赖于**批**的, 批比较大时, 数据标准化的结果会与整个数据集更为接近; 批比较小时, 仍然会存在较大的局部偏差. 如图 1 所示, 随着批大小的减小, BN 的误差会快速增大, 尤其是极小的批(batch size = 1 ~ 4). 
 
 <center>
-<img src="../images/2018-4-10/error.png" width="600" /><br />
+<img src="/images/2018-4-10/error.png" width="600" /><br />
 图 1: **ImageNet 分类误差 vs. 批大小.** 这是一个在 ImageNet 上使用 8 个 GPUs 训练的 ResNet-50 的模型, 在验证集上评估.
 </center>
 
@@ -40,7 +40,7 @@ figure: /images/2018-4-10/normalization.png
 如图 2 所示. 
 
 <center>
-<img src="../images/2018-4-10/normalization.png" /><br />
+<img src="/images/2018-4-10/normalization.png" /><br />
 图 2: **标准化方法**. N 表示 batch 轴, C 表示通道轴, H,W 表示空间轴
 </center>
 
