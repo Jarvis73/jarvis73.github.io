@@ -4,6 +4,7 @@ title: Group Normalization 阅读笔记
 date: 2018-04-10 10:49:00
 categories: 深度学习
 tags: Base
+mathjax: true
 figure: /images/2018-4-10/normalization.png
 ---
 
@@ -101,81 +102,4 @@ def GroupNorm(x, gamma, beta, G, eps=1e-5):
 
 但是在 Tensorflow 和 Pytorch 中的 BN 均使用了 Moving Average, 下面给出 Tensorflow 带 Moving Average 的实现方法:
 
-```python
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-import tensorflow as tf
-
-def GroupNormalization(inputs, 
-                       group, 
-                       N_axis=0, 
-                       C_axis=-1, 
-                       momentum=0.9,
-                       epsilon=1e-3,
-                       training=False,
-                       name=None):
-    """ Group normalization implementation with tensorflow.
-
-    As descriped in Wu's paper(http://arxiv.org/abs/1803.08494), we can implement a 
-    group norm with existed batch norm routine.
-
-    Params
-    ------
-    `inputs`: tensor input
-    `group`: number of groups in group norm
-    `N_axis`: axis number of batch axis
-    `C_axis`: axis number of channel axis
-    `momentum`: momentum used in moving average mean and moving average variance
-    `epsilon`: a small value to prevent divided by zero
-    `training`: either a Python boolean, or a Tensorflow boolean scalar tensor (e.g. a 
-    placeholder). Whether to return the output in training mode or in inference mode.
-    **Note:** make sure to set this parameter correctly, or else your training/inference
-    will not work properly.
-    `name`: string, the name of the layer
-
-    Returns
-    -------
-    Output tensor.
-    """
-    with tf.variable_scope(name, "GroupNorm"):
-        input_shape = inputs.get_shape().as_list()
-        ndims = len(input_shape)
-        if not isinstance(C_axis, int):
-            raise ValueError('`C_axis` must be an integer. Now it is {}'.format(C_axis))
-        for axis in [C_axis, N_axis]:
-            if axis < 0:
-                axis = ndims + axis
-            if axis < 0 or axis >= ndims:
-                raise ValueError('Invalid axis: %d' % axis)
-        
-        # Require C % G == 0
-        if input_shape[C_axis] % group != 0 or input_shape[C_axis] < group:
-            raise ValueError('`group` should less than C_shape and be dividable '
-                             'by C_shape. `group` is %d and C_shape is %d'
-                             % (group, input_shape[C_axis]))
-
-        permutation = [N_axis, C_axis] + [i if i != C_axis and i != N_axis for i in range(ndims)]
-        inputs = tf.transpose(inputs, perm=permutation)
-        
-        old_shape = inputs.get_shape().as_list()
-        new_shape = [old_shape[0], group, old_shape[1] // group] + old_shape[2:]
-        inputs = tf.reshape(inputs, shape=new_shape)
-
-        outputs = tf.layers.batch_normalization(inputs,
-                                                axis=[0, 1],
-                                                momentum=momentum,
-                                                epsilon=epsilon,
-                                                training=training)
-        
-        outputs = tf.reshape(outputs, shape=old_shape)
-        
-        reverse_permutation = permutation
-        for i, idx in enumerate(permutation):
-            reverse_permutation[idx] = i
-        outputs = tf.transpose(outputs, perm=reverse_permutation)
-
-        return outputs
-```
-
+[Group Normalization](https://github.com/Jarvis73/Group_Normalization)
