@@ -69,6 +69,7 @@ def create_logger(log_file=None, file_=True, console=True,
             os.remove(log_file)
 
     logger = logging.getLogger()
+    logger.setLevel(levels[0])
 
     formatter = logging.Formatter("%(message)s")
 
