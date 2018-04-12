@@ -14,7 +14,7 @@ tags: python语法
 * collections.namedtuple
 * logging.Handler, logging.Formatter
 
-**Update 2017-11-19**
+**Update 2018-4-12**
 
 
 
@@ -46,40 +46,49 @@ Dog(name='rex', weight=30, owner='Bob')
 `logging` 是个用来定义输出的模块, `print` 函数只能指定一个输出, 有时候我们既想在终端输出, 也想保存在文件中, 一种方法是同时使用 `print` 和文件操作的 `write` 函数来进行, 而 `logging` 则可以很优雅的定制双输出方式. 代码如下
 
 ```python
+import os
 import logging
+from time import time, strftime, localtime
+from datetime import datetime
 
-save_path = "D:\\Logging"
+levels = [logging.NOTSET,
+          logging.DEBUG,
+          logging.INFO,
+          logging.WARNING,
+          logging.ERROR,
+          logging.CRITICAL]
 
-def create_logger(log_file=None):
-    if log_file is None:
-        log_name = strftime('%Y%m%d%H%M%S', localtime(time())) + '.log'
-        log_file = os.path.join(save_path, log_name)
+def create_logger(log_file=None, file_=True, console=True, 
+                  file_level=2, console_level=2):
+    if file_:
+        if log_file is None:
+            log_name = strftime('%Y%m%d%H%M%S', localtime(time())) + '.log'
+            log_file = os.path.join(os.path.dirname(__file__), log_name)
 
-    if os.path.exists(log_file):
-        os.remove(log_file)
+        if os.path.exists(log_file):
+            os.remove(log_file)
 
-    # Create logger
     logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-
-    # Create file handler
-    file_handler = logging.FileHandler(log_file)
-    file_handler.setLevel(logging.INFO)
-
-    # Create console handler
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
 
     formatter = logging.Formatter("%(message)s")
 
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
+    if file_:
+        # Create file handler
+        file_handler = logging.FileHandler(log_file)
+        file_handler.setLevel(levels[file_level])
+        file_handler.setFormatter(formatter)
+        # Register handler
+        logger.addHandler(file_handler)
 
-    # Register both handlers
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
+    if console:
+        # Create console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(levels[console_level])
+        console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
 
     return logger
+
 
 # Using
 logger = create_logger()
@@ -106,7 +115,7 @@ Some errors
 注意以下几点:
 
 * 不指定文件名时使用当前日期和时间自动生成文件名比如 `20171119020228.log`
-* `setlevel()` 函数用来设置记录信息的级别, 在 `logging` 模块中总共有五级信息, 分别是
+* `setlevel()` 函数用来设置记录信息的级别, 在 `logging` 模块中总共有六级信息, 分别是
   * CRITICAL
   * ERROR
   * WARNING
@@ -176,7 +185,7 @@ class MyFormatter(logging.Formatter):
             s = "%s.%03d" % (t, record.msecs)
         return s
 
-def create_logger(log_file=None):
+def create_logger(...):
     ...
     ...
 
