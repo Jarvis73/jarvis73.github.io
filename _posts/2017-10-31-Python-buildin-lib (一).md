@@ -14,7 +14,7 @@ tags: python语法
 * collections.namedtuple
 * logging.Handler, logging.Formatter
 
-**Update 2018-4-12**
+**Update 2018-4-14:** add some functions to `logger`
 
 
 
@@ -59,11 +59,13 @@ levels = [logging.NOTSET,
           logging.CRITICAL]
 
 def create_logger(log_file=None, file_=True, console=True, 
-                  file_level=2, console_level=2):
+                  withtime=False, file_level=2, console_level=2):
     if file_:
+        prefix = strftime('%Y%m%d%H%M%S', localtime(time()))
         if log_file is None:
-            log_name = strftime('%Y%m%d%H%M%S', localtime(time())) + '.log'
-            log_file = os.path.join(os.path.dirname(__file__), log_name)
+            log_file = os.path.join(os.path.dirname(__file__), prefix)
+        elif withtime:
+            log_file = os.path.join(os.path.dirname(log_file), prefix + "_" + os.path.basename(log_file))
 
         if os.path.exists(log_file):
             os.remove(log_file)
@@ -197,3 +199,21 @@ def create_logger(...):
 ```
 
 其中 `%(levelname).1s` 表示只输出字符串的第一个字符.
+
+### Stream
+
+有时候我们不用 `print()` 来打印信息, 而需要 `pprint.pprint()` 这样的函数来打印格式化的信息, 一般来说 `pprint` 函数也是直接打印到控制台的, 如果要控制打印位置, 则需要添加参数. 此时我们可以按照如下的方式使用我们的 `logger` :
+
+```python
+from pprint import pprint
+
+some_message = "123456"
+
+# print 函数
+for handler in logger.handlers:
+    print(some_message, file=handler.stream)
+
+# pprint 函数
+for handler in logger.handlers:
+    pprint(some_message, stream=handler.stream)
+```
