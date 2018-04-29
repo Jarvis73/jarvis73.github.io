@@ -6,10 +6,10 @@ code{
     margin: 0 2px;
     font-size: 90%;
     border-radius: 3px;
-    color: #000;
-    background-color: rgba(0, 0, 0, 0.06);
+    color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.05);
     border: 1px solid #d7d0d2;
-    font-family: Monaco,Menlo,"Microsoft YaHei Mono",Consolas,"Courier New",monospace,sans-serif;
+    font-family: "Droid Sans Mono", Monaco,Menlo,"Microsoft YaHei Mono",Consolas,"Courier New",monospace,sans-serif;
 }
 
 pre {
@@ -22,7 +22,7 @@ pre {
      > code {
          margin: 0;
          padding: 0;
-        font-size: 13px;
+        font-size: 14px;
         color:#d1d1c9;
         border: none;
         background-color: #272822

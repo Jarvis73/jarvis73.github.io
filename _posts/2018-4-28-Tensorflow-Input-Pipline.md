@@ -188,13 +188,13 @@ image_batch, label_batch = iterator.get_next()
 
 ```python
 image_batch, label_batch = tf.data.TFRecordDataset(filenames) \
-								.repeat() \
-								.prefetch(2 * batch_size) \
-								.map(parser, num_parallel_calls=2) \
-								.shuffle(buffer_size=min_queue_samples) \
-								.batch(batch_size) \
-								.make_one_shot_iterator() \
-								.get_next()
+                                  .repeat() \
+                                  .prefetch(2 * batch_size) \
+                                  .map(parser, num_parallel_calls=2) \
+                                  .shuffle(buffer_size=min_queue_samples) \
+                                  .batch(batch_size) \
+                                  .make_one_shot_iterator() \
+                                  .get_next()
 ```
 
 #### 映射函数
