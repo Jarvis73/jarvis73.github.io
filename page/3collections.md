@@ -47,6 +47,14 @@ type: page
 
 ## 博客收集
 
+* 尝试从特征图来解释神经网络 [链接](https://distill.pub/)
+
+* Tensorflow 的 medium [链接](https://medium.com/tensorflow)
+
+* Google 研究 [链接](https://research.google.com/pubs/papers.html)
+
+* Colah's blog 神经网络相关 [链接](http://colah.github.io/)
+
 
 
 ## 编程语言
