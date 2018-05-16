@@ -29,7 +29,7 @@ type: page
 
 * [Neural Information Processing System](https://nips.cc/)
 
-    论文集: [NIPS 2016](https://nips.cc/Conferences/2016/AcceptedPapers) 
+    论文集: | [NIPS 2017](https://nips.cc/Conferences/2017/Schedule?type=Poster) | [NIPS 2016](https://nips.cc/Conferences/2016/Schedule?type=Poster) | [NIPS 2015](https://nips.cc/Conferences/2015/Schedule?type=Poster) | [NIPS 2014](https://nips.cc/Conferences/2014/Schedule?type=Poster) | [NIPS 2013](https://nips.cc/Conferences/2013/Schedule?type=Poster)
 
 * International Conference on Computer Version and Pattern Recognition
 
