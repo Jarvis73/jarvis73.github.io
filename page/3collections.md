@@ -33,7 +33,7 @@ type: page
 
 * International Conference on Computer Version and Pattern Recognition
 
-    论文集: | [CVPR 2017](http://openaccess.thecvf.com/CVPR2017.py) | [CVPR 2016](http://openaccess.thecvf.com/CVPR2016.py) | [CVPR 2015](http://openaccess.thecvf.com/CVPR2015.py) | [CVPR 2014](http://openaccess.thecvf.com/CVPR2014.py) | [CVPR 2013](http://openaccess.thecvf.com/CVPR2013.py)
+    论文集: | [CVPR 2018](http://openaccess.thecvf.com/CVPR2018.py) | [CVPR 2017](http://openaccess.thecvf.com/CVPR2017.py) | [CVPR 2016](http://openaccess.thecvf.com/CVPR2016.py) | [CVPR 2015](http://openaccess.thecvf.com/CVPR2015.py) | [CVPR 2014](http://openaccess.thecvf.com/CVPR2014.py) | [CVPR 2013](http://openaccess.thecvf.com/CVPR2013.py)
 
 * International Conference on Computer Version
 
