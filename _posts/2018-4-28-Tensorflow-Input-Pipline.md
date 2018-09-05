@@ -85,7 +85,7 @@ name = "a_string"
 # 定义 Example 对象
 example = tf.train.Example(
     features = tf.train.Features(
-        feature = tf.{
+        feature = {
             "i": tf.train.Feature(bytes_list=tf.train.BytesList(value=[image.tobytes()])),
             "n": tf.train.Feature(bytes_list=tf.train.BytesList(value=[str.encode(name)])),
             "l": tf.train.Feature(int64_list=tf.train.Int64List(value=[label])),
