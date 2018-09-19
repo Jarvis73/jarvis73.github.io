@@ -20,6 +20,7 @@ mathjax: true
 ## 1. 熵
 
 >   **定义:** 分布为 $p$ 的随机变量 $X$ 的熵是不确定性的一种度量, 记为 $\mathbb{H}(X)$ 或 $\mathbb{H}(p)$ . 特别的, 对一个有着 $K$ 个取值的离散随机变量, 熵可以定义为
+>
 >   $$
 >   \mathbb{H}(X)\triangleq-\sum_{k=1}^Kp(X=k)\log{p(X=k)}
 >   $$
@@ -34,27 +35,34 @@ mathjax: true
 一个通常用于度量两个概率分布 $p$ 和 $q$ 的差异大小的指标就是 **KL 散度(Kullback-Leibler divergence)** 或称为**相对熵**. 
 
 >   **定义:** 离散形式
+>
 >   $$
 >   \mathbb{KL}(p\lVert q)\triangleq\sum_{k=1}^Kp_k\log{\frac{p_k}{q_k}}
 >   $$
+>
 >   连续形式
+>
 >   $$
 >   \mathbb{KL}(p\lVert q)\triangleq\int_{\Omega} p(x)\log{\frac{p(x)}{q(x)}}\,dx
 >   $$
 >
 
 注意, KL 散度不是对称的, 所以并不是一种距离度量. 把 KL 散度展开为两项
+
 $$
 \mathbb{KL}(p\lVert q)=\sum_kp_k\log{p_k} - \sum_kp_k\log{q_k} = -\mathbb{H}(p) + \mathbb{H}(p, q)
 $$
+
 其中我们把 $\mathbb{H}(p, q)$ 称为**交叉熵**. 交叉熵是使用模型 $q$ 编码来自于分布 $p$ 的数据所需要的平均位数, 从而"正规"熵 $\mathbb{H}(p)=\mathbb{H}(p, p)$ 即是使用正确模型编码所需要的位数, 所以 KL 散度可以理解为使用模型 $q$ 编码来自于分布 $p$ 的数据所<font color="red">额外</font>需要的位数. 
 
 **定理(信息不等式):** $\mathbb{KL}(p\lVert q)\geq 0$, 当且仅当 $p=q$ 时等号成立.
 
 可利用 Jensen 不等式
+
 $$
 f\left(\sum_{i=1}^n\lambda_ix_i\right)\leq\sum_{i=1}^n\lambda_if(x_i).
 $$
+
 证明上述定理, 证明略. 
 
 ## 3. 互信息
@@ -66,21 +74,27 @@ $$
 相关性相同的随机变量可以有着千奇百怪且截然不同的分布. 因此我们引入**互信息(mutual information, MI)**
 
 >   **定义:** 对随机变量 $X$ 和 $Y$, 
+>
 >   $$
 >   \mathbb{I}(X; Y)\triangleq\mathbb{KL}(p(X, Y)\lVert p(X)p(Y))=\sum_x\sum_yp(x, y)\log{\frac{p(x, y)}{p(x)p(y)}}
 >   $$
+>
 >   显然 $\mathbb{I}(X; Y)\geq 0$, 当且仅当 $p(X, Y)=p(X)p(Y)$ 时取等号. 
 
 这意味着 $MI=0$ 当且仅当 $X$ 和 $Y$ 独立. 进一步我们有
+
 $$
 \mathbb{I}(X; Y)=\mathbb{H}(X) - \mathbb{H}(X\lvert Y) = \mathbb{H}(Y) - \mathbb{H}(Y\lvert X)
 $$
+
 其中 $\mathbb{H}(Y\lvert X)=\sum_xp(x)\mathbb{H}(Y\lvert X=x)$ 称为**条件熵**, 利用贝叶斯公式上式容易证明.  有了条件熵, 我们就能对互信息做出直观的解释: <font color="red">观测到随机变量 $Y$ 后随机变量 $X$ 的熵减</font>, 反之亦然. 与互信息相关的另一概念是**点互信息(pointwise mutual information, PMI)** 
 
 >   **定义:** 对随机事件 $x$ 和 $y$, 
+>
 >   $$
 >   \text{PMI}(x, y)\triangleq\log{\frac{p(x, y)}{p(x)p(y)}}=\log{\frac{p(x\lvert y)}{p(x)}}=\log{\frac{p(y|x)}{p(y)}}
 >   $$
+>
 >   衡量了两个事件同时发生的概率. 
 
 显然 $X$ 和 $Y$ 的 MI 是 PMI 的期望(从定义式中可以看出). 
@@ -90,9 +104,11 @@ $$
 计算连续随机变量的互信息通常先对其进行离散, 然后得到区间的统计值后再采用离散 MI 的计算公式. 然而离散的步长对结果有显著的影响. 另一种方法是**最大化信息系数(maximal information coefficient, MIC)** , 即尝试多种区间大小, 然后取最大值
 
 >   **定义:**
+>
 >   $$
 >   \text{MIC}\triangleq\max_{x, y:xy<B}\frac{\max_{G\in\mathcal{G}(x, y)}\mathbb{I}(X(G);Y(G))}{\log{\min(x, y)}}
 >   $$
+>
 >   其中 $\mathcal{G}(x, y)$ 是一族大小为 $x\times y$ 的网格点, $X(G), Y(G)$ 表示网格上离散了的随机变量, $B$ 是采样的区间数, 一个典型的值为 $B=N^{0.6}$. 
 
 可以证明 MIC 的范围是 $[0, 1]$ . 下面图 A 给出了 63566 个随机变量的相关系数 CC 和 MIC 的关系图, 图 B 给出了 CC 和 MI 的关系图.
