@@ -12,22 +12,34 @@ type: page
         <h1>{{page.title}}</h1>
         <hr>
         <ul>
+            {% assign all_categories = "" | split: "" %}
+            {% assign all_categories_with_num = "" | split: "" %}
             {% for category in site.categories %}
-            <h2 id="{{category | first}}">{{category | first}}</h2>
-                {% for posts in category  %}
-                    {% for post in posts %}
-                        {% if post.url %}
-                        <li>
-                            <time>
-                            {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
-                            </time>
-                            <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                {% assign category_name = category | first %}
+                {% assign category_size = category | last | size %}
+                {% assign category_full = category_name | append: " (" | append: category_size | append: ")" %}
+                {% assign category_full = category_full | split: "," %}
+                {% assign all_categories_with_num = all_categories_with_num | concat: category_full %}
 
-                            {% include category.html %}
-                            {% include tag.html %}
-                        </li>
-                        {% endif %}
-                    {% endfor %}
+                {% assign category_name = category | first | split: "," %}
+                {% assign all_categories = all_categories | concat: category_name %}
+            {% endfor %}
+            {% assign all_categories = all_categories | sort %}
+            {% assign all_categories_with_num = all_categories_with_num | sort %}
+
+            {% for category_name in all_categories %}
+            <h2 id="{{category_name}}">{{category_name}}</h2>
+                {% for post in site.categories[category_name] %}
+                    {% if post.url %}
+                    <li>
+                        <time>
+                        {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
+                        </time>
+                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+
+                        {% include category.html %}
+                    </li>
+                    {% endif %}
                 {% endfor %}
             {% endfor %}
         </ul>
@@ -39,13 +51,13 @@ type: page
             <!-- Content -->
             <div class="side content">
                 <div>
-                    Content
+                    Category Content
                 </div>
                 <ul id="content-side" class="content-ul">
-                    {% for category in site.categories%}
+                    {% for category in all_categories_with_num %}
                         <li>
-                            <a data-scroll href="#{{ category | first }}">
-                                {{ category | first }} ({{ category | last | size }})
+                            <a data-scroll href="#{{ category | split: " " | first }}">
+                                {{ category }}
                             </a>
                         </li>
                     {% endfor %}

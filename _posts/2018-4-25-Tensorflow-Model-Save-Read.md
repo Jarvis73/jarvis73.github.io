@@ -3,8 +3,9 @@ layout: post
 title: Tensorflow 模型的保存、读取和冻结、执行
 data: 2018-04-25 17:26:00
 categories: Tensorflow
-tags: tensorflow
 figure: /images/2018-4-25/tensor.png
+author: Jarvis
+meta: Post
 ---
 
 * content

@@ -1,0 +1,58 @@
+---
+layout: default
+title: Wiki
+permalink: /wiki/
+icon: book
+type: page
+---
+
+<div class="page clearfix">
+    <div class="left">
+        <h1>{{page.title}}</h1>
+        <hr>
+        <h2 id="Python"> Python </h2>
+        <ul>
+            {% for post in site.posts %}
+                {% assign meta_info = post.meta | split: "_" %}
+                {% if meta_info[0] == "Wiki" and meta_info[1] == "Python" %}
+                    <li>
+                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
+                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment Python_ctr %}. {{ post.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h2 id="CMake"> CMake </h2>
+        <ul>
+            {% for post in site.posts %}
+                {% assign meta_info = post.meta | split: "_" %}
+                {% if meta_info[0] == "Wiki" and meta_info[1] == "CMake" %}
+                    <li>
+                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
+                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment CMake_ctr %}. {{ post.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Wiki Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    <li><a data-scroll href="#Python">Python</a></li>
+                    <li><a data-scroll href="#CMake">CMake</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+    
+<script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script>

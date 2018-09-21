@@ -132,7 +132,21 @@
                     padding-bottom: 16px;
                     li{
                         color:#aaa;
-                        font-size: 14px;
+                        font-size: 16px;
+                    }
+                }
+                .content-ul[wiki]{
+                    padding-bottom: 16px;
+                    li{
+                        color:rgb(216, 72, 72);
+                        font-size: 16px;
+                    }
+                }
+                .content-ul[link]{
+                    padding-bottom: 16px;
+                    li{
+                        color:rgb(72, 118, 216);
+                        font-size: 16px;
                     }
                 }
                 .tags-cloud {

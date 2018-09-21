@@ -3,8 +3,9 @@ layout: post
 title: MaskX R-CNN 阅读笔记
 date: 2017-12-14 16:35:00
 categories: 深度学习
-tags: 物体检测 分割 RCNN
 mathjax: true
+author: Jarvis
+meta: Post
 ---
 
 * content

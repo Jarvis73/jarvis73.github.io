@@ -85,6 +85,65 @@
                 }
             }
         }
+        ol {
+            >h2 {
+                margin-left: -40px;
+                color: #6a6a6b;
+            }
+            li {
+                line-height: 1.8;
+                color: #888888;
+                time {
+                    display: inline-block;
+                    width: 135px;
+                }
+                .title {
+                    font-weight: bold;
+                    color: #223253;
+                    transition: 0.3s ease;
+                    &:hover {
+                        color: #4d6dad;
+                    }
+                }
+                i {
+                    margin-right: 5px;
+                }
+                .categories {
+                    padding: 0 15px;
+                    i {
+                        color: #9e9d9d;
+                    }
+                    a {
+                        padding: 0 5px;
+                        background-color: #9e9d9d;
+                        color: #fff;
+                        font-size: 90%;
+                        transition: 0.3s ease;
+                        &:hover {
+                            background-color: #b6b6b9;
+                        }
+                    }
+                }
+                .pageTag {
+                    i {
+                        color: #c6cbe9;
+                    }
+                    a {
+
+                        // border: 1px solid #aaa;
+                        padding: 0 5px;
+                        background-color: #c6cbe9;
+                        border-radius: 4px;
+                        color: #fff;
+                        font-size: 90%;
+                        transition: 0.3s ease;
+                        &:hover {
+                            background-color: #c0ddc7;
+                        }
+                    }
+                }
+            }
+        }
     }
     .anchor {
         display: none;

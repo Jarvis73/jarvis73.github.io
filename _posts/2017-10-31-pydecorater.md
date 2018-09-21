@@ -2,8 +2,8 @@
 layout: post
 title: Python装饰器 (二)
 date: 2017-10-31 20:20:00
-categories: Python
-tags: python语法 
+author: Jarvis
+meta: Wiki_Python
 ---
 
 * content

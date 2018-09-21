@@ -53,6 +53,7 @@ kramdown:
 # url
 category_dir: category/
 tag_dir: tag/
+wiki_dir: wiki/
 
 # excerpt
 excerpt_separator: "\n\n\n\n"

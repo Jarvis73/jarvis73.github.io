@@ -3,8 +3,9 @@ layout: post
 title: 基于图搜索的三维医学图像分割方法 (一)
 date: 2017-10-18 20:49:00
 categories: Algorithm
-tags: 图论 算法 医学图像
 mathjax: true
+author: Jarvis
+meta: Post
 ---
 
 * content

@@ -3,8 +3,9 @@ layout: post
 title: 信息论初步
 data: 2018-09-18 21:28:00
 categories: 机器学习
-tags: 概率论
 mathjax: true
+author: Jarvis
+meta: Post
 ---
 
 * content

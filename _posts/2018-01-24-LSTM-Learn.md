@@ -3,9 +3,10 @@ layout: post
 title: LSTM 学习
 date: 2018-01-24 19:03:00
 categories: 深度学习
-tags: RNN LSTM
 mathjax: true
 figure: /images/2018-1-24/LSTM.png
+author: Jarvis
+meta: Post
 ---
 
 * content

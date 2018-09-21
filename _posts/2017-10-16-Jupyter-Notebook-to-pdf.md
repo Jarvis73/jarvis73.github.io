@@ -3,8 +3,9 @@ layout: post
 title: Jupyter Notebook转pdf的脚本
 date: 2017-10-16 17:58
 categories: Python
-tags: tools script
 excerpt: 用python写的一个很简单的脚本, 把.ipynb文件转换为pdf文件
+author: Jarvis
+meta: Post
 ---
 
 * content

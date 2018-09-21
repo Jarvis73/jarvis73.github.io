@@ -3,8 +3,9 @@ layout: post
 title: Faster R-CNN(Tensorflow) 源码解析
 date: 2018-04-01 18:24:00
 categories: 深度学习
-tags: 物体检测 RCNN 源码分析
 figure: /images/2018-4-1/faster-rcnn.png
+author: Jarvis
+meta: Post
 ---
 
 * content

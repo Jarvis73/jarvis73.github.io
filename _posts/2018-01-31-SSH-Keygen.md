@@ -2,9 +2,10 @@
 layout: post
 title: Windows 下 SSH-Keygen 使用方法
 date: 2018-01-31 20:07:00
-categories: OpenSSH
-tags: tools 
+categories: Tools
 excerpt: 本文记录了使用 OpenSSH 登陆远程服务器的方法, 并设置免密登陆. 同时给出了使用多个密钥登陆多个服务器的方法.
+author: Jarvis
+meta: Post
 ---
 
 * content

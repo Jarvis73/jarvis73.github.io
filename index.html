@@ -9,6 +9,7 @@ layout: default
         <hr>
         <ul>
             {% for post in paginator.posts %}
+            {% if post.meta == "Post" %}
               <li>
                 <h2>
                   <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
@@ -22,15 +23,7 @@ layout: default
                         {% endif %}
                     </div>
                     <div class="label-card">
-                        {% if page.meta %}<i class="fa fa-key"></i>{{ page.meta }}  {% endif %}
-                    </div>
-
-                    <div class="label-card">
                     {% include category.html %}
-                    </div>
-
-                    <div class="label-card">
-                    {% include tag.html %}
                     </div>
                 </div>
                 <div class="excerpt">
@@ -46,6 +39,7 @@ layout: default
                 </div>
                 <hr>
               </li>
+            {% endif %}
             {% endfor %}
         </ul>
 
@@ -105,7 +99,7 @@ layout: default
                 </ul>
             </div>
             <!-- 其他div框放到这里 -->
-            <div class="side">
+            <!-- <div class="side">
                 <div>
                     <i class="fa fa-tags"></i>
                     Tags
@@ -147,6 +141,17 @@ layout: default
                       <a href="{{ root_url }}/{{ site.tag_dir }}#{{ tag[0] }}" style="font-size: {{ size }}pt; color: #{{ color }}{{ color }}{{ color }};">{{ tag[0] }}</a>
                     {% endfor %}
                 </div>
+            </div> -->
+
+            <div class="side">
+                <div>
+                    <i class="fa fa-book"></i>
+                    Language Wiki
+                </div>
+                <ul  class="content-ul" wiki>
+                    <li><a href="{{ root_url }}/{{ site.wiki_dir }}#Python">Python</a></li>
+                    <li><a href="{{ root_url }}/{{ site.wiki_dir }}#CMake">CMake</a></li>
+                </ul>
             </div>
 
             <div class="side">
@@ -154,7 +159,7 @@ layout: default
                     <i class="fa fa-external-link"></i>
                     External Links
                 </div>
-                <ul  class="content-ul">
+                <ul  class="content-ul" link>
                     <li><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Windows 下的 Python 模块库</a></li>
                     <li><a href="http://detexify.kirelabs.org/classify.html">Latex手写识别</a></li>
                     <li><a href="https://www.tensorflow.org/api_docs/">Tensorflow API 文档</a></li>

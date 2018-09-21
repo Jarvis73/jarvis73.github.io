@@ -15,27 +15,27 @@ type: page
         <hr>
         <ul>
           {% for post in site.posts %}
+            {% if post.meta == "Post" %}
+                {% unless post.next %}
+                  <!-- Lastest post -->
+                  <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
+                {% else %}
+                  {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+                  {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+                  {% if year != nyear %}
+                    <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
+                  {% endif %}
+                {% endunless %}
 
-            {% unless post.next %}
-              <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
-            {% else %}
-              {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-              {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-              {% if year != nyear %}
-                <h2 id="y{{ post.date | date: '%Y' }}">{{ post.date | date: '%Y' }}</h2>
-              {% endif %}
-            {% endunless %}
+                <li>
+                    <time>
+                    {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
+                    </time>
+                    <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 
-            <li>
-                <time>
-                {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
-                </time>
-                <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-
-                {% include category.html %}
-                {% include tag.html %}
-            </li>
-
+                    {% include category.html %}
+                </li>
+            {% endif %}
           {% endfor %}
         </ul>
     </div>
@@ -46,18 +46,20 @@ type: page
             <!-- Content -->
             <div class="side content">
                 <div>
-                    Content
+                    Archive Content
                 </div>
                 <ul id="content-side" class="content-ul">
                     {% assign counter = 0 %}
                         {% for post in site.posts %}
-                          {% assign thisyear = post.date | date: "%Y" %}
-                          {% assign prevyear = post.previous.date | date: "%Y" %}
-                          {% assign counter = counter | plus: 1 %}
-                          {% if thisyear != prevyear %}
-                            <li><a data-scroll href="#y{{ post.date | date: '%Y' }}">{{ thisyear }} ({{ counter }})</a></li>
-                            {% assign counter = 0 %}
-                          {% endif %}
+                            {% if post.meta == "Post" %}
+                                {% assign thisyear = post.date | date: "%Y" %}
+                                {% assign prevyear = post.previous.date | date: "%Y" %}
+                                {% assign counter = counter | plus: 1 %}
+                                {% if thisyear != prevyear %}
+                                  <li><a data-scroll href="#y{{ post.date | date: '%Y' }}">{{ thisyear }} ({{ counter }})</a></li>
+                                  {% assign counter = 0 %}
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                 </ul>
             </div>

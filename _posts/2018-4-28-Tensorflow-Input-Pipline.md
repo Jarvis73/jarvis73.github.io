@@ -3,7 +3,8 @@ layout: post
 title: Tensorflow 数据输入管线
 data: 2018-04-28 17:13:00
 categories: Tensorflow
-tags: tensorflow
+author: Jarvis
+meta: Post
 ---
 
 * content
