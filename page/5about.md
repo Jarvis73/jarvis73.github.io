@@ -33,3 +33,5 @@ type: page
   * 删除 Tag 页面以及所有 Tag 标签
   * 增加 Wiki 页面和 Wiki 的首页侧边栏
   * 在 Post 中增加 meta 变量, 用于区分常规 post 和 wiki post. `meta: Post` 被设置时加入常规博客, `meta: Wiki_{Class}` 被设置时加入 Wiki, 其中 `{Class}` 为对应的类别.
+  * 对 Categories 页面的类别进行排序
+  
