@@ -95,7 +95,10 @@ div.polaroid {
     border-radius: 16px;
     background-color: #ffc0cb80;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 30px 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
@@ -104,8 +107,12 @@ div.polaroid-tiny {
     border-radius: 16px;
     background-color: #ffc0cb80;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 30px 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
     text-align: center;
+
 }
 
 div.polaroid-small {
@@ -113,7 +120,10 @@ div.polaroid-small {
     border-radius: 16px;
     background-color: #ffc0cb80;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 30px 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
     text-align: center;
 }
 
