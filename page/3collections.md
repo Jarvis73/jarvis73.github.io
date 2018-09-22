@@ -45,16 +45,17 @@ type: page
 
     论文集: | [AAAI 2018](https://aaai.org/Conferences/AAAI-18/wp-content/uploads/2017/12/AAAI-18-Accepted-Paper-List.Web_.pdf)
 
-## 博客收集
+## 博客
 
-* 尝试从特征图来解释神经网络 [链接](https://distill.pub/)
+* [尝试从特征图来解释神经网络](https://distill.pub/)
 
-* Tensorflow 的 medium [链接](https://medium.com/tensorflow)
+* [Tensorflow 的 medium](https://medium.com/tensorflow)
 
-* Google 研究 [链接](https://research.google.com/pubs/papers.html)
+* [Google 研究](https://research.google.com/pubs/papers.html)
 
-* Colah's blog 神经网络相关 [链接](http://colah.github.io/)
+* [Colah's blog 神经网络相关](http://colah.github.io/)
 
+* [DonGovi 的 Blog](http://dongovi.github.io)
 
 
 ## 编程语言
