@@ -4,6 +4,7 @@ title: 信息论初步
 data: 2018-09-18 21:28:00
 categories: 机器学习
 mathjax: true
+figure: /images/2018-9-19/shannon.jpg
 author: Jarvis
 meta: Post
 ---
@@ -11,12 +12,16 @@ meta: Post
 * content
 {:toc}
 
-## 0. 前言
-
 我们通常提到信息论(information theorey)时一般在谈论如何以更紧凑的方式表示数据(比如**数据压缩**或**源编码**), 或者在数据传输和存储时减少误差. 乍一看和机器学习及概率论并无关系, 但他们有着密切的联系. 比如在压缩数据时, 往往使用短的编码词编码高频词汇, 长的编码词编码低频词汇; 反之解码时需要一个好的概率模型来确定哪种原始组合的概率更高.
 
 
 
+<div class="polaroid">
+    <img class="cool-img" src="/images/2018-9-19/shannon.jpg" Shannon/>
+    <div class="container">
+        <p>Claude Shannon 1916-2001. <a href="https://www.chalmers.se/en/areas-of-advance/ict/events/shannon-centennial/Pages/shannon.aspx">Picture source</a></p>
+    </div>
+</div>
 
 ## 1. 熵
 
@@ -70,7 +75,12 @@ $$
 
 考虑随机变量 $X$ 和 $Y$, 如果我们想知道这两者之间的关联性有多强, 一个直接的方法是计算他们的相关系数. 但是相关系数所反应的随机变量的相关性存在局限性, 如下图所示
 
-![Correlation Examples](https://upload.wikimedia.org/wikipedia/commons/0/02/Correlation_examples.png)
+<div class="polaroid">
+    <img class="cool-img" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Correlation_examples.png" Correlation Examples/>
+    <div class="container">
+        <p>Correlation Examples</p>
+    </div>
+</div>
 
 相关性相同的随机变量可以有着千奇百怪且截然不同的分布. 因此我们引入**互信息(mutual information, MI)**
 
@@ -114,7 +124,12 @@ $$
 
 可以证明 MIC 的范围是 $[0, 1]$ . 下面图 A 给出了 63566 个随机变量的相关系数 CC 和 MIC 的关系图, 图 B 给出了 CC 和 MI 的关系图.
 
-![MI-MIC-CC](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325791/bin/nihms358982f4.jpg)
+<div class="polaroid">
+    <img class="cool-img" src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325791/bin/nihms358982f4.jpg" MI-MIC-CC/>
+    <div class="container">
+        <p>MI-MIC-CC</p>
+    </div>
+</div>
 
 *   点 C 表示一组低 CC, 低 MIC 的随机变量, 可以看出他们是不相关的.
 *   点 D 和 H 表示两组高 CC(取绝对值), 高 MIC 的随机变量, 可以看出他们几乎存在线性相关性.

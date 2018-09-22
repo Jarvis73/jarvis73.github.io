@@ -25,10 +25,12 @@ meta: Post
 
 本文在 Faster RCNN [[3]](#3)的基础上, 增加了一个在感兴趣区域 (region of interest, RoI) 上预测分割的 mask 的分支, 如图 1 所示:
 
-<center>
-<img src="/images/2017-12-9/mask-rcnn.png" width="512" /><br />
-图1. 用于实例分割的 Mask R-CNN 框架.
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-12-9/mask-rcnn.png" figure/>
+    <div class="container">
+        <p>图1. 用于实例分割的 Mask R-CNN 框架.</p>
+    </div>
+</div>
 
 该分支与原来的分类和 Bounding box (Bbox) 回归任务并行, 称为 **Mask RCNN**. mask 分支本质上就是把一个小型的 FCN 应用到每一个 RoI 上, 预测一个像素级的分割图. 此外, 实际上 Faster RCNN 在设计时由于使用了 RoIPool, 在特征提取时只能获得比较粗糙的空间信息. 为了充分的保留空间位置信息(也是为了获得更准确的分割图), 作者提出了 *RoIAlign* 层, 该层有以下几个好处:
 
@@ -70,10 +72,12 @@ $$L = L_{cls} + L_{box} + L_{mask}$$
 
 我们结合图 2 来给出第三点的细节:
 
-<center>
-<img src="/images/2017-12-9/roialign.png" /><br />
-图2. RoIAlign 实现细节. 
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-12-9/roialign.png" figure/>
+    <div class="container">
+        <p>图2. RoIAlign 实现细节.</p>
+    </div>
+</div>
 
 上面提到每个 RoI 都池化为 7×7 个单元, 在每个单元中选择四个采样点(每个单元分成 2×2 的小矩形, 采样点为小矩形的中心点, 如果采样点数为 1, 那么直接获取中心点的值即可), 通过双线性插值获得这四个点上的值, 然后对这四个值采取池化得到输出. 此外我们需要对 RoIPool 的反向传播公式做一定的修改:
 
@@ -96,10 +100,12 @@ $$L = L_{cls} + L_{box} + L_{mask}$$
 
 具体结构参考图 3:
 
-<center>
-<img src="/images/2017-12-9/head_arch.png" width="650" /><br />
-<div class="box">图 3. <b>头部结构: </b>数字表示分辨率或通道数, 箭头表示卷积、反卷积、全连接层. 所有的卷积都是 3×3 的, 输出层的卷积除外 (是 1×1 的), 反卷积是 2×2 的, 步长为 2, 使用 ReLU 激活. 左边: 'res5' 表示 ResNet 的第五个阶段, 右边: '×4' 表示 4 个连续的卷积.</div>
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-12-9/head_arch.png" figure/>
+    <div class="container">
+        <p>图 3. <b>头部结构: </b>数字表示分辨率或通道数, 箭头表示卷积、反卷积、全连接层. 所有的卷积都是 3×3 的, 输出层的卷积除外 (是 1×1 的), 反卷积是 2×2 的, 步长为 2, 使用 ReLU 激活. 左边: 'res5' 表示 ResNet 的第五个阶段, 右边: '×4' 表示 4 个连续的卷积.</p>
+    </div>
+</div>
 
 ### 实现细节
 
@@ -134,8 +140,3 @@ S. Belongie. Feature pyramid networks for object detection. In CVPR, 2017</span>
 
 ## 参考链接
 [阿凡提的博客](http://blog.leanote.com/post/afanti.deng@gmail.com/b5f4f526490b)
-
-<style>
-.box{ margin:0 auto; width:650px;}
-</style>
-

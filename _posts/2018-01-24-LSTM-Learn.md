@@ -138,7 +138,12 @@ def lstm_cell():
 首先使用 `tf.contrib.rnn.BasicLSTMCell` 定义单个基本的 LSTM 单元。这里的 size 其实就是隐藏层规模。 
 从源码中可以看到，在 LSTM 单元中，有 2 个状态值，分别是 c 和 h，分别对应于下图中的 c 和 h。其中 h 在作为当前时间段的输出的同时，也是下一时间段的输入的一部分。
 
-![此处输入图片的描述](http://static.open-open.com/lib/uploadImg/20150829/20150829181723_640.png)
+<div class="polaroid-small">
+    <img class="cool-img" src="http://static.open-open.com/lib/uploadImg/20150829/20150829181723_640.png" />
+    <div class="container">
+        <p>LSTM 单元</p>
+    </div>
+</div>
 
 那么当 `state_is_tuple=True` 的时候，state 是元组形式，state=(c,h)。如果是 False，那么 state 是一个由c和h拼接起来的张量，`state=tf.concat(1, [c,h])`。**在运行时，则返回2值，一个是h，还有一个state。**
 
@@ -154,7 +159,12 @@ if is_training and config.keep_prob < 1:	# 在外面包裹 dropout
 我们在这里使用了 dropout 方法。**所谓 dropout, 就是指网络中每个单元在每次有数据流入时以一定的概率(keep prob)正常工作，否则输出0值**。这是是一种有效的正则化方法，可以有效防止过拟合。*在 rnn 中使用 dropout 的方法和 cnn 不同*，推荐大家去把 [recurrent neural network regularization](http://arxiv.org/pdf/1409.2329.pdf) 看一遍。 
 在 rnn 中进行 dropout 时，对于 rnn 的部分不进行 dropout，也就是说从 t-1 时候的状态传递到t时刻进行计算时，这个中间不进行 memory 的 dropout；仅在同一个t时刻中，多层 cell 之间传递信息的时候进行 dropout，如下图所示
 
-![此处输入图片的描述](http://ww3.sinaimg.cn/large/901f9a6fjw1f5vitpqyyuj20fg0bht98.jpg)
+<div class="polaroid-small">
+    <img class="cool-img" src="http://ww3.sinaimg.cn/large/901f9a6fjw1f5vitpqyyuj20fg0bht98.jpg" />
+    <div class="container">
+        <p>循环神经元展开示意图</p>
+    </div>
+</div>
 
 上图中，$t-2$ 时刻的输入 $x_{t−2}$ 首先传入第一层 cell，这个过程有 dropout，但是从  $t−2$ 时刻的第一层 cell 传到 $t−1, t, t+1$ 的第一层 cell 这个中间都不进行 dropout。再从 $t+1$ 时候的第一层 cell 向同一时刻内后续的 cell 传递时，这之间又有 dropout 了。
 

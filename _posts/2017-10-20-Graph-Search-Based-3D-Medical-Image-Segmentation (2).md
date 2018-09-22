@@ -35,13 +35,12 @@ meta: Post
 ### 基于中轴的图像重采样
 由于我们分割的是树状的气管和支气管, 所以不能再按照前文的想法基于类"地形图"的方法来构建图, 而是要按照前文提到的柱形的方法来构建, 前文中的 $(x, y)$ --列也不再使用, 而是变成了以气管中轴线为参照的轴向体素列. 如图1(a)所示.
 
-<br />
-
-![fig1](/images/2017-10-20/fig1.png)
-
-<center>图1: 以气管中轴线为参照的轴向体素列和可能存在的问题</center>
-
-<br />
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-20/fig1.png" fig1/>
+    <div class="container">
+        <p>图1: 以气管中轴线为参照的轴向体素列和可能存在的问题</p>
+    </div>
+</div>
 
 使用线性插值进行重采样. 这里要特别避免两种"坏"的情况:
  
@@ -59,14 +58,13 @@ meta: Post
 * 对每个顶点均求一对 $v_{p_1}$ 和 $v_{p_2}$ 分别作为内中轴线和外中轴线, 这两点选为最大的德劳内球的球心(德劳内四面体的外切球球心);
 * 选择球心是选择点 $p$ 的 $k$ 个最近邻中最大的值;
 * 体素列的长度由体素到中轴线的距离决定. 
-	 
-<br />
 
-![fig2](/images/2017-10-20/fig2.png)
-
-<center>图2: 图像重采样和图的构建. (a)不合适的体素列长导致的冲突. (b) 使用中轴线确定体素列长避免冲突</center>
-
-<br />
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-20/fig2.png" fig2/>
+    <div class="container">
+        <p>图2: 图像重采样和图的构建. (a)不合适的体素列长导致的冲突. (b) 使用中轴线确定体素列长避免冲突</p>
+    </div>
+</div>
 
 ### 图构建
 图的构建方法与前文一样基于*光滑性约束, 列分离性约束*和*面分离约束*. 值得注意的是这里每个点与两个体素列相关联, 一个向内用于检测内壁, 一个向外用于检测外壁. 具体构建方法参考前文. 
@@ -83,12 +81,10 @@ $$
 $$ 
 
 其中 $M_{Sobel_i}$ 表示[Sobel算子](https://en.wikipedia.org/wiki/Sobel_operator),  $M_{Marr}$ 表示[Marr算子](https://en.wikipedia.org/wiki/Marr-Hildreth_algorithm), 且均为二维滤波器, 如图3所示.
-	 
-<br />
 
-![fig3](/images/2017-10-20/fig3.png)
-
-<center>图3: 损失函数</center>
-
-<br />
- 
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-20/fig3.png" fig3/>
+    <div class="container">
+        <p>图3: 损失函数</p>
+    </div>
+</div>

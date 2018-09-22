@@ -36,12 +36,12 @@ meta: Post
 ### 单表面
 这一小节我们首先介绍一系列的概念, 有些概念容易混淆, 应当注意区分.
 
-<br />
-
-![single-surface](/images/2017-10-18/single-surface.png )
-
-<center>图1: 单表面问题, 虚线表示可选择的边(按文章中的意思是都包含在了边集中)</center>
-<br />
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-18/single-surface.png" single-surface/>
+    <div class="container">
+        <p>图1: 单表面问题, 虚线表示可选择的边(按文章中的意思是都包含在了边集中)</p>
+    </div>
+</div>
 
 记三维图像为三维矩阵 $ \mathcal{A}(x, y, z) $ . 类地形图的曲面如图所示, 即是指对于每个 $ (x, y) $ , 都有唯一的 $ z $ 与之对应. 令 $ X, Y, Z $ 表示图像在 $ \mathbf{x, y, z} $ 方向的尺寸. 
 
@@ -91,11 +91,12 @@ $$
 
 从图1(b)可以看到列内边和列间边的区别. 直观上, 如果体素 $ \mathcal{A}(x,y,z) $ 在可行面 $ \mathcal{N} $ 上, 那么它的4个相邻体素不会低于 $ \mathcal{A}(x,y,\max(0,z-\Delta_x)) $ . 根据 $ E^r $ 的构造规则, 顶点集 $ V(\mathbf{x,y}, 0) $ 是强连通的(这里是因为保留了虚线边), 同时也是定义于 $ G $ 上的最低的可行面, 我们称之为*基础集*, 记作 $ V^B $ .
 
-<br />
-![image-unfolding](/images/2017-10-18/image-unfolding.png)
-
-<center>图2: 图像展开</center>
-<br />
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-18/image-unfolding.png" image-unfolding/>
+    <div class="container">
+        <p>图2: 图像展开</p>
+    </div>
+</div>
 
 有时候目标曲面是沿着某个方向环绕的(即柱形曲面), 此时需要先展开, 再应用本文的算法. 所以沿着展开面的两条边界要满足光滑性条件. 比如沿 $ x $ 方向环绕, 则
 $$ 
@@ -115,12 +116,13 @@ $$
 
 * 加入 $ V_1(0,0,\delta_l)\rightarrow V_2(0,0,0) $ 使得 $ V^B $ 强连通(图 $ V_1 $ 和 $ V_2 $ 单独均为强连通图,  $ \delta^l $ 保证了存在从 $ V_2 $ 到 $ V_1 $ 的边, 为了保强连通性需要至少一条从 $ V_1 $ 到 $ V_2 $ 的边). 
 
-<br />
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-10-18/multi-surface.png" multi-surface/>
+    <div class="container">
+        <p>图3: (a)不相交; (b)相交</p>
+    </div>
+</div>
 
-![multi-surface](/images/2017-10-18/multi-surface.png)
-
-<center>图3: (a)不相交; (b)相交</center>
-<br />
 
 面间边表示如下:  
 

@@ -3,6 +3,7 @@ layout: post
 title: Tensorflow 数据输入管线
 data: 2018-04-28 17:13:00
 categories: Tensorflow
+figure: /images/2018-4-28/pipline.gif
 author: Jarvis
 meta: Post
 ---

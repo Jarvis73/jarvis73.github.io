@@ -27,13 +27,15 @@ layout: default
                     </div>
                 </div>
                 <div class="excerpt">
-                    {{post.excerpt}}
+                    <div class="excerpt-text">
+                        {{post.excerpt}}
+                    </div>
+                    {% if post.figure %}
+                    <div class="excerpt-bdn">
+                        <img class="excerpt-img" src="{{ post.figure }}" />
+                    </div>
+                    {% endif %}
                 </div>
-                {% if post.figure %}
-                <div class="excerpt-image">
-                    <img src="{{ post.figure }}" />
-                </div>
-                {% endif %}
                 <div class="read-all">
                     <a  href="{{ post.url | prepend: site.baseurl }}"><i class="fa fa-newspaper-o"></i>Read All</a>
                 </div>
@@ -162,7 +164,7 @@ layout: default
                 <ul  class="content-ul" link>
                     <li><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Windows 下的 Python 模块库</a></li>
                     <li><a href="http://detexify.kirelabs.org/classify.html">Latex手写识别</a></li>
-                    <li><a href="https://www.tensorflow.org/api_docs/">Tensorflow API 文档</a></li>
+                    <li><a href="https://tensorflow.google.cn/api_docs/">Tensorflow API 文档</a></li>
                     <li><a href="http://pytorch.org/docs/master/">Pytorch API 文档</a></li>
                     <li><a href="https://msdn.itellyou.cn/">MSDN 我告诉你</a></li>
                 </ul>

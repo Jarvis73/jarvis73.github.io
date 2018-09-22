@@ -27,10 +27,12 @@ meta: Post
 
 但是 BN 也存在一些问题. 顾名思义, BN 的效果是依赖于**批**的, 批比较大时, 数据标准化的结果会与整个数据集更为接近; 批比较小时, 仍然会存在较大的局部偏差. 如图 1 所示, 随着批大小的减小, BN 的误差会快速增大, 尤其是极小的批(batch size = 1 ~ 4). 
 
-<center>
-<img src="/images/2018-4-10/error.png" width="600" /><br />
-图 1: **ImageNet 分类误差 vs. 批大小.** 这是一个在 ImageNet 上使用 8 个 GPUs 训练的 ResNet-50 的模型, 在验证集上评估.
-</center>
+<div class="polaroid-small">
+    <img class="cool-img" src="/images/2018-4-10/error.png" />
+    <div class="container">
+        <p>图1: <strong>ImageNet 分类误差 vs. 批大小.</strong> 这是一个在 ImageNet 上使用 8 个 GPUs 训练的 ResNet-50 的模型, 在验证集上评估.</p>
+    </div>
+</div>
 
 本文的想法来源于以前的特征提取方法比如 SIFT, HOG 等提取出的是 group-wise 的特征, 并涉及到了 group-wise 的标准化. 比如 方向梯度直方图 (Histogram of oriented gradient, HOG) 特征检测算法把图像分为了多个块, 每个块分为四个 cell, 在每个 cell 内统计梯度方向, 从而每个块可以获得一个 k 维的特征向量, 然后对每个特征向量进行标准化. 这是一种组标准化的思路, 本文借鉴后提出了在神经网络的张量上, 把多通道分成组, 实施组标准化. 目前已有的标准化方法有
 
@@ -41,10 +43,12 @@ meta: Post
 
 如图 2 所示. 
 
-<center>
-<img src="/images/2018-4-10/normalization.png" /><br />
-图 2: **标准化方法**. N 表示 batch 轴, C 表示通道轴, H,W 表示空间轴
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2018-4-10/normalization.png" />
+    <div class="container">
+        <p>图 2: <strong>标准化方法</strong>. N 表示 batch 轴, C 表示通道轴, H,W 表示空间轴</p>
+    </div>
+</div>
 
 从图 2 可以看出 LN, IN 和 GN 都是在每个样本上单独计算的. 而 LN 和 IN 是 GN 的两种极端情况.
 

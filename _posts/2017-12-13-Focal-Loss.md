@@ -39,10 +39,12 @@ meta: Post
 
 在一阶段检测器中通常每张图片会产生大约 100k 的候选目标, 而通常仍然使用 bootstraping、hard example mining (HEM) 来选择训练样本, 这样就会导致训练过程很大程度上被负样本主宰.
 
-<center>
-<img src="/images/2017-12-13/focal-loss.png" width="512"><br />
-​图 1: Cross Entropy 和 Focal Loss
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-12-13/focal-loss.png" />
+    <div class="container">
+        <p>​图 1: Cross Entropy 和 Focal Loss</p>
+    </div>
+</div>
 
 图 1 中展示了 Focal Loss 对于不同概率样本的损失因子, 其中最上面蓝色 $\gamma=0$ 的曲线为普通的交叉熵 (cross entropy, CE), 可以看出虽然在 $p>0.5$ 的区域损失不是很大, 但是当有大量的被分类正确的简单样本出现时这些损失之和也会变得非常大, 并且很容易超过分类错误造成的损失. 下面的四条曲线为不同的缩放因子 $\gamma=0.5, 1, 2, 5$ 对应的 Focal Loss (FL) 损失函数的图像, 容易看出使用 Focal Loss 可以让分类正确的样本对损失贡献减少, 而分类错误的样本对损失有很大的贡献. 
 
@@ -97,10 +99,12 @@ $$
 
 本文设计了一个简单的网络用来检验 Focal Loss 的效果, 网络结构如图 2 所示. 
 
-<center>
-<img src="/images/2017-12-13/RetinaNet.png"><br />
-图 2: RetinaNet 网络结构
-</center>
+<div class="polaroid">
+    <img class="cool-img" src="/images/2017-12-13/RetinaNet.png" />
+    <div class="container">
+        <p>图 2: RetinaNet 网络结构</p>
+    </div>
+</div>
 
 #### 特征金字塔主干网络
 
