@@ -23,6 +23,19 @@ type: page
             {% endfor %}
         </ul>
 
+        <h2 id="CUDA"> CUDA </h2>
+        <ul>
+            {% for post in site.posts %}
+                {% assign meta_info = post.meta | split: "_" %}
+                {% if meta_info[0] == "Wiki" and meta_info[1] == "CUDA" %}
+                    <li>
+                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
+                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment CUDA_ctr %}. {{ post.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
         <h2 id="CMake"> CMake </h2>
         <ul>
             {% for post in site.posts %}
@@ -46,6 +59,7 @@ type: page
                 </div>
                 <ul id="content-side" class="content-ul">
                     <li><a data-scroll href="#Python">Python</a></li>
+                    <li><a data-scroll href="#CUDA">CUDA</a></li>
                     <li><a data-scroll href="#CMake">CMake</a></li>
                 </ul>
             </div>
