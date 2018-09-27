@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 机器学习: 信息论初步
+title: "机器学习(一): 信息论初步"
 data: 2018-09-18 21:28:00
 categories: 机器学习
 mathjax: true
