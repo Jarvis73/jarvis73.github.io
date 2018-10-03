@@ -13,7 +13,8 @@ type: page
 
 * **MICCAI**: [Medical Image Computing and Computer-Assisted Intervention](http://www.miccai2017.org/) 医学图像计算和计算机辅助干预
 
-    论文集: | [MICCAI 2018](https://link.springer.com/book/10.1007/978-3-030-00928-1) | [MICCAI 2017](https://link.springer.com/book/10.1007/978-3-319-66182-7) | [MICCAI 2016](https://link.springer.com/book/10.1007/978-3-319-46720-7) | [MICCAI 2015](https://link.springer.com/book/10.1007/978-3-319-24553-9) | [MICCAI 2014](https://link.springer.com/book/10.1007/978-3-319-10404-1) | [MICCAI 2013](https://link.springer.com/book/10.1007/978-3-642-40811-3)
+    论文集: | [MICCAI 2018](https://link.springer.com/book/10.1007/978-3-030-00928-1) | [MICCAI 2017](https://link.springer.com/book/10.1007/978-3-319-66182-7) | [MICCAI 2016](https://link.springer.com/book/10.1007/978-3-319-46720-7) | [MICCAI 2015](https://link.springer.com/book/10.1007/978-3-319-24553-9) | [MICCAI 2014](https://link.springer.com/book/10.1007/978-3-319-10404-1)
+     | [MICCAI 2013](https://link.springer.com/book/10.1007/978-3-642-40811-3) | | | | 
 
 * **MIA**: [Medical Image Analysis](https://www.journals.elsevier.com/medical-image-analysis/) 医学图像分析
 
@@ -25,7 +26,8 @@ type: page
 
 * **SPIE-MI**: [ International Society for Optics and Photonics - Medical Imaging](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging) 国际光电工程学会-医学影像子刊
 
-    论文集: | [SPIE-MI 2019](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2019) | [SPIE-MI 2018](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2018) | [SPIE-MI 2017](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2017) | [SPIE-MI 2016](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2016) | [SPIE-MI 2015](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2015) | [SPIE-MI 2014](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2014)
+    论文集: | [SPIE-MI 2019](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2019) | [SPIE-MI 2018](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2018) | [SPIE-MI 2017](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2017) | [SPIE-MI 2016](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2016) | [SPIE-MI 2015](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2015)
+     | [SPIE-MI 2014](https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging/issues/2014) | | | | 
 
 * **RSNA**: [Radiological Society of North America](http://www.rsna.org/) 北美放射学会
 
