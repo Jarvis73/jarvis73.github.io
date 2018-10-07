@@ -24,7 +24,7 @@ meta: Post
 <div class="polaroid">
     <img class="cool-img" src="/images/MLPP/Bayes.jpg" Shannon/>
     <div class="container">
-        <a href="https://en.wikipedia.org/wiki/Thomas_Bayes"></a>Thomas Bayes 1701-1761.</p>
+        <a href="https://en.wikipedia.org/wiki/Thomas_Bayes">Thomas Bayes 1701-1761.</a>
     </div>
 </div>
 
@@ -52,9 +52,11 @@ meta: Post
 >   [**奥卡姆剃刀(Occam's Razor)**](https://en.wikipedia.org/wiki/Occam%27s_razor): 如无必要, 勿增实体, 即"简单有效原理". 
 
 在这样的法则下, 我们可以假设抽取集合 $\mathcal{D}$ 时是简单随机抽样, 并且每个元素被抽到的概率相等(即均匀分布), 那么从满足"概念" $h$ 的集合中抽取到集合 $\mathcal{D}$ 的概率就是可计算的
+
 $$
 p(\mathcal{D}\lvert h)=\left[\frac{1}{size(h)}\right]^{size(\mathcal{D})}.
 $$
+
 现在我们可以计算一下上面的例子. 2 的幂次的集合为 $h_{powers~of~2}\triangleq\{1,2,4,8,16,32,64\}$, 而偶数的集合为 $h_{even}\triangleq\{2,4,6,\dots,100\}$. 从而 $p(\mathcal{D}\lvert h_{povers~of~2})=(1/7)^4=4.2\times10^{-4}$, 而 $p(\mathcal{D}\lvert h_{even})=(1/50)^4=1.6\times10^{-7}$. 显然认为这个"概念"是 *2 的幂*时能够抽取到集合 $\mathcal{D}$ 的概率更大, 那么我们也更倾向于相信这种猜测. 同时我们也能得到给定集合 $\mathcal{D}$ 时参数 $h_{powers~of~2}$ 的似然要远大于 $h_{even}$ 的似然. 
 
 ### 1.2 先验和后验
@@ -64,14 +66,16 @@ $$
 一个直观的例子就是我们在1.1节中每种假设下, 该假设集合中的每个元素被抽到的概率相等, 那么这里的先验分布就是一个均匀分布. 
 
 >   **定义:** **后验概率分布**(也称为**后验**)则指的是在给出"观测数据"之后, 对于未知量的条件概率分布.  其表达式为
+>
 >   $$
 >   p(h\lvert\mathcal{D})=\frac{p(\mathcal{D}\lvert h)p(h)}{\sum_{h'\in\mathcal{H}}p(\mathcal{D}, h')}
 >   $$
+>
 >   其中 $p(h\lvert\mathcal{D})$ 为后验概率, $p(\mathcal{D}\lvert h)$ 为似然, $p(h)$ 为先验概率. 
 
 后验概率可以解释为先验概率和似然经过正则化的乘积. 为了说明先验, 后验和似然的关系, 我们仍然用上面的例子 ---- "猜概念". 首先我们给出30种不同的先验: 偶数的集合, 奇数的集合, 以 6 结尾的数...等. 再考虑"观测数据"的集合 $\mathcal{D}=\{16, 8, 2, 64\}$, 下面两幅图给出了先验概率, 似然和后验概率的结果:
 
-<div class="polaroid-tiny">
+<div class="polaroid-small">
 	<img class="cool-img" src="/images/MLPP/c301.png" />
     <div class="container">
         <p>先验/似然/后验</p>
@@ -104,9 +108,11 @@ $$
 *   **法一(基于规则的推理 rule-based reasoning):** 最直接的想法就是使用数据集 $\mathcal{D}$ 估计该数据集分布的最优参数 $\theta$ , 然后自然根据参数就能得到新数据点 $\tilde{x}$ 的预测值.
 
 法一最大的优势在于简单, 容易实现. 根据数据集估计最优参数, 那么这其实就是求极大似然估计MLE的过程. 并且把这种使用单一参数值作进行估计的方法称为**插入近似(plug-in approximation)**. 同时, 这个"最优参数"就是所谓的**规则**. 根据描述, 我们容易得到 $\tilde{x}$ 的后验预测分布(定义见下文)为
+
 $$
 p(\tilde{x}=1\lvert\mathcal{D})= p(\tilde{x}\lvert\theta_{MLE})
 $$
+
 法一虽然简单, 但是它完全忽视了数据的**不确定性**. 换句话说就是数据集 $\mathcal{D}$ 的分布可能并不完全和数据空间相同, 因为采样是存在偏差的, 仅估计一个单一的 $\theta$ 值就忽视了偏差的存在, 即忽视了数据采样的不确定性, 因此我们提出法二.
 
 *   **法二(基于相似度的推理 similarity-based reasoning):** 不把 $\theta$ 固定为一个值, 而是使用概率分布, 即 $\theta$ 以不同的概率取不同的值. 离散形式如下式
@@ -114,10 +120,13 @@ $$
 $$
 p(\tilde{x}=1\lvert\mathcal{D})=\sum_{\theta}p(x=1\lvert\tilde{x})p(\theta\lvert\mathcal{D}),
 $$
+
 连续形式为
+
 $$
 p(\tilde{x}=1\lvert\mathcal{D})=\int_{\Theta}p(x=1\lvert\theta)p(\theta\lvert\mathcal{D})\,d\theta.
 $$
+
 上面两式称为**后验预测分布**, 它实际上是不同参数假设下数据分布的加权平均, 也称为**贝叶斯模型平均**(bayes model averaging, BMA), 显然它把不确定性考虑在内了. 哪个估计的参数值越接近真实参数值, 那么可以想象它所对应的概率也越大, 这就是**相似度**的含义.
 
 *   **特点:** 可以发现当已观测到的数据集 $\mathcal{D}$ 非常小时, 使用插入近似的后验预测分布会变得很窄(即过拟合了); 增大数据集 $\mathcal{D}$ 时, 后验预测分布会逐渐变宽(增加数据减轻过拟合). 使用贝叶斯模型平均方法则后验预测分布会从宽变窄. 而当数据量不断增大, 两种方法最终会收敛到相同的结果. 下面的表格更清晰:
@@ -127,7 +136,7 @@ $$
 | 插入近似       | 窄                   | 宽                             |
 | 贝叶斯模型平均 | 宽                   | 窄                             |
 
-[注:] 记得下次画几张图
+[注:] 下次画几张图
 
  **未完待续...**
 
