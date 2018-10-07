@@ -4,7 +4,7 @@ title: "机器学习(一): 信息论初步"
 data: 2018-09-18 21:28:00
 categories: 机器学习
 mathjax: true
-figure: /images/2018-9-19/Shannon.jpg
+figure: /images/MLPP/Shannon.jpg
 author: Jarvis
 meta: Post
 ---
@@ -17,7 +17,7 @@ meta: Post
 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2018-9-19/Shannon.jpg" Shannon/>
+    <img class="cool-img" src="/images/MLPP/Shannon.jpg" Shannon/>
     <div class="container">
         <p>Claude Shannon 1916-2001. <a href="https://www.chalmers.se/en/areas-of-advance/ict/events/shannon-centennial/Pages/shannon.aspx">Picture source</a></p>
     </div>
