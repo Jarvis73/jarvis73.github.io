@@ -75,7 +75,7 @@ $$
 
 后验概率可以解释为先验概率和似然经过正则化的乘积. 为了说明先验, 后验和似然的关系, 我们仍然用上面的例子 ---- "猜概念". 首先我们给出30种不同的先验: 偶数的集合, 奇数的集合, 以 6 结尾的数...等. 再考虑"观测数据"的集合 $\mathcal{D}=\{16, 8, 2, 64\}$, 下面两幅图给出了先验概率, 似然和后验概率的结果:
 
-<div class="polaroid-small">
+<div class="polaroid-script">
 	<img class="cool-img" src="/images/MLPP/c301.png" />
     <div class="container">
         <p>先验/似然/后验</p>

@@ -102,8 +102,20 @@ div.polaroid {
     text-align: center;
 }
 
-div.polaroid-tiny {
-    width: 40%;
+div.polaroid-small {
+    width: 75%;
+    border-radius: 16px;
+    background-color: #ffc0cb80;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+div.polaroid-script {
+    width: 60%;
     border-radius: 16px;
     background-color: #ffc0cb80;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -115,8 +127,8 @@ div.polaroid-tiny {
 
 }
 
-div.polaroid-small {
-    width: 75%;
+div.polaroid-tiny {
+    width: 40%;
     border-radius: 16px;
     background-color: #ffc0cb80;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -125,6 +137,7 @@ div.polaroid-small {
     margin-top: 25px;
     margin-bottom: 25px;
     text-align: center;
+
 }
 
 div.container {
