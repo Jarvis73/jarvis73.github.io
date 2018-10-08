@@ -18,7 +18,8 @@
         padding: 20px 30px;
         line-height: 1.6;
         font-size: 16px;
-        background-color: #f8f8fddc;
+        background-color: #f8f8fd;
+        opacity: 0.8;
         box-shadow: 0 1px 2px rgba(0,0,0,0.4),0 0 30px rgba(10,10,0,0.1) inset;
         >h1 {
             margin-bottom: -10px;
@@ -163,7 +164,8 @@
         }
         .side {
             box-sizing: border-box;
-            background-color: #f8f8fddc;
+            background-color: #f8f8fd;
+            opacity: 0.8;
             box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.3), 0 0 30px rgba(10, 10, 0, 0.1) inset;
             padding-bottom: 1px;
             -ms-word-break: break-all;
@@ -253,7 +255,8 @@
             padding: 5px 10px;
             color: #333;
             font-size: 15px;
-            background-color: #f8f8fddc;
+            background-color: #f8f8fd;
+            opacity: 0.8;
             box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3), 0 0 30px rgba(10, 10, 0, 0.1) inset;
             opacity: 0.7;
             transition: 0.2s cubic-bezier(0.5, 0.1, 0.51, 1.38);
