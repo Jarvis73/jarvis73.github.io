@@ -70,6 +70,8 @@ type: page
 
 * [DonGovi 的 Blog](http://dongovi.github.io)
 
+* [FengHZ 的 Blog](http://FengHZ.github.io)
+
 
 ## 编程语言
 
