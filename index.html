@@ -26,15 +26,15 @@ layout: default
                     {% include category.html %}
                     </div>
                 </div>
-                <div class="excerpt">
-                    <div class="excerpt-text">
-                        {{post.excerpt}}
-                    </div>
+                <div>
                     {% if post.figure %}
                     <div class="excerpt-bdn">
                         <img class="excerpt-img" src="{{ post.figure }}" />
                     </div>
                     {% endif %}
+                    <div class="excerpt-text">
+                        {{post.excerpt}}
+                    </div>
                 </div>
                 <div class="read-all">
                     <a  href="{{ post.url | prepend: site.baseurl }}"><i class="fa fa-newspaper-o"></i>Read All</a>
