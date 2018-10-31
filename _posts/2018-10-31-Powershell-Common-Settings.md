@@ -24,7 +24,7 @@ meta: Post
 
 ## Powershell
 
-在 Win10 中打开 Powershell 后会自动执行脚本 `文档\WindowsPowershell\Microsoft.PowerShell_profile.ps1`, 其中 `文档` 是指资源管理器首页的 `文档` 文件夹. 我们可以在脚本中定义预执行的命令, 和自定义函数. 下面先列举几个, 之后逐渐补充.
+在 打开 Powershell 后会自动执行脚本 `文档\WindowsPowershell\Microsoft.PowerShell_profile.ps1`, 其中 `文档` 是指资源管理器首页的 `文档` 文件夹. 我们可以在脚本中定义预执行的命令, 和自定义函数. 下面先列举几个, 之后逐渐补充.
 
 ### 定制终端提示符样式
 
@@ -55,7 +55,7 @@ function prompt
 }
 ```
 
-* `Write-Host` 命令用于在终端输出字符串, 其中 `\`n`为换行符
+* `Write-Host` 命令用于在终端输出字符串, 其中换行符为 `&apos;n`
 
 ### 激活 Anaconda 子环境
 
