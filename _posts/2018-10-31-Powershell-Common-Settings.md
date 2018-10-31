@@ -16,9 +16,9 @@ meta: Post
 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/MLPP/Bayes.jpg" Shannon/>
+    <img class="cool-img" src="https://docs.microsoft.com/media/hubs/powershell/powershell-features-windows.svg" Shannon/>
     <div class="container">
-        <a href="https://docs.microsoft.com/media/hubs/powershell/powershell-features-windows.svg">Powershell</a>
+        <a href="https://docs.microsoft.comzh-cn/powershell/scripting/powershell-scripting?view=powershell-6">Powershell</a>
     </div>
 </div>
 
