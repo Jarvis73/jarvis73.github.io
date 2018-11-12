@@ -11,6 +11,9 @@ meta: Post
 * content
 {:toc}
 
+**更新:**
+* **2018-11-12** 增加可能的出现的问题及解决方案
+
 ## 1. 下载 Win32-OpenSSH
 
 windows 版的 SSH 称为 Win32-OpenSSH,  可以从 [Github](https://github.com/PowerShell/Win32-OpenSSH) 下载. 可以选择下载最新版的 Release, 这样就不需要再编译源码了, 下载后可以直接使用.
@@ -133,3 +136,13 @@ Host <short_name>
 上面的 `<short_name>` 自己指定一个简单的名字, `<port>` 为远程服务器的 ssh 服务端口(如果需要则指定, 使用默认端口时去掉该行即可).
 
 最后即可直接使用 `ssh short_name` 免密登陆服务器.
+
+## 3. 可能的问题及解决方案
+
+* **设置好了免密登录, 在登陆时仍然要求输入密码.** 
+  1. 检查`config`文件的设置是否正确
+  2. 检查远程电脑上的`authorized_keys`中的公钥是否正确
+  3. 检查远程电脑上的文件夹权限(尤其是下面第一条容易忽略, 即`/home`下的用户文件夹要保证`others`**无写权限**)
+    * `chmod o-w ~/`
+    * `chmod 700 ~/.ssh`
+    * `chmod 600 ~/.ssh/authorized_keys`
