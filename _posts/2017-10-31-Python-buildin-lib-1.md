@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python库函数 (一)
+title: Python库函数 (一) logging
 date: 2017-10-31 20:26:00
 author: Jarvis
 meta: Wiki_Python
@@ -11,33 +11,12 @@ meta: Wiki_Python
 
 # 标准库函数
 
-* collections.namedtuple
 * logging.Handler, logging.Formatter
 
 **Update 2018-4-14:** add some functions to `logger`
 
 
 
-## collections
-
-### namedtuple
-
-这是标准库 `collections` 的一个函数 `namedtupe`, 可以用来容易地创建一个简单的类, 示例如下
-
-```python
-from collections import namedtuple
-
-# 创建一个Dog类
-Dog = namedtuple('Dog', ['name', 'weight', 'owner'])
-rex = Dog('rex', 30, 'Bob')
-print(rex)
-```
-
-输出
-
-```
-Dog(name='rex', weight=30, owner='Bob')
-```
 
 ## logging
 
