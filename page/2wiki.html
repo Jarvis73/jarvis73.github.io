@@ -12,7 +12,8 @@ type: page
         <hr>
         <h2 id="Python"> Python </h2>
         <ul>
-            {% for post in site.posts %}
+            {% assign sorted = site.posts | sort: 'date' %}
+            {% for post in sorted %}
                 {% assign meta_info = post.meta | split: "_" %}
                 {% if meta_info[0] == "Wiki" and meta_info[1] == "Python" %}
                     <li>
@@ -25,7 +26,8 @@ type: page
 
         <h2 id="CUDA"> CUDA </h2>
         <ul>
-            {% for post in site.posts %}
+            {% assign sorted = site.posts | sort: 'date' %}
+            {% for post in sorted %}
                 {% assign meta_info = post.meta | split: "_" %}
                 {% if meta_info[0] == "Wiki" and meta_info[1] == "CUDA" %}
                     <li>
@@ -38,7 +40,8 @@ type: page
 
         <h2 id="CMake"> CMake </h2>
         <ul>
-            {% for post in site.posts %}
+            {% assign sorted = site.posts | sort: 'date' %}
+            {% for post in sorted %}
                 {% assign meta_info = post.meta | split: "_" %}
                 {% if meta_info[0] == "Wiki" and meta_info[1] == "CMake" %}
                     <li>
