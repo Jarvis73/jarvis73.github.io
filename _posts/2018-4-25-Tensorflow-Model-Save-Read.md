@@ -11,6 +11,8 @@ meta: Post
 * content
 {:toc}
 
+**Update: 2018-12-26**
+
 本文假设读者已经懂得了 Tensorflow 的一些基础概念, 如果不懂, 则移步 TF [官网](https://www.tensorflow.org/get_started) .
 
 在 Tensorflow 中我们一般使用 `tf.train.Saver()` 定义的存储器对象来保存模型, 并得到形如下面列表的文件:
@@ -69,7 +71,14 @@ with tf.Session() as sess:
 	new_saver = tf.train.import_meta_graph("model.ckpt.meta")
 ```
 
-此时计算图就会加载到 `sess` 的默认计算图中, 这样我们就无需再次使用大量的脚本来定义计算图了. 实际上使用上面这两行代码即可完成计算图的读取, 2.1 节剩下的内容我们尝试探索一下 TF 中图的一些内容和基本结构, 不感兴趣可以跳过直接看 2.2 节.
+此时计算图就会加载到 `sess` 的默认计算图中, 这样我们就无需再次使用大量的脚本来定义计算图了. 实际上使用上面这两行代码即可完成计算图的读取. 注意可能我们获取的模型(meta文件)同时包含定义在CPU主机(host)和GPU等设备(device)上的, 上面的代码保留了原始的设备信息. 此时如果我们想同时加载模型权重, 那么如果当前没有指定设备的话就会出现错误, 因为tensorflow无法按照模型中的定义把某些变量(的值)放在指定的设备上. 那么有一个办法是增加一个参数清楚设备信息.
+
+```python
+with tf.Session() as sess:
+	new_saver = tf.train.import_meta_graph("model.ckpt.meta", clear_devices=True)
+```
+
+2.1 节剩下的内容我们尝试探索一下 TF 中图的一些内容和基本结构, 不感兴趣可以跳过直接看 2.2 节.
 
 #### 2.1.2 获取计算图内的任意变量/操作
 
