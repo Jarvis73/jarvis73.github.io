@@ -12,6 +12,8 @@ meta: Post
 * content
 {:toc}
 
+**Update: 2019-04-08**
+
 我们通常提到信息论(information theorey)时一般在谈论如何以更紧凑的方式表示数据(比如**数据压缩**或**源编码**), 或者在数据传输和存储时减少误差. 乍一看和机器学习及概率论并无关系, 但他们有着密切的联系. 比如在压缩数据时, 往往使用短的编码词编码高频词汇, 长的编码词编码低频词汇; 反之解码时需要一个好的概率模型来确定哪种原始组合的概率更高.
 
 
@@ -23,18 +25,41 @@ meta: Post
     </div>
 </div>
 
-## 1. 熵
+## 1. 信息量和熵
 
->   **定义:** 分布为 $p$ 的随机变量 $X$ 的熵是不确定性的一种度量, 记为 $\mathbb{H}(X)$ 或 $\mathbb{H}(p)$ . 特别的, 对一个有着 $K$ 个取值的离散随机变量, 熵可以定义为
+>   **定义:** 分布为 $p$ 的随机变量 $X$ 取值为 $x$ 的**信息量(information content)**定义为
 >
 >   $$
->   \mathbb{H}(X)\triangleq-\sum_{k=1}^Kp(X=k)\log{p(X=k)}
+>   \mathbf{I}_X(x) := \log{\frac1{p_X(x)} = -\log{p_X(x)}
 >   $$
 >
 
-**定理:** $\mathbb{H}(X)\leq K$, 当且仅当 $X$ 是离散均匀分布时等号成立.
+因此概率越小的事件, 信息量越大. 进而, 熵可以定义为随机变量 $X$ 的平均信息量(即信息量的期望).
+
+>   **定义:** 分布为 $p$ 的随机变量 $X$ 的熵是不确定性的一种度量, 记为 $\mathbb{H}(X)$ 或 $\mathbb{H}(p)$ . 特别的, 对一个有着 $K$ 个取值的离散随机变量, **熵(entropy)**可以定义为
+>
+>   $$
+>   \mathbb{H}(X) := -\sum_{k=1}^Kp(X=k)\log{p(X=k)} = \mathbb{E}(\mathbf{I}(X))
+>   $$
+>
+
+**定理:** $\mathbb{H}(X)\leq \log{K}$, 当且仅当 $X$ 是离散均匀分布时等号成立.
 
 该定理可以作为下面信息不等式的推论得出. 从定理中容易知道离散分布的最大熵为 $\mathbb{H}(X)=\log{K}$ . 特别地, $K=2$ 时得到**二值熵** $\mathbb{H}(X)=-(\theta\log{\theta}+(1-\theta)\log{(1-\theta)})$ , 其中 $\theta$ 为成功概率(相应的 $1-\theta$ 为失败概率). 
+
+>   **定义:** 给定随机变量 $X=x$, 随机变量 $Y$ 的**条件熵(conditional entropy)**定义为
+>
+>   $$
+>   \mathbb{H}(Y\lvert X=x) := -\sum_{y\in\mathcal{Y}}p(y\lvert x)\log{p(y\lvert x)}.
+>   $$
+>   
+>   进一步, 给定随机变量 $X$, 随机变量 $Y$ 的条件熵定义为
+>
+>   $$
+>   \mathbb{H}(Y\lvert X) := -sum_{x\in\mathcal{X}}p(x)\mathbb{H}(Y\lvert X=x) = -\sum_{x\in\mathcal{X},y\in\mathcal{Y}}p(x, y)\log{y\lvert x}
+>   $$
+>
+
 
 ## 2. KL 散度
 
@@ -43,13 +68,13 @@ meta: Post
 >   **定义:** 离散形式
 >
 >   $$
->   \mathbb{KL}(p\lVert q)\triangleq\sum_{k=1}^Kp_k\log{\frac{p_k}{q_k}}
+>   \mathbb{KL}(p\lVert q) := \sum_{k=1}^Kp_k\log{\frac{p_k}{q_k}}
 >   $$
 >
 >   连续形式
 >
 >   $$
->   \mathbb{KL}(p\lVert q)\triangleq\int_{\Omega} p(x)\log{\frac{p(x)}{q(x)}}\,dx
+>   \mathbb{KL}(p\lVert q) := \int_{\Omega} p(x)\log{\frac{p(x)}{q(x)}}\,dx
 >   $$
 >
 
@@ -87,7 +112,7 @@ $$
 >   **定义:** 对随机变量 $X$ 和 $Y$, 
 >
 >   $$
->   \mathbb{I}(X; Y)\triangleq\mathbb{KL}(p(X, Y)\lVert p(X)p(Y))=\sum_x\sum_yp(x, y)\log{\frac{p(x, y)}{p(x)p(y)}}
+>   \mathbb{I}(X; Y) := \mathbb{KL}(p(X, Y)\lVert p(X)p(Y))=\sum_x\sum_yp(x, y)\log{\frac{p(x, y)}{p(x)p(y)}}
 >   $$
 >
 >   显然 $\mathbb{I}(X; Y)\geq 0$, 当且仅当 $p(X, Y)=p(X)p(Y)$ 时取等号. 
@@ -103,7 +128,7 @@ $$
 >   **定义:** 对随机事件 $x$ 和 $y$, 
 >
 >   $$
->   \text{PMI}(x, y)\triangleq\log{\frac{p(x, y)}{p(x)p(y)}}=\log{\frac{p(x\lvert y)}{p(x)}}=\log{\frac{p(y|x)}{p(y)}}
+>   \text{PMI}(x, y) := \log{\frac{p(x, y)}{p(x)p(y)}}=\log{\frac{p(x\lvert y)}{p(x)}}=\log{\frac{p(y|x)}{p(y)}}
 >   $$
 >
 >   衡量了两个事件同时发生的概率. 
@@ -117,7 +142,7 @@ $$
 >   **定义:**
 >
 >   $$
->   \text{MIC}\triangleq\max_{x, y:xy<B}\frac{\max_{G\in\mathcal{G}(x, y)}\mathbb{I}(X(G);Y(G))}{\log{\min(x, y)}}
+>   \text{MIC} := \max_{x, y:xy<B}\frac{\max_{G\in\mathcal{G}(x, y)}\mathbb{I}(X(G);Y(G))}{\log{\min(x, y)}}
 >   $$
 >
 >   其中 $\mathcal{G}(x, y)$ 是一族大小为 $x\times y$ 的网格点, $X(G), Y(G)$ 表示网格上离散了的随机变量, $B$ 是采样的区间数, 一个典型的值为 $B=N^{0.6}$. 
