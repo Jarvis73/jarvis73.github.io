@@ -30,7 +30,7 @@ meta: Post
 >   **定义:** 分布为 $p$ 的随机变量 $X$ 取值为 $x$ 的**信息量(information content)**定义为
 >
 >   $$
->   \mathbf{I}_X(x) := \log{\frac1{p_X(x)} = -\log{p_X(x)}
+>   \mathbf{I}_X(x) := \log{\frac1{p_X(x)}} = -\log{p_X(x)}
 >   $$
 >
 
@@ -56,7 +56,7 @@ meta: Post
 >   进一步, 给定随机变量 $X$, 随机变量 $Y$ 的条件熵定义为
 >
 >   $$
->   \mathbb{H}(Y\lvert X) := -sum_{x\in\mathcal{X}}p(x)\mathbb{H}(Y\lvert X=x) = -\sum_{x\in\mathcal{X},y\in\mathcal{Y}}p(x, y)\log{y\lvert x}
+>   \mathbb{H}(Y\lvert X) := -\sum_{x\in\mathcal{X}}p(x)\mathbb{H}(Y\lvert X=x) = -\sum_{x\in\mathcal{X},y\in\mathcal{Y}}p(x, y)\log{p(y\lvert x)}
 >   $$
 >
 
