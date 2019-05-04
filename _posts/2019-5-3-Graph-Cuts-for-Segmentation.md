@@ -181,3 +181,25 @@ $$
 
 注意: 在 2D 图像中使用 8-neighborhood, 在 3D 图像中使用 26-neighborhood.
 
+## 5. Appendix*
+
+### A. Maxflow Algorithm
+
+网络流问题: 给定一个网络图和两个端点(源点s和汇点t), 每条边有一定的容量, 计算从s到t的最大流量. 
+
+解决方案 - **Ford Fulkerson 算法**:
+
+* **Inputs** Given a Network $G=(V,E)$ with flow capacity $c$, a source node $s$, and a sink node $t$ .
+* **Output** Compute a flow *f* from $s$ to $t$ of maximum value
+  1. Residual graph $G_f(u, v)\leftarrow G(u, v)$ for all edges $(u, v)$ . $maxflow\leftarrow 0$ .
+  2. **while** there is a path $p$ from $s$ to $t$ in $G_f$ , such that $c_f(u, v)>0$ for all edges $(u, v)\in p$ :
+     1. Find $c_f(p)=\min[c_f(u, v): (u, v)\in p]$ 
+     2. Accumulate: $maxflow \leftarrow maxflow + c_f(p)$ .
+     3. Update residual graph $G_f$ . **For each** edge $(u, v)\in p$ :
+        1. $G_f(u, v)\leftarrow G_f(u, v)-c_f(p)$ (Send flow along the path)
+        2. $G_f(v, u) \leftarrow G_f(v, u) + c_f(p)$ (The flow might be "returned" later)
+  3. Get edges of the min-cut (if need):
+     1. Run BFS(breadth first search) from $s$ in $G_f$ 
+     2. Traversed points construct $O$ and non-traversed points construct $B$ .
+  4. **Return** $maxflow$ and $O$ and $B$ (min-cut is the edges between $O$ and $B$ in $G_f$ ).
+
