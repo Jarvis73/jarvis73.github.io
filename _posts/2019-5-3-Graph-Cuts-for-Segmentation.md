@@ -183,11 +183,11 @@ $$
 
 ## 5. Appendix*
 
-### A. Maxflow Algorithm
-
 网络流问题: 给定一个网络图和两个端点(源点s和汇点t), 每条边有一定的容量, 计算从s到t的最大流量. 
 
-解决方案 - **Ford Fulkerson 算法**:
+### A. Maxflow Basic Algorithm
+
+基础算法 - **Ford Fulkerson 算法**:
 
 * **Inputs** Given a Network $G=(V,E)$ with flow capacity $c$, a source node $s$, and a sink node $t$ .
 * **Output** Compute a flow *f* from $s$ to $t$ of maximum value
@@ -203,3 +203,48 @@ $$
      2. Traversed points construct $O$ and non-traversed points construct $B$ .
   4. **Return** $maxflow$ and $O$ and $B$ (min-cut is the edges between $O$ and $B$ in $G_f$ ).
 
+### B. Maxflow for Energy Minimization
+
+**Title:** An Experimental Comparison of Min-Cut/Max-Flow Algorithms for Energy Minimization in Vision
+
+**Author:** Yuri Boykov, Vladimir Kolmogorov
+
+改进算法: 维护两个不重叠的搜索树 $S$ 和 $T$, 它们的根分别是源 $s$ 和汇 $t$, 同时满足 $S$ 树的父节点到子节点的边流量不满(nonsaturated), $T$ 树的子节点到父节点流量不满. 不在树中的其他节点为"自由节点". 树节点分为激活的(active)和抑制的(passive, 暂且叫成抑制的吧). 激活的节点可以继续扩展新的子节点(从相邻的自由节点中选择, 2D 为8相邻, 3D为26相邻), 抑制的节点没有相邻的自由节点可扩展. 
+
+如图所示:
+
+<div class="polaroid">
+    <img class="cool-img" src="/images/2019-5/Graph-Cuts-1.png" Graph-Cuts/>
+    <div class="container">
+        <p>Example of the search tree S(read nodes) and T(blue nodes) at the end of the growth stage when a path(yellow line) from the source s to the sink t is found. Active and passive nodes are labeled by letters A and P, correspondingly. Free nodes appear in black.</p>
+    </div>
+</div>
+
+算法流程:
+
+* "增长(growth)"阶段: 搜索树 $S$ 和 $T$ 增长, 直到两棵树"接触"到从而产生一条 $s\rightarrow t$ 路径.
+  * 为了简便, 记树从根到叶方向的边为正向边, 从叶到根方向的边为反向边
+* "增广(augmentation)"阶段: 增广上一步找到的路径, 搜索树均变为森林.
+  1. 寻找"瓶颈"容量 $\Delta$
+  2. 增广: (1) 更新残差图(residual graph): $S$ 树的正向边(根->叶)容量减少 $\Delta$, 反向边(叶->根)容量增加 $\Delta$; $T$ 树做相反的增减(对于流图来说是做了相同方向的增减). (2) 打断流图满容量的正向边, 并把该边的头节点加入孤儿(orphan)列表. 
+    * **注意:** $S$ *树*的正向边是*流图*"从源到汇"的正向边, $T$ 树的反向边是*流图*"从源到汇"的正向边.
+* "应用(adoption)"阶段: restore树 $S$ 和 $T$ .
+  * 依次处理孤儿列表中的节点 $p$
+    1. 为 $p$ 寻找一个新的父节点 $q$ , 父节点要满足三个条件: (1)边 $(p, q)$ 容量不满, (2)父子来自于同一棵树(孤儿则考虑其原来的父亲来自于哪棵树), (3)父节点的"origin"为 $s$ 或 $t$ .
+    2. 如果找到了多个可行的父节点, 则选择离 $p$ 最近的那个
+    3. 如果找到了新的父节点 $q$, 则把 $q$ 设为 $p$ 新的父节点; 如果没找到, 则把 $p$ 恢复为自由节点, 并做以下操作
+      * 扫描 $p$ 的所有同一棵树上的邻居 $q$, 如果边 $(q, p)$ 容量不满, 则把 $q$ 设为激活节点; 如果 $q$ 的父节点是 $p$, 则把 $q$ 添加到孤儿列表.
+      * 把 $p$ 从激活节点列表中移除.
+* 以上三步循环直到没有新的激活节点.
+
+技术报告和实现源码(第三方): [Code](https://www.cs.mcgill.ca/~fmanna/ecse626/project.htm)
+
+## 6. References
+
+1. **Interactive Graph Cuts for Optimal Boundary & Region Segmentation of Object in N-D Images**<br />
+   Yuri Y. Boykov, Marie-Pierre Jolly. <br />
+   [[link]](http://128.148.32.110/courses/csci1950-g/results/final/pdoran/resources/GraphCuts.pdf). In ICCV, 2001.
+
+2. **An Experimental Comparison of Min-Cut/Max-Flow Algorithms for Energy Minimization in Vision**<br />
+   Yuri Boykov, Vladimir Kolmogorov. <br />
+   [[link]](http://discovery.ucl.ac.uk/13383/1/13383.pdf). In TPAMI 2004.
