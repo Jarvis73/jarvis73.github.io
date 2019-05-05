@@ -239,6 +239,15 @@ $$
 
 技术报告和实现源码(第三方): [Code](https://www.cs.mcgill.ca/~fmanna/ecse626/project.htm)
 
+示例图片:
+
+<div class="polaroid">
+    <img class="cool-img" src="/images/2019-5/Graph-Cuts-2.png" Graph-Cuts/>
+    <div class="container">
+        <p>Graph-Cuts 示例</p>
+    </div>
+</div>
+
 ## 6. References
 
 1. **Interactive Graph Cuts for Optimal Boundary & Region Segmentation of Object in N-D Images**<br />
