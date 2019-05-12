@@ -12,6 +12,9 @@ meta: Post
 * content
 {:toc}
 
+**Update: 2019-05-12**
+
+
 
 
 
@@ -248,6 +251,60 @@ $$
     </div>
 </div>
 
+### C. GrabCut
+
+**Title:** "GrabCut" -- Interactive Foreground Extraction using Iterated Graph Cuts
+
+**Author:** Carsten Rother, Vladimir Kolmogorov, Andrew Blake
+
+GrabCut 是 OpenCV 中标准的交互式图割算法. 
+
+本文基于文献[1], 为了简化交互负担, 允许用户开始只需要用矩形框框出目标物体即可. 在某些图像上可以达到和用户使用画笔涂抹一样甚至更好的效果. 此外, GrabCut 还允许用户在对风格结果不满意时进一步使用 Graph Cuts 的交互方式补全. 同时 GrabCut 支持彩色图像的分割. GrabCut 的分割例子如图所示.
+
+<div class="polaroid">
+    <img class="cool-img" src="/images/2019-5/Graph-Cuts-3.png" Graph-Cuts/>
+    <div class="container">
+        <p>GrabCut 示例</p>
+    </div>
+</div>
+
+文献[1]中的能量函数中region项使用用户涂抹区域的密度分布的对数建模, 而本文 GrabCut 则使用两个有 $K$ 个成分的高斯混合模型(Gaussian Mixture Model, GMM)分别对前景和背景进行建模. 为了方便优化, 增加一个向量 $\mathbf{k}=(k_1, \cdots, k_n, \cdots, k_N)$, 其中 $k_n\in[1, \dots, K]$ 是赋予每一个像素的一个 GMM 成分. 从而能量函数 $E(A)$ 中的 region 项 $R(A)$ 变为
+
+$$
+R(\alpha, \mathbf{k}, \theta, \mathbf{z}) = \sum_n D(\alpha_n, k_n, \theta, z_n),
+$$
+
+其中 $D$ 表示 [GMM 分布函数](https://en.wikipedia.org/wiki/Mixture_model#Gaussian_mixture_model)的对数, 此处不再展开. $\alpha$ 表示不透明度 (取值于0和1), 决定了一个像素属于前景还是背景.
+
+算法流程:
+
+* 初始化
+  * 用户绘制的矩形框 $T_B$, 前景集合设为 $T_F=\emptyset$, 背景集合 $T_U=\overline{T_B}$. 对于 $n\in T_B$, 初始化 $\alpha_n=0$, 其他为 $1$.
+  * 前景和背景的 GMMs 分别根据 $\alpha_n$ 取值初始化.
+* 迭代优化
+  1. Assign GMM components to pixels: for each $n$ in $T_U$,
+  
+  $$
+  k_n:=\arg\min_{k_n}D_n(\alpha_n, k_n, \theta, z_n).
+  $$
+  
+  2. Learn GMM parameters from data $\mathbf{z}$:
+  
+  $$
+  \theta := \arg\min_{\theta}U(\alpha, \mathbf{k}, \theta, \mathbf{z}).
+  $$
+
+  3. Estimate segmentation: use min cut to solve:
+
+  $$
+  \min_{\alpha_n:n\in T_U}\min_{\mathbf{k}}\mathbf{E}(\alpha, \mathbf{k}, \theta, \mathbf{z}).
+  $$
+
+  4. Repeat from step 1, until convergence.
+  5. Apply border matting.
+
+(未完待续...)
+
 ## 6. References
 
 1. **Interactive Graph Cuts for Optimal Boundary & Region Segmentation of Object in N-D Images**<br />
@@ -257,3 +314,7 @@ $$
 2. **An Experimental Comparison of Min-Cut/Max-Flow Algorithms for Energy Minimization in Vision**<br />
    Yuri Boykov, Vladimir Kolmogorov. <br />
    [[link]](http://discovery.ucl.ac.uk/13383/1/13383.pdf). In TPAMI 2004.
+
+3. **"GrabCut" -- Interactive Foreground Extraction using Iterated Graph Cuts**<br />
+   Carsten Rother, Vladimir Kolmogorov, Andrew Blake<br />
+   [[link]](http://pages.cs.wisc.edu/~dyer/cs534-fall11/papers/grabcut-rother.pdf). ACM TOG, 2004
