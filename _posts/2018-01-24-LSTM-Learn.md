@@ -1,7 +1,7 @@
 ---
 layout: post
 title: LSTM 学习
-date: 2018-01-24 19:03:00
+date: 2018-01-24 19:03:00 +0800
 categories: 深度学习
 mathjax: true
 figure: /images/2018-1-24/LSTM.png

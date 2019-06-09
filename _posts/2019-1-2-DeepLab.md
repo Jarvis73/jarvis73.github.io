@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "DeepLab: Segmentation Network"
-data: 2019-1-2 21:04:00
+date: 2019-1-2 21:04:00 +0800
 categories: 深度学习
 mathjax: true
 figure: /images/2019-1/DeepLabv2-1.jpg

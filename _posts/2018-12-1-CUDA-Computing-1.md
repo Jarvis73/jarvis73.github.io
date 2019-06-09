@@ -1,7 +1,7 @@
 ---
 layout: post
 title: GPU 编程 (二) -- 大规模并行计算介绍
-date: 2018-12-01 21:55:00
+date: 2018-12-01 21:55:00 +0800
 author: Jarvis
 meta: Wiki_CUDA
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 如何选择神经网络的超参数 第一部分 --- 学习率, 批大小, 动量和权重衰减
-date: 2018-04-20 10:49:00
+date: 2018-04-20 10:49:00 +0800
 categories: 深度学习
 tags: Base
 mathjax: true

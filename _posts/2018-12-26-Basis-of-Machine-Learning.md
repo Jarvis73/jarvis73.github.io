@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "机器学习: 12个提示"
-data: 2018-12-26 21:28:00
+date: 2018-12-26 21:28:00 +0800
 categories: 机器学习
 mathjax: true
 figure: /images/2018-12/MLTips-1.jpg

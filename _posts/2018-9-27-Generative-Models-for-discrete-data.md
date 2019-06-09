@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "机器学习(二): 离散数据的生成式模型"
-data: 2018-09-27 20:18:00
+date: 2018-09-27 20:18:00 +0800
 categories: 机器学习
 mathjax: true
 figure: /images/MLPP/Bayes.jpg

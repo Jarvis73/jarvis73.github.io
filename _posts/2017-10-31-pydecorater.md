@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python装饰器
-date: 2017-10-31 20:20:00
+date: 2017-10-31 20:20:00 +0800
 author: Jarvis
 meta: Wiki_Python
 ---

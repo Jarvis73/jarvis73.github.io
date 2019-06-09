@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python库函数 (一) logging
-date: 2017-10-31 20:26:00
+date: 2017-10-31 20:26:00 +0800
 author: Jarvis
 meta: Wiki_Python
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "机器学习(一): 信息论初步"
-data: 2018-09-18 21:28:00
+date: 2018-09-18 21:28:00 +0800
 categories: 机器学习
 mathjax: true
 figure: /images/MLPP/Shannon.jpg

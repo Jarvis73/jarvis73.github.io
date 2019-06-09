@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Powershell: 定制一个优雅的终端"
-data: 2018-10-31 21:49:00
+date: 2018-10-31 21:49:00 +0800
 categories: Tools
 figure: https://docs.microsoft.com/media/hubs/powershell/powershell-features-windows.svg
 author: Jarvis

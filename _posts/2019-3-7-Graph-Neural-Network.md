@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "GNNs: Graph Neural Networks"
-data: 2019-3-7 21:04:00
+date: 2019-3-7 21:04:00 +0800
 categories: 机器学习
 mathjax: true
 figure: /images/2019-3/GNNs-head.jpg

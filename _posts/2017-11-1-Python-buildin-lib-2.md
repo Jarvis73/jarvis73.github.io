@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python库函数 (二) collections
-date: 2017-11-1 19:00:00
+date: 2017-11-1 19:00:00 +0800
 author: Jarvis
 meta: Wiki_Python
 ---

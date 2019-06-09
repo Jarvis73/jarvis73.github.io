@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Group Normalization 阅读笔记
-date: 2018-04-10 10:49:00
+date: 2018-04-10 10:49:00 +0800
 categories: 深度学习
 mathjax: true
 figure: /images/2018-4-10/normalization.png

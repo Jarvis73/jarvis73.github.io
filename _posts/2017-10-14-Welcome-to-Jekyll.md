@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "hello jekyll!"
-date:   2017-10-14
+date:   2017-10-14 00:00:00 +0800
 categories: Tools
 excerpt: 改改默认文章开个头吧 ^_^
 mathjax: true

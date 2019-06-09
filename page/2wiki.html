@@ -24,6 +24,20 @@ type: page
             {% endfor %}
         </ul>
 
+        <h2 id="Latex"> Latex </h2>
+        <ul>
+            {% assign sorted = site.posts | sort: 'date' %}
+            {% for post in sorted %}
+                {% assign meta_info = post.meta | split: "_" %}
+                {% if meta_info[0] == "Wiki" and meta_info[1] == "Latex" %}
+                    <li>
+                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
+                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment Latex_ctr %}. {{ post.title }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
         <h2 id="CUDA"> CUDA </h2>
         <ul>
             {% assign sorted = site.posts | sort: 'date' %}
@@ -62,6 +76,7 @@ type: page
                 </div>
                 <ul id="content-side" class="content-ul">
                     <li><a data-scroll href="#Python">Python</a></li>
+                    <li><a data-scroll href="#Latex">Latex</a></li>
                     <li><a data-scroll href="#CUDA">CUDA</a></li>
                     <li><a data-scroll href="#CMake">CMake</a></li>
                 </ul>

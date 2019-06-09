@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Graph Cuts for Segmentation"
-data: 2019-5-1 16:10:00
+date: 2019-5-1 16:10:00 +0800
 categories: 图像处理
 mathjax: true
 figure: /images/2019-5/Graph-Cuts-0.png
