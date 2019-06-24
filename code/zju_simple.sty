@@ -1,0 +1,74 @@
+% Copyright 2007 by Till Tantau
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\DeclareOptionBeamer{compress}{\beamer@compresstrue}
+\ProcessOptionsBeamer
+
+\usecolortheme{rose}
+\useinnertheme[shadow]{rounded}
+\usecolortheme{dolphin}
+\useoutertheme{infolines}
+
+\mode<presentation>
+
+\titlegraphic{
+    \begin{picture}(0,0)
+        \put(178, -38){\makebox(0,0)[rt]{\includegraphics[width=0.07\linewidth]{pic2}\includegraphics[width=0.18\linewidth]{pic1}}}
+    \end{picture}
+}
+
+\setbeamercolor{section in head/foot}{use=structure,bg=structure.fg!25!bg}
+
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm, wd=0.7\paperwidth,left]{frametitle}
+        \leftskip=-0.05cm
+        \vbox{}\vskip-1ex%
+        \insertframetitle
+        \vskip-0.4ex%
+    \end{beamercolorbox}
+    \hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}% <-- calculation of left margin width
+    {\color{purple}\rule[0.5\baselineskip]{\paperwidth}{0.8pt}}%
+}
+
+\setbeamertemplate{headline}{%
+    \begin{tikzpicture}[remember picture,overlay]
+    \node at([shift={(.38\paperwidth,-.52)}]current page.north) {\includegraphics[width=0.06\linewidth]{pic2}\includegraphics[width=0.16\linewidth]{pic1}};
+\end{tikzpicture}}
+
+\AtBeginDocument{%
+  {
+    \usebeamercolor{section in head/foot}
+  }
+
+  \pgfdeclareverticalshading{beamer@headfade}{\paperwidth}
+  {%
+    color(0cm)=(bg);
+    color(1.25cm)=(section in head/foot.bg)%
+  }
+
+  \setbeamercolor{section in head/foot}{bg=}
+}
+
+\AtBeginSection[]{
+  \begin{frame}<beamer>
+    \frametitle{\secname}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\addtoheadtemplate{\pgfuseshading{beamer@headfade}\vskip-1.25cm}{}
+
+\beamertemplatedotitem
+
+\mode
+<all>
