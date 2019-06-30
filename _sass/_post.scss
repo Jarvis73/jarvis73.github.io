@@ -91,10 +91,10 @@
 }
 
 div.polaroid {
-    width: 90%;
+    width: 95%;
     border-radius: 16px;
-    background-color: #ffc0cb80;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // background-color: #ffc0cb80;
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -114,8 +114,8 @@ div.cool-video {
 div.polaroid-small {
     width: 75%;
     border-radius: 16px;
-    background-color: #ffc0cb80;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // background-color: #ffc0cb80;
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -126,8 +126,8 @@ div.polaroid-small {
 div.polaroid-script {
     width: 60%;
     border-radius: 16px;
-    background-color: #ffc0cb80;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // background-color: #ffc0cb80;
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -139,8 +139,8 @@ div.polaroid-script {
 div.polaroid-script-less {
     width: 50%;
     border-radius: 16px;
-    background-color: #ffc0cb80;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // background-color: #ffc0cb80;
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -151,8 +151,8 @@ div.polaroid-script-less {
 div.polaroid-tiny {
     width: 40%;
     border-radius: 16px;
-    background-color: #ffc0cb80;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    // background-color: #ffc0cb80;
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -164,6 +164,7 @@ div.polaroid-tiny {
 div.container {
     text-align: center;
     padding: 3px 20px;
+    color: #a09e9e;
 }
 
 .tooltip {

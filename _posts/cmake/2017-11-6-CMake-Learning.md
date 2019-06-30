@@ -4,6 +4,7 @@ title: CMake 学习笔记
 date: 2017-11-6 21:38:00 +0800
 author: Jarvis
 meta: Wiki_CMake
+hidden: true
 ---
 
 * content

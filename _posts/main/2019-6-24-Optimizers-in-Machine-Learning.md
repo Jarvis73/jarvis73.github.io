@@ -11,4 +11,4 @@ meta: Post
 
 参看以下连接:
 
-[机器学习中的优化器(Optimizers in Machine Learning)](https://github.com/Jarvis73/jarvis73.github.io/blob/master/pdfs/20190624-Optimizer-in-Machine-Learning.pdf)
+[机器学习中的优化器(Optimizers in Machine Learning)](/pdfs/20190624-Optimizer-in-Machine-Learning.pdf)

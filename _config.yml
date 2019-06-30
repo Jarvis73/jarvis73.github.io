@@ -56,11 +56,14 @@ category_dir: category/
 tag_dir: tag/
 wiki_dir: wiki/
 
+# wiki list
+wiki_list: [Python, Latex, CUDA, CMake]
+
 # excerpt
 excerpt_separator: "\n\n\n\n"
 
 # paginate
 plugins: [jekyll-paginate]
-paginate: 10
+paginate: 5
 
 timezone: Asia/Shanghai

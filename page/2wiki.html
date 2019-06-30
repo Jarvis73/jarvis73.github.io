@@ -10,61 +10,29 @@ type: page
     <div class="left">
         <h1>{{page.title}}</h1>
         <hr>
-        <h2 id="Python"> Python </h2>
-        <ul>
-            {% assign sorted = site.posts | sort: 'date' %}
-            {% for post in sorted %}
-                {% assign meta_info = post.meta | split: "_" %}
-                {% if meta_info[0] == "Wiki" and meta_info[1] == "Python" %}
-                    <li>
-                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
-                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment Python_ctr %}. {{ post.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        {% assign all_wikis_with_num = "" | split: "" %}
 
-        <h2 id="Latex"> Latex </h2>
-        <ul>
-            {% assign sorted = site.posts | sort: 'date' %}
-            {% for post in sorted %}
-                {% assign meta_info = post.meta | split: "_" %}
-                {% if meta_info[0] == "Wiki" and meta_info[1] == "Latex" %}
-                    <li>
-                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
-                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment Latex_ctr %}. {{ post.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        {% for wiki_id in site.wiki_list %}
+            <h2 id="{{ wiki_id }}"> {{ wiki_id }} </h2>
+            <ul>
+                {% assign sorted = site.posts | sort: 'date' %}
+                {% assign count = 0 %}
+                {% for post in sorted %}
+                    {% assign meta_info = post.meta | split: "_" %}
+                    {% if meta_info[0] == "Wiki" and meta_info[1] == wiki_id %}
+                        <li>
+                            <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
+                            <a class="title" href="{{ post.url | prepend: site.baseurl }}">{{count }}. {{ post.title }}</a>
+                        </li>
+                        {% assign count = count | plus: 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% assign wiki_name = wiki_id | append: " (" | append: count | append: ")" %}
+                {% assign wiki_name = wiki_name | split: "," %}
+                {% assign all_wikis_with_num = all_wikis_with_num | concat: wiki_name %}
+            </ul>
+        {% endfor %}        
 
-        <h2 id="CUDA"> CUDA </h2>
-        <ul>
-            {% assign sorted = site.posts | sort: 'date' %}
-            {% for post in sorted %}
-                {% assign meta_info = post.meta | split: "_" %}
-                {% if meta_info[0] == "Wiki" and meta_info[1] == "CUDA" %}
-                    <li>
-                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
-                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment CUDA_ctr %}. {{ post.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-
-        <h2 id="CMake"> CMake </h2>
-        <ul>
-            {% assign sorted = site.posts | sort: 'date' %}
-            {% for post in sorted %}
-                {% assign meta_info = post.meta | split: "_" %}
-                {% if meta_info[0] == "Wiki" and meta_info[1] == "CMake" %}
-                    <li>
-                        <time>{{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.</time>
-                        <a class="title" href="{{ post.url | prepend: site.baseurl }}">{% increment CMake_ctr %}. {{ post.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
     </div>
     <button class="anchor"><i class="fa fa-anchor"></i></button>
     <div class="right">
@@ -75,10 +43,13 @@ type: page
                     Wiki Content
                 </div>
                 <ul id="content-side" class="content-ul">
-                    <li><a data-scroll href="#Python">Python</a></li>
-                    <li><a data-scroll href="#Latex">Latex</a></li>
-                    <li><a data-scroll href="#CUDA">CUDA</a></li>
-                    <li><a data-scroll href="#CMake">CMake</a></li>
+                    {% for wiki in all_wikis_with_num %}
+                        <li>
+                            <a data-scroll href="#{{ wiki | split: " " | first }}">
+                                {{ wiki }}
+                            </a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
             <!-- 其他div框放到这里 -->

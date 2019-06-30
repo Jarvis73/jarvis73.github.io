@@ -4,6 +4,7 @@ title: GPU 编程 (一) -- CUDA 的安装和环境的配置
 date: 2018-09-25 20:07:00 +0800
 author: Jarvis
 meta: Wiki_CUDA
+hidden: true
 ---
 
 * content

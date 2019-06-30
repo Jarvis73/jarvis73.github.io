@@ -25,12 +25,7 @@ meta: Post
 * 矢状面 (Sagittal plane): 分离左右
 * 横断面 (Transverse plane) / 轴向面(Axial plane): 分离上下
 
-<div class="polaroid-script-less">
-    <img class="cool-img" src="/images/2019-6/planes.png" MIG/>
-    <div class="container">
-        <p>医学图像的切面</p>
-    </div>
-</div>
+{% include image.html class="polaroid-script-less" url="2019-6/planes.png" title="医学图像的切面" %}
 
 ### 1.2 方向
 
@@ -43,12 +38,7 @@ meta: Post
 * 上 (**S**uperior)
 * 下 (**I**nferior)
 
-<div class="polaroid-script">
-    <img class="cool-img" src="/images/2019-6/direction.png" MIG/>
-    <div class="container">
-        <p>医学图像的六个方向</p>
-    </div>
-</div>
+{% include image.html class="polaroid-tiny" url="2019-6/direction.png" title="医学图像的六个方向" %}
 
 **注意1:** 使用 up, down, front, back 是不准确的, 因为病人在站立和躺下时这几个概念会混淆, 因此医学中常使用上述的六个(英文)术语来表示上图中的方向.
 
@@ -58,12 +48,7 @@ meta: Post
 
 坐标系统有三种: **世界坐标系**, **解剖坐标系**和**图像坐标系**.
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-6/Coordinate_sytems.png" MIG/>
-    <div class="container">
-        <p>医学图像的不同坐标系统</p>
-    </div>
-</div>
+{% include image.html class="polaroid" url="2019-6/Coordinate_sytems.png" title="医学图像的不同坐标系统" %}
 
 #### 1.3.1 世界坐标系
 
@@ -89,12 +74,7 @@ meta: Post
 
 下图是一个二维图像原点和间距的示意图.
 
-<div class="polaroid-tiny">
-    <img class="cool-img" src="/images/2019-6/300px-Image_Coordinats.png" MIG/>
-    <div class="container">
-        <p>图像像素原点和间距示意图</p>
-    </div>
-</div>
+{% include image.html class="polaroid-tiny" url="2019-6/300px-Image_Coordinats.png" title="图像像素原点和间距示意图" %}
 
 通过原点和间距我们就可以计算图像中任意一个体素在解剖坐标系的坐标.
 
@@ -118,12 +98,7 @@ $$
 
 下面给一个二维的例子.
 
-<div class="polaroid-script">
-    <img class="cool-img" src="/images/2019-6/550px-IJtoLS.png" MIG/>
-    <div class="container">
-        <p>图像坐标系转解剖坐标系LS</p>
-    </div>
-</div>
+{% include image.html class="polaroid-script" url="2019-6/550px-IJtoLS.png" title="图像坐标系转解剖坐标系LS" %}
 
 上图中可以看到沿着 $i$ 增大的方向 Left 轴是增加的, 沿着 $j$ 增大的方向 Superior 轴是减小的, 因此变换矩阵的对角线上第一行(对应 $i$) 是正的, 第二行(对应 $j$) 是负的. 没有旋转, 所以变换矩阵只有对角线非零. 两个方向的像素间距均为 $50$. 像素 $(0, 0)$ 的解剖坐标为 $(50, 300)$, 所以我们最后得到变换矩阵为
 
@@ -131,12 +106,7 @@ $$\nonumber
 IJtoLS = \left[\begin{matrix}50&0&50\\0&-50&300\\0&0&1\end{matrix}\right].
 $$
 
-<div class="polaroid-script">
-    <img class="cool-img" src="/images/2019-6/550px-IJtoRS.png" MIG/>
-    <div class="container">
-        <p>图像坐标系转解剖坐标系RS</p>
-    </div>
-</div>
+{% include image.html class="polaroid-script" url="2019-6/550px-IJtoRS.png" title="图像坐标系转解剖坐标系RS" %}
 
 类似地我们可以得到左手坐标系的变换矩阵
 
@@ -266,12 +236,7 @@ $$
 
 这里主要指使用第三方库 (如 `matplotlib`) 使用和查看图像. 由于通常来说第三方库在显示图像时会把左上角的像素坐标设为 $(0, 0)$ , 因此我们通常也希望使用和查看 `Nifti` 图像时也能够在左上角像素为 $(0, 0)$ 时图像是**摆正的**. 
 
-<div class="polaroid-tiny">
-    <img class="cool-img" src="/images/2019-6/liver.png" MIG/>
-    <div class="container">
-        <p>肝脏图像</p>
-    </div>
-</div>
+{% include image.html class="polaroid-tiny" url="2019-6/liver.png" title="肝脏图像" %}
 
 比如我们从 `Nifti` 格式的数据中读取一个肝脏的CT图像, 由于 `Nifti` 格式使用的是 RAS 坐标系(即上图中R轴向左, A轴向上), 而图像坐标系相反(i轴向右, j轴向下), 所以只需要让变换矩阵中位置 $(0, 0)$ 的元素和位置 $(1, 1)$ 的元素均为负数即可. 
 
