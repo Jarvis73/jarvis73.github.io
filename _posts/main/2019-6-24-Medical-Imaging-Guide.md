@@ -274,7 +274,7 @@ if affine[1, 1] > 0:
 ```python
 # 输入 Nifti1Image 的三维数组的轴应该是 (x, y, z) 的顺序, 而一般之前输出的为 (z, y, x) 的顺序, 所以需要转置一下.
 out_image = np.transpose(arr_image, (2, 1, 0))
-out = nib.Nifti1Image(arr_image, affine=affine, header=header)
+out = nib.Nifti1Image(out_image, affine=affine, header=header)
 nib.save(out, out_path)
 ```
 
