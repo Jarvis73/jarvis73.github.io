@@ -18,7 +18,7 @@ meta: Post
 ## **介绍**
 本文是在文章*Optimal Surface Segmentation in Volumetric Images --- A graph-Theoretic Approach*(下称前文)的基础上专门针对支气管的分割而设计的图搜索方法, 本文的核心算法与前文基本一致, 所以下面不再重述, 我们把关注点放在针对支气管的设计上, 同时我们延续前文中使用的术语.
 
-
++-+-+-+-
 
 
 ## **基于图搜索的分割**

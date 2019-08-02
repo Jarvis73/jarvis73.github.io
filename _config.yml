@@ -60,7 +60,7 @@ wiki_dir: wiki/
 wiki_list: [Python, Latex, CUDA, CMake]
 
 # excerpt
-excerpt_separator: "\n\n\n\n"
+excerpt_separator: "+-+-+-+-"
 
 # paginate
 plugins: [jekyll-paginate]

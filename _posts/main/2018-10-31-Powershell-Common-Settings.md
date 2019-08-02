@@ -15,7 +15,7 @@ meta: Post
 > 使用 PowerShell 命令可以从命令行管理计算机。 PowerShell 提供程序可让你访问数据存储（如注册表和证书存储），与你访问文件系统一样方便。 PowerShell 具有丰富的表达式分析器和完全开发的脚本语言。
 > Powershell 是在 [Github](https://github.com/powershell/powershell) 开源的.
 
-
++-+-+-+-
 
 
 <div class="polaroid">

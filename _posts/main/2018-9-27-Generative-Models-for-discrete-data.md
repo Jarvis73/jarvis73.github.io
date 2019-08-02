@@ -18,7 +18,7 @@ meta: Post
 
 此外, 本章我们仅考虑离散数据.
 
-
++-+-+-+-
 
 
 <div class="polaroid">

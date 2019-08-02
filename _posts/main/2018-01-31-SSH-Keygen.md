@@ -14,6 +14,8 @@ meta: Post
 **更新:**
 * **2018-11-12** 增加可能的出现的问题及解决方案
 
++-+-+-+-
+
 ## 1. 下载 Win32-OpenSSH
 
 windows 版的 SSH 称为 Win32-OpenSSH,  可以从 [Github](https://github.com/PowerShell/Win32-OpenSSH) 下载. 可以选择下载最新版的 Release, 这样就不需要再编译源码了, 下载后可以直接使用.

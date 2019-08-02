@@ -17,7 +17,7 @@ meta: Post
 
 python 程序入口在 `./tf-faster-rcnn/tools/trainval_net.py`
 
-
++-+-+-+-
 
 
 ## 1. 数据预处理 + 输入层

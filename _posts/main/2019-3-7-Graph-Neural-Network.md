@@ -12,7 +12,7 @@ meta: Post
 * content
 {:toc}
 
-
++-+-+-+-
 
 **Title:** Graph Neural Networks: A Review of Methods and Applications
 
