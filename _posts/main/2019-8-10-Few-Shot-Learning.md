@@ -126,8 +126,26 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 
 ## 3. 基于数据的方法
 
+### 3.1 人工规则
 
+基于人工规则的数据增广方法通常包括:
+* 平移 (translating)
+* 翻转 (flipping)
+* 错切 (shearing)
+* 缩放 (scaling)
+* 镜像 (reflecting)
+* 裁剪 (cropping)
+* 旋转 (rotating)
+* 加噪 (noising)
+* 亮度 (birghtness)
+* 对比度 (contrast)
+* 饱和度 (saturation)
 
+(注: 后期增加各类框架的API)
+
+### 3.2 学习数据变换
+
+基于学习的数据增广方法是含参的增广方法, 先验信息嵌入到增广模型的参数中. 
 
 ## 参考文献
 
@@ -150,3 +168,8 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
     **Generalizing from a Few Examples: A Survey on Few-Shot Learning** <br />
     Wang, Yaqing, Quanming Yao, James Kwok, and Lionel M. Ni. <br />
     [[link]](http://arxiv.org/abs/1904.05046.) In ArXiv:1904.05046 [Cs], April. 2019.
+
+[^5]:
+    **Kernel density estimation** <br />
+    Matthew Conlen <br />
+    [[link]](https://mathisonian.github.io/kde/) Blog
