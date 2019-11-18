@@ -147,6 +147,31 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 
 基于学习的数据增广方法是含参的增广方法, 先验信息嵌入到增广模型的参数中. 
 
+## 4. 基于模型的方法
+
+基于模型的方法又可以从建模策略分为四类:
+
+| 策略                          | 先验信息                            | 如何约束参数空间 $\mathcal{H}$ |
+| ----------------------------- | ----------------------------------- | ------------------------------ |
+| multitask learning            | 其他任务 $T$ 及相应的数据集 $D$     | 参数共享                       |
+| embedding learning            | 从/和其他任务 $T$ 学到的嵌入        | 特征降维, 在低维嵌入空间中分类 |
+| learning with external memory | 从其他任务 $T$ 学到的嵌入与记忆交互 |                                |
+| generative modeling           | 从其他任务学到的先验模型            | 限制分布的形式                 |
+
+### 4.1 多任务学习 Multitask Learning
+
+多任务学习同时学习多个任务, 利用多任务的共同信息和每个人物的特有信息进行学习. 因此适用于 FSL. 当多任务学习处理不同域的数据集时, 也成为**域适应 (domain adaption)**. 多任务学习的多个任务的假设空间存在较强的关联, 这种关联可以通过共享参数来表示. 根据是否显式地约束参数空间, 多任务学习可以分为:
+
+* 硬参数共享 Hard
+  * 共享神经网络前几层参数, 最后几层适配不同任务 (Fine-Grained Visual Categorization[^6]). 
+  * 共享神经网络后几层参数, 前面的层针对不同源域和目标域学习不同的参数, 不同的域最终共享分类器 (Few-Shot Adversarial Domain Adaptation[^8]). 
+  * 共享某些层, 源任务更新共享层的参数和特有层的参数, 目标任务只更新其特有层的参数 (One-Shot Unsupervised Cross Domain Translation[^7]).
+* 软参数共享 Soft
+
+
+
+
+
 ## 参考文献
 
 [^1]:
@@ -167,9 +192,25 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 [^4]:
     **Generalizing from a Few Examples: A Survey on Few-Shot Learning** <br />
     Wang, Yaqing, Quanming Yao, James Kwok, and Lionel M. Ni. <br />
-    [[link]](http://arxiv.org/abs/1904.05046.) In ArXiv:1904.05046 [Cs], April. 2019.
+    [[link]](http://arxiv.org/abs/1904.05046) In ArXiv:1904.05046 [Cs], April. 2019.
 
 [^5]:
     **Kernel density estimation** <br />
     Matthew Conlen <br />
     [[link]](https://mathisonian.github.io/kde/) Blog
+
+[^6]:
+    **Fine-grained visual categorization using meta-learning optimization with sample selection of auxiliary data** <br />
+    Yabin Zhang, Hui Tang, Kui Jia <br />
+    [[link]](http://openaccess.thecvf.com/content_ECCV_2018/papers/Yabin_Zhang_Fine-Grained_Visual_Categorization_ECCV_2018_paper.pdf) In ECCV. 2018: 233-248.
+
+[^7]:
+    **One-shot unsupervised cross domain translation** <br />
+    Sagie Benaim, Lior Wolf <br />
+    [[link]](https://papers.nips.cc/paper/7480-one-shot-unsupervised-cross-domain-translation.pdf) In NIPS 2018: 2104-2114.
+
+[^8]:
+    **One-shot Adversirial Domain Adaptation** <br />
+    Saeid Motiian, Quinn Jones, Seyed Mehdi Iranmanesh,Gianfranco Doretto  <br />
+    [[link]](http://papers.nips.cc/paper/7244-few-shot-adversarial-domain-adaptation) In NIPS 2017: 6670-6680.
+

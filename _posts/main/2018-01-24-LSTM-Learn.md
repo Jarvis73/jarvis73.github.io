@@ -12,36 +12,60 @@ meta: Post
 * content
 {:toc}
 
-**Update: 2019.8.20**
-
+**Update (2019.11.18): 增加 Attention**
+**Update (2019.8.20): 增加 LSTM 和 Encoder-Decoder**
 
 
 ## 1. 循环神经网络 (Recurrent Neural Network, RNN)
 
-普通的全连接神经网络或卷积神经网络无法编码序列内元素的依赖关系, 比如话说一半时对方可能就知道了你的意思. 循环神经网络则可以很好的解决这个问题. RNN 是内部包含循环的神经网络(普通CNN不包含循环).
+在机器学习中, 数据表示为 $n$ 维特征向量 $\mathbf{x}\in\mathbb{R}^n$ 或 $h\times w$ 维特征矩阵(如图片), 多层感知机 (multilayer perceptron, MLP) 和卷积神经网络 (convolutional neural network, CNN) 可以提取数据中的特征以进行分类回归等任务.
+但通常的 MLP 或 CNN 处理的数据通常认为是独立同分布的, 因此当数据之间存在关联关系时, 这类模型则无法很好的编码数据间的依赖关系, 导致模型的表现较差. 一种典型的数据间依赖关系就是*时序关系*. 比如话说一半时对方可能就知道了你的意思, 一句话中的代词"他"指代的目标需要分析上下文后才能得到. 时序数据如下图所示, 一列向量则表示一个字的编码.
 
-{% include image.html class="polaroid" url="2018-1-24/RNN-rolled.png" title="循环神经网络的循环单元" %}
+{% include image.html class="polaroid" url="2018-1-24/time-series.png" title="时序数据" %}
 
-上图[^1]中表示 RNN 的一个循环单元, 其中 $x_t$ 表示输入序列中时刻 $t$ 时的值, $h_t$ 为该层在时刻 $t$ 的输出. 方块 $A$ 是一个操作符, 把前一时刻的状态 $h_{t-1}$ 和当前时刻的输入 $x_t$ 映射为当前时刻的状态, 公式表示如下:
+循环神经网络的提出就是为了解决数据中这种典型的时序依赖关系. RNN 是内部包含循环的神经网络 (普通 CNN 不包含循环), RNN 的一个循环单元如下图所示[^1].
+
+{% include image.html class="polaroid" url="2018-1-24/RNN-rolled.png" title="RNN 的循环单元" %}
+
+其中 $x_t$ 表示输入序列中时刻 $t$ 时的值, $h_t$ 为该层在时刻 $t$ 的输出. 方块 $A$ 是一个操作符, 把前一时刻的输出 $h_{t-1}$ 和当前时刻的输入 $x_t$ 映射为当前时刻的输出. 注意, $h_t$ 通常扮演两个角色, 既是循环单元在当前时刻的输出, 又是当前时刻循环单元的*状态*. 公式表示如下:
 
 $$
 h_t = \sigma(W_{hx}x_t + W_{hh}h_{t-1}).
 $$
 
-其中 $\sigma$ 表示一种激活函数, $W$ 为权重参数. 我们可以沿着时间轴把上面的循环单元展开, 更加直观.
+其中 $W$ 为权重参数, $\sigma$ 表示激活函数, 常用的是 $\tanh(\cdot)$ 函数, 可以把输出的值域控制在 $[-1, 1]$ 之间, 避免在循环过程中不收敛. 我们可以沿着时间轴把上面的循环单元展开, 更加直观.
 
 {% include image.html class="polaroid" url="2018-1-24/RNN-unrolled.png" title="RNN 循环单元展开示意图" %}
 
-RNN 的输入通常表示成嵌入(embedding)的形式, 即构造一个查询表(lookup table), 把输入序列的每个时刻的值通过查询表转为一个等长的向量. 从而一个序列的形状变为 `[num_time_steps, embedding_size]`. RNN 也存在一些缺陷:
+循环神经网络可以由多层循环单元堆叠而成, 前一个循环单元的输出作为下一循环单元的输入, 如下图所示. 
+<!-- 在训练过程中, ... -->
+
+{% include image.html class="polaroid" url="2018-1-24/multilayer-RNN.png" title="多层循环单元堆叠" %}
+
+RNN 的输入通常表示成**嵌入 (embedding)**的形式, 即构造一个**查询表 (lookup table)**, 把输入序列的每个时刻的特征向量通过查询表转为一个等长的向量. 从而一个序列的形状变为 `[num_time_steps, embedding_size]`. 
+
+### 1.1 RNN 的应用
+
+RNN 可以根据输入序列的长度和输出序列的长度分为三大类.
+
+* 多对一: 常用于情感分析, 文本分类
+* 一对多: Image Caption
+* 多对多: 机器翻译
+* 一对一: 退化为 MLP
+
+### 1.2 RNN 的局限性
+
+RNN 也存在一些缺陷:
 
 * RNN 可以很好的学习序列中邻近时间步数据点(短期)之间的关系, 但对于长期依赖会变得不稳定.
 * RNN 可以把固定长度的输入序列映射到指定长度的输出序列, 但不能动态地根据输入决定输出多长的序列.
 
-## 2. 长短期记忆 (Long Short Term Memory, LSTM)
+而 LSTM 和 Encoder-Decoder 的提出解决了这两个问题.
 
-*第二节的所有内容翻译自博客[^1].*
 
-前面提到, RNN 对于长期依赖经实验表明是不稳定的. 对于短序列, 如一个句子: "The clouds are in the ()", 括号中预测一个词, 那么很容易根据该词前面的 clouds 和 in 推断出填 sky. 但是对于长序列, 如 "I grew up in France ... I speak fluent ()", 句子中的省略号包含了大量其他信息, 此时最后括号中的词应当根据开头的 France 推断为 French, 但中间大量的无用语句会稀释前期的信息, 导致 RNN 无法正确预测最后的词. 而 Hochreiter & Schmidhuber 提出的 LSTM[^6] 正是解决该问题的. 
+## 2. 长短期记忆 (Long Short Term Memory, LSTM)[^1]
+
+前面提到, RNN 对于长期依赖经实验表明是不稳定的. 对于短序列, 如一个句子: "The clouds are in the ()", 括号中预测一个词, 那么很容易根据该词前面的 clouds 和 in 推断出填 sky. 但是对于长序列, 如 "I grew up in France ... I speak fluent ()", 句子中的省略号包含了大量其他信息, 此时最后括号中的词应当根据开头的 France 推断为 French, 但中间大量的无用语句会稀释前期的信息, 导致 RNN 无法正确预测最后的词. 而 Hochreiter & Schmidhuber 提出的 LSTM [^6] 正是解决该问题的. 
 
 LSTM 和通常的 CNN 一样为一个循环单元的结构, 但是与 RNN 仅有一个 tanh 激活层不同, LSTM 中包含了更复杂的四层网络的结构设计, 并且四层网络相互耦合, 如下图所示.
 
@@ -161,10 +185,53 @@ $$
 
 {% include image.html class="polaroid" url="2018-1-24/decoder-2.png" title="解码器-2" %}
 
+### 4.1 编码-解码器模型的局限性
 
-## 5. 注意力模型 (Attention)
+* 信息的丢失: 整个时间序列只能压缩为一个固定长度的语义向量
+* 不合理性: seq2seq 的任务中输入序列 $\\{x_0, x_1, \dots, x_{t−1},  x_𝑡, x_{t+1},\dots \\}$ 中的每个元素对所有 $y_s$ 的贡献度是相同的
 
-(有空再更)
+例如: The animal didn't cross the street because **it** was too tired. 在这句话中, 人是通过综合整句话的信息来判断单词 it 指代的是 the animal, 从而翻译时 the animal 应该对 it 的影响更大.
+
+人们提出了注意力模型来解决普通编码-解码器模型的问题.
+
+
+## 5. 注意力机制 (Attention Mechanism)[^11]
+
+### 5.1 什么是注意力?
+
+心理学中对注意力的解释是:
+
+> **Attention** is the behavioral and cognitive process of selectively concentrating on a discrete aspect of information, whether deemed subjective or objective, while ignoring other perceivable information.
+
+注意力是把有限的资源集中在更重要的目标上. 注意力机制的两个要素:
+
+* 决定输入信息的哪部分是重要的
+* 把资源集中分配到重要的信息上
+
+沿用编码-解码器模型的结构, 注意力机制通过引入一组归一化的系数 $\\{\alpha_1, \alpha_2, \dots, \alpha_n \\}$ 来对输入的信息进行选择, 来解决编码-解码器的不合理性. 这里输入的信息就是指输入序列在 RNN 中的单元输出 $\mathbf{h}_s$. 归一化的系数 $\alpha_s$ 用来决定输入信息的重要性, 是编码器输出时对单元输出加权求和系数. 注意力机制在计算不同时间步的输出时, 实时构造编码器输出的语义向量 $\mathbf{c}_t$, 从而解决了普通编码-解码器信息丢失的问题. 注意力机制如下图所示.
+
+{% include image.html class="polaroid" url="2018-1-24/attention-1.png" title="注意力机制" %}
+
+下面讨论加权系数是如何计算的. 考虑到加权系数要反映**输入信息**在当前**时间步**上的重要性, 因此需要把输入信息和时间信息结合起来计算加权系数. 因此通常使用一个 MLP 接收输入信息 $\mathbf{h}\_1, \mathbf{h}\_2, \dots, \mathbf{h}\_n$ 和解码器上一时刻的状态 $\mathbf{s}\_{t-1}$ 作为输入, 输出归一化的加权系数 $\alpha_{t1}, \alpha_{t2}, \dots, \alpha_{tn}$. 如下图所示.
+
+{% include image.html class="polaroid" url="2018-1-24/attention-2.png" title="注意力机制" %}
+
+注意: 编码-解码器的结构只是注意力机制的一个载体, 注意力机制的核心在于加权系数, 因此可以用于非 RNN 的结构.
+
+### 5.2 自注意力 (Self-Attention)
+
+自注意力是一个神经网络模块, 它仍然是使用了注意力机制, 与编码-解码器结构不同的是, 自注意力模块只使用输入的信息计算加权系数, 而不需要上一个时间步的信息, 因此可以实现更大规模的并行计算. Google 在 2017 年提出的 Transformer 实现了可并行的自注意力模块[^9]. 其结构如下图所示.
+
+{% include image.html class="polaroid" url="2018-1-24/self-attention.png" title="语言翻译任务中的自注意力" %}
+
+自注意力模块工作方式如下[^10]:
+
+* 输入的序列首先转化为相同长度的 embedding
+* 创建三个矩阵: 查询矩阵 (Query), 键矩阵 (Key), 值矩阵 (Value)
+* 使用这三个矩阵把每个单词的 embedding 映射为三个稍短的特征向量, 分别代表了当前单词的查询向量, 键向量和值向量.
+* 比如我们要计算单词 Thinking 关于句子中其他单词的注意力时, 使用 Thinking 的查询向量依次与句子中所有单词 (包括 Thinking) 的键向量做点积来计算相似度, 并对相似度进行归一化得到加权系数 (这是 attention 的核心部分).
+* 加权系数乘到所有单词的值向量上来得到单词 Thinking 经过自注意力模块后输出的特征向量, 这个特征向量中可以看作包含了翻译任务重对准确翻译 Thinking 所需要的信息, 而不包含其他信息 (其他信息在翻译其他词时可能有用, 但在翻译 Thinking 时无用).
+
 
 ## 6. tensorflow 官方代码解析
 
@@ -519,11 +586,11 @@ with tf.name_scope("Train"):
 
 [^1]:
     **Understanding LSTM Networks -- Colah's blogs** <br />
-    [[link]](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+    [[link]](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) OnLine.
 
 [^2]:
     **详解从 Seq2Seq模型、RNN结构、Encoder-Decoder模型 到 Attention模型** <br />
-    [[link]](https://caicai.science/2018/10/06/attention%E6%80%BB%E8%A7%88/)
+    [[link]](https://caicai.science/2018/10/06/attention%E6%80%BB%E8%A7%88/) OnLine.
 
 [^3]:
     **Learning phrase representations using RNN encoder-decoder for statistical machine translation** <br />
@@ -555,4 +622,17 @@ with tf.name_scope("Train"):
     Cho K, Van Merriënboer B, Gulcehre C, et al. <br />
     [[link]](https://arxiv.org/pdf/1406.1078) In arXiv preprint arXiv:1406.1078, 2014.
 
-    
+[^9]:
+    **Attention is all you need** <br />
+    Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin <br />
+    [[link]](https://arxiv.org/abs/1706.03762) Advances in neural information processing systems. 2017: 5998-6008.
+
+[^10]:
+    **The Illustrated Transformer**  <br />
+    Jay Alammar <br />
+    [[link]](https://jalammar.github.io/illustrated-transformer/) OnLine.
+
+[^11]:
+    **Neural machine translation by jointly learning to align and translate** <br />
+    Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio <br />
+    [[link]](https://arxiv.org/abs/1409.0473) arXiv preprint arXiv:1409.0473, 2014. 
