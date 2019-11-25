@@ -182,16 +182,18 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 * 训练样本的嵌入函数 $g(\cdot)$
 * 度量 $s(\cdot, \cdot)$
 
-{% include image.html class="polaroid" url="2019-8/embedding_learning.jpg" title="FSL 问题的嵌入学习图示" %}
+{% include image.html class="polaroid" url="2019-8/embedding_learning.png" title="FSL 问题的嵌入学习图示" %}
 
-最简单的一种思路就是在训练集上训练模型, 在测试集上测试. 但在小样本的前提下这样训练模型势必导致严重的过拟合. 因此在 FSL 中通常训练任务无关 (task-invariant) 的模型, 再泛化到测试集的类别上, 即元学习 (meta-learning) 的思路. 因此在这种思路下嵌入函数从其他任务中学习先验知识, 而嵌入函数的参数中*不明显包含*任务有关的信息, 即我们*一般不会*在少样本的训练集上训练模型的参数(尤其是在 $D^{train}$ 特别小的时候, 如每类仅有一个有标签样本). 下文为了清晰, 我们把测试集上带标签的少样本数据集称为**支撑集 (support sets)**, 表示为 $x_i\in D^{sup}}$, 把用于训练任务无关模型的大规模数据集称为训练集, 该大规模训练集中包含标签, 但不包含测试集中的类别. 
+最简单的一种思路就是在训练集上训练模型, 在测试集上测试. 但在小样本的前提下这样训练模型势必导致严重的过拟合. 因此在 FSL 中通常训练任务无关 (task-invariant) 的模型, 再泛化到测试集的类别上, 即元学习 (meta-learning) 的思路. 因此在这种思路下嵌入函数从其他任务中学习先验知识, 而嵌入函数的参数中*不明显包含*任务有关的信息, 即我们*一般不会*在少样本的训练集上训练模型的参数(尤其是在 $D^{train}$ 特别小的时候, 如每类仅有一个有标签样本). 下文为了清晰, 我们把测试集上带标签的少样本数据集称为**支撑集 (support sets)**, 表示为 $x_i\in D^{sup}$, 把用于训练任务无关模型的大规模数据集称为训练集, 该大规模训练集中包含标签, 但不包含测试集中的类别. 
 
 * **Matching Network** 通过计算 $f(x^{test})$ 和一系列 $g(x_i), x_i\in D^{sup}$ 的相似度来对 $x^{test}$ 进行分类, 其中 $f(\cdot)$ 依赖于 $D^{train}$ 而 $g(\cdot)$ 使用双向 LSTM (biLSTM) 聚合了 $D^{sup}$ 中所有样本的信息. 在 Matching Nets 中两个嵌入函数为不同的模型, 度量使用了余弦相似度 (cosine similarity).
 
 * **Prototypical Network** 对支撑集中每一类的样本计算一个原型 (prototype, $c$) 用来代表该类别的嵌入. 原型用该类别中有标签样本的嵌入的平均值表示, 即
+
   $$
   c_n = \frac1K\sum_{k=1}^K g(x_k^{(n)}),
   $$
+
   其中 $n$ 表示第 $n$ 个类别. 在 Prototypical Nets 中, 两个嵌入函数使用了相同的模型, 度量使用了 $L_2$ 距离.
 
 * **Relative Representations** 进一步使用模型来学习度量. 如 Relation Network 使用 CNN 首先把数据映射到嵌入空间, 然后把测试数据和支撑数据的嵌入并起来, 通过另一个神经网路预测相似度值. 
@@ -206,7 +208,7 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 
 如下图所示.
 
-{% include image.html class="polaroid" url="2019-8/memory.jpg" title="FSL 问题的嵌入学习图示" %}
+{% include image.html class="polaroid" url="2019-8/memory.png" title="FSL 问题的嵌入学习图示" %}
 
 ### 4.4 生成式建模 (Generative Modeling)
 
