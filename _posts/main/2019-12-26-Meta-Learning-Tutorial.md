@@ -18,7 +18,7 @@ meta: Post
 
 机器学习算法通常需要**大规模、多样的数据 + 大容量模型**来实现较广的泛化性. 
 
-*   ImageNet (Russakovsky et al., IJCV 2014) 数据集上, Efficient Net (Tan and Le, ICML 2019) 使用 88M 参数达到了 **SOTA** 84.4% top-1 / 97.1% top-5 的准确率 (监督学习, supervised learning).
+*   ImageNet (Russakovsky et al., IJCV 2014)[^1] 数据集上, Efficient Net (Tan and Le, ICML 2019)[^2] 使用 88M 参数达到了 **SOTA** 84.4% top-1 / 97.1% top-5 的准确率 (监督学习, supervised learning).
 
 {% include image.html class="polaroid" url="2019-12/imagenet.jpg" title="Imagenet" %}
 
@@ -185,7 +185,7 @@ $$
 \min_{\theta}\sum_{\text{task } i}\mathcal{L}(\theta-\alpha\nabla_{\theta}\mathcal{L}(\theta, \mathcal{D}_i^{tr}), \mathcal{D}_i^{ts})
 $$
 
-其中 $\mathcal{D}^{tr}$ 是新任务的训练数据, $\theta$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., 2017)**. 
+其中 $\mathcal{D}^{tr}$ 是新任务的训练数据, $\theta$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., 2017)**[^3]. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226161144638.png" title="MAML" %}
 
@@ -208,7 +208,7 @@ $$
 
 {% include image.html class="polaroid" url="2019-12/image-20191226170203078.png" title="特征空间中的样本点" %}
 
-*   Siamese Network (Gregory Koch, ICML Deep Learning Workshop 2015)
+*   Siamese Network (Gregory Koch, ICML Deep Learning Workshop 2015)[^4]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226171452670.png" %}
 
@@ -216,7 +216,7 @@ Meta-training: 2-way classification
 
 Meta-test: N-way classification. 比较测试点和支撑集中所有的样本点
 
-*   Matching Networks (Vinyals et al., NeurIPS 2016)
+*   Matching Networks (Vinyals et al., NeurIPS 2016)[^5]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226171609849.png" %}
 
@@ -228,19 +228,19 @@ $$
 
 训练模型把样本点映射到一个 embedding space, 测试样本的标签由支撑集标签的加权平均得到. 这里使用了 attention 机制.
 
-*   Prototypical Networks (Snell et al., NeurIPS 2017)
+*   Prototypical Networks (Snell et al., NeurIPS 2017)[^6]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226182859424.png" %}
 
 支撑集中每个类别的样本计算一个原型, 测试样本和原型计算距离进行分类.
 
-*   Relation Network (Sung et al., CVPR 2018)
+*   Relation Network (Sung et al., CVPR 2018)[^7]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226183448312.png" %}
 
 用什么度量比较: 欧氏距离, Cosine 距离, **更复杂的非线性函数(神经网络)** 
 
-Position-Aware Relation Network (Wu et al., ICCV 2019)
+Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 
 
 
@@ -264,25 +264,25 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)
 
 ### 4.2 Few-Shot Image Segmentation
 
-*   One-Shot Semantic Segmentation (Shaban et al., arxiv 2017)
+*   One-Shot Semantic Segmentation (Shaban et al., arxiv 2017)[^8]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226192139561.png" %}
 
 支撑集编码为特征向量, 与预测图像做像素级相似度对比. 本质上是 **channel selection**.
 
-*   Similarity guidance (Zhang et al., arxiv 2018)
+*   Similarity guidance (Zhang et al., arxiv 2018)[^9]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226192729575.png" %}
 
 提出 masked average pooling (MAP), 对前景像素提取特征向量.
 
-*   Adaptive masked proxies (Siam et al., ICCV 2019)
+*   Adaptive masked proxies (Siam et al., ICCV 2019)[^10]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226192946111.png" %}
 
 提出使用指数平均的方式更新 proxy / prototype. 
 
-提出了 Normalized MAP, NMAP, 把 weight imprinting (Qi et al., CVPR 2018) 使用到了分割任务中.
+提出了 Normalized MAP, NMAP, 把 weight imprinting (Qi et al., CVPR 2018)[^11] 使用到了分割任务中.
 
 $$
 \begin{align}
@@ -293,7 +293,7 @@ $$
 
 PS: 这篇都没有跟上一篇(MAP)比较. 
 
-*   Attention-based multi-context (Hu et al., AAAI 2019)
+*   Attention-based multi-context (Hu et al., AAAI 2019)[^12]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226212155348.png" %}
 
@@ -303,7 +303,7 @@ PS: 这篇都没有跟上一篇(MAP)比较.
 
 采用 multi-context
 
-*   Prototype alighment, PANet (Wang et al., ICCV 2019)
+*   Prototype alighment, PANet (Wang et al., ICCV 2019)[^13]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226212327714.png" %}
 
