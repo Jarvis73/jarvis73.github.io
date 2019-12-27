@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "小样本学习 (Few-Shot Learning)"
+title: "小样本学习: 基础 (Few-Shot Learning: Basic)"
 date: 2019-08-10 11:23:00 +0800
 categories: 机器学习 深度学习
 mathjax: true
