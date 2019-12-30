@@ -127,9 +127,7 @@ $$
 
 
 
-## 3. Meta-Learning Algorithms
-
-#### 3.1 Useful Datasets
+## 3. Useful Datasets 
 
 *   Omniglot dataset: 50 个字母表中的 1623 字符
 
@@ -141,16 +139,14 @@ $$
 
 
 
-#### 3.2 Algorithms
+## 4 Meta-Learning Algorithms
 
 *   选择如何对 adaptation 过程 $p(\phi_i\vert\mathcal{D}^{tr}_i, \theta)$ 进行建模?
 *   选择如何使用 $\mathcal{D}_{\text{meta-train}}$ 优化 meta-learner 的参数 $\theta$ ?
 
+### 4.1 Black-Box Adaptation
 
-
-##### 3.2.1 Black-Box Adaptation
-
-**Idea:** 训练一个神经网络来表示 $p(\phi_i\vert\mathcal{D}^{tr}_i, \theta)$ . 我们先抛弃 $\phi_i$ 的概率分布, 用神经网络来预测一个固定 $\phi_i=f_{\theta}(\mathcal{D}^{tr}_i)$ . 
+**Idea:** 训练一个神经网络来表示 <span>$p(\phi_i\vert\mathcal{D}^{tr}_i, \theta)$</span>. 我们先抛弃 <span>$\phi_i$</span> 的概率分布, 用神经网络来预测一个固定 <span>$\phi_i=f_{\theta}(\mathcal{D}^{tr}_i)$</span>. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226155646735.png" title="Black-Box Adaption" %}
 
@@ -169,9 +165,22 @@ Q: 拓展性?
 
 
 
-##### 3.2.2 Optimization-based inference
+### 4.2 Optimization-based inference
 
-**Idea:** 不直接预测分类器 $g$ 的参数 $\phi_i$ , 而是通过优化得到分类器. 使用元参数 $\theta$ 作为分类器参数的**初始化 initialization**, 进行 **fine-tune**.
+> **Idea: Optimization as a model.** 预测分类器参数的优化过程 (Ravi and Larochelle, ICLR 2017)[^15]. 
+
+普通梯度更新 vs LSTM 的单元状态更新:
+
+$$
+\begin{align}
+\theta_{t} &=\theta_{t-1}-\alpha_{t} \nabla_{\theta_{t-1}} \mathcal{L}_{t} \\
+c_{t} &=f_{t} \odot c_{t-1}+i_{t} \odot \tilde{c}_{t}
+\end{align}
+$$
+
+类比 LSTM 的单元状态更新, 把分类器的优化过程作为模型来学习, 即训练元学习器预测缩放因子 $f_t$ 和当前步的学习率 $i_t$. 
+
+> **Idea: Meta parameters as initialization.** 不直接预测分类器 $g$ 的参数 $\phi_i$ , 而是通过优化得到分类器. 使用元参数 $\theta$ 作为分类器参数的**初始化 initialization**, 进行 **fine-tune**.
 
 *   训练分类器 (fine-tune):
 
@@ -185,11 +194,11 @@ $$
 \min_{\theta}\sum_{\text{task } i}\mathcal{L}(\theta-\alpha\nabla_{\theta}\mathcal{L}(\theta, \mathcal{D}_i^{tr}), \mathcal{D}_i^{ts})
 $$
 
-其中 $\mathcal{D}^{tr}$ 是新任务的训练数据, $\theta$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., 2017)**[^3]. 
+其中 $\mathcal{D}^{tr}$ 是新任务的训练数据, $\theta$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., ICML 2017)**[^3]. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226161144638.png" title="MAML" %}
 
-##### 3.2.3 Non-parametric methods / Metric learning
+### 4.3 Non-parametric methods / Metric learning
 
 **Idea:** 在小样本的条件下, 非参方法(用于分类)很简单, 并且通常表现的非常好.
 
@@ -244,7 +253,7 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 
 
 
-##### 3.2.4 Bayesian meta-learning
+### 4.4 Bayesian meta-learning
 
 分类器:
 
@@ -253,16 +262,16 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 
 {% include image.html class="polaroid" url="2019-12/image-20191226190624233.png" %}
 
-## 4. Meta-Learning Application
+## 5. Meta-Learning Application
 
-### 4.1 Few-Shot Image Classification
+### 5.1 Few-Shot Image Classification
 
 *   Siamese Network
 *   Matching Network
 *   Prototypical Network
 *   Relation Network
 
-### 4.2 Few-Shot Image Segmentation
+### 5.2 Few-Shot Image Segmentation
 
 *   One-Shot Semantic Segmentation (Shaban et al., arxiv 2017)[^8]
 
@@ -309,7 +318,7 @@ PS: 这篇都没有跟上一篇(MAP)比较.
 
 Sup --> Que 检索 + Que --> Sup 检索
 
-### 4.3 Others
+### 5.3 Others
 
 *   Human motion and pose prediction
 *   Domain adaption
@@ -393,3 +402,8 @@ Sup --> Que 检索 + Que --> Sup 检索
     **PARN: Position-Aware Relation Networks for Few-Shot Learning**<br />
     Ziyang Wu, Yuwei Li, Lihua Guo, Kui Jia<br />
     [[link]](http://openaccess.thecvf.com/content_ICCV_2019/html/Wu_PARN_Position-Aware_Relation_Networks_for_Few-Shot_Learning_ICCV_2019_paper.html). In ICCV 2019
+
+[^15]:
+    **Optimization As a Model For Few-Shot Learning**<br />
+    Sachin Ravi and Hugo Larochelle <br />
+    [[link]](https://openreview.net/forum?id=rJY0-Kcll). In ICLR 2017
