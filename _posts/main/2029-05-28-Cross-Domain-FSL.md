@@ -4,7 +4,7 @@ title: "跨域少样本学习 (Cross-Domain Few Shot Learning)"
 date: 2020-05-28 22:01:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2020-05/CSFSL-1.png
+figure: ./images/2020-05/CDFSL-1.png
 author: Jarvis
 meta: Post
 ---
