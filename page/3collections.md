@@ -17,8 +17,8 @@ type: page
 
 * **CVPR**: International Conference on Computer Version and Pattern Recognition 计算机视觉与模式识别大会
 
-    论文集: | [2019](http://openaccess.thecvf.com/CVPR2019.py) | [2018](http://openaccess.thecvf.com/CVPR2018.py) | [2017](http://openaccess.thecvf.com/CVPR2017.py) | [2016](http://openaccess.thecvf.com/CVPR2016.py) 
-    | [2015](http://openaccess.thecvf.com/CVPR2015.py) | [2014](http://openaccess.thecvf.com/CVPR2014.py) | [2013](http://openaccess.thecvf.com/CVPR2013.py)
+    论文集: | [2020](http://openaccess.thecvf.com/CVPR2020.py) | [2019](http://openaccess.thecvf.com/CVPR2019.py) | [2018](http://openaccess.thecvf.com/CVPR2018.py) | [2017](http://openaccess.thecvf.com/CVPR2017.py) 
+    | [2016](http://openaccess.thecvf.com/CVPR2016.py) | [2015](http://openaccess.thecvf.com/CVPR2015.py) | [2014](http://openaccess.thecvf.com/CVPR2014.py) | [2013](http://openaccess.thecvf.com/CVPR2013.py)
 
 * **ICCV**: International Conference on Computer Version 计算机视觉大会
 
@@ -26,7 +26,8 @@ type: page
 
 * **AAAI**: The Association for the Advancement of Artificial Intelligence 美国人工智能协会
 
-    论文集: | [2019](https://aaai.org/Conferences/AAAI-19/wp-content/uploads/2018/11/AAAI-19_Accepted_Papers.pdf) | [2018](https://aaai.org/Conferences/AAAI-18/wp-content/uploads/2017/12/AAAI-18-Accepted-Paper-List.Web_.pdf)
+    论文集: | [2019](https://aaai.org/Library/AAAI/aaai19contents.php) | [2018](https://aaai.org/Library/AAAI/aaai18contents.php) | [2017](https://aaai.org/Library/AAAI/aaai17contents.php) | [2016](https://aaai.org/Library/AAAI/aaai16contents.php) 
+    | [2015](https://aaai.org/Library/AAAI/aaai15contents.php) | [2014](https://aaai.org/Library/AAAI/aaai14contents.php) | [2013](https://aaai.org/Library/AAAI/aaai13contents.php) | [2012](https://aaai.org/Library/AAAI/aaai12contents.php)
 
 * **NeurIPS**: [Conference on Neural Information Processing System](https://nips.cc/) 神经信息处理系统大会
 
