@@ -4,7 +4,7 @@ title: "少样本学习中的度量函数 (Metrics in FSL)"
 date: 2020-07-09 22:01:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2020-07/TapNet.png
+figure: ./images/2020-07/TADAM.png
 author: Jarvis
 meta: Post
 ---
@@ -15,11 +15,11 @@ meta: Post
 
 
 
-## 2. TADAM[^1]: Task dependent adaptive metric
+## 1. TADAM[^1]: Task dependent adaptive metric
 
 本文提出了 metric scaling 和 metric task conditioning 来优化少样本学习的性能.
 
-### 2.1 Metric Scaling
+### 1.1 Metric Scaling
 
 通常在 FSL 中, 分类器定义如下:
 
@@ -75,7 +75,7 @@ $$
 
 * 当 $\alpha$ 很大时, 第二个式子右侧第一项一样, 第二项极大化 $z$ 和离 $z$ 最近的不同类别原型之间的距离 (有点 maxmin 的感觉). 如果 $j^*_i=k$, 则第二个式子值为 0. 这表明在 $\alpha$ 很大时, 模型主要从困难样本中学习 (maxmin 的体现). 
 
-### 2.2 Task Conditioning
+### 1.2 Task Conditioning
 
 进行特征调整 (feature modulation), 引入一组 $\gamma$ 和 $\beta$ 参数对主干网络进行 task-specific 的调整, 从而把 task-agnostic 的主干网络变为 task-related 的主干网络. 老规矩, 插入 BN 层之后. 本文构造了个 task embedding network (TEN) 来生成 task-specific 的 $\gamma$ 和 $\beta$, 结构如下.
 
