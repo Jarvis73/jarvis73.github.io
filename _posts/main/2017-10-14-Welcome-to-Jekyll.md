@@ -41,5 +41,5 @@ $$
 f(x) = \frac{ax + b}{cx + d}
 $$
 
-Inline Mathjax $a \neq b$
+Inline Mathjax $$ a \neq b $$
 

@@ -15,12 +15,12 @@ enforce_ssl: www.jarvis73.cn
 permalink: /:year/:month/:day/:title/
 
 # other links
-twitter_username: z2014jw
+twitter_username: 
 facebook_username: 
 github_username: jarvis73
-email: jarviszhang233@gmail.com
-weibo_username: 5336691469
-zhihu_username: lin-xi-1-1
+email: zjw.math@qq.com
+weibo_username: 
+zhihu_username: 
 linkedIn_username: 
 dribbble_username:
 
@@ -31,8 +31,8 @@ description_footer: 总有美丽的风景让人流连
 # 两种评论插件，选一个就好了，使用自己的 short_name
 duoshuo_shortname: 
 disqus_shortname: 
-gitment_id: 01d9221acf3b43e667f0
-gitment_secret: f6899a32188afe9260ce0bfa293c7c51285463f2
+# gitment_id: 01d9221acf3b43e667f0
+# gitment_secret: f6899a32188afe9260ce0bfa293c7c51285463f2
 
 # statistic analysis 统计代码
 # 百度统计 id，将统计代码替换为自己的百度统计id，即

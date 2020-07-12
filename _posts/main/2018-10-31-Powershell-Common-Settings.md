@@ -43,15 +43,15 @@ $
 ```powershell
 function prompt  
 {
-    $my_path = $(get-location).toString()
+    $$ my_path =  $$(get-location).toString()
 
     # 定义了终端提示格式
     Write-Host ("@") -nonewline -foregroundcolor 'Green'  
     Write-Host ("Jarvis ") -nonewline -foregroundcolor 'Green'  
     Write-Host ($my_path) -nonewline -foregroundcolor 'DarkGreen'  
-    $realLASTEXITCODE = $LASTEXITCODE
+    $$ realLASTEXITCODE =  $$LASTEXITCODE
     Write-VcsStatus
-    $global:LASTEXITCODE = $realLASTEXITCODE
+    $$ global:LASTEXITCODE =  $$realLASTEXITCODE
     Write-Host ("")
     Write-Host ("$") -nonewline -foregroundcolor 'Cyan'  
     return " "  
@@ -87,8 +87,8 @@ function Set-Proxy-XXX
     $proxy = 'http://localhost:1080'
 
     # temporary
-    $env:HTTP_PROXY = $proxy
-    $env:HTTPS_PROXY = $proxy
+    $$ env:HTTP_PROXY =  $$proxy
+    $$ env:HTTPS_PROXY =  $$proxy
 
     # forever
     # [System.Environment]::SetEnvironmentVariable("HTTP_PROXY", $proxy, "User")

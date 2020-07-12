@@ -26,7 +26,7 @@ meta: Post
 
 ### Atrous/Hole Convolution
 
-在 VGG-16 模型中原始图像共下采样 5 次, 缩小为输入图像的 $1/32$. 本文目标是语义分割, 而缩小 32 倍的图像无法准确的定位分割的各部分, 而直接减少 VGG-16 的两个 block 又会影响特征的提取, 因此引入膨胀卷积既能增大感受野, 也能减少下采样的次数. 一维的膨胀卷积如下图所示.
+在 VGG-16 模型中原始图像共下采样 5 次, 缩小为输入图像的 $$ 1/32 $$. 本文目标是语义分割, 而缩小 32 倍的图像无法准确的定位分割的各部分, 而直接减少 VGG-16 的两个 block 又会影响特征的提取, 因此引入膨胀卷积既能增大感受野, 也能减少下采样的次数. 一维的膨胀卷积如下图所示.
 
 <div class="polaroid">
     <img class="cool-img" src="/images/2019-1/DeepLabv1-1.jpg" DeepLabv1/>
@@ -41,9 +41,9 @@ $$
 y(i, j) = \sum_{m = 1}^M\sum_{n = 1}^Nx(i + dm, j + dn)w(m, n),
 $$
 
-其中 $M, N$ 是卷积核两个维度上的长度, $d > 1$ 时为膨胀卷积, $d = 1$ 时为普通卷积.
+其中 $$ M, N $$ 是卷积核两个维度上的长度, $$ d > 1 $$ 时为膨胀卷积, $$ d = 1 $$ 时为普通卷积.
 
-代码实现中 VGG-16 最后两个 MaxPooling 层步长改为 1, 最后三个卷积层改为 $2\times$ 膨胀卷积, 第一个全连接层改为 $4\times$ 膨胀卷积, 使用 $4\times4$ 的卷积核(在精度略微损失(损失了0.5)的前提下相比原来 $7\times7$ 的卷积核速度翻倍).
+代码实现中 VGG-16 最后两个 MaxPooling 层步长改为 1, 最后三个卷积层改为 $$ 2\times $$ 膨胀卷积, 第一个全连接层改为 $$ 4\times $$ 膨胀卷积, 使用 $$ 4\times4 $$ 的卷积核(在精度略微损失(损失了0.5)的前提下相比原来 $$ 7\times7 $$ 的卷积核速度翻倍).
 
 ### CRFs 恢复边界细节
 
@@ -54,7 +54,7 @@ $$
 
 ### 实验结果
 
-最终实验中最好的配置 `DeepLab-CRF-LargeFOV` (val set: mIOU = 67.64%)为 $3\times3$ 的卷积核, $12\times$ 的膨胀卷积, 参数量最少, 精度与 $7\times7$ 的卷积核相同, 速度接近前者的 3.5 倍. 此外本文实验中还引入了 multi-scale 的策略(FCN 的做法, 把多个层次的特征图上采样后), 也提升了一定的精度(`DeepLab-MSc-CRF-LargeFOV` val set: mIOU=68.70%).
+最终实验中最好的配置 `DeepLab-CRF-LargeFOV` (val set: mIOU = 67.64%)为 $$ 3\times3 $$ 的卷积核, $$ 12\times $$ 的膨胀卷积, 参数量最少, 精度与 $$ 7\times7 $$ 的卷积核相同, 速度接近前者的 3.5 倍. 此外本文实验中还引入了 multi-scale 的策略(FCN 的做法, 把多个层次的特征图上采样后), 也提升了一定的精度(`DeepLab-MSc-CRF-LargeFOV` val set: mIOU=68.70%).
 
 
 ## 2. TPAMI 2017: DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs
@@ -125,17 +125,17 @@ $$
     </div>
 </div>
 
-这一节主要对比了深度网络模型中使用和不使用膨胀卷积, 并说明了膨胀卷积的优势. 主干网络选择了 ResNet, 使用膨胀卷积的 ResNet 把 Block4 到 Block7 的卷积替换为膨胀卷积(按照 DeepLabv1 相应的池化也应当改为步长为 1 避免减少图像分辨率), 如上图所示. 由于每个 ResBlock 中包含 3 个卷积, 本文采用了 Multigrid 的策略, 每个 ResBlock 设置一个基准膨胀率 $Baserate$ (即上图中的 rate), 给定一个长度等于 3 的网格 $Multigrid$ (就是每个 ResBlock 中卷积层的数目), 那么每个卷积层的膨胀率就可以通过公式计算 
+这一节主要对比了深度网络模型中使用和不使用膨胀卷积, 并说明了膨胀卷积的优势. 主干网络选择了 ResNet, 使用膨胀卷积的 ResNet 把 Block4 到 Block7 的卷积替换为膨胀卷积(按照 DeepLabv1 相应的池化也应当改为步长为 1 避免减少图像分辨率), 如上图所示. 由于每个 ResBlock 中包含 3 个卷积, 本文采用了 Multigrid 的策略, 每个 ResBlock 设置一个基准膨胀率 $$ Baserate $$ (即上图中的 rate), 给定一个长度等于 3 的网格 $$ Multigrid $$ (就是每个 ResBlock 中卷积层的数目), 那么每个卷积层的膨胀率就可以通过公式计算 
 
 $$
 rate = Baserate * Multigrid.
 $$
 
-举个例子, block4 的基准膨胀率是 2, 给定网格 $Multigrid = (1, 2, 4)$, 那么最终 block4 的三个卷积层的膨胀率依次为 $rates = 2 * (1, 2, 4) = (2, 4, 8)$.
+举个例子, block4 的基准膨胀率是 2, 给定网格 $$ Multigrid = (1, 2, 4) $$, 那么最终 block4 的三个卷积层的膨胀率依次为 $$ rates = 2 * (1, 2, 4) = (2, 4, 8) $$.
 
 ### Rethinking ASPP
 
-DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷积核大小不变时, 随着膨胀率的增大, 有效的卷积核权重会越来越少. 极端情况下比如 $3\times3$ 的卷积核仅有中间的一个值有效(其他值都作用在填充的 0 上了), 那么 $3\times3$ 的卷积核就退化成了 $1\times1$ 的卷积核. 所以本文加入了 image-level 的信息, 对最后一个特征图应用全局平均池化, 然后使用 $1\times1$ 的 256 个卷积核和批正则化, 然后上采样到需要的大小和其他三种膨胀率的卷积分支融合. 具体如下图所示.
+DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷积核大小不变时, 随着膨胀率的增大, 有效的卷积核权重会越来越少. 极端情况下比如 $$ 3\times3 $$ 的卷积核仅有中间的一个值有效(其他值都作用在填充的 0 上了), 那么 $$ 3\times3 $$ 的卷积核就退化成了 $$ 1\times1 $$ 的卷积核. 所以本文加入了 image-level 的信息, 对最后一个特征图应用全局平均池化, 然后使用 $$ 1\times1 $$ 的 256 个卷积核和批正则化, 然后上采样到需要的大小和其他三种膨胀率的卷积分支融合. 具体如下图所示.
 
 <div class="polaroid">
     <img class="cool-img" src="/images/2019-1/DeepLabv3-3.jpg" DeepLabv3/>
@@ -146,12 +146,12 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 ### 实验细节和实验结果
 
-* **学习率策略**: 多项式学习率, $(1 - \frac{iter}{max_iter})^{power}$, 其中 $power=0.9$.
+* **学习率策略**: 多项式学习率, $$ (1 - \frac{iter}{max_iter})^{power} $$, 其中 $$ power=0.9 $$.
 * **裁剪大小**: 为了使大的膨胀率仍然有效, 增大裁剪大小到 513 像素.
-* **批正则化**: 本文增加在 ResNet 头部的模块均包含批正则化结构. 首先使用 $output_stride=16, batch_size=16, decay=0.9997, learning_rate=0.007$ 在增广的 `trainaug` 数据集上训练 30K 步, 然后固定 BN 层, 使用 $output-stride
+* **批正则化**: 本文增加在 ResNet 头部的模块均包含批正则化结构. 首先使用 $$ output_stride=16, batch_size=16, decay=0.9997, learning_rate=0.007 $$ 在增广的 `trainaug` 数据集上训练 30K 步, 然后固定 BN 层, 使用 $output-stride
 =8, batch_size=8, learning_rate=0.001$ 在 PASVAL VOC 2012 数据集 `trainval` 上训练 30K 步. 先用输出步长 16 训练的好处是输出图片小, 可以加快训练速度, 然后再用步长为 8 的图片训练, 提高定位精度. 
-* **上采样 logits**: 由于网络输出的大小缩小为 groundtruth 的 $1/8$, 因此需要对齐, 本文发现训练时对输出上采样到原始图像大小要比把 groundtruth 下采样到 $1/8$ 更好.
-* **数据增广**: 放缩($0.5~2.0$), 随机左右翻转.
+* **上采样 logits**: 由于网络输出的大小缩小为 groundtruth 的 $$ 1/8 $$, 因此需要对齐, 本文发现训练时对输出上采样到原始图像大小要比把 groundtruth 下采样到 $$ 1/8 $$ 更好.
+* **数据增广**: 放缩($$ 0.5~2.0 $$), 随机左右翻转.
 
 `DeepLab V3` 在 PASVAL VOC 2012 测试集上达到 85.7% 的精度, 接近当时最好的水平. 如果使用在 ImageNet 和 JFT-300M 数据集上预训练的 ResNet-101 作为主干网络, 则可以达到 86.9% 的精度.
 
@@ -169,14 +169,14 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 ### Depthwise separable convolution
 
-`Depthwise separable convolution` 就是把一个标准的卷积分解成一个 `depthwise convolution`(不同通道应用不同的) 和一个 `point-wise convolution`($1\times1$ 卷积), 大幅减少计算量. (`Tensorflow>=1.8` 中的 `nn` 模块已经实现了第一个分步的 `tf.nn.depthwise_convolution()` 和总的分解 `tf.nn.separable_convolution()`).
+`Depthwise separable convolution` 就是把一个标准的卷积分解成一个 `depthwise convolution`(不同通道应用不同的) 和一个 `point-wise convolution`($$ 1\times1 $$ 卷积), 大幅减少计算量. (`Tensorflow>=1.8` 中的 `nn` 模块已经实现了第一个分步的 `tf.nn.depthwise_convolution()` 和总的分解 `tf.nn.separable_convolution()`).
 
 ### Encoder-Decoder 的设计
 
 `DeepLab V3` 去掉计算 logits 的层后作为 Encoder. 由于 `DeepLab V3` 结构最后输出的  `output_stride=16`, 因此需要 16 倍的上采样. 考虑到直接上采样 16 倍仍然会使网络丢失过多信息而在细节上不够精确, 因此 Decoder 把这个上采样分成两部分:
 1. 把 `DeepLab V3` 的输出双线性上采样 4 倍后与低层特征拼接
-2. 低层特征可能有过多的通道数(256 或 512)而把 Encoder 中的特征掩盖掉(有 256 个通道), 因此低层特征首先要经过一个 $1\times1$ 的卷积调整通道数, 然后再拼接
-3. 拼接的特征经过几层 $3\times3$ 卷积融合特征, 最后再次双线性上采样 4 倍.
+2. 低层特征可能有过多的通道数(256 或 512)而把 Encoder 中的特征掩盖掉(有 256 个通道), 因此低层特征首先要经过一个 $$ 1\times1 $$ 的卷积调整通道数, 然后再拼接
+3. 拼接的特征经过几层 $$ 3\times3 $$ 卷积融合特征, 最后再次双线性上采样 4 倍.
 
 整个网络结构如下图所示.
 

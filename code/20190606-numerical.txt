@@ -29,13 +29,13 @@
 
     \begin{{scope}}[xshift={XSHIFT2}cm, yshift={YSHIFT2}cm]
         \draw[step=10mm, base03, dashed] (0,0) grid ({FLAT_TO_X}, {FLAT_TO_Y});
-        \node (node) at ({FLAT_TO_X} + 1, {FLAT_TO_Y} / 2) {{\LARGE $\times$}};
+        \node (node) at ({FLAT_TO_X} + 1, {FLAT_TO_Y} / 2) {{\LARGE $$ \times $$}};
         {KERNEL_FLAT_VALUES}
     \end{{scope}}
     \begin{{scope}}[xshift={XSHIFT3}cm, yshift={YSHIFT3}cm]
-        \node (node) at (0.5, {HALF_CUT_H} + 0.6) {{\large $\vdots$}};
-        \node (node) at (0.5, {HALF_CUT_H} + 1.6) {{\large $\vdots$}};
-        \node (node) at (2, {YSHIFT2} + {FLAT_TO_Y} / 2) {{\LARGE $=$}};
+        \node (node) at (0.5, {HALF_CUT_H} + 0.6) {{\large $$ \vdots $$}};
+        \node (node) at (0.5, {HALF_CUT_H} + 1.6) {{\large $$ \vdots $$}};
+        \node (node) at (2, {YSHIFT2} + {FLAT_TO_Y} / 2) {{\LARGE $$ = $$}};
         {INPUT_FLAT_VALUES}
     \end{{scope}}
     \begin{{scope}}[xshift={XSHIFT3}cm + 3cm, yshift={YSHIFT2}cm]

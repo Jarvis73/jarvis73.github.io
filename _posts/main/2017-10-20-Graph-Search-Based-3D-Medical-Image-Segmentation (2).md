@@ -33,7 +33,7 @@ meta: Post
 直接用现成的软件做预分割, 而且只能分出气管内壁, 对于较小的支气管无能为力. 内壁分割出来内壁通过*marching cube*算法表示成三角网. 
 
 ### 基于中轴的图像重采样
-由于我们分割的是树状的气管和支气管, 所以不能再按照前文的想法基于类"地形图"的方法来构建图, 而是要按照前文提到的柱形的方法来构建, 前文中的 $(x, y)$ --列也不再使用, 而是变成了以气管中轴线为参照的轴向体素列. 如图1(a)所示.
+由于我们分割的是树状的气管和支气管, 所以不能再按照前文的想法基于类"地形图"的方法来构建图, 而是要按照前文提到的柱形的方法来构建, 前文中的 $$ (x, y) $$ --列也不再使用, 而是变成了以气管中轴线为参照的轴向体素列. 如图1(a)所示.
 
 <div class="polaroid">
     <img class="cool-img" src="/images/2017-10-20/fig1.png" fig1/>
@@ -54,9 +54,9 @@ meta: Post
  
 预分割表面的**中轴线**是一系列点的集合, 该集合中的每一个点都一定与表面上至少两个点距离最近. 中轴线算法:
 
-* 记预分割表面的网格点的集合为 $S$ , 然后计算 $S$ 的泰森多边形(Voronoi diagram, VD)和对偶的德劳内三角剖分(Delaunay triangulation)D; 
-* 对每个顶点均求一对 $v_{p_1}$ 和 $v_{p_2}$ 分别作为内中轴线和外中轴线, 这两点选为最大的德劳内球的球心(德劳内四面体的外切球球心);
-* 选择球心是选择点 $p$ 的 $k$ 个最近邻中最大的值;
+* 记预分割表面的网格点的集合为 $$ S $$ , 然后计算 $$ S $$ 的泰森多边形(Voronoi diagram, VD)和对偶的德劳内三角剖分(Delaunay triangulation)D; 
+* 对每个顶点均求一对 $$ v_{p_1} $$ 和 $$ v_{p_2} $$ 分别作为内中轴线和外中轴线, 这两点选为最大的德劳内球的球心(德劳内四面体的外切球球心);
+* 选择球心是选择点 $$ p $$ 的 $$ k $$ 个最近邻中最大的值;
 * 体素列的长度由体素到中轴线的距离决定. 
 
 <div class="polaroid">
@@ -80,7 +80,7 @@ $$
 \text{Cost}_{\text{inner}}(v) = \omega\cdot I_t(v)*M_{Sobel_2} = (1-\omega)\cdot I_t(v)*M_{Marr}.
 $$ 
 
-其中 $M_{Sobel_i}$ 表示[Sobel算子](https://en.wikipedia.org/wiki/Sobel_operator),  $M_{Marr}$ 表示[Marr算子](https://en.wikipedia.org/wiki/Marr-Hildreth_algorithm), 且均为二维滤波器, 如图3所示.
+其中 $$ M_{Sobel_i} $$ 表示[Sobel算子](https://en.wikipedia.org/wiki/Sobel_operator),  $$ M_{Marr} $$ 表示[Marr算子](https://en.wikipedia.org/wiki/Marr-Hildreth_algorithm), 且均为二维滤波器, 如图3所示.
 
 <div class="polaroid">
     <img class="cool-img" src="/images/2017-10-20/fig3.png" fig3/>

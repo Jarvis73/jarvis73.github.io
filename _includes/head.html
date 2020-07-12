@@ -43,7 +43,7 @@
 {% if page.mathjax %}
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-    tex2jax: { inlineMath: [["$","$"],["\\(","\\)"]],
+    tex2jax: { inlineMath: [["$$ "," $$"],["\\(","\\)"]],
                processEscapes: true 
     },
     TeX: { equationNumbers: { autoNumber: "all" } },
@@ -53,7 +53,7 @@
 });
 </script>
 <script type="text/javascript"
-  async src="//cdn.bootcdn.net/ajax/libs/mathjax/3.0.5/es5/a11y/assistive-mml.js">
+  async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 {% endif %}
 <!-- async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" -->

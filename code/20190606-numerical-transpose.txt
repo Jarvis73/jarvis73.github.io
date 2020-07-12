@@ -30,8 +30,8 @@
     \begin{{scope}}[xshift={XSHIFT2}cm, yshift={YSHIFT2}cm]
         \draw[step=10mm, base03, dashed] (0,0) grid ({FLAT_TO_X}, {FLAT_TO_Y});
         {KERNEL_FLAT_VALUES}
-        \node (node) at ({FLAT_TO_X} + 1, {FLAT_TO_Y} / 2) {{\LARGE $\times$}};
-        \node (node) at ({FLAT_TO_X} + 4, {FLAT_TO_Y} / 2) {{\LARGE $=$}};
+        \node (node) at ({FLAT_TO_X} + 1, {FLAT_TO_Y} / 2) {{\LARGE $$ \times $$}};
+        \node (node) at ({FLAT_TO_X} + 4, {FLAT_TO_Y} / 2) {{\LARGE $$ = $$}};
     \end{{scope}}
     \begin{{scope}}[xshift={XSHIFT3}cm, yshift={YSHIFT3}cm]
         {INPUT_FLAT_VALUES}

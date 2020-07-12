@@ -52,7 +52,7 @@ meta: Post
 
 #### 1.3.1 世界坐标系
 
-世界坐标系是笛卡尔坐标系, 每个模型(model, 指病人)都有自己的世界坐标系. 世界坐标系和解剖坐标系的坐标通常都使用 $(x, y, z)$ 来表示, 注意区分.
+世界坐标系是笛卡尔坐标系, 每个模型(model, 指病人)都有自己的世界坐标系. 世界坐标系和解剖坐标系的坐标通常都使用 $$ (x, y, z) $$ 来表示, 注意区分.
 
 #### 1.3.2 解剖坐标系(LPS/RAS/RAI)
 
@@ -80,7 +80,7 @@ meta: Post
 
 #### 1.3.4 图像变换
 
-从图像空间坐标 $(i,j,k)^T$ 变换到解剖空间的坐标 $(x, y, z)^T$ 需要用一个仿射变换, 包含了一个线性变换矩阵 $\mathbf{A}$ 和一个平移向量 $\mathbf{t}$ :
+从图像空间坐标 $$ (i,j,k)^T $$ 变换到解剖空间的坐标 $$ (x, y, z)^T $$ 需要用一个仿射变换, 包含了一个线性变换矩阵 $$ \mathbf{A} $$ 和一个平移向量 $$ \mathbf{t} $$ :
 
 $$
 \left[\begin{matrix}x_1\\x_2\\x_3\end{matrix}\right]=\left[\begin{matrix}A_{11}&A_{12}&A_{13}\\A_{21}&A_{22}&A_{23}\\A_{31}&A_{32}&A_{33}\end{matrix}\right]\left[\begin{matrix}i\\j\\k\end{matrix}\right]+\left[\begin{matrix}t_1\\t_2\\t_3\end{matrix}\right].
@@ -92,7 +92,7 @@ $$
 \left[\begin{matrix}x_1\\x_2\\x_3\\1\end{matrix}\right]=\left[\begin{matrix}A_{11}&A_{12}&A_{13}&t_1\\A_{21}&A_{22}&A_{23}&t_2\\A_{31}&A_{32}&A_{33}&t_3\\0&0&0&1\end{matrix}\right]\left[\begin{matrix}i\\j\\k\\1\end{matrix}\right].
 $$
 
-而上面的 $4\times4$ 矩阵也根据解剖空间的方向(LPS或RAS)称为 **IJKtoLPS-** 或 **IJKtoRAS-**矩阵. 
+而上面的 $$ 4\times4 $$ 矩阵也根据解剖空间的方向(LPS或RAS)称为 **IJKtoLPS-** 或 **IJKtoRAS-**矩阵. 
 
 #### 1.3.5 例子
 
@@ -100,7 +100,7 @@ $$
 
 {% include image.html class="polaroid-script" url="2019-6/550px-IJtoLS.png" title="图像坐标系转解剖坐标系LS" %}
 
-上图中可以看到沿着 $i$ 增大的方向 Left 轴是增加的, 沿着 $j$ 增大的方向 Superior 轴是减小的, 因此变换矩阵的对角线上第一行(对应 $i$) 是正的, 第二行(对应 $j$) 是负的. 没有旋转, 所以变换矩阵只有对角线非零. 两个方向的像素间距均为 $50$. 像素 $(0, 0)$ 的解剖坐标为 $(50, 300)$, 所以我们最后得到变换矩阵为
+上图中可以看到沿着 $$ i $$ 增大的方向 Left 轴是增加的, 沿着 $$ j $$ 增大的方向 Superior 轴是减小的, 因此变换矩阵的对角线上第一行(对应 $$ i $$) 是正的, 第二行(对应 $$ j $$) 是负的. 没有旋转, 所以变换矩阵只有对角线非零. 两个方向的像素间距均为 $$ 50 $$. 像素 $$ (0, 0) $$ 的解剖坐标为 $$ (50, 300) $$, 所以我们最后得到变换矩阵为
 
 $$\nonumber
 IJtoLS = \left[\begin{matrix}50&0&50\\0&-50&300\\0&0&1\end{matrix}\right].
@@ -152,7 +152,7 @@ header = nib_image.header
 quaternion = header.get_qform_quaternion()
 ```
 
-四元组表示为 $(w, x, y, z)$, 满足 $w^2+x^2+y^2+z^2=1$. 那么四元组转化成旋转矩阵的公式为
+四元组表示为 $$ (w, x, y, z) $$, 满足 $$ w^2+x^2+y^2+z^2=1 $$. 那么四元组转化成旋转矩阵的公式为
 
 $$
 \mathbf{R}=\left[\begin{matrix}w^2+x^2-y^2-z^2&2(xy-wz)&2(xz+wy)\\2(xy+wz)&w^2+y^2-x^2-z^2&2(yz-wx)\\2(xz-wy)&2(yz+wx)&w^2+z^2-x^2-y^2\end{matrix}\right]
@@ -184,13 +184,13 @@ $$
 \mathbf{Q} = \left[\begin{matrix}\mathbf{RS}&\mathbf{t}\\\mathbf{0}&1\end{matrix}\right]
 $$
 
-其中 $\mathbf{t}=(t_1, t_2, t_3)^T$ 为原点(偏移), $\mathbf{S}$ 为像素间距 $(s_1~s_2~s_3)$ 拓展的对角阵
+其中 $$ \mathbf{t}=(t_1, t_2, t_3)^T $$ 为原点(偏移), $$ \mathbf{S} $$ 为像素间距 $$ (s_1~s_2~s_3) $$ 拓展的对角阵
 
 $$
 \mathbf{S}=\left[\begin{matrix}s_1&0&0\\0&s_2&0\\0&0&qs_3\end{matrix}\right]
 $$
 
-其中 $q$ 为 `qfac` 值, 为符号因子.
+其中 $$ q $$ 为 `qfac` 值, 为符号因子.
 
 #### 2.2.3 `sform` 仿射矩阵
 
@@ -216,7 +216,7 @@ $$
 \left[\begin{matrix}x_1\\x_2\\x_3\end{matrix}\right]=\left[\begin{matrix}i\\j\\k\end{matrix}\right]\odot\left[\begin{matrix}\text{pixdim[1]}\\\text{pixdim[2]}\\\text{pixdim[3]}\end{matrix}\right].
 $$
 
-其中 $\odot$ 表示点乘.
+其中 $$ \odot $$ 表示点乘.
 
 **方法2:** 当 `qform_code > 0` 时使用该方法
 
@@ -234,11 +234,11 @@ $$
 
 #### 2.3.1 使用 `nibabel` 读取
 
-这里主要指使用第三方库 (如 `matplotlib`) 使用和查看图像. 由于通常来说第三方库在显示图像时会把左上角的像素坐标设为 $(0, 0)$ , 因此我们通常也希望使用和查看 `Nifti` 图像时也能够在左上角像素为 $(0, 0)$ 时图像是**摆正的**. 
+这里主要指使用第三方库 (如 `matplotlib`) 使用和查看图像. 由于通常来说第三方库在显示图像时会把左上角的像素坐标设为 $$ (0, 0) $$ , 因此我们通常也希望使用和查看 `Nifti` 图像时也能够在左上角像素为 $$ (0, 0) $$ 时图像是**摆正的**. 
 
 {% include image.html class="polaroid-tiny" url="2019-6/liver.png" title="肝脏图像" %}
 
-比如我们从 `Nifti` 格式的数据中读取一个肝脏的CT图像, 由于 `Nifti` 格式使用的是 RAS 坐标系(即上图中R轴向左, A轴向上), 而图像坐标系相反(i轴向右, j轴向下), 所以只需要让变换矩阵中位置 $(0, 0)$ 的元素和位置 $(1, 1)$ 的元素均为负数即可. 
+比如我们从 `Nifti` 格式的数据中读取一个肝脏的CT图像, 由于 `Nifti` 格式使用的是 RAS 坐标系(即上图中R轴向左, A轴向上), 而图像坐标系相反(i轴向右, j轴向下), 所以只需要让变换矩阵中位置 $$ (0, 0) $$ 的元素和位置 $$ (1, 1) $$ 的元素均为负数即可. 
 
 在一般的 `Nifti` 图像中, `sform` 和 `qform` 可能同时存在, 此时使用 `header.get_best_affine()` 的读取顺序为
 
@@ -252,7 +252,7 @@ $$
 \left[\begin{matrix}-0.97656202&0.&0.&249.1000061\\0.&0.97656202&0.&-249.0231781\\0.&0.&2.5&-651\\0.&0.&0.&1.\end{matrix}\right]
 $$
 
-那么我们发现位置 $\text{affine}(0, 0)=-0.97656202<0$, 符合要求, 而 $\text{affine}(1, 1)=0.97656202>0$, 不符合要求, 所以需要对 `j` 轴(即 height) 做一个反转即可, 可以用如下的代码
+那么我们发现位置 $$ \text{affine}(0, 0)=-0.97656202<0 $$, 符合要求, 而 $$ \text{affine}(1, 1)=0.97656202>0 $$, 不符合要求, 所以需要对 `j` 轴(即 height) 做一个反转即可, 可以用如下的代码
 
 ```python
 import nibabel as nib
@@ -278,7 +278,7 @@ out = nib.Nifti1Image(out_image, affine=affine, header=header)
 nib.save(out, out_path)
 ```
 
-这里的 `affine` 参数和 `header` 参数一般只填一个比较好. 如果有参照图像则直接使用参照图像的 `header` , 没有的话使用 `affine` 参数. 这里的 `affine` 会填充到 `sform` 中, 因此是一个 $4\times4$ 的矩阵. 同样地我们为了符合 `Nifti` 的 RAS 坐标体系, 填充以下矩阵可以保证图像是**正的**
+这里的 `affine` 参数和 `header` 参数一般只填一个比较好. 如果有参照图像则直接使用参照图像的 `header` , 没有的话使用 `affine` 参数. 这里的 `affine` 会填充到 `sform` 中, 因此是一个 $$ 4\times4 $$ 的矩阵. 同样地我们为了符合 `Nifti` 的 RAS 坐标体系, 填充以下矩阵可以保证图像是**正的**
 
 $$
 \left[\begin{matrix}-1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&1\end{matrix}\right].
@@ -326,7 +326,7 @@ ElementDataFile = Series28.raw
 说明:
 
 * `BinaryDataByteOrderMSB` 中的 `MSB` 表示 big-endian
-* `TransformMatrix` 为 $3\times3$ 的矩阵, 按列存储, 上面的一行转换为矩阵是
+* `TransformMatrix` 为 $$ 3\times3 $$ 的矩阵, 按列存储, 上面的一行转换为矩阵是
 
 $$
 \left[\begin{matrix}1&0&0\\0&0&1\\0&-1&0\end{matrix}\right]

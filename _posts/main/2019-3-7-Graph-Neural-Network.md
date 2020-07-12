@@ -40,28 +40,28 @@ GNNs 的特点:
 
 | 记号                   | 描述                             |
 | ---------------------- | -------------------------------- |
-| $\mathbb{R}^m$         | $m$ 维欧氏空间                   |
-| $a, \mathbf{a}, \mathbf{A}$          | 标量, 向量, 矩阵                 |
-| $\mathbf{A}^T$                | 矩阵转置                         |
-| $\mathbf{I}_N$                | $N$ 维单位矩阵                   |
-| $\mathbf{g}_{\theta}\star\mathbf{x}$ | $\mathbf{g}_{\theta}$ 与 $\mathbf{x}$ 卷积     |
-| $N, N^v$               | 图中的节点数                     |
-| $N^e$                  | 图中的边数                       |
-| $\mathcal{N}_v$        | 节点 $v$ 的邻点集                |
-| $\mathbf{a}_v^t$              | 节点 $v$ 在时间 $t$ 的向量 $\mathbf{a}$ |
-| $\mathbf{h}_v$                | 节点 $v$ 的隐藏状态              |
-| $\mathbf{h}_v^t$              | 节点 $v$ 在时间 $t$ 的隐藏状态   |
-| $\mathbf{e}_{vw}$             | 节点 $v$ 到 $w$ 的边的特征       |
-| $\mathbf{e}_k$                | 标签为 $k$ 的边的特征            |
-| $\mathbf{o}_v^t$              | 节点 $v$ 的输出                  |
-| $\sigma$               | sigmoid 函数                     |
-| $\rho$                 | 非线性函数                       |
-| $\odot$                | 逐点乘法                         |
-| $\parallel$            | 向量拼接                         |
+| $$ \mathbb{R}^m $$         | $$ m $$ 维欧氏空间                   |
+| $$ a, \mathbf{a}, \mathbf{A} $$          | 标量, 向量, 矩阵                 |
+| $$ \mathbf{A}^T $$                | 矩阵转置                         |
+| $$ \mathbf{I}_N $$                | $$ N $$ 维单位矩阵                   |
+| $$ \mathbf{g}_{\theta}\star\mathbf{x} $$ | $$ \mathbf{g}_{\theta} $$ 与 $$ \mathbf{x} $$ 卷积     |
+| $$ N, N^v $$               | 图中的节点数                     |
+| $$ N^e $$                  | 图中的边数                       |
+| $$ \mathcal{N}_v $$        | 节点 $$ v $$ 的邻点集                |
+| $$ \mathbf{a}_v^t $$              | 节点 $$ v $$ 在时间 $$ t $$ 的向量 $$ \mathbf{a} $$ |
+| $$ \mathbf{h}_v $$                | 节点 $$ v $$ 的隐藏状态              |
+| $$ \mathbf{h}_v^t $$              | 节点 $$ v $$ 在时间 $$ t $$ 的隐藏状态   |
+| $$ \mathbf{e}_{vw} $$             | 节点 $$ v $$ 到 $$ w $$ 的边的特征       |
+| $$ \mathbf{e}_k $$                | 标签为 $$ k $$ 的边的特征            |
+| $$ \mathbf{o}_v^t $$              | 节点 $$ v $$ 的输出                  |
+| $$ \sigma $$               | sigmoid 函数                     |
+| $$ \rho $$                 | 非线性函数                       |
+| $$ \odot $$                | 逐点乘法                         |
+| $$ \parallel $$            | 向量拼接                         |
 
 #### 2.1 GNNs
 
-GNNs 的概念首先在[1]中提出, 把神经网络进行拓展以处理图中的数据. GNNs 的目标是学习图中每个节点的隐藏**状态嵌入 (state embedding)** $\mathbf{h}_v\in\mathbb{R}^s $ ,  这个隐藏状态包含了该节点的邻节点的信息. 节点 $v$ 的隐藏状态 $\mathbf{h}_v$ 是一个 $s$ 维的向量, 可以用于产生该节点的输出标签 $\mathbf{o}_v$. 令 $f$ 是一个方程, 称为**局部变换方程 (local transition function)**, 在所有节点中共享, 用于根据邻居节点的输入来更新节点状态. 令 $g$ 为**局部输出函数 (local output function)**, 产生节点输出. 公式表示如下
+GNNs 的概念首先在[1]中提出, 把神经网络进行拓展以处理图中的数据. GNNs 的目标是学习图中每个节点的隐藏**状态嵌入 (state embedding)** $$ \mathbf{h}_v\in\mathbb{R}^s  $$ ,  这个隐藏状态包含了该节点的邻节点的信息. 节点 $$ v $$ 的隐藏状态 $$ \mathbf{h}_v $$ 是一个 $$ s $$ 维的向量, 可以用于产生该节点的输出标签 $$ \mathbf{o}_v $$. 令 $$ f $$ 是一个方程, 称为**局部变换方程 (local transition function)**, 在所有节点中共享, 用于根据邻居节点的输入来更新节点状态. 令 $$ g $$ 为**局部输出函数 (local output function)**, 产生节点输出. 公式表示如下
 
 $$
 \begin{align}
@@ -70,7 +70,7 @@ $$
 \end{align}
 $$
 
-其中函数 $f$ 中的四个参数分别表示节点 $v$ 的特征, 边的特征, 状态和邻节点的状态. 
+其中函数 $$ f $$ 中的四个参数分别表示节点 $$ v $$ 的特征, 边的特征, 状态和邻节点的状态. 
 
 
 

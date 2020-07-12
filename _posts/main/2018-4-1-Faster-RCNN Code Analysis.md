@@ -227,7 +227,7 @@ self._gt_boxes = tf.placeholder(tf.float32, shape=[None, 5])
 
 *   Faster RCNN 由于其网络结构的特殊性, 输入 `_image` 仅允许 `batch size = 1` ; 但也得益于网络结构, 接受不同大小图片的输入. 
 *   `_im_info` 有三个元素, 前两个元素为最终输入图像的高和宽, 第三个元素为原始图像缩放为当前图像的比例
-*   而另一个输入 `_gt_boxes` 为边界框, 第 0 维对应当前输入图像中要寻找的物体的数量, 第 1 维的值为 5, 对应 $[t_x, t_y, t_w, t_h, label]$. 这里的 `label` 是该物体的编号值.
+*   而另一个输入 `_gt_boxes` 为边界框, 第 0 维对应当前输入图像中要寻找的物体的数量, 第 1 维的值为 5, 对应 $$ [t_x, t_y, t_w, t_h, label] $$. 这里的 `label` 是该物体的编号值.
 
 
 ---
@@ -316,7 +316,7 @@ def generate_anchors(base_size=16, ratios=[0.5, 1, 2],
 | 8    | [ -80. -168.   95.  183.] | 2 : 1   | 16     | [352, 176] | (16x16) x (16x16) |
 | 9    | [-168. -344.  183.  359.] | 2 : 1   | 32     | [704, 352] | (16x16) x (32x32) |
 
-然后使用把这 9 个 anchors 在二维网格上平移得到所有位置的所有 anchors. 这里的 anchors 是绝对位置, 总共有 $K \times A = (w \times h) \times (n \times n) $ 个, 所以最终是一个形状为 $[k \times A, 4]$ 的数组. 这里的 width 和 height 均为最后一个卷积输出的特征图的尺寸, 即 RPN 网络会在该特征图上滑动.
+然后使用把这 9 个 anchors 在二维网格上平移得到所有位置的所有 anchors. 这里的 anchors 是绝对位置, 总共有 $$ K \times A = (w \times h) \times (n \times n)  $$ 个, 所以最终是一个形状为 $$ [k \times A, 4] $$ 的数组. 这里的 width 和 height 均为最后一个卷积输出的特征图的尺寸, 即 RPN 网络会在该特征图上滑动.
 
 ```python
 A = anchors.shape[0]    # A = 9
@@ -457,7 +457,7 @@ blob = np.hstack((batch_inds, proposals.astype(np.float32, copy=False)))
 * 0 : 负样本
 * -1 : 非样本, 不用于训练
 
-首先从所有的 $K\times A\times n\times n$ 个 anchors 中筛掉超出图像边界的, 注意这里是筛掉, 而不是裁剪到边界. 
+首先从所有的 $$ K\times A\times n\times n $$ 个 anchors 中筛掉超出图像边界的, 注意这里是筛掉, 而不是裁剪到边界. 
 
 ```python
 # allow boxes to sit over the edge by a small amount
@@ -540,7 +540,7 @@ bbox_targets = _compute_targets(anchors, gt_boxes[argmax_overlaps, :])
 这里的权重分为两种:
 
 * 第一种是一致权重 (uniform weight), 正负样本都除以总的样本数 
-* 第二种是非一致权重, 正样本权重为 $p/num(pos)$ , 负样本权重为 $(1-p)/num(neg)$ .
+* 第二种是非一致权重, 正样本权重为 $$ p/num(pos) $$ , 负样本权重为 $$ (1-p)/num(neg) $$ .
 
 ```python
 bbox_outside_weights = np.zeros((len(inds_inside), 4), dtype=np.float32)

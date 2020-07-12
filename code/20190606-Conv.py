@@ -50,7 +50,7 @@ np.random.seed(1234)
 #     offset_y, offset_x = offsets[step]
 
 #     kernel_values_string = ''.join(
-#         "\\node (node) at ({0},{1}) {{\\scriptsize $w_{{{2}{3}}}$}};\n".format(
+#         "\\node (node) at ({0},{1}) {{\\scriptsize $$ w_{{{2}{3}}} $$}};\n".format(
 #             i + 0.75 + stride * offset_x, j + 0.2 + stride * offset_y,
 #             kernel_size - 1 - j, i)
 #         for i, j in itertools.product(range(kernel_size),
@@ -71,7 +71,7 @@ np.random.seed(1234)
 #          for x in gen_line(step)
 #     ] + ["\\draw[fill=base02, opacity=0.4] ({},{}) rectangle ({},{});\n".format(x, matrix_y - step - 1, x + 1, matrix_y - step)
 #          for x in gen_line(step)
-#     ] + ["\\node (node) at ({},{}) {{\\large $w_{{{}{}}}$}};\n".format(x + 0.5, matrix_y - y - 0.5, ix, iy)
+#     ] + ["\\node (node) at ({},{}) {{\\large $$ w_{{{}{}}} $$}};\n".format(x + 0.5, matrix_y - y - 0.5, ix, iy)
 #          for y in range(matrix_y) for x, (ix, iy) in zip(gen_line(y), itertools.product(range(kernel_size), range(kernel_size)))
 #     ])
 
@@ -99,7 +99,7 @@ np.random.seed(1234)
 #          "\\draw[fill=blue] (0,{}) rectangle (1,{});\n".format(half_cut_h + 2, total_h),
 #     ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(half_cut_h),
 #          "\\draw[step=10mm, base03, thick] (0,{}) grid (1,{});\n".format(half_cut_h + 2, total_h),
-#     ] + ["\\node (node) at (0.5, {}) {{\large $a_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+#     ] + ["\\node (node) at (0.5, {}) {{\large $$ a_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
 #         for y, ix, iy in gen_head_tail(
 #             zip(range(matrix_x - 1, -1, -1), itertools.product(range(total_input_size), range(total_input_size))), half_cut_h, total_h - 2 - half_cut_h)
 #     ])
@@ -108,7 +108,7 @@ np.random.seed(1234)
 #         ["\\draw[fill=cyan] (0,0) rectangle (1,{});\n".format(matrix_y),
 #     ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(matrix_y),
 #          "\\draw[fill=base02, opacity=0.4] (0,{}) rectangle (1,{});\n".format(matrix_y - step - 1, matrix_y - step),
-#     ] + ["\\node (node) at (0.5, {}) {{\large $b_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+#     ] + ["\\node (node) at (0.5, {}) {{\large $$ b_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
 #         for y, (ix, iy) in zip(range(matrix_y - 1, -1, -1), itertools.product(range(output_size), range(output_size)))
 #     ])
 
@@ -120,7 +120,7 @@ np.random.seed(1234)
 #         'INPUT_FROM': '{0},{0}'.format(padding),
 #         'INPUT_TO': '{0},{0}'.format(padding + input_size),
 #         'INPUT_VALUES': ''.join(
-#             "\\node (node) at ({0},{1}) {{\\large $a_{{{2}{3}}}$}};\n".format(
+#             "\\node (node) at ({0},{1}) {{\\large $$ a_{{{2}{3}}} $$}};\n".format(
 #                 i + 0.4, j + 0.6, total_input_size - 1 - j, i)
 #             for i, j in itertools.product(range(total_input_size),
 #                                           range(total_input_size))),
@@ -133,7 +133,7 @@ np.random.seed(1234)
 #         'OUTPUT_GRID_FROM': '{},{}'.format(offset_x, offset_y),
 #         'OUTPUT_GRID_TO': '{},{}'.format(offset_x + 1, offset_y + 1),
 #         'OUTPUT_VALUES': ''.join(
-#             "\\node (node) at ({0},{1}) {{\\large $b_{{{2}{3}}}$}};\n".format(
+#             "\\node (node) at ({0},{1}) {{\\large $$ b_{{{2}{3}}} $$}};\n".format(
 #                 i + 0.5, j + 0.5, output_size - 1 - j, i)
 #             for i, j in itertools.product(range(output_size),
 #                                           range(output_size))),
@@ -235,7 +235,7 @@ def make_numerical_tex_string(step, input_size, output_size,
         ] + ["\\draw[fill=blue] ({0},{1}) rectangle ({2},{3});\n\\draw[fill=base02, opacity=0.4] ({0},{1}) rectangle ({2},{3});\n".format(x, mh - step - 1, x + 1, mh - step) for x in klvx[step]
         ])
     kernel_flat_string += ''.join(
-        ["\\node (node) at ({},{}) {{\\large $w_{{{}{}}}$}};\n".format(x + 0.5, mh - y - 0.5, ix, iy)
+        ["\\node (node) at ({},{}) {{\\large $$ w_{{{}{}}} $$}};\n".format(x + 0.5, mh - y - 0.5, ix, iy)
          for y in range(mh) for x, (ix, iy) in zip(klvx[y], itertools.product(range(k), range(k)))
     ])
 
@@ -250,7 +250,7 @@ def make_numerical_tex_string(step, input_size, output_size,
         input_flat_string = ''.join(
             ["\\draw[fill=cyan] (0,0) rectangle (1,{});\n".format(mh),
              "\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(mh),
-        ] + ["\\node (node) at (0.5, {}) {{\large $b_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+        ] + ["\\node (node) at (0.5, {}) {{\large $$ b_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
             for y, (ix, iy) in zip(range(mh - 1, -1, -1), itertools.product(range(fi), range(fi)))
         ])
 
@@ -260,8 +260,8 @@ def make_numerical_tex_string(step, input_size, output_size,
         ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(half_cut_h),
              "\\draw[step=10mm, base03, thick] (0,{}) grid (1,{});\n".format(half_cut_h + 2, total_h),
         ] + [
-            "\\node (node) at (0.5, {} + 0.6) {{\large $\\vdots$}};\n".format(half_cut_h),
-            "\\node (node) at (0.5, {} + 1.6) {{\large $\\vdots$}};\n".format(half_cut_h)
+            "\\node (node) at (0.5, {} + 0.6) {{\large $$ \\vdots $$}};\n".format(half_cut_h),
+            "\\node (node) at (0.5, {} + 1.6) {{\large $$ \\vdots $$}};\n".format(half_cut_h)
         ])
         if step < tail:
             output_flat_string += ''.join(
@@ -273,7 +273,7 @@ def make_numerical_tex_string(step, input_size, output_size,
                 ["\\draw[fill=base02, opacity=0.4] (0,{}) rectangle (1,{});\n".format(head - diff, head - diff + 1),
             ])
         output_flat_string += ''.join(
-            ["\\node (node) at (0.5, {}) {{\large $a_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+            ["\\node (node) at (0.5, {}) {{\large $$ a_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
                 for y, ix, iy in gen_head_tail(zip(range(mw - 1, -1, -1), itertools.product(range(fo), range(fo))), head, tail)
             ])
     else:
@@ -282,19 +282,19 @@ def make_numerical_tex_string(step, input_size, output_size,
              "\\draw[fill=blue] (0,{}) rectangle (1,{});\n".format(half_cut_h + 2, total_h),
         ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(half_cut_h),
              "\\draw[step=10mm, base03, thick] (0,{}) grid (1,{});\n".format(half_cut_h + 2, total_h),
-        ] + ["\\node (node) at (0.5, {}) {{\large $a_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+        ] + ["\\node (node) at (0.5, {}) {{\large $$ a_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
             for y, ix, iy in gen_head_tail(
                 zip(range(mw - 1, -1, -1), itertools.product(range(fip), range(fip))), head, tail)
         ] + [
-            "\\node (node) at (0.5, {} + 0.6) {{\large $\\vdots$}};\n".format(half_cut_h),
-            "\\node (node) at (0.5, {} + 1.6) {{\large $\\vdots$}};\n".format(half_cut_h)
+            "\\node (node) at (0.5, {} + 0.6) {{\large $$ \\vdots $$}};\n".format(half_cut_h),
+            "\\node (node) at (0.5, {} + 1.6) {{\large $$ \\vdots $$}};\n".format(half_cut_h)
         ])
 
         output_flat_string = ''.join(
             ["\\draw[fill=cyan] (0,0) rectangle (1,{});\n".format(mh),
         ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(mh),
              "\\draw[fill=base02, opacity=0.4] (0,{}) rectangle (1,{});\n".format(mh - step - 1, mh - step),
-        ] + ["\\node (node) at (0.5, {}) {{\large $b_{{{}{}}}$}};\n".format(y + 0.5, ix, iy)
+        ] + ["\\node (node) at (0.5, {}) {{\large $$ b_{{{}{}}} $$}};\n".format(y + 0.5, ix, iy)
             for y, (ix, iy) in zip(range(mh - 1, -1, -1), itertools.product(range(fo), range(fo)))
         ])
 
@@ -308,20 +308,20 @@ def make_numerical_tex_string(step, input_size, output_size,
         'INPUT_FROM': '{0},{0}'.format(p),
         'INPUT_TO': '{0},{0}'.format(fip - p),
         'INPUT_VALUES': ''.join(
-            "\\node (node) at ({0},{1}) {{\\large ${4}_{{{2}{3}}}$}};\n".format(
+            "\\node (node) at ({0},{1}) {{\\large $$ {4}_{{{2}{3}}} $$}};\n".format(
                 i + 0.4 + p, j + 0.6 + p, ivj[j], ivi[i], ivv)
             for i, j in itertools.product(range(fi), range(fi))),
         'INPUT_GRID_FROM': '{},{}'.format(offset_x, offset_y),
         'INPUT_GRID_TO': '{},{}'.format(offset_x + k, offset_y + k),
         'KERNEL_VALUES': ''.join(
-            "\\node (node) at ({0},{1}) {{\\scriptsize $w_{{{2}{3}}}$}};\n".format(
+            "\\node (node) at ({0},{1}) {{\\scriptsize $$ w_{{{2}{3}}} $$}};\n".format(
                 i + 0.75 + offset_x, j + 0.2 + offset_y, kvj[j], kvi[i])
             for i, j in itertools.product(range(k), range(k))),
         'OUTPUT_TO': '{0},{0}'.format(fo),
         'OUTPUT_GRID_FROM': '{},{}'.format(offset_x, offset_y),
         'OUTPUT_GRID_TO': '{},{}'.format(offset_x + 1, offset_y + 1),
         'OUTPUT_VALUES': ''.join(
-            "\\node (node) at ({0},{1}) {{\\large ${4}_{{{2}{3}}}$}};\n".format(
+            "\\node (node) at ({0},{1}) {{\\large $$ {4}_{{{2}{3}}} $$}};\n".format(
                 i + 0.5, j + 0.5, ovj[j], ovi[i], ovv)
             for i, j in itertools.product(range(fo), range(fo))),
         'XSHIFT1': '{}'.format(x0 + (fip - fo) // 2),

@@ -1409,7 +1409,7 @@ var Reaction = function () {
 }();
 exports.Reaction = Reaction;
 function registerErrorHandler(handler) {
-    invariant(this && this.$mobx && isReaction(this.$mobx), "Invalid `this`");
+    invariant(this && this.$$ mobx && isReaction(this. $$mobx), "Invalid `this`");
     invariant(!this.$mobx.errorHandler, "Only one onErrorHandler can be registered");
     this.$mobx.errorHandler = handler;
 }
@@ -1778,7 +1778,7 @@ var ObservableArray = function (_super) {
         }));
     };
     ObservableArray.prototype.replace = function (newItems) {
-        return this.$mobx.spliceWithArray(0, this.$mobx.values.length, newItems);
+        return this.$$ mobx.spliceWithArray(0, this. $$mobx.values.length, newItems);
     };
     ObservableArray.prototype.toJS = function () {
         return this.slice();
@@ -2497,7 +2497,7 @@ function getAdministration(thing, property) {
     if (isAtom(thing) || isComputedValue(thing) || isReaction(thing)) return thing;
     if (isObservableMap(thing)) return thing;
     runLazyInitializers(thing);
-    if (thing.$mobx) return thing.$mobx;
+    if (thing.$$ mobx) return thing. $$mobx;
     invariant(false, "Cannot obtain administration from " + thing);
 }
 function getDebugName(thing, property) {
@@ -3062,7 +3062,7 @@ function renderEditor(_ref3, instance) {
   };
 
   var _container$querySelec = container.querySelectorAll('.gitment-editor-tab'),
-      _container$querySelec2 = _slicedToArray(_container$querySelec, 2),
+      _container$$ querySelec2 = _slicedToArray(_container $$querySelec, 2),
       writeTab = _container$querySelec2[0],
       previewTab = _container$querySelec2[1];
 
@@ -3177,7 +3177,7 @@ var Query = exports.Query = {
     var query = {};
     queryString.split('&').forEach(function (queryStr) {
       var _queryStr$split = queryStr.split('='),
-          _queryStr$split2 = _slicedToArray(_queryStr$split, 2),
+          _queryStr$$ split2 = _slicedToArray(_queryStr $$split, 2),
           key = _queryStr$split2[0],
           value = _queryStr$split2[1];
 

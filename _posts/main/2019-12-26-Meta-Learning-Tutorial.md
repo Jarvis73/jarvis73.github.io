@@ -95,7 +95,7 @@ $$
 
 #### 2.1 Meta-Learning Problem
 
-额外的数据 $\mathcal{D}_{\text{meta-train}}$ 作为先验信息可以提取为抽象的但更有代表性的特征 $\theta^{\star}$ , 然后结合目标任务的训练集训练参数 $\phi^{\star}$, 公式如下:
+额外的数据 $$ \mathcal{D}_{\text{meta-train}} $$ 作为先验信息可以提取为抽象的但更有代表性的特征 $$ \theta^{\star} $$ , 然后结合目标任务的训练集训练参数 $$ \phi^{\star} $$, 公式如下:
 
 $$
 \text { meta-learning: }  \theta^{\star}=\arg \max _{\theta} \log p\left(\theta | \mathcal{D}_{\text {meta-train }}\right) \label{eq:meta-learning}
@@ -105,7 +105,7 @@ $$
 \text { adaptation: }  \phi^{\star}=\arg \max _{\phi} \log p\left(\phi | \mathcal{D}, \theta^{\star}\right) \label{eq:adap}
 $$
 
-其中 $ \eqref{eq:adap} $ 又可以写为 $\phi^{\star}=f_{\theta^{\star}}(\mathcal{D}^{tr})$ .
+其中 $$  \eqref{eq:adap}  $$ 又可以写为 $$ \phi^{\star}=f_{\theta^{\star}}(\mathcal{D}^{tr}) $$ .
 
 我们希望元学习器 (meta-learner) 可以学会学习 (learning to learn), 即一个成熟的元学习器在少量样本的前提下拥有快速泛化到不同任务的能力, 如下图所示. 
 
@@ -120,7 +120,7 @@ $$
 | 学习     | 类内相似性和类间判别性       | 如何生成优秀的分类器                                      |
 | 预测     | 测试样本的类别               | 新分类任务的分类器                                        |
 
-训练元学习器就是学习 $\theta$ 使得 $\phi=f_{\theta}(\mathcal{D}^{tr}_i)$ 对于 $\mathcal{D}^{ts}_i$ 来说是个好的分类器. 
+训练元学习器就是学习 $$ \theta $$ 使得 $$ \phi=f_{\theta}(\mathcal{D}^{tr}_i) $$ 对于 $$ \mathcal{D}^{ts}_i $$ 来说是个好的分类器. 
 
 #### 2.2 Meta-Learning Terminology
 
@@ -142,25 +142,25 @@ $$
 
 ## 4 Meta-Learning Algorithms
 
-*   选择如何对 adaptation 过程 $p(\phi_i\vert\mathcal{D}^{tr}_i, \theta)$ 进行建模?
-*   选择如何使用 $\mathcal{D}_{\text{meta-train}}$ 优化 meta-learner 的参数 $\theta$ ?
+*   选择如何对 adaptation 过程 $$ p(\phi_i\vert\mathcal{D}^{tr}_i, \theta) $$ 进行建模?
+*   选择如何使用 $$ \mathcal{D}_{\text{meta-train}} $$ 优化 meta-learner 的参数 $$ \theta $$ ?
 
 ### 4.1 Black-Box Adaptation
 
-**Idea:** 训练一个神经网络来表示 <span>$p(\phi_i\vert\mathcal{D}^{tr}_i, \theta)$</span>. 我们先抛弃 <span>$\phi_i$</span> 的概率分布, 用神经网络来预测一个固定 <span>$\phi_i=f_{\theta}(\mathcal{D}^{tr}_i)$</span>. 
+**Idea:** 训练一个神经网络来表示 <span>$$ p(\phi_i\vert\mathcal{D}^{tr}_i, \theta) $$</span>. 我们先抛弃 <span>$$ \phi_i $$</span> 的概率分布, 用神经网络来预测一个固定 <span>$$ \phi_i=f_{\theta}(\mathcal{D}^{tr}_i) $$</span>. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226155646735.png" title="Black-Box Adaption" %}
 
-Q: 函数 $f_{\theta}$ 的形式?
+Q: 函数 $$ f_{\theta} $$ 的形式?
 
 *   LSTM
 *   Neural turing machine, NTM
 *   Self-attention
 *   Convolutions
 
-Q: 上面的方法需要预测函数  $g_{\phi_i}$ 的所有参数. 是否可以减轻负担? 
+Q: 上面的方法需要预测函数  $$ g_{\phi_i} $$ 的所有参数. 是否可以减轻负担? 
 
-*   只预测一个低维向量 $h_i$ , 得到 $\phi_i = \{h_i, \theta_g\}$ .
+*   只预测一个低维向量 $$ h_i $$ , 得到 $$ \phi_i = \{h_i, \theta_g\} $$ .
 
 Q: 拓展性?
 
@@ -179,9 +179,9 @@ c_{t} &=f_{t} \odot c_{t-1}+i_{t} \odot \tilde{c}_{t}
 \end{align}
 $$
 
-类比 LSTM 的单元状态更新, 把分类器的优化过程作为模型来学习, 即训练元学习器预测缩放因子 $f_t$ 和当前步的学习率 $i_t$. 
+类比 LSTM 的单元状态更新, 把分类器的优化过程作为模型来学习, 即训练元学习器预测缩放因子 $$ f_t $$ 和当前步的学习率 $$ i_t $$. 
 
-> **Idea: Meta parameters as initialization.** 不直接预测分类器 $g$ 的参数 $\phi_i$ , 而是通过优化得到分类器. 使用元参数 $\theta$ 作为分类器参数的**初始化 initialization**, 进行 **fine-tune**.
+> **Idea: Meta parameters as initialization.** 不直接预测分类器 $$ g $$ 的参数 $$ \phi_i $$ , 而是通过优化得到分类器. 使用元参数 $$ \theta $$ 作为分类器参数的**初始化 initialization**, 进行 **fine-tune**.
 
 *   训练分类器 (fine-tune):
 
@@ -195,7 +195,7 @@ $$
 \min_{\theta}\sum_{\text{task } i}\mathcal{L}(\theta-\alpha\nabla_{\theta}\mathcal{L}(\theta, \mathcal{D}_i^{tr}), \mathcal{D}_i^{ts})
 $$
 
-其中 $\mathcal{D}^{tr}$ 是新任务的训练数据, $\theta$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., ICML 2017)**[^3]. 
+其中 $$ \mathcal{D}^{tr} $$ 是新任务的训练数据, $$ \theta $$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., ICML 2017)**[^3]. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226161144638.png" title="MAML" %}
 
@@ -258,8 +258,8 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 
 分类器:
 
-*   参数化方法: 使用 $p(\phi_i\vert\mathcal{D}_i^{tr}, \theta)$ 的点估计
-*   贝叶斯方法: 学习参数的分布 $p(\phi_i\vert\mathcal{D}_i^{tr}, \theta)$ , 然后从分布中采样, 变分推断. 
+*   参数化方法: 使用 $$ p(\phi_i\vert\mathcal{D}_i^{tr}, \theta) $$ 的点估计
+*   贝叶斯方法: 学习参数的分布 $$ p(\phi_i\vert\mathcal{D}_i^{tr}, \theta) $$ , 然后从分布中采样, 变分推断. 
 
 {% include image.html class="polaroid" url="2019-12/image-20191226190624233.png" %}
 

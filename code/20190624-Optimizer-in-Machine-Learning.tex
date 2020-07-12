@@ -113,9 +113,9 @@
 \begin{frame}
 	\frametitle{Gradient Descent}
 	\begin{itemize}
-		\item Find a local minimizer of a function $f(x)$
+		\item Find a local minimizer of a function $$ f(x) $$
 		\begin{theo}{}[First-Order Necessary Conditions]
-			If $x^*$ is a local minimizer and $f$ is continuously differentiable in an open neighborhood of $x^*$, then $\nabla f(x^*)=0$.
+			If $$ x^* $$ is a local minimizer and $$ f $$ is continuously differentiable in an open neighborhood of $$ x^* $$, then $$ \nabla f(x^*)=0 $$.
 		\end{theo}
 	\end{itemize}
 
@@ -140,12 +140,12 @@
 	\begin{algorithm}[H]
 		\caption{Gradient Descent}
 		\begin{algorithmic}[1]
-		\REQUIRE Startint point $\bb{x}_0$
-		\REQUIRE Step length $\gamma_t$
-		\STATE Compute negative gradient direction $$\bb{p}_t=-\nabla f(\bb{x}_t)$$
-		\STATE Move one step $$\bb{x}_{t+1}=\bb{x}_t+\gamma_t\bb{p}_t$$
-		\STATE Loop line 1 and 2 until $\bb{p}_t\approx\bb{0}$
-		\RETURN $\bb{x}_t$
+		\REQUIRE Startint point $$ \bb{x}_0 $$
+		\REQUIRE Step length $$ \gamma_t $$
+		\STATE Compute negative gradient direction $$ $\bb{p}_t=-\nabla f(\bb{x}_t) $$$
+		\STATE Move one step $$ $\bb{x}_{t+1}=\bb{x}_t+\gamma_t\bb{p}_t $$$
+		\STATE Loop line 1 and 2 until $$ \bb{p}_t\approx\bb{0} $$
+		\RETURN $$ \bb{x}_t $$
 		\end{algorithmic}
 	\end{algorithm}
 \end{frame}
@@ -154,10 +154,10 @@
 	\frametitle{Gradient Descent}
 	Machine Learning Model
 	\begin{itemize}
-		\item Model parameter $\bst$
-		\item Dataset $\{\bb{z}_i\vert i=1,2,\cdots, n\}$
-		\item Empirical error $f(\bb{z}_i\vert\bst)$, and $f$ is differentiable
-		\item Goal $$\bst^*=\min_{\bst}\frac1{n}\sum_{i=1}^n f(\bb{z}_i\vert\bst)$$
+		\item Model parameter $$ \bst $$
+		\item Dataset $$ \{\bb{z}_i\vert i=1,2,\cdots, n\} $$
+		\item Empirical error $$ f(\bb{z}_i\vert\bst) $$, and $$ f $$ is differentiable
+		\item Goal $$ $\bst^*=\min_{\bst}\frac1{n}\sum_{i=1}^n f(\bb{z}_i\vert\bst) $$$
 	\end{itemize}
 \end{frame}
 
@@ -166,15 +166,15 @@
 	\begin{algorithm}[H]
 		\caption{Gradient Descent in ML}
 		\begin{algorithmic}[1]
-		\REQUIRE Initial parameters $\bst$
-		\REQUIRE Learning rate $\gamma_t$
+		\REQUIRE Initial parameters $$ \bst $$
+		\REQUIRE Learning rate $$ \gamma_t $$
 		\STATE Compute negative gradient direction 
 		\begin{equation}\label{eq:1}
 			\bb{p}_t=-\frac1{n}\sum_{i=1}^n\nabla_{\bst}f(\bb{z}_i\vert\bst)
 		\end{equation}
-		\STATE Update parameters $$\bst\leftarrow\bst+\gamma_t\bb{p}_t$$
-		\STATE Loop line 1 and 2 until $\bb{p}_t\approx\bb{0}$
-		\RETURN $\bst$
+		\STATE Update parameters $$ $\bst\leftarrow\bst+\gamma_t\bb{p}_t $$$
+		\STATE Loop line 1 and 2 until $$ \bb{p}_t\approx\bb{0} $$
+		\RETURN $$ \bst $$
 		\end{algorithmic}
 	\end{algorithm}
 \end{frame}
@@ -188,13 +188,13 @@
 	\begin{itemize}
 		\item It is hard to compute gradients of the empirical error in \eqref{eq:1} when we have a large-scale dataset. So we have {\bf stochastic gradient descent}:
 		\begin{itemize}
-			\item Estimate empirical error $E_n(f_{\bst})$ by a single randomly picked example $\bb z_t$ at step $t$ at each iteration: 
+			\item Estimate empirical error $$ E_n(f_{\bst}) $$ by a single randomly picked example $$ \bb z_t $$ at step $$ t $$ at each iteration: 
 			\begin{equation}\label{eq:2}
 				\bst\leftarrow\bst-\gamma_t\nabla_{\bst}f(\bb{z}_t\vert\bst)
 			\end{equation}
-			\item The stochastic process $\{\bst_t, t=1,2,\cdots\}$ depends on the examples randomly picked at each iteration.
+			\item The stochastic process $$ \{\bst_t, t=1,2,\cdots\} $$ depends on the examples randomly picked at each iteration.
 			\item It is {\it hoped} that \eqref{eq:2} behaves like its expectation \eqref{eq:1} despite the noise introduced by this approximation.
-			\item Convergence results usually require decreasing learning rate satisfying the conditions $\sum_t\gamma_t^2<\infty$ and $\sum_t\gamma_t=\infty$.
+			\item Convergence results usually require decreasing learning rate satisfying the conditions $$ \sum_t\gamma_t^2<\infty $$ and $$ \sum_t\gamma_t=\infty $$.
 		\end{itemize}
 	
 	\end{itemize}
@@ -205,13 +205,13 @@
 \begin{frame}
 	\frametitle{Average Stochastic Gradient Descent}
 	\begin{itemize}
-		\item {\bf Average Stochastic Gradient Descent (ASGD)} performs Normal SGD update and recursively computes the average $\overline{\bst}_t=\frac1{t}\sum_{i=1}^t\bst_i$:
+		\item {\bf Average Stochastic Gradient Descent (ASGD)} performs Normal SGD update and recursively computes the average $$ \overline{\bst}_t=\frac1{t}\sum_{i=1}^t\bst_i $$:
 		\begin{align}
 			\bst_{t+1} &= \bst_t-\gamma_t\nabla_{\bst}f(\bb z_t\vert\bst), \\
 			\overline{\bst}_{t+1} &= \frac{t}{t+1}\overline{\bst}_t + \frac1{t+1}\bst_{t+1}.
 		\end{align}
-		Notice that $\overline{\bst}$ is the desired parameter. Generally, ASGD might need a large amount of data to converge.
-		\item A proper learning rate schedule used in ASGD: $$\gamma_t=\gamma_0(1+a\gamma_0t)^c,$$ with which we can takes a reasonable amount of data to reach its \href{https://en.wikipedia.org/wiki/Asymptotic_analysis}{asymptotic region}.
+		Notice that $$ \overline{\bst} $$ is the desired parameter. Generally, ASGD might need a large amount of data to converge.
+		\item A proper learning rate schedule used in ASGD: $$ $\gamma_t=\gamma_0(1+a\gamma_0t)^c, $$$ with which we can takes a reasonable amount of data to reach its \href{https://en.wikipedia.org/wiki/Asymptotic_analysis}{asymptotic region}.
 	\end{itemize}
 	\blfootnote{Boris T. Polyak and Anatoli. B. Juditsky. Acceleration of stochastic approximation by averaging.
 	Automation and Remote Control, 30(4):838–855, 1992.\\Xu W. Towards optimal one pass large scale learning with averaged stochastic gradient descent[J]. arXiv preprint arXiv:1107.2490, 2011.}
@@ -228,10 +228,10 @@
 		\begin{tabular}{cll}
 			\hline
 			\bf Optimizer & \bf Use data & \bf Gradients \\ \hline
-			GD & all data & $\frac1{n}\sum_{i=1}^n\nabla f(\bb z_i)$ \\
-			SGD & single data per step & $\nabla f(\bb z_t)$ \\
-			Batch SGD & a batch of data & $\frac1{m}\sum_{i=1}^m\nabla f(\bb z_i),\;m < n$ \\
-			Mini-Batch SGD & a mini-batch of data & $\frac1{m}\sum_{i=1}^m\nabla f(\bb z_i),\;m\ll n$ \\ \hline
+			GD & all data & $$ \frac1{n}\sum_{i=1}^n\nabla f(\bb z_i) $$ \\
+			SGD & single data per step & $$ \nabla f(\bb z_t) $$ \\
+			Batch SGD & a batch of data & $$ \frac1{m}\sum_{i=1}^m\nabla f(\bb z_i),\;m < n $$ \\
+			Mini-Batch SGD & a mini-batch of data & $$ \frac1{m}\sum_{i=1}^m\nabla f(\bb z_i),\;m\ll n $$ \\ \hline
 		\end{tabular}}
 		\caption{GD and variants}
 	\end{table}
@@ -253,13 +253,13 @@
 	\frametitle{Influence on learning rate}
 	\centering
 		\begin{tabular}{m{4cm} m{12cm}}
-			learning rate $0.0005$ &
+			learning rate $$ 0.0005 $$ &
 			\includegraphics[width=0.45\linewidth]{images/lr-0005.png} \\
-			learning rate $0.003$ &
+			learning rate $$ 0.003 $$ &
 			\includegraphics[width=0.45\linewidth]{images/lr-003.png} \\
-			learning rate $0.004$ &
+			learning rate $$ 0.004 $$ &
 			\includegraphics[width=0.45\linewidth]{images/lr-004.png} \\
-			learning rate $0.005$ &
+			learning rate $$ 0.005 $$ &
 			\includegraphics[width=0.45\linewidth]{images/lr-005.png} \\
 		\end{tabular}
 	\blfootnote{Figure: Why Momentum Really Works (\url{https://distill.pub/2017/momentum/})}
@@ -311,8 +311,8 @@
 		\begin{equation}
 			\bb m_t = \beta\bb m_{t-1} + (1-\beta)\hat{\bb m}_t,
 		\end{equation}
-		where $\{\bb m_t, t=1,2,\cdots\}$ is a new moving-averaged sequence. 
-		\item Larger $\beta$ will give smoother sequences but cause more seriously 'decay'.
+		where $$ \{\bb m_t, t=1,2,\cdots\} $$ is a new moving-averaged sequence. 
+		\item Larger $$ \beta $$ will give smoother sequences but cause more seriously 'decay'.
 	\end{itemize}
 	
 	\begin{figure}[H]
@@ -343,22 +343,22 @@
 	\frametitle{SGD with Momentum}
 	\begin{itemize}
 		\item Recall exponentially weighted average: 
-		$$ \bb m_t = \beta\bb m_{t-1} + (1-\beta)\hat{\bb m}_t. $$
-		\item Remove $1-\beta$ and let $\hat{\bb m}_t=\gamma\nabla_{\bst}f(\bst_t)$. Then we get 
+		$$ $ \bb m_t = \beta\bb m_{t-1} + (1-\beta)\hat{\bb m}_t.  $$$
+		\item Remove $$ 1-\beta $$ and let $$ \hat{\bb m}_t=\gamma\nabla_{\bst}f(\bst_t) $$. Then we get 
 		\begin{formula}{Momentum SGD}
 			\begin{align}
 				\bb m_t &= \beta\bb m_{t-1} + \gamma\nabla_{\bst}f(\bst_t), \quad 0<\beta<1 \\
 				\bst_{t+1} &= \bst_t - \bb m_t
 			\end{align}	
 		\end{formula} 
-		\item Usually momentum parameter $\beta$ is set to $0.9$ or $0.99$ that is close to $1$.
+		\item Usually momentum parameter $$ \beta $$ is set to $$ 0.9 $$ or $$ 0.99 $$ that is close to $$ 1 $$.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{SGD with Momentum}
 	\begin{itemize}
-		\item The modification of the parameters $\bst$ at the current times step depends on both the current gradient $\nabla_{\bst}f(\bst_t)$ and the parameters change $\bb m_t$ of the previous step. 
+		\item The modification of the parameters $$ \bst $$ at the current times step depends on both the current gradient $$ \nabla_{\bst}f(\bst_t) $$ and the parameters change $$ \bb m_t $$ of the previous step. 
 	\end{itemize}
 
 	\begin{figure}[H]
@@ -377,7 +377,7 @@
 	\frametitle{Nesterov Accelerated Gradient}
 	\begin{minipage}{0.73\linewidth}
 		\begin{itemize}
-			\item We will use momentum term $\beta\bb m_t$ to move parameter $\bst$. So computing a "look-ahead" $\bst-\beta\bb m_t$ will give us an approximation of the next position of the parameters, which we can use to estimate gradients.
+			\item We will use momentum term $$ \beta\bb m_t $$ to move parameter $$ \bst $$. So computing a "look-ahead" $$ \bst-\beta\bb m_t $$ will give us an approximation of the next position of the parameters, which we can use to estimate gradients.
 		\end{itemize}
 	\end{minipage}
 	\begin{minipage}{0.25\linewidth}
@@ -402,7 +402,7 @@
 		\end{minipage}
 	\end{itemize}
 	
-	\blfootnote{Nesterov Y. A method for unconstrained convex minimization problem with the rate of convergence O ($1/k^2$)[C]//Doklady AN USSR. 1983, 269: 543-547.}
+	\blfootnote{Nesterov Y. A method for unconstrained convex minimization problem with the rate of convergence O ($$ 1/k^2 $$)[C]//Doklady AN USSR. 1983, 269: 543-547.}
 \end{frame}
 
 \begin{frame}
@@ -428,7 +428,7 @@
 			\begin{equation}
 				\bst_{t+1} = \bst_t - \frac{\gamma}{\sqrt{G_t+\epsilon}}\odot\nabla_{\bst}f(\bst_t),
 			\end{equation}
-			where $\odot$ is element-wise product, $\epsilon$ is a small number to prevent dividing by zero and $G_t\in\mathbb{R}^{d\times d}$ is a diagonal matrix where each diagonal element $(i, i)$ is the sum of the squares of the gradients w.r.t. $\bst^{(i)}$ up to time step $t$:
+			where $$ \odot $$ is element-wise product, $$ \epsilon $$ is a small number to prevent dividing by zero and $$ G_t\in\mathbb{R}^{d\times d} $$ is a diagonal matrix where each diagonal element $$ (i, i) $$ is the sum of the squares of the gradients w.r.t. $$ \bst^{(i)} $$ up to time step $$ t $$:
 			$$
 			G_t^{(i, i)} = \sum_{\tau=1}^t\nabla_{\bst}f(\bst_{\tau})^2
 			$$
@@ -461,11 +461,11 @@
 \begin{frame}
 	\frametitle{AdaDelta}
 	\begin{itemize}
-		\item {\bf AdaDelta} is an extension of AdaGrad for reducing its aggressive, monotonically decreasing learning rate. A natural idea is to restrict the accumulation window of the squared gradients. However, instead of storing a series of gradients which is not an efficient choice, AdaDelta use a exponentially weighted average($\mathbb{E}$) of the square gradients:
+		\item {\bf AdaDelta} is an extension of AdaGrad for reducing its aggressive, monotonically decreasing learning rate. A natural idea is to restrict the accumulation window of the squared gradients. However, instead of storing a series of gradients which is not an efficient choice, AdaDelta use a exponentially weighted average($$ \mathbb{E} $$) of the square gradients:
 		\begin{equation}
 			\tt[\nabla_{\bst}f(\bst)^2]_t=\rho \tt[\nabla_{\bst}f(\bst)^2]_{t-1} + (1-\rho)\nabla_{\bst}f(\bst_t)^2.
 		\end{equation}
-		\item Denote $\ttr[\nabla_{\bst}f(\bst)]_t$ ({\bf R}oot {\bf M}ean {\bf S}quare) the square root of $\tt$:
+		\item Denote $$ \ttr[\nabla_{\bst}f(\bst)]_t $$ ({\bf R}oot {\bf M}ean {\bf S}quare) the square root of $$ \tt $$:
 		\begin{equation}
 			\ttr[\nabla_{\bst}f(\bst)]_t = \sqrt{\tt[\nabla_{\bst}f(\bst)^2]_t +\epsilon}.
 		\end{equation}
@@ -495,8 +495,8 @@
 		\begin{equation}\label{adadelta:2}
 			\text{units of}~\Delta\bst\propto\boxed{\text{units of}~\nabla_{\bst}f(\bst)\propto\frac{\partial f}{\partial\bst}}\propto\frac1{\text{units of}~\bst},
 		\end{equation}
-		assuming the cost function $f$ is unitless. 
-		\item The SGD method will result in wrong units, while the second order methods such as Newton's method using Hessian information $H$ do have the correct units for the parameter update:
+		assuming the cost function $$ f $$ is unitless. 
+		\item The SGD method will result in wrong units, while the second order methods such as Newton's method using Hessian information $$ H $$ do have the correct units for the parameter update:
 		\begin{equation}\label{adadelta:3}
 			\Delta\bst\propto H^{-1}\nabla_{\bst}f(\bst)\propto\boxed{\frac{\frac{\partial f}{\partial\bst}}{\frac{\partial^2f}{\partial\bst^2}}\propto\text{units of}~\bst}.
 		\end{equation}
@@ -510,8 +510,8 @@
 \begin{frame}
 	\frametitle{AdaDelta}
 	\begin{itemize}
-		\item Use equation\eqref{adadelta:1} and boxed part of \eqref{adadelta:2},\eqref{adadelta:3}, we can know that unit of $\frac{\Delta\bst}{\frac{\partial f}{\partial\bst}}$ in equation \eqref{adadelta:4} is correct. So after applying some transformation, $\frac{\Delta\bst}{\frac{\partial f}{\partial\bst}}$ will be a proper substitute of $\frac{\gamma}{\ttr[\nabla_{\bst}f(\bst)]_t}$. 
-		\item In denominator, $\frac{\partial f}{\partial\bst}$ is related to $\ttr[\nabla_{\bst}f(\bst)]_t$, so in numerator, we can similarly replace $\gamma$ with $\ttr[\Delta\bst]_t$. But we still do not have $\Delta\bst_t$, so we use a delayed version $\ttr[\Delta\bst]_{t-1}$. 
+		\item Use equation\eqref{adadelta:1} and boxed part of \eqref{adadelta:2},\eqref{adadelta:3}, we can know that unit of $$ \frac{\Delta\bst}{\frac{\partial f}{\partial\bst}} $$ in equation \eqref{adadelta:4} is correct. So after applying some transformation, $$ \frac{\Delta\bst}{\frac{\partial f}{\partial\bst}} $$ will be a proper substitute of $$ \frac{\gamma}{\ttr[\nabla_{\bst}f(\bst)]_t} $$. 
+		\item In denominator, $$ \frac{\partial f}{\partial\bst} $$ is related to $$ \ttr[\nabla_{\bst}f(\bst)]_t $$, so in numerator, we can similarly replace $$ \gamma $$ with $$ \ttr[\Delta\bst]_t $$. But we still do not have $$ \Delta\bst_t $$, so we use a delayed version $$ \ttr[\Delta\bst]_{t-1} $$. 
 		\item Finally we have final AdaDelta algorithm
 		\begin{formula}{AdaDelta (Final)}
 			\begin{equation}
@@ -529,15 +529,15 @@
 		\setstretch{1.3}
 		\caption{AdaDelta}
 		\begin{algorithmic}[1]
-		\REQUIRE Decay rate $\rho$, Constant $\epsilon$
-		\REQUIRE Initial parameter $\bst_0$
-		\STATE Initialize accumulation variables $\tt[\ggg^2]_0=0, \tt[\Delta\bst^2]_0=0$
-		\FOR{$t=1:T$ Loop over \# of updates}
-		\STATE Compute Gradiet: $\ggt$
-		\STATE Accumulate Gradient: $\tt[\ggg^2]_t=\rho\tt[\ggg^2]_{t-1}+(1-\rho)\ggt^2$
-		\STATE Compute Update: $(\Delta\bst)^2_t=-\frac{\ttr[\Delta\bst]_{t-1}}{\ttr[\ggg]_t}\ggt$
-		\STATE Accumulate Updates: $\tt[(\Delta\bst)^2]_t=\rho\tt[(\Delta\bst)^2]_{t-1}+(1-\rho)(\Delta\bst_t)^2$
-		\STATE Apply Update: $\bst_{t+1}=\bst_t+\Delta\bst_t$
+		\REQUIRE Decay rate $$ \rho $$, Constant $$ \epsilon $$
+		\REQUIRE Initial parameter $$ \bst_0 $$
+		\STATE Initialize accumulation variables $$ \tt[\ggg^2]_0=0, \tt[\Delta\bst^2]_0=0 $$
+		\FOR{$$ t=1:T $$ Loop over \# of updates}
+		\STATE Compute Gradiet: $$ \ggt $$
+		\STATE Accumulate Gradient: $$ \tt[\ggg^2]_t=\rho\tt[\ggg^2]_{t-1}+(1-\rho)\ggt^2 $$
+		\STATE Compute Update: $$ (\Delta\bst)^2_t=-\frac{\ttr[\Delta\bst]_{t-1}}{\ttr[\ggg]_t}\ggt $$
+		\STATE Accumulate Updates: $$ \tt[(\Delta\bst)^2]_t=\rho\tt[(\Delta\bst)^2]_{t-1}+(1-\rho)(\Delta\bst_t)^2 $$
+		\STATE Apply Update: $$ \bst_{t+1}=\bst_t+\Delta\bst_t $$
 		\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
@@ -553,7 +553,7 @@
 				\bst_{t+1} = \bst_t - \frac{\gamma}{\ttr[\nabla_{\bst}f(\bst)]_t}\odot\nabla_{\bst}f(\bst_t),
 			\end{equation}
 		\end{formula}
-		\item A typical choice of $\rho$ in $RMSProp$ is $0.9$.
+		\item A typical choice of $$ \rho $$ in $$ RMSProp $$ is $$ 0.9 $$.
 	\end{itemize}
 
 	\blfootnote{\MyHref[black]{http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf}{http://www.cs.toronto.edu/\~{}tijmen/csc321/slides/lecture\_slides\_lec6.pdf}}
@@ -566,14 +566,14 @@
 \begin{frame}
 	\frametitle{Adaptive Momentum, Adam}
 	\begin{itemize}
-		\item Inspired by AdaDelta storing exponentially weighted average of previous squared gradients(denote $\bb m_t$), {\bf Adaptive Momentum(Adam)} Estimation also keeps an exponentially weighted average of previous gradients(denote $\bb v_t$), similar to momentum:
+		\item Inspired by AdaDelta storing exponentially weighted average of previous squared gradients(denote $$ \bb m_t $$), {\bf Adaptive Momentum(Adam)} Estimation also keeps an exponentially weighted average of previous gradients(denote $$ \bb v_t $$), similar to momentum:
 		\begin{align}
 			\bb m_t &= \beta_1\bb m_{t-1}+(1-\beta_1)\nabla_{\bst}f(\bst_t) \\
 			\bb v_t &= \beta_2\bb v_{t-1}+(1-\beta_2)\nabla_{\bst}f(\bst_t)^2 
 		\end{align}
-		where $\bb m_t$ and $\bb v_t$ can also be regarded as the first moment(the mean) and the second moment(the uncentered variance) of the gradients, respectively. 
-		\item $\beta_1$ and $\beta_2$ are close to $1$ just like Momentum, and RMSProp.
-		\item Notice that if we initialize $\bb m_0=\bb0$ and $\bb v_0=\bb0$, then the gradients are biased towards zero, especially in initial steps.
+		where $$ \bb m_t $$ and $$ \bb v_t $$ can also be regarded as the first moment(the mean) and the second moment(the uncentered variance) of the gradients, respectively. 
+		\item $$ \beta_1 $$ and $$ \beta_2 $$ are close to $$ 1 $$ just like Momentum, and RMSProp.
+		\item Notice that if we initialize $$ \bb m_0=\bb0 $$ and $$ \bb v_0=\bb0 $$, then the gradients are biased towards zero, especially in initial steps.
 	\end{itemize}
 	
 	\blfootnote{Kingma, Diederik P., and Jimmy Ba. 2014. “Adam: A Method for Stochastic Optimization.” ArXiv:1412.6980 [Cs], December. http://arxiv.org/abs/1412.6980.}
@@ -598,17 +598,17 @@
 \begin{frame}
 	\frametitle{Proof of Bias-Correction*}
 	\begin{itemize}
-		\item Let $\bb g=\nabla_{\bst}f(\bst)$. For the exponentially weighted average, we have
+		\item Let $$ \bb g=\nabla_{\bst}f(\bst) $$. For the exponentially weighted average, we have
 		\begin{equation}\label{adam:sum}
 			\bb v_t = \beta_2\bb v_{t-1}+(1-\beta_2)g_t^2 = (1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\bb g^2.
 		\end{equation}
-		We wish to know how $\mathbb{E}[\bb v_t]$, the expected value of the exponentially weighted average at timestep $t$, relates to the true second order moment $\mathbb{E}[\bb g_t^2]$, so we can correct for the discrepancy between the two. Taking expectations of equation \eqref{adam:sum}:
+		We wish to know how $$ \mathbb{E}[\bb v_t] $$, the expected value of the exponentially weighted average at timestep $$ t $$, relates to the true second order moment $$ \mathbb{E}[\bb g_t^2] $$, so we can correct for the discrepancy between the two. Taking expectations of equation \eqref{adam:sum}:
 		\begin{align}\nonumber
 			\mathbb{E}[\bb v_t] &= \mathbb{E}\left[(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}\bb g_i^2\right]\\ \nonumber
 			&= \mathbb{E}[\bb g_t^2]\cdot(1-\beta_2)\sum_{i=1}^t\beta_2^{t-i}+\zeta \\
 			&= \mathbb{E}[\bb g_t^2]\cdot(1-\beta_2^t)+\zeta
 		\end{align}
-		where $\zeta=0$ if $\mathbb{E}[\bb g_i^2]$ is stationary; otherwise just choice $\beta_2$ to make $\zeta$ close to zero.
+		where $$ \zeta=0 $$ if $$ \mathbb{E}[\bb g_i^2] $$ is stationary; otherwise just choice $$ \beta_2 $$ to make $$ \zeta $$ close to zero.
 		% TODO(Jarvis) Need more explanation
 	\end{itemize}
 \end{frame}
@@ -616,7 +616,7 @@
 \begin{frame}
 	\frametitle{Adaptive Momentum, Adam}
 	\begin{itemize}
-		\item Adam $=\underbrace{\text{Momentum}}_{\text{Weighted Average Gradients}}\oplus\underbrace{\text{RMSProp}}_{\text{Adaptive Learning Rate}}\oplus\quad$ InitialAdjustment.
+		\item Adam $$ =\underbrace{\text{Momentum}}_{\text{Weighted Average Gradients}}\oplus\underbrace{\text{RMSProp}}_{\text{Adaptive Learning Rate}}\oplus\quad $$ InitialAdjustment.
 		\vspace{2mm}
 		\item We display complete Adam routine here:
 		\begin{formula}{Adam}
@@ -628,7 +628,7 @@
 			\end{align}
 		\end{formula}
 		\vspace{2mm}
-		\item The authors propose default values $\beta_1=0.9$, $\beta_2=0.999$ and $\epsilon=10^{-8}$.
+		\item The authors propose default values $$ \beta_1=0.9 $$, $$ \beta_2=0.999 $$ and $$ \epsilon=10^{-8} $$.
 	\end{itemize}
 \end{frame}
 
@@ -637,7 +637,7 @@
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.8\linewidth]{images/adam.png}
-		\caption{Adjusted learning rate (i.e. equation \eqref{adam:lr}) at beginning $5000$ steps}
+		\caption{Adjusted learning rate (i.e. equation \eqref{adam:lr}) at beginning $$ 5000 $$ steps}
 	\end{figure}
 \end{frame}
 
@@ -645,13 +645,13 @@
 \begin{frame}
 	\frametitle{AdaMax}
 	\begin{itemize}
-		\item {\bf AdaMax} generalize the $L_2$ norm of gradients of Adam in equation \eqref{adam:l2} to $p$ norm $L_p$.
+		\item {\bf AdaMax} generalize the $$ L_2 $$ norm of gradients of Adam in equation \eqref{adam:l2} to $$ p $$ norm $$ L_p $$.
 		\item With some slight modification, we have
 		\begin{align}\nonumber
 			\bb v_t &= \beta_2^p\bb v_{t-1} + (1-\beta_2^p)\Vert\bb g_t\Vert^p \\
 			&= (1-\beta_2^p)\sum_{i=1}^t\beta_2^{p(t-i)}\cdot\Vert\bb g_i\Vert^p.
 		\end{align}
-		Note that we replace $\beta_2$ with $\beta_2^p$.
+		Note that we replace $$ \beta_2 $$ with $$ \beta_2^p $$.
 	\end{itemize}
 
 	\blfootnote{Kingma, Diederik P., and Jimmy Ba. 2014. “Adam: A Method for Stochastic Optimization.” ArXiv:1412.6980 [Cs], December. http://arxiv.org/abs/1412.6980.}
@@ -660,7 +660,7 @@
 \begin{frame}
 	\frametitle{AdaMax}
 	\begin{itemize}
-		\item Let $p\rightarrow\infty$, then:
+		\item Let $$ p\rightarrow\infty $$, then:
 		\begin{align}\nonumber
 			\bb u_t := \lim_{p\rightarrow\infty}(\bb v_t)^{1/p} &= \lim_{p\rightarrow\infty}\left((1-\beta_2^p)\sum_{i=1}^t\beta_2^{p(t-i)}\cdot\Vert\bb g_i\Vert^p\right)^{1/p} \\ \nonumber
 			&= \lim_{p\rightarrow\infty}(1-\beta_2^p)^{1/p}\left(\sum_{i=1}^t\beta_2^{p(t-i)}\cdot\Vert\bb g_i\Vert^p\right)^{1/p} \\ \nonumber
@@ -671,7 +671,7 @@
 		\begin{equation}
 			\bb u_t = \max(\beta_2\cdot\bb u_{t-1}, \Vert\bb g_t\Vert)
 		\end{equation}
-		with initial value $\bb u_0 = \bb0$.
+		with initial value $$ \bb u_0 = \bb0 $$.
 	\end{itemize}
 \end{frame}
 
@@ -694,7 +694,7 @@
 \begin{frame}
 	\frametitle{Nesterov Adaptive Momeuntum, NAdam}
 	\begin{itemize}
-		\item We know that Adam $\approx$ Momentum $\oplus$ RMSProp and Nesterov is an improved version of Momentum. So we can replace Momentum with a modified version of Nesterov in Adam and get {\bf Nesterov Adam(NAdam)}.
+		\item We know that Adam $$ \approx $$ Momentum $$ \oplus $$ RMSProp and Nesterov is an improved version of Momentum. So we can replace Momentum with a modified version of Nesterov in Adam and get {\bf Nesterov Adam(NAdam)}.
 		\item For Momentum update rule we can put them into one line:
 		\begin{equation}
 			\bst_{t+1}=\bst_t-(\beta\bb m_{t-1}+\gamma\nabla_{\bst}f(\bst_t)).
@@ -703,7 +703,7 @@
 		\begin{equation}
 			\bst_{t+1}=\bst_t-(\beta\bb m_{t-1}+\gamma\nabla_{\bst}f(\bst_t-\beta\bb m_{t-1})).
 		\end{equation}
-		\item In NAdam, we replace $\bb m_{t-1}$ in Momentum with $\bb m_t$ directly, which can be viewed as a weighted momentum:
+		\item In NAdam, we replace $$ \bb m_{t-1} $$ in Momentum with $$ \bb m_t $$ directly, which can be viewed as a weighted momentum:
 		\begin{equation}
 			\bst_{t+1}=\bst_t-(\beta^2\bb m_{t-1} + (\beta+1)\gamma\nabla_{\bst}f(\bst_t)).
 		\end{equation}
@@ -719,7 +719,7 @@
 		\begin{equation}
 			\bst_{t+1}=\bst_t-\frac{\gamma_t}{\sqrt{\bb v_t}+\epsilon}\odot(\beta_1\bb m_{t-1} + (1-\beta_1)\nabla_{\bst}f(\bst_t))
 		\end{equation}
-		Replace $\bb m_{t-1}$ with $\bb m_t$ and we get NAdam
+		Replace $$ \bb m_{t-1} $$ with $$ \bb m_t $$ and we get NAdam
 		\begin{formula}{NAdam}
 			\begin{align}
 				\gamma_t &= \gamma\frac{\sqrt{1-\beta_2^t}}{1-\beta_1^t} \\

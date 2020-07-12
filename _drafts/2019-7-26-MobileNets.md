@@ -26,7 +26,7 @@ GoogLeNet中使用的Inception结构如下图所示.
 
 {% include image.html class="polaroid" url="2019-7/inception.png" title="Inception module with dimensionality reduction" %}
 
-核心操作是把普通的卷积层变成了四路计算, 包含 $1\times1$ , $3\times3$ 和 $5\times5$ 的卷积和一个最大池化的操作. $1\times1$ 卷积用于整合细粒度信息(小感受野), 而 $3\times3$ 和 $5\times5$ 卷积用于抓取偏语义的信息(大感受野). 而叠加额外的 $1\times1$ 卷积的目的是压缩中间层的通道数, 从而可以减少模型参数. 文中提到这里使用 $1\times1$ 卷积的目的恰好和 Network in Network文中的用法相反.
+核心操作是把普通的卷积层变成了四路计算, 包含 $$ 1\times1 $$ , $$ 3\times3 $$ 和 $$ 5\times5 $$ 的卷积和一个最大池化的操作. $$ 1\times1 $$ 卷积用于整合细粒度信息(小感受野), 而 $$ 3\times3 $$ 和 $$ 5\times5 $$ 卷积用于抓取偏语义的信息(大感受野). 而叠加额外的 $$ 1\times1 $$ 卷积的目的是压缩中间层的通道数, 从而可以减少模型参数. 文中提到这里使用 $$ 1\times1 $$ 卷积的目的恰好和 Network in Network文中的用法相反.
 
 ### 2. GoogLeNet
 
@@ -54,8 +54,8 @@ MobileNets 致力于协调神经网络速度与精度, 在尽可能的保持精�
 MobileNets 对普通 CNNs 的改进方向包含三个部分:
 
 1. 使用深度可分离卷积 (depthwise separable convolution) 代替普通卷积
-2. 减少模型通道数的 $alpha$ 参数: 论文中称为 width multiplier
-3. 减小图像大小的 $\rho$ 参数: 论文中称为 resolution multiplier 
+2. 减少模型通道数的 $$ alpha $$ 参数: 论文中称为 width multiplier
+3. 减小图像大小的 $$ \rho $$ 参数: 论文中称为 resolution multiplier 
 
 普通卷积计算 Mult-Adds 的次数为
 
@@ -63,7 +63,7 @@ $$
 D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F
 $$
 
-其中 $D_K$ 是卷积核的边长, $D_F$ 是特征图的边长, $M$ 和 $N$ 分别为输入输出的通道数.
+其中 $$ D_K $$ 是卷积核的边长, $$ D_F $$ 是特征图的边长, $$ M $$ 和 $$ N $$ 分别为输入输出的通道数.
 
 深度可分离卷积计算 Mult-Adds 的次数为
 
@@ -88,7 +88,7 @@ MobileNets 使用了一个序列化的网络主干, 使用步长为2的卷积代
 
 | Model                   | ImageNet Accuracy | Million Mult-Adds | Million Parameters |
 |:-----------------------:|:-----------------:|:-----------------:|:------------------:|
-| $\alpha=0.75$ MobileNet | 68.4%             | 325               | 2.6                |
+| $$ \alpha=0.75 $$ MobileNet | 68.4%             | 325               | 2.6                |
 | Shallow MobileNet       | 65.3%             | 307               | 2.9                |
 
 对比减少通道数和减少网络层数发现, 在几乎同样的参数量和计算量的情况下, 减少通道数是更好的选择. 这也符合我们的直观.

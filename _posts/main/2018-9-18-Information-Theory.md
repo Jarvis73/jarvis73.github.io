@@ -28,33 +28,33 @@ meta: Post
 
 ## 1. 信息量和熵
 
->   **定义:** 分布为 $p$ 的随机变量 $X$ 取值为 $x$ 的**信息量(information content)**定义为
+>   **定义:** 分布为 $$ p $$ 的随机变量 $$ X $$ 取值为 $$ x $$ 的**信息量(information content)**定义为
 >
 >   $$
 >   \mathbf{I}_X(x) := \log{\frac1{p_X(x)}} = -\log{p_X(x)}
 >   $$
 >
 
-因此概率越小的事件, 信息量越大. 进而, 熵可以定义为随机变量 $X$ 的平均信息量(即信息量的期望).
+因此概率越小的事件, 信息量越大. 进而, 熵可以定义为随机变量 $$ X $$ 的平均信息量(即信息量的期望).
 
->   **定义:** 分布为 $p$ 的随机变量 $X$ 的熵是不确定性的一种度量, 记为 $\mathbb{H}(X)$ 或 $\mathbb{H}(p)$ . 特别的, 对一个有着 $K$ 个取值的离散随机变量, **熵(entropy)**可以定义为
+>   **定义:** 分布为 $$ p $$ 的随机变量 $$ X $$ 的熵是不确定性的一种度量, 记为 $$ \mathbb{H}(X) $$ 或 $$ \mathbb{H}(p) $$ . 特别的, 对一个有着 $$ K $$ 个取值的离散随机变量, **熵(entropy)**可以定义为
 >
 >   $$
 >   \mathbb{H}(X) := -\sum_{k=1}^Kp(X=k)\log{p(X=k)} = \mathbb{E}(\mathbf{I}(X))
 >   $$
 >
 
-**定理:** $\mathbb{H}(X)\leq \log{K}$, 当且仅当 $X$ 是离散均匀分布时等号成立.
+**定理:** $$ \mathbb{H}(X)\leq \log{K} $$, 当且仅当 $$ X $$ 是离散均匀分布时等号成立.
 
-该定理可以作为下面信息不等式的推论得出. 从定理中容易知道离散分布的最大熵为 $\mathbb{H}(X)=\log{K}$ . 特别地, $K=2$ 时得到**二值熵** $\mathbb{H}(X)=-(\theta\log{\theta}+(1-\theta)\log{(1-\theta)})$ , 其中 $\theta$ 为成功概率(相应的 $1-\theta$ 为失败概率). 
+该定理可以作为下面信息不等式的推论得出. 从定理中容易知道离散分布的最大熵为 $$ \mathbb{H}(X)=\log{K} $$ . 特别地, $$ K=2 $$ 时得到**二值熵** $$ \mathbb{H}(X)=-(\theta\log{\theta}+(1-\theta)\log{(1-\theta)}) $$ , 其中 $$ \theta $$ 为成功概率(相应的 $$ 1-\theta $$ 为失败概率). 
 
->   **定义:** 给定随机变量 $X=x$, 随机变量 $Y$ 的**条件熵(conditional entropy)**定义为
+>   **定义:** 给定随机变量 $$ X=x $$, 随机变量 $$ Y $$ 的**条件熵(conditional entropy)**定义为
 >
 >   $$
 >   \mathbb{H}(Y\lvert X=x) := -\sum_{y\in\mathcal{Y}}p(y\lvert x)\log{p(y\lvert x)}.
 >   $$
 >   
->   进一步, 给定随机变量 $X$, 随机变量 $Y$ 的条件熵定义为
+>   进一步, 给定随机变量 $$ X $$, 随机变量 $$ Y $$ 的条件熵定义为
 >
 >   $$
 >   \mathbb{H}(Y\lvert X) := -\sum_{x\in\mathcal{X}}p(x)\mathbb{H}(Y\lvert X=x) = -\sum_{x\in\mathcal{X},y\in\mathcal{Y}}p(x, y)\log{p(y\lvert x)}
@@ -64,7 +64,7 @@ meta: Post
 
 ## 2. KL 散度
 
-一个通常用于度量两个概率分布 $p$ 和 $q$ 的差异大小的指标就是 **KL 散度(Kullback-Leibler divergence)** 或称为**相对熵**. 
+一个通常用于度量两个概率分布 $$ p $$ 和 $$ q $$ 的差异大小的指标就是 **KL 散度(Kullback-Leibler divergence)** 或称为**相对熵**. 
 
 >   **定义:** 离散形式
 >
@@ -85,9 +85,9 @@ $$
 \mathbb{KL}(p\lVert q)=\sum_kp_k\log{p_k} - \sum_kp_k\log{q_k} = -\mathbb{H}(p) + \mathbb{H}(p, q)
 $$
 
-其中我们把 $\mathbb{H}(p, q)$ 称为**交叉熵**. 交叉熵是使用模型 $q$ 编码来自于分布 $p$ 的数据所需要的平均位数, 从而"正规"熵 $\mathbb{H}(p)=\mathbb{H}(p, p)$ 即是使用正确模型编码所需要的位数, 所以 KL 散度可以理解为使用模型 $q$ 编码来自于分布 $p$ 的数据所<font color="red">额外</font>需要的位数. 
+其中我们把 $$ \mathbb{H}(p, q) $$ 称为**交叉熵**. 交叉熵是使用模型 $$ q $$ 编码来自于分布 $$ p $$ 的数据所需要的平均位数, 从而"正规"熵 $$ \mathbb{H}(p)=\mathbb{H}(p, p) $$ 即是使用正确模型编码所需要的位数, 所以 KL 散度可以理解为使用模型 $$ q $$ 编码来自于分布 $$ p $$ 的数据所<font color="red">额外</font>需要的位数. 
 
-**定理(信息不等式):** $\mathbb{KL}(p\lVert q)\geq 0$, 当且仅当 $p=q$ 时等号成立.
+**定理(信息不等式):** $$ \mathbb{KL}(p\lVert q)\geq 0 $$, 当且仅当 $$ p=q $$ 时等号成立.
 
 可利用 Jensen 不等式
 
@@ -99,7 +99,7 @@ $$
 
 ## 3. 互信息
 
-考虑随机变量 $X$ 和 $Y$, 如果我们想知道这两者之间的关联性有多强, 一个直接的方法是计算他们的相关系数. 但是相关系数所反应的随机变量的相关性存在局限性, 如下图所示
+考虑随机变量 $$ X $$ 和 $$ Y $$, 如果我们想知道这两者之间的关联性有多强, 一个直接的方法是计算他们的相关系数. 但是相关系数所反应的随机变量的相关性存在局限性, 如下图所示
 
 <div class="polaroid">
     <img class="cool-img" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Correlation_examples.png" Correlation Examples/>
@@ -110,23 +110,23 @@ $$
 
 相关性相同的随机变量可以有着千奇百怪且截然不同的分布. 因此我们引入**互信息(mutual information, MI)**
 
->   **定义:** 对随机变量 $X$ 和 $Y$, 
+>   **定义:** 对随机变量 $$ X $$ 和 $$ Y $$, 
 >
 >   $$
 >   \mathbb{I}(X; Y) := \mathbb{KL}(p(X, Y)\lVert p(X)p(Y))=\sum_x\sum_yp(x, y)\log{\frac{p(x, y)}{p(x)p(y)}}
 >   $$
 >
->   显然 $\mathbb{I}(X; Y)\geq 0$, 当且仅当 $p(X, Y)=p(X)p(Y)$ 时取等号. 
+>   显然 $$ \mathbb{I}(X; Y)\geq 0 $$, 当且仅当 $$ p(X, Y)=p(X)p(Y) $$ 时取等号. 
 
-这意味着 $MI=0$ 当且仅当 $X$ 和 $Y$ 独立. 进一步我们有
+这意味着 $$ MI=0 $$ 当且仅当 $$ X $$ 和 $$ Y $$ 独立. 进一步我们有
 
 $$
 \mathbb{I}(X; Y)=\mathbb{H}(X) - \mathbb{H}(X\lvert Y) = \mathbb{H}(Y) - \mathbb{H}(Y\lvert X)
 $$
 
-其中 $\mathbb{H}(Y\lvert X)=\sum_xp(x)\mathbb{H}(Y\lvert X=x)$ 称为**条件熵**, 利用贝叶斯公式上式容易证明.  有了条件熵, 我们就能对互信息做出直观的解释: <font color="red">观测到随机变量 $Y$ 后随机变量 $X$ 的熵减</font>, 反之亦然. 与互信息相关的另一概念是**点互信息(pointwise mutual information, PMI)** 
+其中 $$ \mathbb{H}(Y\lvert X)=\sum_xp(x)\mathbb{H}(Y\lvert X=x) $$ 称为**条件熵**, 利用贝叶斯公式上式容易证明.  有了条件熵, 我们就能对互信息做出直观的解释: <font color="red">观测到随机变量 $$ Y $$ 后随机变量 $$ X $$ 的熵减</font>, 反之亦然. 与互信息相关的另一概念是**点互信息(pointwise mutual information, PMI)** 
 
->   **定义:** 对随机事件 $x$ 和 $y$, 
+>   **定义:** 对随机事件 $$ x $$ 和 $$ y $$, 
 >
 >   $$
 >   \text{PMI}(x, y) := \log{\frac{p(x, y)}{p(x)p(y)}}=\log{\frac{p(x\lvert y)}{p(x)}}=\log{\frac{p(y|x)}{p(y)}}
@@ -134,7 +134,7 @@ $$
 >
 >   衡量了两个事件同时发生的概率. 
 
-显然 $X$ 和 $Y$ 的 MI 是 PMI 的期望(从定义式中可以看出). 
+显然 $$ X $$ 和 $$ Y $$ 的 MI 是 PMI 的期望(从定义式中可以看出). 
 
 ### 连续随机变量的互信息
 
@@ -146,9 +146,9 @@ $$
 >   \text{MIC} := \max_{x, y:xy<B}\frac{\max_{G\in\mathcal{G}(x, y)}\mathbb{I}(X(G);Y(G))}{\log{\min(x, y)}}
 >   $$
 >
->   其中 $\mathcal{G}(x, y)$ 是一族大小为 $x\times y$ 的网格点, $X(G), Y(G)$ 表示网格上离散了的随机变量, $B$ 是采样的区间数, 一个典型的值为 $B=N^{0.6}$. 
+>   其中 $$ \mathcal{G}(x, y) $$ 是一族大小为 $$ x\times y $$ 的网格点, $$ X(G), Y(G) $$ 表示网格上离散了的随机变量, $$ B $$ 是采样的区间数, 一个典型的值为 $$ B=N^{0.6} $$. 
 
-可以证明 MIC 的范围是 $[0, 1]$ . 下面图 A 给出了 63566 个随机变量的相关系数 CC 和 MIC 的关系图, 图 B 给出了 CC 和 MI 的关系图.
+可以证明 MIC 的范围是 $$ [0, 1] $$ . 下面图 A 给出了 63566 个随机变量的相关系数 CC 和 MIC 的关系图, 图 B 给出了 CC 和 MI 的关系图.
 
 <div class="polaroid">
     <img class="cool-img" src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325791/bin/nihms358982f4.jpg" MI-MIC-CC/>

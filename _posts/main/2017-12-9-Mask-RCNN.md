@@ -51,9 +51,9 @@ Faster RCNN 是一个两阶段的检测器: 第一阶段使用区域建议网络
 
 Mask RCNN 仍然使用两阶段方法, 在第二阶段添加了 mask 分支, 损失函数为:
 
-$$L = L_{cls} + L_{box} + L_{mask}$$
+$$ $L = L_{cls} + L_{box} + L_{mask} $$$
 
-其中 $L_{cls}$ 和 $L_{box}$ 损失与 Faster RCNN 中的相同; 对 mask 分支的输出应用像素级的 sigmoid 函数 (后面的实验说明这里使用 softmax 函数会使得 AP 掉 5.5 个点, 使用 softmax 就以为只多类别间的 mask 是相互竞争的), 然后使用二值交叉熵函数作为 $L_{mask}$ 损失. 对于 ground truth 是第 k 类的 RoI, mask 损失只定义在第 k 个 mask 输出上, 其他的 mask 输出不贡献损失. 这样保证了多个类别的 mask 之家不会竞争,
+其中 $$ L_{cls} $$ 和 $$ L_{box} $$ 损失与 Faster RCNN 中的相同; 对 mask 分支的输出应用像素级的 sigmoid 函数 (后面的实验说明这里使用 softmax 函数会使得 AP 掉 5.5 个点, 使用 softmax 就以为只多类别间的 mask 是相互竞争的), 然后使用二值交叉熵函数作为 $$ L_{mask} $$ 损失. 对于 ground truth 是第 k 类的 RoI, mask 损失只定义在第 k 个 mask 输出上, 其他的 mask 输出不贡献损失. 这样保证了多个类别的 mask 之家不会竞争,
 
 ### RoIAlign
 
@@ -127,8 +127,8 @@ $$L = L_{cls} + L_{box} + L_{mask}$$
 
 #### 指标 (metrics)
 
-* $AP$ (averagd over IoU thresholds), $AP_{50},~AP_{75}$
-* $AP_S,~AP_M,~AP_L$ (AP at different scales)
+* $$ AP $$ (averagd over IoU thresholds), $$ AP_{50},~AP_{75} $$
+* $$ AP_S,~AP_M,~AP_L $$ (AP at different scales)
 
 ## 参考文献
 [1] <span id="1">M. Jaderberg, K. Simonyan, A. Zisserman, and K. Kavukcuoglu. Spatial transformer networks. In NIPS, 2015</span>  

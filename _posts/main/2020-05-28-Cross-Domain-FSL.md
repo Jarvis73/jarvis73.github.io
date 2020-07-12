@@ -46,17 +46,19 @@ Chen等人(A closer look at FSL)[^2] 指出**基于 meta-learning 的少样本�
 
 ## 2. 跨域少样本学习
 
-我们定义"域" $P$ 为输入空间 $\mathcal{X}$ 和标签空间 $\mathcal{Y}$ 的联合分布. $P_{\mathcal{X}}$ 表示边际分布. 令 $(x, y)$ 表示 $P$ 中的一个样本 $x$ 和对应的标签 $y$ . 那么对于模型 $f_{\theta}:\mathcal{X}\rightarrow\mathcal{Y}$ 和损失函数 $l$ , 期望误差为
+我们定义"域" $$ P $$ 为输入空间 $$ \mathcal{X} $$ 和标签空间 $$ \mathcal{Y} $$ 的联合分布. $$ P_{\mathcal{X}} $$ 表示边际分布. 令 $$ (x, y) $$ 表示 $$ P $$ 中的一个样本 $$ x $$ 和对应的标签 $$ y $$ . 那么对于模型 $$ f_{\theta}:\mathcal{X}\rightarrow\mathcal{Y} $$ 和损失函数 $$ l $$ , 期望误差为
+
 $$
 \epsilon(f_{\theta})=E_{(x, y)\sim P}[l(f_{\theta}(x), y)].
 $$
-在 CS-FSL 中, 我们有源域 $(\mathcal{X}_s, \mathcal{Y}_s)$ 和目标域  $(\mathcal{X}_t, \mathcal{Y}_t)$ 以及对应的联合分布 $P_s$ 和 $P_t$ , 并且 $P_{\mathcal{X_s}}\neq P_{\mathcal{X}_t}$ .  
+
+在 CS-FSL 中, 我们有源域 $$ $(\mathcal{X}_s, \mathcal{Y}_s) $$$ 和目标域 $$ $(\mathcal{X}_t, \mathcal{Y}_t) $$$ 以及对应的联合分布 $$ $P_s $$$ 和 $$ $P_t $$$ , 并且 $$ $P_{\mathcal{X_s}}\neq P_{\mathcal{X}_t} $$$ .  
+
 
 base 类的数据从源域采样, novel 类的数据从目标域采样. 
 
-训练时, 模型在 base 类数据上训练.
-
-测试时, 模型在 novel 类数据上测试. 其中会提供**支撑集(support set)** $S=\{x_i, y_i\}_{i=1}^{K\times N}$, 其中包含 $K$ 和类别, 每个类别 $N$ 个带标签的样本, 称为 **K-way N-shot** 的少样本学习. 在模型适应到支撑集后使用**查询集(query set)**测试.
+* 训练时, 模型在 base 类数据上训练.
+* 测试时, 模型在 novel 类数据上测试. 其中会提供**支撑集(support set)** $$ S=\{x_i, y_i\}_{i=1}^{K\times N} $$, 其中包含 $$ K $$ 和类别, 每个类别 $$ N $$ 个带标签的样本, 称为 **K-way N-shot** 的少样本学习. 在模型适应到支撑集后使用**查询集(query set)**测试.
 
 
 
@@ -64,19 +66,19 @@ base 类的数据从源域采样, novel 类的数据从目标域采样.
 
 ### 3.1 元学习 Meta-Learning
 
-以 task 的形式训练模型. 每个 task 从固定的分布中抽取 $\mathcal{T}_i\sim P(\mathcal{T})$ . 比如, 在 FSL 中, 每个 task 都是一个小型数据集 $D_i:=\{x_j,y_j\}_{j=1}^{K\times N}$ . 使用 $P_s(\mathcal{T})$ 和 $P_t(\mathcal{T})$ 分别表示源域和目标域上的 task. 
+以 task 的形式训练模型. 每个 task 从固定的分布中抽取 $$ \mathcal{T}_i\sim P(\mathcal{T}) $$ . 比如, 在 FSL 中, 每个 task 都是一个小型数据集 $$ D_i:=\{x_j,y_j\}_{j=1}^{K\times N} $$ . 使用 $$ P_s(\mathcal{T}) $$ 和 $$ P_t(\mathcal{T}) $$ 分别表示源域和目标域上的 task. 
 
-meta-training 阶段: 模型在 $T$ 个 task $\{\mathcal{T}_i\}_{i=1}^T$ 上训练, 这 $T$ 个 采样于 $P_s(\mathcal{T})$ . 
+meta-training 阶段: 模型在 $$ T $$ 个 task $$ \{\mathcal{T}_i\}_{i=1}^T $$ 上训练, 这 $$ T $$ 个 采样于 $$ P_s(\mathcal{T}) $$ . 
 
-meta-testing 阶段: 希望模型可以快速适应于新的 task $T_j\sim P_t(\mathcal{T})$ . 
+meta-testing 阶段: 希望模型可以快速适应于新的 task $$ T_j\sim P_t(\mathcal{T}) $$ . 
 
-在 meta-learning 中潜在的存在这样的假设: $P_s(\mathcal{T})=P_t(\mathcal{T})$, 这也是在跨域的时候表现差的原因.
+在 meta-learning 中潜在的存在这样的假设: $$ P_s(\mathcal{T})=P_t(\mathcal{T}) $$, 这也是在跨域的时候表现差的原因.
 
 ### 3.2 迁移学习 Transfer Learning
 
-初始模型 $f_{\theta}$ 在 base 类上用标准的监督学习的方法训练, 然后在 novel 类上重用. 已有的用于 FSL 的方法:
+初始模型 $$ f_{\theta} $$ 在 base 类上用标准的监督学习的方法训练, 然后在 novel 类上重用. 已有的用于 FSL 的方法:
 
-*   固定 $f_{\theta}$ 的参数, 仅用作特征提取器, 在 novel 类上 fine-tune. 但在少样本的情况下及其容易过拟合.
+*   固定 $$ f_{\theta} $$ 的参数, 仅用作特征提取器, 在 novel 类上 fine-tune. 但在少样本的情况下及其容易过拟合.
 
 #### 3.2.1 单模型方法
 
@@ -97,22 +99,24 @@ meta-testing 阶段: 希望模型可以快速适应于新的 task $T_j\sim P_t(\
     $$
     c_{i,k}=\frac{f_{\theta}(\hat{x}_i)^T\mathbf{w}_k}{\Vert f_{\theta}(\hat{x}_i)^T\Vert\Vert\mathbf{w}_k\Vert}
     $$
-    其中 $\mathbf{W}_k$ 为代表第 k 个类别向量, 可以看作原型, 但是是通过反向传播学出来的. 
+    其中 $$ \mathbf{W}_k $$ 为代表第 k 个类别向量, 可以看作原型, 但是是通过反向传播学出来的. 
 
     {% include image.html class="polaroid" url="2020-05/CDFSL-2.png" title="元学习分类器" %}
 
 #### 3.2.2 多模型方法 (论文提出的方法)
 
-假设我们有 $C$ 个分别在不同数据集上预训练的模型 $\{M_c\}_{c=1}^C$ , 记所有预训练模型的所有网络层为 $F$, 给定支撑集 $S=\{(x_i, y_i)\}_{i=1}^{K\times N}$ 其中 $(x_i, y_i)\sim P_t$ , 我们的目标是寻找 $F$ 的子集 $I$ 来产生特征向量使得测试误差最小:
+假设我们有 $$ C $$ 个分别在不同数据集上预训练的模型 $$ \{M_c\}_{c=1}^C $$ , 记所有预训练模型的所有网络层为 $$ F $$, 给定支撑集 $$ S=\{(x_i, y_i)\}_{i=1}^{K\times N} $$ 其中 $$ (x_i, y_i)\sim P_t $$ , 我们的目标是寻找 $$ F $$ 的子集 $$ I $$ 来产生特征向量使得测试误差最小:
+
 $$
 \underset{I\subseteq F,\;(x, y)\sim P_t}{\arg\min}l(f_s(T(\{a(x):a \in I\})), y)
 $$
-其中 $T(\cdot)$  是结合一组特征向量的函数, $a$ 是 $I$ 中的网络层, $f_s$ 是线性分类器. 
 
-$I$ 的筛选方法:
+其中 $$ T(\cdot) $$  是结合一组特征向量的函数, $$ a $$ 是 $$ I $$ 中的网络层, $$ f_s $$ 是线性分类器. 
 
-1.  每一个预训练模型的每一层都训练一个分类器, 然后每个模型最好的层加入 $I_1$ 
-2.  把 $I_1$ 中的层累进式地加入 $I$, 可以降低误差则保留, 否则丢弃
+$$ I $$ 的筛选方法:
+
+1.  每一个预训练模型的每一层都训练一个分类器, 然后每个模型最好的层加入 $$ I_1 $$ 
+2.  把 $$ I_1 $$ 中的层累进式地加入 $$ I $$, 可以降低误差则保留, 否则丢弃
 
 
 
