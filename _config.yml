@@ -67,7 +67,7 @@ wiki_list:
 excerpt_separator: "\n\n\n\n"
 
 # paginate
-gems:
+plugins:
   - jekyll-paginate
 paginate: 5
 

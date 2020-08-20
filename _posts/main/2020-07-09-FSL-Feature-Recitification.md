@@ -22,7 +22,17 @@ TapNet 提出了一种 task-adaptive projection 用于少样本学习. 嵌入空
 
 ### 1. 模型
 
-在少样本学习中(这里考虑分类任务), 对于 $$ N_c\text{-}way~1\text{-}shot $$ 的任务, 一个 episode 包含一族支撑集 $$ \{(x_1, y_1), \cdots, (x_{N_c}, y_{N_c})\} $$ 和一族查询集 $$ \{(\hat{x}_1, \hat{y}_1), \cdots, (\hat{x}_{N_c}, \hat{y}_{N_c})\} $$. 
+在少样本学习中(这里考虑分类任务), 对于 $$N_c$$-way 1-shot 的任务, 一个 episode 包含一族支撑集 
+
+$$
+\{(x_1, y_1), \cdots, (x_{N_c}, y_{N_c})\}
+$$ 
+
+和一族查询集 
+
+$$
+\{ (\hat{x}_1, \hat{y}_1), \cdots, (\hat{x}_{N_c}, \hat{y}_{N_c}) \} .
+$$
 
 TapNet 包含三个部分, 特征提取网络 $$ f_{\theta} $$, 一族类别相关的向量 $$ \Phi $$ 和 task-specific 的自适应的映射 $$ M $$ 用于进行特征映射. 其中 $$ \Phi=[\phi_1;\phi_2,\cdots;\phi_{N_c}] $$ 是一个矩阵, 其中的每一行都是一个类别相关的参考向量 $$ \phi_k $$ (默认都是行向量), 这个矩阵是参数化的, 即其中的值是通过反向传播来学习的. 
 

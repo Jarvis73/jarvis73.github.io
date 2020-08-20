@@ -30,7 +30,7 @@ hidden: true
 
 * **LU 分解**: $$ L $$ 为下三角阵, $$ U $$ 为上三角阵
 
-  ``python
+  ```python
   p, l, u = scipy.linalg.lu(A, permute_l=False, overwrite_a=False, check_finite=True)
   ```
   
