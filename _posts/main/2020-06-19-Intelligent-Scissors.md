@@ -2,7 +2,7 @@
 layout: post
 title: "智能剪刀 (Intelligent Scissors)"
 date: 2020-07-09 22:01:00 +0800
-categories: 图像处理 Algorithm
+categories: 图像处理
 mathjax: true
 figure: ./images/2020-06/cost_matrix.png
 author: Jarvis
