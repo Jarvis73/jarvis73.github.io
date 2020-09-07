@@ -79,6 +79,8 @@ type: page
 
 ## 博客
 
+* [浙江大学可视化小组 ZJUVAG](https://zjuvag.org/)
+
 * [尝试从特征图来解释神经网络](https://distill.pub/)
 
 * [Tensorflow 的 medium](https://medium.com/tensorflow)
@@ -86,8 +88,6 @@ type: page
 * [Google 研究](https://research.google.com/pubs/papers.html)
 
 * [Colah's blog 神经网络相关](https://colah.github.io/)
-
-* [DonGovi 的 Blog](https://dongovi.github.io)
 
 * [FengHZ 的 Blog](https://FengHZ.github.io)
 
