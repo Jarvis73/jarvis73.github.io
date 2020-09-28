@@ -9,8 +9,8 @@
 title: Jarvis' Blog
 brief-intro: 成功的路上并不拥挤, 因为坚持的人不多
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://www.jarvis73.cn" # the base hostname & protocol for your site
-enforce_ssl: www.jarvis73.cn
+url: "https://www.jarvis73.com" # the base hostname & protocol for your site
+enforce_ssl: www.jarvis73.com
 
 permalink: /:year/:month/:day/:title/
 
