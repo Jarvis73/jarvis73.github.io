@@ -16,6 +16,8 @@ meta: Post
 **Update (2019.8.20): 增加 LSTM 和 Encoder-Decoder**
 
 
+
+
 ## 1. 循环神经网络 (Recurrent Neural Network, RNN)
 
 在机器学习中, 数据表示为 $$ n $$ 维特征向量 $$ \mathbf{x}\in\mathbb{R}^n $$ 或 $$ h\times w $$ 维特征矩阵(如图片), 多层感知机 (multilayer perceptron, MLP) 和卷积神经网络 (convolutional neural network, CNN) 可以提取数据中的特征以进行分类回归等任务.
