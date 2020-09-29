@@ -4,7 +4,7 @@ title: "机器学习(四): 混合模型和EM算法 (Mixture Models and EM Algori
 date: 2020-08-20 10:39:00 +0800
 categories: 机器学习
 mathjax: true
-figure: ./images/2020-08/MM-0.png
+figure: /images/2020-08/MM-0.png
 author: Jarvis
 meta: Post
 ---

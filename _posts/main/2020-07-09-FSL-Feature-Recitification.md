@@ -4,7 +4,7 @@ title: "少样本学习中的特征修正 (Feature Rectification in FSL)"
 date: 2020-07-09 22:01:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2020-07/TapNet.png
+figure: /images/2020-07/TapNet.png
 author: Jarvis
 meta: Post
 ---

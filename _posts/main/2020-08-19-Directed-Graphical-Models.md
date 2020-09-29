@@ -4,7 +4,7 @@ title: "机器学习(三): 有向图模型 (Directed Graphical Models)"
 date: 2020-08-19 11:17:00 +0800
 categories: 机器学习
 mathjax: true
-figure: ./images/2020-08/DGM-6.png
+figure: /images/2020-08/DGM-6.png
 author: Jarvis
 meta: Post
 ---

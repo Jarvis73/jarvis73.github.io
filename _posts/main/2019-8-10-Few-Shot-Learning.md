@@ -4,7 +4,7 @@ title: "小样本学习: 基础 (Few-Shot Learning: Basic)"
 date: 2019-08-10 11:23:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2019-8/pic-2.jpg
+figure: /images/2019-8/pic-2.jpg
 author: Jarvis
 meta: Post
 ---

@@ -94,7 +94,7 @@ def model_fn(features, labels, mode, params):
 
 其中 `features` 和 `labels` 是数据输入函数 `input_fn` 返回的两个对象, 通常表示数据特征和对应的标签. `features` 和 `labels` 既可以是 Tensor, 也可以是 Python 字典, 其值为 Tensor, 因此这两个参数可以通过字典传递任何数据(一批)到模型中使用.
 
-Estimator 的训练流程(`session.run()`)是封装在类内部的, 同时没有提供 `feed_dict` 的参数结构, 因此我们不能像 Tensorflow 低阶API中那样使用 `placeholder` 馈送数据到模型中. 官方建议的方式是用 `tf.data.Dataset` 类创建数据输入管线, 其用法也相当灵活, 可以参考 [Tensorflow 数据输入管线](https://www.jarvis73.cn/2018/04/28/Tensorflow-Input-Pipline/), 这里就不再赘述. 其最终目标就是数据输入函数 `input_fn` 返回的必须是 `tf.Tensor` 或其嵌套(nested)对象, 从而 `model_fn` 接收到的也是 Tensor.
+Estimator 的训练流程(`session.run()`)是封装在类内部的, 同时没有提供 `feed_dict` 的参数结构, 因此我们不能像 Tensorflow 低阶API中那样使用 `placeholder` 馈送数据到模型中. 官方建议的方式是用 `tf.data.Dataset` 类创建数据输入管线, 其用法也相当灵活, 可以参考 [Tensorflow 数据输入管线](https://www.jarvis73.com/2018/04/28/Tensorflow-Input-Pipline/), 这里就不再赘述. 其最终目标就是数据输入函数 `input_fn` 返回的必须是 `tf.Tensor` 或其嵌套(nested)对象, 从而 `model_fn` 接收到的也是 Tensor.
 
 **函数体.** 接下来就只需要在 `model_fn` 内部写入创建模型的代码, 可以使用 `tf.layers` API(在2.0版本中被移除了)或 `tf.contrib.slim` API(也在2.0版本中被移除了)或低阶API(`tf.Variable` + `tf.nn`). 
 

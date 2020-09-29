@@ -4,7 +4,7 @@ title: "Convolution Arithmetic for Deep Learning"
 date: 2019-6-6 10:25:00 +0800
 categories: 深度学习
 mathjax: true
-figure: ./images/2019-6/conv-0.gif
+figure: /images/2019-6/conv-0.gif
 author: Jarvis
 meta: Post
 ---

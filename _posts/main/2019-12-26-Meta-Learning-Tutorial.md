@@ -4,7 +4,7 @@ title: "元学习简介 (Meta-Learning: Tutorial)"
 date: 2019-12-26 22:01:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2019-12/Meta-Learner.svg
+figure: /images/2019-12/Meta-Learner.svg
 author: Jarvis
 meta: Post
 ---

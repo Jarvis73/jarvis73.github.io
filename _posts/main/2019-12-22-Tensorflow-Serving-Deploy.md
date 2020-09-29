@@ -3,7 +3,7 @@ layout: post
 title: "Tensorflow 模型部署"
 date: 2019-12-22 13:36:00 +0800
 categories: Tensorflow
-figure: ./images/2019-12/tfx-hero.svg
+figure: /images/2019-12/tfx-hero.svg
 author: Jarvis
 meta: Post
 ---

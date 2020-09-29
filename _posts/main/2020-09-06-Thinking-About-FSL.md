@@ -4,7 +4,7 @@ title: "关于少样本学习的思考"
 date: 2020-09-06 16:05:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2020-09/FSL-2.png
+figure: /images/2020-09/FSL-2.png
 author: Jarvis
 meta: Post
 ---
@@ -98,7 +98,7 @@ $$
     >
     >   原始论文的结果过于低估
 
-*   MatchingNet 通过调整 softmax 层数据的尺度 (乘一个系数), 精度有一个显著的提升. (这一点的原因本文没有分析, 但 NeurIPS 2018 的一篇论文 [TADAM](https://www.jarvis73.cn/2020/07/09/FSL-Metrics/#1-tadam-task-dependent-adaptive-metric)[^2] 中有详细分析.)
+*   MatchingNet 通过调整 softmax 层数据的尺度 (乘一个系数), 精度有一个显著的提升. (这一点的原因本文没有分析, 但 NeurIPS 2018 的一篇论文 [TADAM](https://www.jarvis73.com/2020/07/09/FSL-Metrics/#1-tadam-task-dependent-adaptive-metric)[^2] 中有详细分析.)
 
 *   尽管 ProtoNet# 要差于 ProtoNet, 但论文中提到使用更深的 backbone 可以解决该问题.
 

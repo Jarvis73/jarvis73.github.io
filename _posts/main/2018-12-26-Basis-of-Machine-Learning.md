@@ -121,7 +121,7 @@ meta: Post
 
 ## 9. 多试几个模型, 不要在一棵树上吊死
 
-**最好的模型**因任务的不同而异, 因此多尝试不同的模型去寻找更适合的, 而不是始终只调一个模型的参. 模型 ensemble 也是一种不错的选择. Ensemble 方法不应与贝叶斯模型平均(bayes model average, BMA)混淆, BMA 方法可以参考 [离散数据的生成式模型](https://www.jarvis73.cn/2018/09/27/Generative-Models-for-discrete-data/). 
+**最好的模型**因任务的不同而异, 因此多尝试不同的模型去寻找更适合的, 而不是始终只调一个模型的参. 模型 ensemble 也是一种不错的选择. Ensemble 方法不应与贝叶斯模型平均(bayes model average, BMA)混淆, BMA 方法可以参考 [离散数据的生成式模型](https://www.jarvis73.com/2018/09/27/Generative-Models-for-discrete-data/). 
 
 ## 10. 简单不一定意味着准确
 

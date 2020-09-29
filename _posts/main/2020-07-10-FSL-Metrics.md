@@ -4,7 +4,7 @@ title: "少样本学习中的度量函数 (Metrics in FSL)"
 date: 2020-07-09 22:01:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
-figure: ./images/2020-07/TADAM.png
+figure: /images/2020-07/TADAM.png
 author: Jarvis
 meta: Post
 ---
