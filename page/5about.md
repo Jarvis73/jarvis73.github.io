@@ -16,17 +16,13 @@ type: page
 ## 联系我
 
 * GitHub：[Jarvis73](https://github.com/Jarvis73)
-* email：jarviszhang233@gmail.com
-* [Weibo](http://weibo.com/5336691469)
+* Email：zjw.cs@zju.edu.cn
 * [知乎](https://www.zhihu.com/people/lin-xi-1-1)
-* [Facebook](https://www.facebook.com)
-* [Twitter](https://twitter.com/z2014jw)
-* [豆瓣](https://www.douban.com)
 
 ## Changes Log
 
 * **2019-07-28**
-  * 简化了图片容器
+  * 简化了图片容器, 通过 `{% include image.html class="polaroid" url="2020-08/tSNE-5.png" title="t-viSNE 系统概览" %}` 引入图片(注意替换 url 和 title).
   * Wiki 的类别加入了 `_config.yml`, 从而可以自动筛选
   * 修复了首页博文数量计算错误的bug(由于wiki文章被隐藏导致的)
   * 修改为使用kramdown
