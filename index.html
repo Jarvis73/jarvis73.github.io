@@ -10,7 +10,7 @@ layout: default
         <ul>
             {% for post in paginator.posts %}
             {% if post.meta == "Post" %}
-              <li>
+              <li class="index-left-li">
                 <h2>
                   <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
                 </h2>
@@ -56,7 +56,7 @@ layout: default
             <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
             <span class="previous disable"><i class="fa fa-angle-left"></i></span>
           {% endif %}
-          <span class="page_number ">{{ paginator.page }}/{{ paginator.total_pages }}</span>
+          <span class="page_number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
           {% if paginator.next_page %}
             <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-angle-right"></i></a>
             <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}" class="next"><i class="fa fa-angle-double-right"></i></a>
@@ -69,20 +69,20 @@ layout: default
     <!-- <button class="anchor"><i class="fa fa-anchor"></i></button> -->
     <div class="right">
         <div class="wrap">
-            <div class="side">
+            <div class="side index-right-div">
                 <div>
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Recent Posts
                 </div>
                 <ul class="content-ul" recent>
                     {% for post in site.posts offset: 0 limit: 10  %}
-                        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+                        <li><a href="{{ site.baseurl }}{{ post.url }}" class="index-right-recent">{{ post.title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- Content -->
-            <div class="side ">
+            <div class="side index-right-div" style="padding-bottom: 10px;" >
                 <div>
                     <i class="fa fa-th-list"></i>
                     Categories
@@ -145,7 +145,7 @@ layout: default
                 </div>
             </div> -->
 
-            <div class="side">
+            <div class="side index-right-div">
                 <div>
                     <i class="fa fa-book"></i>
                     Language Wiki
@@ -157,7 +157,7 @@ layout: default
                 </ul>
             </div>
 
-            <div class="side">
+            <div class="side index-right-div">
                 <div>
                     <i class="fa fa-external-link"></i>
                     External Links

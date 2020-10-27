@@ -47,6 +47,14 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    # Rouge Options › https://github.com/jneen/rouge#full-options
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
 # port
 # port: 1234
@@ -62,6 +70,7 @@ wiki_list:
   - Latex
   - CUDA
   - CMake
+  - Deep Learning
 
 # excerpt
 excerpt_separator: "\n\n\n\n"

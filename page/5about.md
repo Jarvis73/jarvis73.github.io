@@ -9,20 +9,34 @@ type: page
 * content
 {:toc}
 
-## 关于我
 
-以后再写吧~
+## About Me
 
-## 联系我
+<div style="width:150px; height:auto; float:left; display:inline">
+<img src="/images/misc/me.png">
+</div>
+<div style="width: auto; height:auto; float:left; display:inline; padding-left: 40px">
+<div style="font-size: 25px; padding-bottom: 10px"><strong>张建伟 (Zhang Jianwei)</strong><br /></div>
+浙江大学计算机科学与技术学院 博士生 ( 2018- )<br />
+研究方向: 深度学习, 图像分割, 少样本学习, 医学影像处理<br />
+</div>
+<div style="clear:both"></div> 
+
+## Contact Me
 
 * GitHub：[Jarvis73](https://github.com/Jarvis73)
-* Email：zjw.cs@zju.edu.cn
+* Email：<a href = "mailto:zjw.cs@zju.edu.cn">zjw.cs@zju.edu.cn</a>
 * [知乎](https://www.zhihu.com/people/lin-xi-1-1)
 
 ## Changes Log
 
+* **2020-10-26**
+  * 首页的每个 Post 设计为卡片, 更容易区分不同的 Posts. 
+  * 缩短了 "Recent Posts" 中的标题(通过js正则匹配去掉了标题括号中的英文), 每个标题只占一行.
+  * 代码块增加了行号显示, 换了代码高亮方式, 调整了代码块背景色.
+
 * **2019-07-28**
-  * 简化了图片容器, 通过 `{% include image.html class="polaroid" url="2020-08/tSNE-5.png" title="t-viSNE 系统概览" %}` 引入图片(注意替换 url 和 title).
+  * 简化了图片容器, 通过 `{% raw %}{% include image.html class="polaroid" url="2020-08/tSNE-5.png" title="t-viSNE 系统概览" %}{% endraw %}` 引入图片(注意替换 url 和 title).
   * Wiki 的类别加入了 `_config.yml`, 从而可以自动筛选
   * 修复了首页博文数量计算错误的bug(由于wiki文章被隐藏导致的)
   * 修改为使用kramdown
@@ -42,3 +56,13 @@ type: page
 * **2018-01-31** 
   * 添加了基于 github issues 的评论系统, 使用了 [Shiquan Sun](https://github.com/imsun/gitment) 的 **gitment** 项目.
   * 首页摘要中增加图片显示功能, 在 post 中的开头使用 `figure: /images/xxx.png` 即可, 路径格式与 post 中插入图片的路径格式相同.
+
+## Acknowledgement
+<p class="power">
+    <span>
+        Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+    </span>
+    <span>
+        Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+    </span>
+</p>

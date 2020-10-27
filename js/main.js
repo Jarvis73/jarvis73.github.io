@@ -55,3 +55,15 @@
 (function() {
   var demoItems = document.querySelectorAll('.grid-item')
 }());
+
+// Shorten the title of the "Recent Posts"
+(function() {
+  var all_li = document.getElementsByClassName("index-right-recent")
+  console.log(all_li);
+  for (var i = 0; i < all_li.length; i++)
+  {
+    var before_title = all_li[i].innerHTML;
+    var after_title = before_title.replace(/\([a-zA-Z \-]*\)$/i, "");
+    all_li[i].innerHTML = after_title;
+  }
+}());
