@@ -9,6 +9,8 @@ author: Jarvis
 meta: Post
 ---
 
+**2020-10-28 更新: 增加了深度学习框架中 `im2col` 的卷积计算方法**
+
 * content
 {:toc}
 
@@ -119,6 +121,44 @@ $$
 把卷积看作矩阵核向量的乘法运算之后, 转置卷积核FC的逆运算就完全一样了, 即把上图中间的大矩阵做一个转置即可, 此时转置卷积就是把 $$ 3\times3 $$ 的特征图映射为 $$ 5\times5 $$ 的特征图. 需要注意的是, 转置卷积本质上还是卷积, 只不过它在输入输出特征图的尺寸与某一个卷积互逆. 因此要完成卷积操作我们需要<u>计算出</u>相应的填充数, 步长, 同时对卷积核在水平和垂直方向翻转(即旋转180度). 在这个例子中, 填充数 $$ p=2 $$, 步长 $$ s=1 $$, 下面的示意图是上图对应的转置卷积.
 
 ![fig](/images/2019-6/conv-flat-transpose.gif)
+
+### 2.3 再看卷积
+
+注意到我们在上面讨论的卷积看做矩阵乘法的提法会出现较大的卷积核构成的稀疏矩阵. 我们也可以把特征图进行展开, 从而可以形成一个稠密的向量. 这个过程在现在深度学习框架中称为 `im2col`. 其具体操作过程是: 把卷积核看做掩模矩阵, 按照既定规则在特征图上进行滑窗, 把每次掩模矩阵覆盖的特征图的矩形区域展成向量; 然后把所有的向量组成一个新的矩阵; 最后用这个新的矩阵与卷积核执行矩阵乘法. 如下图所示.
+
+![fig](/images/2019-6/conv_v2-flat.gif)
+
+
+## 动图生成
+
+本文动图生成的代码见 [Github](https://github.com/Jarvis73/jarvis73.github.io/blob/master/code/conv_arithmetic). 
+
+生成方式:
+
+```bash
+# 在 Ubuntu 下, 预先安装 apt install ImageMagick 用于格式转换
+# 测试安装是否成功
+# convert -h
+# 安装 Latex 软件, 这里的代码需要 pdflatex 引擎
+
+# 进入项目目录
+cd jarvis73.github.io/code/conv_arithmetic
+
+# 1. 首先生成逐帧的pdf
+# 卷积
+# python ./code/20190606-Conv.py conv
+# 反卷积
+# python ./code/20190606-Conv.py conv_transpose
+# 另一种卷积的展开方式(框架里的用法)
+python ./20190606-Conv.py conv_v2
+
+# 2. pdf 转 png
+bash ./pdf2png.sh 201906_conv_v2
+
+# 3. 合并 png 为 gif
+convert -delay 60 201906_conv_v2_png/*.png output.gif
+
+```
 
 
 ## 参考文献
