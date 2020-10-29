@@ -1,0 +1,71 @@
+html,
+body {
+    background-color: #f0f0f0;
+}
+
+.page .left {
+    background-color: #f0f0f0;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.page .left li p {
+    color: #444;
+}
+
+.page .right .side {
+    background-color: #f0f0f0;
+}
+
+.dh {
+    padding: 0px 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dh .col-xs-4 {
+    padding: 0 3px
+}
+
+.dh a {
+    background: rgb(255, 255, 255);
+    text-align: center;
+    display: block;
+    line-height: 45px;
+    border-radius: 2px;
+    font-size: 16px;
+    color: #808080;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease
+}
+
+.dh a:hover {
+    color: #FFF !important;
+    font-size: 18px;
+    font-weight: bold;
+    background: #459df5 !important;
+}
+
+.dhname {
+    font-size: 16px;
+    font-weight: 400;
+    color: #808080;
+    display: block;
+    margin-bottom: 5px
+}
+
+.mb-2,
+.my-2 {
+    margin-bottom: .5rem !important
+}
+
+.mb-2 img {
+    height: 22px;
+    margin-bottom: 4px;
+    margin-right: 6px;
+}
