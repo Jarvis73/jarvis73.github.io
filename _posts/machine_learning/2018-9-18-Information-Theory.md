@@ -19,12 +19,7 @@ meta: Post
 
 
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/MLPP/Shannon.jpg" Shannon/>
-    <div class="container">
-        <p>Claude Shannon 1916-2001. <a href="https://www.chalmers.se/en/areas-of-advance/ict/events/shannon-centennial/Pages/shannon.aspx">Picture source</a></p>
-    </div>
-</div>
+{% include image.html class="polaroid" url="MLPP/Shannon.jpg" title="Claude Shannon 1916-2001" %}
 
 ## 1. 信息量和熵
 
@@ -101,12 +96,7 @@ $$
 
 考虑随机变量 $$ X $$ 和 $$ Y $$, 如果我们想知道这两者之间的关联性有多强, 一个直接的方法是计算他们的相关系数. 但是相关系数所反应的随机变量的相关性存在局限性, 如下图所示
 
-<div class="polaroid">
-    <img class="cool-img" src="https://upload.wikimedia.org/wikipedia/commons/0/02/Correlation_examples.png" Correlation Examples/>
-    <div class="container">
-        <p>Correlation Examples</p>
-    </div>
-</div>
+{% include image.html class="polaroid" url="https://upload.wikimedia.org/wikipedia/commons/0/02/Correlation_examples.png" title="Correlation Examples" %}
 
 相关性相同的随机变量可以有着千奇百怪且截然不同的分布. 因此我们引入**互信息(mutual information, MI)**
 
@@ -150,12 +140,7 @@ $$
 
 可以证明 MIC 的范围是 $$ [0, 1] $$ . 下面图 A 给出了 63566 个随机变量的相关系数 CC 和 MIC 的关系图, 图 B 给出了 CC 和 MI 的关系图.
 
-<div class="polaroid">
-    <img class="cool-img" src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325791/bin/nihms358982f4.jpg" MI-MIC-CC/>
-    <div class="container">
-        <p>MI-MIC-CC</p>
-    </div>
-</div>
+{% include image.html class="polaroid" url="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325791/bin/nihms358982f4.jpg" title="MI-MIC-CC" %}
 
 *   点 C 表示一组低 CC, 低 MIC 的随机变量, 可以看出他们是不相关的.
 *   点 D 和 H 表示两组高 CC(取绝对值), 高 MIC 的随机变量, 可以看出他们几乎存在线性相关性.

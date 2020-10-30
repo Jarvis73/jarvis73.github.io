@@ -58,12 +58,48 @@
 
 // Shorten the title of the "Recent Posts"
 (function() {
-  var all_li = document.getElementsByClassName("index-right-recent")
-  console.log(all_li);
+  var all_li = document.getElementsByClassName("index-right-recent");
   for (var i = 0; i < all_li.length; i++)
   {
     var before_title = all_li[i].innerHTML;
     var after_title = before_title.replace(/\([a-zA-Z \-]*\)$/i, "");
     all_li[i].innerHTML = after_title;
   }
+}());
+
+// 为代码块填入代码类型属性
+(function() {
+  var all_code = document.getElementsByTagName("code");
+  for (var i = 0; i < all_code.length; i++) 
+  {
+    if (all_code[i].parentElement.tagName == "PRE")
+    {
+      var code_type = all_code[i].parentElement.parentElement.parentElement.className;
+      all_code[i].setAttribute("data-content", code_type.split(" ")[0].split("-")[1]);
+    }
+  }
+}());
+
+// 代码块的复制按钮逻辑
+(function() {
+  let codes = document.querySelectorAll('.highlight > pre > code');
+  let countID = 0;
+  codes.forEach((code) => {
+  
+    code.querySelector(".rouge-code").setAttribute("id", "code" + countID);
+    
+    let btn = document.createElement('button');
+    btn.innerHTML = "copy";
+    btn.className = "btn-copy";
+    btn.setAttribute("data-clipboard-action", "copy");
+    btn.setAttribute("data-clipboard-target", "#code" + countID);
+    
+    let div = document.createElement('div');
+    div.appendChild(btn);
+    
+    code.before(div);
+  
+    countID++;
+  }); 
+  let clipboard = new ClipboardJS('.btn-copy');
 }());

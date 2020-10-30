@@ -12,6 +12,12 @@ h1 {
     font-weight: normal;
 }
 
+h1,
+h2 {
+    padding-bottom: 7px;
+    border-bottom: 1px solid #ddd;
+}
+
 .page .left li p {
     color: #444;
 }

@@ -11,14 +11,16 @@ meta: Post
 * content
 {:toc}
 
+
+
+
 本文假设读者已经懂得了 Tensorflow 的一些基础概念, 如果不懂, 则移步 TF [官网](https://www.tensorflow.org/get_started) .
+
+{% include image.html class="polaroid" url="2018-4-28/pipline.gif" title="Tensorflow 数据输入管线" %}
 
 ## 1. 数据预处理: Data ---> TFRecord
 
 由于 Tensorflow 使用 `*.tfrecord` 文件的效率是极高的, 所以预处理数据并保存为该格式可以有效地提高训练速度. 当然了, 预处理数据也是需要时间的, 但是这一次性的制作可以保证之后长久的训练过程都能够高效地使用该数据集, 这样显然是更合理的.
-
-
-
 
 ### 1.1 数据协议栈的简略分析
 
