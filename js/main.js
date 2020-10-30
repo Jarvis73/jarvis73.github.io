@@ -69,14 +69,11 @@
 
 // 为代码块填入代码类型属性
 (function() {
-  var all_code = document.getElementsByTagName("code");
+  var all_code = document.querySelectorAll("div.highlight");
   for (var i = 0; i < all_code.length; i++) 
   {
-    if (all_code[i].parentElement.tagName == "PRE")
-    {
-      var code_type = all_code[i].parentElement.parentElement.parentElement.className;
-      all_code[i].setAttribute("data-content", code_type.split(" ")[0].split("-")[1]);
-    }
+    var code_type = all_code[i].parentElement.className;
+    all_code[i].setAttribute("data-content", code_type.split(" ")[0].split("-")[1]);
   }
 }());
 
@@ -97,7 +94,7 @@
     let div = document.createElement('div');
     div.appendChild(btn);
     
-    code.before(div);
+    code.parentElement.before(div);
   
     countID++;
   }); 
