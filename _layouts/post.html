@@ -5,22 +5,22 @@ layout: default
 <div class="page clearfix" post>
     <div class="left">
         <h1>{{page.title}}</h1>
-        <div class="label">
+        <div class="label-custom">
 
-            <div class="label-card">
+            <div class="label-custom-card">
                 <i class="fa fa-calendar"></i>{{ page.date | date: "%F" }}
             </div>
 
-            <div class="label-card">
+            <div class="label-custom-card">
                 {% if page.author %}<i class="fa fa-user"></i>{{ page.author }}
                 {% endif %}
             </div>
 
-            <div class="label-card">
+            <div class="label-custom-card">
                 {% if page.meta %}<i class="fa fa-key"></i>{{ page.meta }}  {% endif %}
             </div>
 
-            <div class="label-card">
+            <div class="label-custom-card">
             {% include category.html %}
             </div>
 

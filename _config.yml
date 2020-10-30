@@ -7,7 +7,7 @@
 
 # Site settings
 title: Jarvis' Blog
-brief-intro: 成功的路上并不拥挤, 因为坚持的人不多
+brief-intro: 总有美丽的风景让人流连
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.jarvis73.com" # the base hostname & protocol for your site
 enforce_ssl: www.jarvis73.com
@@ -24,7 +24,7 @@ zhihu_username:
 linkedIn_username: 
 dribbble_username:
 
-description_footer: 总有美丽的风景让人流连
+description_footer: 
 
 # comments
 # two ways to comment, only choose one, and use your own short name

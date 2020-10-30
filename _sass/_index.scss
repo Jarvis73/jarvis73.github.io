@@ -19,10 +19,11 @@
                     font-size: 27px;
                     margin: 0;
                 }
-                .label {
+                .label-custom {
+                    margin-top: 10px;
                     margin-bottom: 15px;
                     overflow: hidden;
-                    .label-card {
+                    .label-custom-card {
                         float: left;
                         margin-right: 15px;
                         i {
@@ -109,7 +110,7 @@
         .wrap {
             .side {
                 margin-bottom: 20px;
-                padding-bottom: 0;
+                padding-bottom: 5px;
                 i {
                     margin-right: 3px;
                 }
@@ -129,26 +130,27 @@
                                 background-color: #dbdfee;
                                 .badge {
                                     background-color: #dbdfee;
-                                    transform: scale(1.2) rotate(360deg);
+                                    // transform: scale(1.2) rotate(360deg);
                                 }
                             }
                             .name {
                                 padding-left: 15px;
+                                font-size: 16px;
                             }
                             .badge {
                                 display: block;
 
                                 // width: 20px;
                                 float: right;
-                                text-align: center;
+                                // text-align: center;
                                 margin-right: 15px;
                                 margin-top: 3px;
-                                padding: 0 10px;
-                                font-size: 12px;
-                                color: #fff;
-                                background-color: #bbb;
-                                border-radius: 50%;
-                                transition: 0.5s ease-in-out;
+                                // padding: 0 10px;
+                                font-size: 14px;
+                                color: rgb(255, 255, 255);
+                                // background-color: #bbb;
+                                // border-radius: 50%;
+                                // transition: 0.5s ease-in-out;
                             }
                         }
                         &:last-of-type a {
@@ -164,10 +166,46 @@
                     }
                 }
                 .content-ul[wiki]{
-                    padding-bottom: 16px;
-                    li{
-                        color:rgb(216, 72, 72);
-                        font-size: 16px;
+                    overflow: hidden;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    li {
+                        a {
+                            display: block;
+                            width: 100%;
+                            padding: 2px 0;
+                            border-bottom: 1px solid #eee;
+                            &:hover {
+                                background-color: #dbdfee;
+                                .badge {
+                                    background-color: #dbdfee;
+                                    // transform: scale(1.2) rotate(360deg);
+                                }
+                            }
+                            .name {
+                                padding-left: 15px;
+                                font-size: 16px;
+                            }
+                            .badge {
+                                display: block;
+
+                                // width: 20px;
+                                float: right;
+                                // text-align: center;
+                                margin-right: 15px;
+                                margin-top: 3px;
+                                // padding: 0 10px;
+                                font-size: 14px;
+                                color: rgb(255, 255, 255);
+                                // background-color: #bbb;
+                                // border-radius: 50%;
+                                // transition: 0.5s ease-in-out;
+                            }
+                        }
+                        &:last-of-type a {
+                            border: none;
+                        }
                     }
                 }
                 .content-ul[link]{

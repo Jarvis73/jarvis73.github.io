@@ -3,8 +3,8 @@
 {% else %}
     {% assign counter = counter | plus: 1 %}
 {% endif %}
-<div class="{{ include.class }}">
-    <img class="cool-img" src="/images/{{ include.url }}" alt="{{ include.title }}"/>
+<div>
+    <img data-toggle="lightbox" src="/images/{{ include.url }}" alt="{{ include.title }}"/>
     {% if include.title != "" %}
         <div class="container">
             <p>图 {{ counter }}: {{ include.title }}</p>
