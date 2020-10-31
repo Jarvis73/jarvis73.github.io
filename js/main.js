@@ -62,7 +62,7 @@
   for (var i = 0; i < all_li.length; i++)
   {
     var before_title = all_li[i].innerHTML;
-    var after_title = before_title.replace(/\([a-zA-Z \-]*\)$/i, "");
+    var after_title = before_title.replace(/\([a-zA-Z \-:]*\)$/i, "");
     all_li[i].innerHTML = after_title;
   }
 }());
