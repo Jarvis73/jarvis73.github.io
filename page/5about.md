@@ -13,7 +13,7 @@ type: page
 ## About Me
 
 <div style="width:150px; height:auto; float:left; display:inline">
-<img src="/images/misc/me.png">
+<img src="/images/misc/me.png" class="img-circle" >
 </div>
 <div style="width: auto; height:auto; float:left; display:inline; padding-left: 40px">
 <div style="font-size: 25px; padding-bottom: 10px"><strong>张建伟 (Zhang Jianwei)</strong><br /></div>
