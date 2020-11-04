@@ -1,0 +1,66 @@
+{% if include.type == "primary" %}
+<div class="alert alert-primary with-icon">
+    <i class="icon-star"></i>
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% elsif include.type == "danger" %}
+<div class="alert alert-danger with-icon">
+    <i class="icon-remove-sign"></i>
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% elsif include.type == "success" %}
+<div class="alert alert-success with-icon">
+    <i class="icon-ok-sign"></i>
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% elsif include.type == "warning" %}
+<div class="alert alert-warning with-icon">
+    <i class="icon-warning-sign"></i>
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% elsif include.type == "info" %}
+<div class="alert alert-info with-icon">
+    <i class="icon-info-sign"></i>
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% else %}
+<div class="alert">
+    {% if include.title != null %}
+    <div><strong>{{ include.title }}</strong></div><hr>
+    {% endif %}
+    <div class="content">{{ include.content }}</div>
+    {% if include.tail != null %}
+    <hr><div>{{ include.tail }}</div>
+    {% endif %}
+</div>
+{% endif %}

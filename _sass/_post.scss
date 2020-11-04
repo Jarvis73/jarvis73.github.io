@@ -195,3 +195,14 @@ div.box-algorithm {
     border-style: solid;
     border-width: 2px;
 }
+
+div.card-heading {
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    background-color: #ccc;
+}
+
+div.card-content {
+    padding: 10px;
+    background-color: #eee;
+}

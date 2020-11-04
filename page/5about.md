@@ -30,6 +30,9 @@ type: page
 
 ## Changes Log
 
+* **2020-11-03**
+  * 增加了卡片模板, 通过 `{% raw %}{% include card.html type="info" title="" content="" %}{% endraw %}` 来使用. 其中参数 `type` 的选择有 [lemma, primary, danger, success, warning, info]. 参数 `title` 是可选的. 此模板可以用于编辑一些特殊的信息, 忽略参数 `type` 以获得普通模板, 可作为数学定理, 引理等环境.
+
 * **2020-10-30**
   * 引入了 zui.js 库, 增加了图像浮层, Collection 页面重新设计后改用了html.
   * 首页右边栏的 Category 和 Wiki 卡片修改了外观 (zui.js).

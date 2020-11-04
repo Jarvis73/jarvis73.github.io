@@ -2,7 +2,7 @@
 layout: post
 title: "医学影像简介(Medical Imaging Guide)"
 date: 2019-6-24 16:33:00 +0800
-categories: 图像处理 Python
+categories: 图像处理
 mathjax: true
 figure: /images/2019-6/Coordinate_sytems.png
 author: Jarvis

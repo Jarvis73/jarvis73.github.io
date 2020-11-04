@@ -7,7 +7,7 @@
     {% assign final_url = include.url %}
     {% endif %}
     <img data-toggle="lightbox" src="{{ final_url }}" data-caption="{{ include.title }}"/>
-    {% if include.title != "" %}
+    {% if include.title != null %}
         {% if counter == null %}
             {% assign counter = 1 %}
         {% else %}
