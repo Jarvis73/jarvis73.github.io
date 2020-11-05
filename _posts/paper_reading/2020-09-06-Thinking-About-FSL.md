@@ -5,6 +5,7 @@ date: 2020-09-06 16:05:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
 figure: /images/2020-09/FSL-2.png
+excerpt: "少样本学习 (few-shot learning, FSL) 是针对数据缺乏时充分利用先验信息来实现机器学习任务的一类方法. 少样本分类是使用有限的带标签样本训练分类器, 使其可以识别新类别 (unseen classes) 的方法. 目前的方法虽然取得了显著的成效, 但随着网络设计, 元学习算法的复杂化, 以及大量各不相同的实现细节使得已有方法难以公平比较."
 author: Jarvis
 meta: Post
 ---
@@ -12,6 +13,7 @@ meta: Post
 
 * content
 {:toc}
+
 
 
 
