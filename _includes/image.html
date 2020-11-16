@@ -1,4 +1,10 @@
-<div class="{{ include.class }}">
+{% if include.class == null %}
+    {% assign class = "polaroid" %}
+{% else %}
+    {% assign class = include.class %}
+{% endif %}
+
+<div class="{{ class }}">
     {% assign head_string = include.url | slice: 0, 4 %}
     {% assign final_url = "" %}
     {% if head_string != "http" %}
