@@ -455,15 +455,15 @@ meta: Post
 
 Tensorboard 是谷歌在推出 Tensorflow 之后发布的一款用于展示实验过程中的标量(losses, metrics)、图像、数据分布、计算图等内容的可视化工具. 
 
-<div id="slide_sacred" class="carousel slide" data-ride="carousel">
+<div id="slide_tensorboard" class="carousel slide" data-ride="carousel">
   <!-- 圆点指示器 -->
   <ol class="carousel-indicators">
-    <li data-target="#slide_sacred" data-slide-to="0" class="active"></li>
-    <li data-target="#slide_sacred" data-slide-to="1"></li>
-    <li data-target="#slide_sacred" data-slide-to="2"></li>
-    <li data-target="#slide_sacred" data-slide-to="3"></li>
-    <li data-target="#slide_sacred" data-slide-to="4"></li>
-    <li data-target="#slide_sacred" data-slide-to="5"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="0" class="active"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="1"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="2"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="3"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="4"></li>
+    <li data-target="#slide_tensorboard" data-slide-to="5"></li>
   </ol>
 
   <!-- 轮播项目 -->
