@@ -8,7 +8,7 @@
 (function() {
     if (window.innerWidth > 770) {
 
-        var sidebarWrap = document.querySelector('.right>.wrap')
+        var sidebarWrap = document.querySelector('.right-jekyll>.wrap')
 
         //fix 之后百分比宽度会失效，这里用js赋予宽度
         sidebarWrap.style.width = sidebarWrap.offsetWidth + "px"
@@ -73,7 +73,7 @@ function isMaxHeight() {
 (function() {
     if (window.innerWidth <= 770) {
         var anchorBtn = document.querySelector('.anchor')
-        var rightDiv = document.querySelector('.right')
+        var rightDiv = document.querySelector('.right-jekyll')
 
         /**
          * 监听锚点按钮

@@ -6,7 +6,7 @@
             color: #dd1f1f;
         }
     }
-    .left {
+    .left-jekyll {
         >ul {
             padding: 0;
             >li {
@@ -106,7 +106,7 @@
             }
         }
     }
-    .right {
+    .right-jekyll {
         .wrap {
             .side {
                 margin-bottom: 20px;
@@ -231,7 +231,7 @@
 }
 @media screen and (max-width: 770px) {
     .page[index] {
-        .left>ul li {
+        .left-jekyll>ul li {
             h2 {
                 font-size: 22px;
             }

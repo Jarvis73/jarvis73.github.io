@@ -29,7 +29,7 @@
     box-sizing: border-box;
     margin: 0 auto;
     // word-break: break-all;
-    .left {
+    .left-jekyll {
         width: 75%;
         float: left;
         padding: 20px 30px;
@@ -165,7 +165,7 @@
     .anchor {
         display: none;
     }
-    .right {
+    .right-jekyll {
         float: left;
         width: 25%;
         top: 0;
@@ -226,7 +226,7 @@
 @media screen and (max-width: 770px) {
     .page {
         width: 95%;
-        .left {
+        .left-jekyll {
             width: 100%;
             float: left;
             padding: 10px 14px;
@@ -280,7 +280,7 @@
             opacity: 0;
             visibility: hidden;
         }
-        .right {
+        .right-jekyll {
             visibility: hidden;
 
             // display: none;

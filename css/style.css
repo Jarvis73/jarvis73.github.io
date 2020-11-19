@@ -3,7 +3,7 @@ body {
     background-color: #f0f0f0;
 }
 
-.page .left {
+.page .left-jekyll {
     background-color: #f0f0f0;
 }
 
@@ -18,11 +18,11 @@ h2 {
     border-bottom: 1px solid #ddd;
 }
 
-.page .left li p {
+.page .left-jekyll li p {
     color: #444;
 }
 
-.page .right .side {
+.page .right-jekyll .side {
     background-color: #f0f0f0;
 }
 
