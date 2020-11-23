@@ -15,7 +15,9 @@ meta: Post
 
 
 
-## 1. ICLR 2015: Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs
+**2020-11-20 更新**
+
+## 1. (ICLR 2015) Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs
 
 **作者**: Liang-Chieh Chen(UCLA), George Papandreou(Google Inc.), Iasonas Kokkinos(CentraleSuplec and INRIA), Kevin Murphy(Google Inc.), Alan L. Yuille(UCLA)
 
@@ -24,16 +26,11 @@ meta: Post
 * 准确度: PASCAL VOC-2012 分割任务上取得 start-or-the-art (test set: 71.6%), 超过第二名7.2%
 * 简单性: 仅包含 (1) DCNN (2) CRFs 两个步骤
 
-### Atrous/Hole Convolution
+### 膨胀卷积
 
 在 VGG-16 模型中原始图像共下采样 5 次, 缩小为输入图像的 $$ 1/32 $$. 本文目标是语义分割, 而缩小 32 倍的图像无法准确的定位分割的各部分, 而直接减少 VGG-16 的两个 block 又会影响特征的提取, 因此引入膨胀卷积既能增大感受野, 也能减少下采样的次数. 一维的膨胀卷积如下图所示.
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-1/DeepLabv1-1.jpg" DeepLabv1/>
-    <div class="container">
-        <p>Atrous Convolution</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv1-1.jpg" title="Atrous Convolution" %}
 
 其卷积方式就是在卷积核中引入"空洞", 使得不增加卷积核参数的情况下能够扩大卷积核的感受野, 用公式表示为(二维情况)
 
@@ -74,12 +71,7 @@ $$
 3. 膨胀卷积代替下采样
 4. ASPP 结构
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-1/DeepLabv3-1.jpg" DeepLabv3/>
-    <div class="container">
-        <p>Alternative architectures to capture multi-scale context</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv3-1.jpg" title="Alternative architectures to capture multi-scale context" %}
 
 本文试验了第 1 种和第 4 种.
 
@@ -87,21 +79,11 @@ $$
 
 **ASPP**: 结构如下图所示, 使用不同的膨胀率使得网络提取到不同尺度的信息.
 
-<div class="polaroid-small">
-    <img class="cool-img" src="/images/2019-1/DeepLabv2-2.jpg" DeepLabv2/>
-    <div class="container">
-        <p>Atrous Spatial Pyramid Pooling</p>
-    </div>
-</div>
+{% include image.html class="polaroid-small" url="2019-1/DeepLabv2-2.jpg" title="ASPP 结构" %}
 
 使用了 ASPP 结构的 DeepLab 网络称为 `DeepLab-ASPP`, 其中 ASPP 结构增加在了最后一个池化层(已修改步长为 1)之后, 如下图(d)所示.
 
-<div class="polaroid-small">
-    <img class="cool-img" src="/images/2019-1/DeepLabv2-3.jpg" DeepLabv2/>
-    <div class="container">
-        <p>DeepLab-ASPP</p>
-    </div>
-</div>
+{% include image.html class="polaroid-small" url="2019-1/DeepLabv2-3.jpg" title="DeepLab-ASPP" %}
 
 ### 实验结果
 
@@ -116,14 +98,9 @@ $$
 * 把 image-level 的特征整合到 ASPP 模块中
 * 给出较为详细的实现细节和训练经验
 
-### Going Deeper with Atrous Convolution
+### 在更深的层使用膨胀卷积
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-1/DeepLabv3-2.jpg" DeepLabv3/>
-    <div class="container">
-        <p>Cascaded modules without and with atrous convolution.</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv3-2.jpg" title="使用膨胀卷积的级联结构" %}
 
 这一节主要对比了深度网络模型中使用和不使用膨胀卷积, 并说明了膨胀卷积的优势. 主干网络选择了 ResNet, 使用膨胀卷积的 ResNet 把 Block4 到 Block7 的卷积替换为膨胀卷积(按照 DeepLabv1 相应的池化也应当改为步长为 1 避免减少图像分辨率), 如上图所示. 由于每个 ResBlock 中包含 3 个卷积, 本文采用了 Multigrid 的策略, 每个 ResBlock 设置一个基准膨胀率 $$ Baserate $$ (即上图中的 rate), 给定一个长度等于 3 的网格 $$ Multigrid $$ (就是每个 ResBlock 中卷积层的数目), 那么每个卷积层的膨胀率就可以通过公式计算 
 
@@ -133,16 +110,11 @@ $$
 
 举个例子, block4 的基准膨胀率是 2, 给定网格 $$ Multigrid = (1, 2, 4) $$, 那么最终 block4 的三个卷积层的膨胀率依次为 $$ rates = 2 * (1, 2, 4) = (2, 4, 8) $$.
 
-### Rethinking ASPP
+### ASPP 再思考
 
 DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷积核大小不变时, 随着膨胀率的增大, 有效的卷积核权重会越来越少. 极端情况下比如 $$ 3\times3 $$ 的卷积核仅有中间的一个值有效(其他值都作用在填充的 0 上了), 那么 $$ 3\times3 $$ 的卷积核就退化成了 $$ 1\times1 $$ 的卷积核. 所以本文加入了 image-level 的信息, 对最后一个特征图应用全局平均池化, 然后使用 $$ 1\times1 $$ 的 256 个卷积核和批正则化, 然后上采样到需要的大小和其他三种膨胀率的卷积分支融合. 具体如下图所示.
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-1/DeepLabv3-3.jpg" DeepLabv3/>
-    <div class="container">
-        <p>Parallel modules with atrous convolution (ASPP), augmented with image-level features.</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv3-3.jpg" title="ASPP 的平行结构, 使用 image-level 的特征做增广" %}
 
 ### 实验细节和实验结果
 
@@ -165,13 +137,12 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 * 在编码器中(提取特征), 可以利用膨胀卷积任意的控制精度和速度的平衡
 * 采用 Xception 模型用于分割任务, 并把 depthwise-separable convolution 应用到 ASPP 和解码器结构中, 使得速度更快, 更强大.
 * 在 PASVAL VOC 2012 数据集和 Cityscapes 数据集上成为了新的 state-of-the-art.
-* 开源了代码
 
-### Depthwise separable convolution
+### 深度可分离卷积
 
 `Depthwise separable convolution` 就是把一个标准的卷积分解成一个 `depthwise convolution`(不同通道应用不同的) 和一个 `point-wise convolution`($$ 1\times1 $$ 卷积), 大幅减少计算量. (`Tensorflow>=1.8` 中的 `nn` 模块已经实现了第一个分步的 `tf.nn.depthwise_convolution()` 和总的分解 `tf.nn.separable_convolution()`).
 
-### Encoder-Decoder 的设计
+### 编码-解码器设计
 
 `DeepLab V3` 去掉计算 logits 的层后作为 Encoder. 由于 `DeepLab V3` 结构最后输出的  `output_stride=16`, 因此需要 16 倍的上采样. 考虑到直接上采样 16 倍仍然会使网络丢失过多信息而在细节上不够精确, 因此 Decoder 把这个上采样分成两部分:
 1. 把 `DeepLab V3` 的输出双线性上采样 4 倍后与低层特征拼接
@@ -180,12 +151,7 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 整个网络结构如下图所示.
 
-<div class="polaroid">
-    <img class="cool-img" src="/images/2019-1/DeepLabv3+-1.jpg" DeepLabv4/>
-    <div class="container">
-        <p>DeepLab V3+ structure</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv3+-1.jpg" title="DeepLab V3+ 结构" %}
 
 ### Xception 结构的递进修改
 1. 原始: Xception
@@ -194,12 +160,7 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 修改后的结构如下图所示.
 
-<div class="polaroid-small">
-    <img class="cool-img" src="/images/2019-1/DeepLabv3+-2.jpg" DeepLabv4/>
-    <div class="container">
-        <p>Modified Xception</p>
-    </div>
-</div>
+{% include image.html url="2019-1/DeepLabv3+-2.jpg" title="改进的 Xception" %}
 
 ### 实验结果
 
@@ -209,21 +170,21 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 1. **Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs**<br />
    Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. <br />
-   [[link]](https://arxiv.org/abs/1412.7062). In ICLR, 2015.
+   [[PDF]](https://arxiv.org/abs/1412.7062). In ICLR, 2015.
 
 2. **DeepLab: Semantic Image Segmentation with Deep Convolutional Nets,**
    **Atrous Convolution, and Fully Connected CRFs** <br />
    Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, and Alan L Yuille. <br />
-    [[link]](http://arxiv.org/abs/1606.00915). TPAMI 2017.
+    [[PDF]](http://arxiv.org/abs/1606.00915). TPAMI 2017.
 
 3. **Rethinking Atrous Convolution for Semantic Image Segmentation**<br />
    Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.<br />
-   [[link]](http://arxiv.org/abs/1706.05587). arXiv: 1706.05587, 2017.
+   [[PDF]](http://arxiv.org/abs/1706.05587). arXiv: 1706.05587, 2017.
 
 4. **Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation**<br />
    Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, Hartwig Adam.<br />
-   [[link]](https://arxiv.org/abs/1802.02611). In ECCV, 2018.
+   [[PDF]](https://arxiv.org/abs/1802.02611). In ECCV, 2018.
 
 5. **Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials**<br />
    Philipp Krähenbüh, Vladlen Koltun. <br />
-   [[link]](https://arxiv.org/abs/1210.5644)
+   [[PDF]](https://arxiv.org/abs/1210.5644)

@@ -608,7 +608,7 @@ socks4  127.0.0.1 9050
 socks5  127.0.0.1 1080
 ```
 
-#### E.4.1.3 开启客户端
+##### E.4.1.3 开启客户端
 
 ```bash
 sslocal -c ~/ssconfig/config.json
