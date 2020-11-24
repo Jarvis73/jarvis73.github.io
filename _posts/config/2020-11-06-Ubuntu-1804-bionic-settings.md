@@ -2,7 +2,7 @@
 layout: post
 title: "Ubuntu 18.04 (bionic) 常用命令"
 date: 2020-11-06 10:11:00 +0800
-categories: Tools
+categories: Config
 figure: /images/2020-11/ubuntu.png
 author: Jarvis
 meta: Post
