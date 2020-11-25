@@ -157,7 +157,6 @@ Alias=rc-local.service
 2. 添加软连接到 `/etc` , 开机后会去这里找
 
 ```
- 
 sudo ln -s /lib/systemd/system/rc.local.service /etc/systemd/system/rc.local.service
 ```
 
@@ -271,7 +270,6 @@ GRUB_CMDLINE_LINUX=""
 安装之前, 先自己备份一下 ubuntu.css :
 
 ```bash
- 
 sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubuntu.css.backup
 ```
 
@@ -351,9 +349,6 @@ ln -s /media/Win10OS/Windows/Fonts /usr/share/fonts/WindowsFonts
 sudo fc-cache -f -v
 ```
 
-
-
-
 ## C. 网络设置
 
 ### C.1 安装并配置 L2TP-VPN
@@ -425,7 +420,9 @@ nmcli connection up ZJU
 ```
 
 
-## D. 常用软件
+## D. 常用软件和工具
+
+### D.1 常用软件(图形界面)
 
 * Chrome, GNOME Shell Extension 用于桌面修改
 * 搜狗拼音输入法 [https://pinyin.sogou.com/linux/?r=pinyin](https://pinyin.sogou.com/linux/?r=pinyin)
@@ -447,6 +444,23 @@ nmcli connection up ZJU
 * Flameshot (截图/贴图工具)
 * gpick (屏幕取色软件)
 
+### D.2 有用的工具
+
+#### D.2.1 brew
+
+brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装它. 当我们使用没有 sudo 权限的服务器时, 用 brew 可以很方便的在用户目录下安装许多常用的 linux 工具或软件.
+
+安装 brew, 默认的安装目录是 `~/.homebrew`:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+安装完毕后可以直接使用如下命令安装软件, 比如 `privoxy`:
+
+```bash
+brew install privoxy
+```
 
 
 ## E. 安装 Ubuntu
@@ -510,8 +524,6 @@ XDG_PICTURES_DIR="$HOME/Pictures"
 XDG_VIDEOS_DIR="$HOME/Videos"
 ```
 
-
-
 **方法三：**打开终端，在终端中输入命令:
 
 ```bash
@@ -527,11 +539,21 @@ export LANG=zh_CN
 
 重新启动系统，系统会提示更新文件名称，选择不再提示,并取消修改。
 
-### E.4 代理设置
+
+### E.4 Ubuntu 界面修改
+
+参考文章
+[https://www.cnblogs.com/feipeng8848/p/8970556.html](https://www.cnblogs.com/feipeng8848/p/8970556.html)
+
+#### E.4.1 夜灯(护眼模式)
+
+在 GNOME Shell Extensions 市场中, 搜索 `night light slider` . 点击开关安装(注意点了开关后可能(后台)下载超级慢, 我的大概过了十几分钟才有反应. 他下载好安装的时候会弹出一个框, 所以点完了等着就行了, 可以做别的事情.)
+
+
+
+## F 代理设置
 
 ```bash
-apt install shadowsocks 
-# 注意安装完后检查一下安装的版本, 如果是2.1, 则是老版本, 不支持rc4-md5加密. 则换用 pip 安装
 pip install shadowsocks
 # 注意要安装最新版, 目前是2.8.2
 ```
@@ -550,20 +572,30 @@ pip install shadowsocks
 }
 ```
 
-然后运行 sslocal 检查是否能正常工作. 如果出现错误: 
+然后开启 sslocal 客户端:
+
+```bash
+sslocal -c ~/ssconfig/config.json
+# 如果需要后台运行, 则需要管理员权限
+sudo sslocal -c ~/ssconfig/config.json -d start
+```
+
+如果出现错误: 
 
 ```
- 
 tools/miniconda3/lib/python3.8/lib-dynload/../../libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup
 ```
 
 这是由于在openssl 1.1.0中废弃了 `EVP_CIPHER_CTX_cleanup()`  函数而引入了 `EVE_CIPHER_CTX_reset()`  函数所导致的则需要对openssl做一些修改:
 
-#### E.4.1 临时代理 (适合在命令行界面配置)
+* 根据错误信息定位到文件 ...../lib/python3.6/site-packages/shadowsocks/crypto/openssl.py
+* 搜索 cleanup 并将其替换为 reset
+* 重新启动 shadowsocks, 该问题解决
 
-##### E.4.1.1 安装代理链工具
 
-代理链工具: proxychains
+### F.1 proxychains 代理 (命令行配置)
+
+#### F.1.1 安装
 
 * 使用管理员权限
 
@@ -587,7 +619,6 @@ wget https://raw.githubusercontent.com/haad/proxychains/master/src/proxychains.c
 然后在 ~/.bashrc 中加入 
 
 ```bash
- 
 # 为 proxychains4 指定别名, 这里只能指定别名, 不能使用上面 make install 安装出来的 proxychains4 命令, 因为会找不到 libproxychains4.so (也就是说只能直接运行build目录下的那个可执行文件)
 alias pc4="/path/to/proxychains4"
 
@@ -597,7 +628,7 @@ PROXYCHAINS_CONF_FILE="/path/to/proxychains-ng/proxychains.conf"
 
 这里注意替换为上面 wget 下载到的文件路径. 然后 `source ~/.bashrc` 使配置生效.
 
-##### E.4.1.2 配置代理链的参数
+#### F.1.2 配置
 
 修改 `proxychains.conf` 中的最后一行
 
@@ -608,15 +639,7 @@ socks4  127.0.0.1 9050
 socks5  127.0.0.1 1080
 ```
 
-##### E.4.1.3 开启客户端
-
-```bash
-sslocal -c ~/ssconfig/config.json
-# 如果需要后台运行, 则需要管理员权限
-sudo sslocal -c ~/ssconfig/config.json -d start
-```
-
-##### E.4.1.4 测试代理链
+#### F.1.4 测试
 
 ```bash
 pc4 curl www.google.com
@@ -637,10 +660,62 @@ pc4 curl www.google.com
 
 完工.
 
+### F.2 privoxy 代理 (命令行配置)
 
-#### E.4.2 持续代理(适合在图形界面配置)
+proxychains 是使用代理时才调用, 而 privoxy 可以以服务的方式在后台运行, 然后通过环境变量的方式指定是否使用代理. 
 
-##### E.4.2.1 配置 PAC 模式
+#### F.2.1 安装
+
+* 使用 root 权限
+
+```bash
+sudo apt install privoxy 
+```
+
+* 不使用 root 权限 (使用 brew)
+```bash
+brew install privoxy
+```
+
+#### F.2.2 配置
+
+编辑文件 `/etc/privoxy/config` (使用 brew 安装的话打开 `~/.linuxbrew/ETC/privoxy/config`), 首先搜索到 `forward-socks5t` 和 `listen-address` 这两行配置, 然后修改为如下的参数.
+
+```
+# 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理
+forward-socks5t / 127.0.0.1:1080 .
+# 可选，默认监听本地连接
+listen-address 127.0.0.1:8118
+```
+
+其中 `127.0.0.1:1080` 为 socks5 代理的地址, 最后的 `.` 不要丢掉. 而 `127.0.0.1:8118` 是 privoxy 的代理地址, 可以自定义端口, 也可指定为 `0.0.0.0:8118` 使其在局域网内可用. 
+
+#### F.2.3 开启
+
+* 使用 root 权限
+
+```bash
+sudo systemctl start privoxy
+```
+
+* 不使用 root 权限
+
+```bash
+privoxy ~/.linuxbrew/etc/privoxy/config
+```
+
+#### F.2.4 测试
+
+执行如下命令, 显示代理服务器的 ip 地址则表示配置成功.
+
+```bash
+http_proxy=http://127.0.0.1:8118 curl ip.gs
+```
+
+
+### F.3 默认 PAC 模式(图形界面配置)
+
+#### F.3.1 配置 PAC 模式
 
 由于需要持续代理, 因此接下来配置pac模式. 首先安装
 
@@ -653,17 +728,16 @@ touch ~/ssconfig/user-rules.txt
 手动从 [https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt](https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt) 下载 `gfwlist.txt` 文件放在 `~/ssconfig/gfwlist.txt` . 接下来产生 `autoproxy.pac` 文件
 
 ```bash
- 
 genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-local=/home/<username>/ssconfig/gfwlist.txt --output="autoproxy.pac" --user-rule-from="user-rules.txt"
 ```
 
 注意把上面的 `<username>` 替换为对应的值. 最后点击系统设置->网络->代理设置->自动，在输入框中输入`file:///home/<username>/ssconfig/autoproxy.pac` 即可实现pac代理模式. (注意替换`<username>`)
 
-##### E.4.2.2 可能的问题
+#### F.3.2 可能的问题
 
 以Ubuntu系统为例，我们通过`genpac`生成`autoproxy.pac`文件，然后点击系统设置->网络->代理设置->自动，在输入框中输入`file://绝对路径/autoproxy.pac`。设置好以后，Chrome应当可以自动切换网络，但是Chrome无法访问google的搜索引擎，而火狐浏览器可以正常访问。
 
-##### E.4.2.3 解决方案
+#### F.3.3 解决方案
 
 出现上面问题的主要原因是：Chrome移除对`file://`和`data:`协议的支持，目前只能使用`http://`协议。因此，我们打算使用`nginx`实现对本地文件的`http`映射。
 
@@ -702,28 +776,15 @@ sudo nginx -s reload
 
 * 最后把`[http://127.0.0.1/autoproxy.pac](http://127.0.0.1/autoproxy.pac)`填写到系统设置->网络->代理设置->自动代理中
 
-* 大功告成
-
-##### E.4.2.4 后台运行客户端
+#### F.3.4 后台运行客户端
 
 ```bash
 sudo sslocal -c ~/ssconfig/config.json -d start
 ```
 
+## G. 有用的一些命令或脚本
 
-### E.5 Ubuntu 界面修改
-
-参考文章
-[https://www.cnblogs.com/feipeng8848/p/8970556.html](https://www.cnblogs.com/feipeng8848/p/8970556.html)
-
-#### E.5.1 夜灯(护眼模式)
-
-在 GNOME Shell Extensions 市场中, 搜索 `night light slider` . 点击开关安装(注意点了开关后可能(后台)下载超级慢, 我的大概过了十几分钟才有反应. 他下载好安装的时候会弹出一个框, 所以点完了等着就行了, 可以做别的事情.)
-
-
-## F. 有用的一些命令或脚本
-
-### F.1 Google Drive 下载
+### G.1 Google Drive 下载
 
 ```bash
 # 从Google Drive获取文件的唯一ID
@@ -732,7 +793,7 @@ sudo sslocal -c ~/ssconfig/config.json -d start
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
 ```
 
-### F.2 代理链无法代理 nvm (bash 函数)
+### G.2 代理链无法代理 nvm (bash 函数)
 
 ```bash
 # 解决方案
@@ -748,7 +809,7 @@ proxychains4 nvm install node
 ```
 
 
-## G. 系统快捷键
+## H. 系统快捷键
 
 | **按键** | **功能** |
 | --- | --- |
