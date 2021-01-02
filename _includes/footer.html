@@ -3,11 +3,8 @@
 
     <div class="wrapper">
 
-        <!-- <p class="description">
-            {% if site.description_footer %} {{site.description_footer}} {% endif %}
-        </p></br> -->
         <p class="contact">
-            联系我 {% if site.github_username %}
+            联系我: {% if site.github_username %}
             <a href="https://github.com/{{site.github_username}}" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a> {% endif %} {% if site.email %}
             <a href="mailto:{{site.email}}" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a> {% endif %} {% if site.weibo_username %}
             <a href="http://weibo.com/{{site.weibo_username}}" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a> {% endif %} {% if site.zhihu_username %}
@@ -20,12 +17,13 @@
         <p>
             <i class="fa fa-eye" style="padding-right: 2px;"></i> 访问量: <span id="busuanzi_value_site_pv"></span>次 | <i class="fa fa-user" style="padding-right: 2px;"></i> 访客数<span id="busuanzi_value_site_uv"></span>人次
         </p>
-
+        <p class="power">
+            网站支持 <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a> | 主题支持 <a href="https://github.com/Gaohaoyang/gaohaoyang.github.io">HyG</a> & <a href="https://github.com/Jarvis73/jarvis73.github.io">Jarvis73</a>
+        </p>
         <p>
             <img src="/images/misc/beian.png" style="padding-right: 2px; padding-bottom: 4px; vertical-align: middle;" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo" class="beian" >浙公网安备 33010602011353号 | </a>
             <a target="_blank" href="https://beian.miit.gov.cn/" class="beian">浙ICP备2020038513号-1</a>
         </p>
-
     </div>
 </footer>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
