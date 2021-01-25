@@ -178,7 +178,7 @@ echo "hello" > /etc/test.log
 
 开机连接 VPN 需要单独设置一节, 因为 VPN 在 root 状态下登录是需要输入密码的(因为VPN的密码是属于用户的, 而不属于root). 因此为了开机启动 VPN, 我们需要把 VPN 密码以明文的形式写在该 VPN 的配置文件中以便开机后 root 可以登录 VPN. 
 不妨假设 VPN 的名称为 ZJU. 
-编辑文件: `sudo vim /etc/NetworkManager/system-connections/wutong` , 可以找到如下的 `[vpn]` 段落.
+编辑文件: `sudo vim /etc/NetworkManager/system-connections/ZJU` , 可以找到如下的 `[vpn]` 段落.
 
 ```
 [vpn]
