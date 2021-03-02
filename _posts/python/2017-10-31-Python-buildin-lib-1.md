@@ -2,6 +2,7 @@
 layout: post
 title: Python库函数 (一) logging
 date: 2017-10-31 20:26:00 +0800
+update: 2018-4-14
 author: Jarvis
 meta: Wiki_Python
 hidden: true
@@ -14,7 +15,6 @@ hidden: true
 
 * logging.Handler, logging.Formatter
 
-**Update 2018-4-14:** add some functions to `logger`
 
 
 

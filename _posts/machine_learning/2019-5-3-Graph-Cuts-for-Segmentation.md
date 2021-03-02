@@ -2,6 +2,7 @@
 layout: post
 title: "Graph Cuts for Segmentation"
 date: 2019-5-1 16:10:00 +0800
+update: 2019-05-12
 categories: 图像处理
 mathjax: true
 figure: /images/2019-5/Graph-Cuts-0.png
@@ -12,7 +13,6 @@ meta: Post
 * content
 {:toc}
 
-**Update: 2019-05-12**
 
 
 

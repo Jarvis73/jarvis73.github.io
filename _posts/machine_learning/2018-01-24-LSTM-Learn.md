@@ -2,6 +2,7 @@
 layout: post
 title: 循环神经网络 (Recurrent Neural Network, RNN)
 date: 2018-01-24 19:03:00 +0800
+update: 2019-11-18
 categories: 深度学习
 mathjax: true
 figure: /images/2018-1-24/LSTM.png
@@ -12,8 +13,6 @@ meta: Post
 * content
 {:toc}
 
-**Update (2019.11.18): 增加 Attention**
-**Update (2019.8.20): 增加 LSTM 和 Encoder-Decoder**
 
 
 

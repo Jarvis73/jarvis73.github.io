@@ -2,6 +2,7 @@
 layout: post
 title: "Ubuntu 18.04 (bionic) 常用命令"
 date: 2020-11-06 10:11:00 +0800
+update: 2021-03-02
 categories: Config
 figure: /images/2020-11/ubuntu.png
 author: Jarvis
@@ -461,6 +462,63 @@ brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装�
 ```bash
 brew install privoxy
 ```
+
+#### D.2.2 node
+
+node 是 javascript 在本地执行的工具, 可以使用 nvm 来管理版本和安装.
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+source　~/.bashrc
+nvm install node
+
+# 安装软件包
+npm install -g xxx
+# 换源安装
+npm install -g xxx --registry=https://registry.npm.taobao.org
+# 永久换源
+npm config set registry https://registry.npm.taobao.org
+```
+
+#### D.2.3 tldr
+
+[tldr](https://github.com/tldr-pages/tldr) 是个命令行工具, 用于常用命令的用法速查. 安装方式
+
+```bash
+npm install -g tldr
+```
+
+使用方法:
+
+```bash
+tldr tar
+
+# ✔ Page not found. Updating cache...
+# ✔ Creating index...
+# 
+#   tar
+# 
+#   Archiving utility.
+#   Often combined with a compression method, such as gzip or bzip2.
+#   More information: https://www.gnu.org/software/tar.
+# 
+#   - [c]reate an archive from [f]iles:
+#     tar cf target.tar file1 file2 file3
+# 
+#   ......
+# 
+#   - E[x]tract a (compressed) archive [f]ile into the current directory:
+#     tar xf source.tar[.gz|.bz2|.xz]
+# 
+#   ......
+# 
+#   - E[x]tract [f]iles matching a pattern:
+#     tar xf source.tar --wildcards "*.html"
+```
+
+#### D.2.4 bat
+
+一种具有语法高亮和Git集成的cat命令. 参考[知乎文章](https://zhuanlan.zhihu.com/p/45853010).
 
 
 ## E. 安装 Ubuntu

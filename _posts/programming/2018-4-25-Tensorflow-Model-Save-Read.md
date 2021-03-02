@@ -2,6 +2,7 @@
 layout: post
 title: Tensorflow 模型的保存、读取和冻结、执行
 date: 2018-04-25 17:26:00 +0800
+update: 2018-12-26
 categories: Tensorflow
 figure: /images/2018-4-25/tensor.png
 author: Jarvis
@@ -11,7 +12,7 @@ meta: Post
 * content
 {:toc}
 
-**Update: 2018-12-26**
+
 
 本文假设读者已经懂得了 Tensorflow 的一些基础概念, 如果不懂, 则移步 TF [官网](https://www.tensorflow.org/get_started) .
 

@@ -11,6 +11,12 @@ layout: default
                 <i class="fa fa-calendar"></i>{{ page.date | date: "%F" }}
             </div>
 
+            {% if page.update %}
+            <div class="label-custom-card">
+                <i class="fa fa-pencil"></i>{{ page.update | date: "%F" }}
+            </div>
+            {% endif %}
+
             <div class="label-custom-card">
                 {% if page.author %}<i class="fa fa-user"></i>{{ page.author }}
                 {% endif %}
