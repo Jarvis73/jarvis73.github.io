@@ -16,7 +16,7 @@ type: page
 <img src="/images/misc/me.png" class="img-circle" >
 </div>
 <div style="width: auto; height:auto; float:left; display:inline; padding-left: 40px">
-<div style="font-size: 25px; padding-bottom: 10px"><strong>张建伟 (Zhang Jianwei)</strong><br /></div>
+<div style="font-size: 25px; padding-bottom: 10px"><strong>张建伟 (Zhang Jian-Wei)</strong><br /></div>
 浙江大学计算机科学与技术学院 博士生 ( 2018- )<br />
 研究方向: 深度学习, 图像分割, 少样本学习, 医学影像处理<br />
 </div>
@@ -29,6 +29,9 @@ type: page
 * [知乎](https://www.zhihu.com/people/lin-xi-1-1)
 
 ## Changes Log
+
+* **2021-03-24**
+  * 为目录增加可折叠按钮
 
 * **2020-11-03**
   * 增加了卡片模板, 通过 `{% raw %}{% include card.html type="info" title="" content="" %}{% endraw %}` 来使用. 其中参数 `type` 的选择有 [lemma, primary, danger, success, warning, info]. 参数 `title` 是可选的. 此模板可以用于编辑一些特殊的信息, 忽略参数 `type` 以获得普通模板, 可作为数学定理, 引理等环境.
