@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Ubuntu 18.04 (bionic) 常用命令"
+title: "Ubuntu 18.04(bionic) | Ubuntu 20.04(focal) 教程"
 date: 2020-11-06 10:11:00 +0800
-update: 2021-03-02
+update: 2021-03-24
 categories: Config
 figure: /images/2020-11/ubuntu.png
 author: Jarvis
@@ -14,51 +14,58 @@ meta: Post
 
 
 
+本文统一整理 Ubuntu 18.04 和 20.04 的系统安装和设置方法. 其中两代系统有差别的设置会通过标签分别介绍, 如下所示, 请读者务必注意.
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-tab href="#tabContent00-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContent00-2">20.04 (focal)</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="tabContent00-1" markdown="block">
+Ubuntu 18.04
+</div>
+<div class="tab-pane" id="tabContent00-2" markdown="block">
+Ubuntu 20.04
+</div>
+</div>
+
 ## A. 查看系统信息
 
-* 查看 cpu 型号
+* 查看 cpu 信息
 
 ```bash
- cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
- 
- #　8  Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
-```
+# CPU型号
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
 
+# 物理 CPU 个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+
+# CPU核数 (物理CPU个数 * 每个CPU的核数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+
+# 逻辑CPU个数 (物理CPU个数 * 每个CPU的核数 * 超线程数)
+cat /proc/cpuinfo| grep "processor"| wc -l
+```
 
 * 查看操作系统内核信息
 
 ```bash
 uname -a
-
-#Linux Jarvis-LAB 5.0.0-36-generic #39~18.04.1-Ubuntu SMP Tue Nov 12 11:09:50 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
 ```
-
 
 * 查看操作系统发行版本
 
 ```bash
 cat /etc/issue
 
-# Ubuntu 18.04.3 LTS \n \l
-
 lsb_release -a
-
-# No LSB modules are available.
-# Distributor ID: Ubuntu
-# Description:    Ubuntu 18.04.2 LTS
-# Release:        18.04
-# Codename:       bionic
 ```
-
 
 * 查看hostname
 
 ```bash
 hostname
-
-# Jarvis-PC
 ```
-
 
 * 网卡信息
 
@@ -78,18 +85,461 @@ fc-list :lang=zh
 ```
 
 
-## B. 修改系统设置
+## B. 安装 Ubuntu
 
-### B.1 双系统中 Ubuntu 时间与 Windows时间对齐
+* 下载安装镜像, 可以选择桌面版或服务器版
+* 安装方法一: Rufus: 写入 U盘 GPT 分区类型, 用于 UEFI 模式启动
+* 安装方法二: 优启通: 硬盘分区类型: DiskGenius 变为 GPT 类型
+* **最后记得把EFI分区所在的硬盘作为第一启动硬盘 (Hard Drive BBS Priorities)**
+
+{% include card.html type="danger" title="启动时报错" content="Failed to open \EFI\BOOT\mmx64.efi: Not Found" tail="<strong>解决方案:</strong> 在安装介质中把 `./EFI/grubx64.efi` 重命名为 `./EFI/mmx64.efi` 即可." %}
+
+现在假设总共有256G的硬盘, 8G内存
+
+|分区类型|挂载点|分区大小|
+|:--|:--:|:--:|
+| EFI 分区|  | 1G |
+| ext4 | /boot | 2G |
+| 交换分区 |  | 16G(两倍内存) |
+| ext4 | / | 剩余所有的 |
+
+
+{% include card.html type="danger" title="双系统报错" content="原来装了 win + ubuntu 双系统, 由 ubuntu 引导. 然后在 win 下直接删了 ubuntu 的分区, 导致开机无法启动, 进入了 grub 命令行." tail="<strong>解决方案:</strong> 使用优启通制作一个U盘启动盘, 进入Win PE系统, 使用引导修复工具修复 win 系统的引导, 之后就能正常回到 win 的引导界面并能正常开机了." %}
+
+
+### 1 网络设置
+
+#### 1.1 联网
+
+依次考虑以下方式联网:
+
+* 连接路由器, 自动获取 IP 地址
+
+* 手机连接到电脑, 手机网络设置中开启 usb 以太网, 电脑共享手机网络
+
+* L2TP VPN 联网: 先通过手机联网, 然后安装 l2tp 
+
+  ```bash
+  sudo apt install network-manager-l2tp
+  sudo apt install network-manager-l2tp-gnome
+  ```
+
+  在网络设置中配置 VPN, 并开启 VPN. 也可以通过命令行开启:
+  
+  ```bash
+  # 文件地址 /etc/NetworkManager/system-connections
+  # ZJU 是 VPN 的名称
+  nmcli connection up ZJU
+  ```
+
+#### 1.2 双网卡设置
+
+* 主节点: 一张网卡设置为外网ip， 另一张设置为内网ip. 内网网卡不设置网关.
 
 ```bash
-sudo vim /etc/default/rcS
+network:
+    ethernets:
+        eno1:
+            addresses: [10.76.2.232/21]
+            gateway4: 10.76.0.10
+            nameservers:
+                addresses: [10.10.0.21]
+            routes:
+            - to: 10.0.0.0/8
+              via: 10.76.0.1
+              metric: 0
+        eno2:
+            addresses: [192.168.0.101/24]
+    version: 2
 ```
 
-找到**UTC=yes**这一行，改成**UTC=no**
+* 设置内网的节点可以通过主节点访问外网: 开启ip_forward的内核转发, 重启后有效.
+
+```bash
+vim /etc/sysctl.conf
+```
+
+其中找到 `net.ipv4.ip_forward` , 赋值为 1.
+
+* 设置路由表
+
+```bash
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         _gateway        0.0.0.0         UG    0      0        0 eno1
+10.0.0.0        10.76.0.1       255.0.0.0       UG    0      0        0 eno1
+10.76.0.0       0.0.0.0         255.255.248.0   U     0      0        0 eno1
+192.168.0.0     0.0.0.0         255.255.255.0   U     0      0        0 eno2
+```
+
+由于内网的请求源地址是内网地址, 目标地址是外网地址, 请求返回时外网地址不知道内网地址, 因此需要做网络地址转换(network address translation, NAT), 把内网地址修改为外网知道的网关地址. 数据包返回后目标地址是网关, 需要进一步转换为内网地址. 因此需要在 iptables 中添加 NAT 转发规则.
+
+* 添加 iptables 的NAT转发规则
+
+```bash
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o enp1s0 -j MASQUERADE
+```
+
+该规则的意思是 来自 192.168.1.0/24 经由 enp1s0 的数据包需要做 NAT 转换
 
 
-### B.2 修改hostname
+### 2 切换下载源 & 安装常用工具
+
+* 换为阿里云的源
+
+```bash
+# 备份原有的源
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+
+# 换源
+sudo gedit /etc/apt/sources.list
+```
+
+按系统填入新的源
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-tab href="#tabContent0-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContent0-2">20.04 (focal)</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="tabContent0-1" markdown="block">
+```text
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+</div>
+<div class="tab-pane" id="tabContent0-2" markdown="block">
+```text
+deb http://mirrors.aliyun.com/ubuntu/ focal main restricted
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted
+deb http://mirrors.aliyun.com/ubuntu/ focal universe
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates universe
+deb http://mirrors.aliyun.com/ubuntu/ focal multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted
+deb http://mirrors.aliyun.com/ubuntu/ focal-security universe
+deb http://mirrors.aliyun.com/ubuntu/ focal-security multiverse
+```
+</div>
+</div>
+
+* 更新系统, 安装常用工具
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install net-tools		# 安装完可以使用ifconfig, route
+sudo apt install vim, git, curl, tmux
+```
+
+### 3 (可选) 修改默认文件夹
+
+**方法一：**打开 系统设置-》语言支持 将“english”拖动到最上端，重启系统。重启后，会提示更新文件名称，更新后在将语言”中文“拖动到顶部，重启系统 。
+
+**方法二：**
+
+编辑 `~/.config/user-dirs.dirs` 文件
+```bash
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/Download"
+XDG_TEMPLATES_DIR="$HOME/Templates"
+XDG_PUBLICSHARE_DIR="$HOME/Public"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/Music"
+XDG_PICTURES_DIR="$HOME/Pictures"
+XDG_VIDEOS_DIR="$HOME/Videos"
+```
+
+**方法三：**打开终端，在终端中输入命令:
+
+```bash
+export LANG=en_US
+xdg-user-dirs-gtk-update
+```
+
+跳出对话框询问是否将目录转化为英文路径,同意并关闭。在终端中输入命令:
+
+```bash
+export LANG=zh_CN
+```
+
+重新启动系统，系统会提示更新文件名称，选择不再提示,并取消修改。
+
+
+### 4 Ubuntu 美化
+
+参考文章 [https://www.cnblogs.com/feipeng8848/p/8970556.html](https://www.cnblogs.com/feipeng8848/p/8970556.html). 这里摘录一些.
+
+美化工作主要围绕两个主题展开:
+* 修改 Gnome 皮肤: [https://www.pling.com/s/Gnome](https://www.pling.com/s/Gnome)
+* 安装 Gnome 插件: [https://extensions.gnome.org/](https://extensions.gnome.org/)
+
+这里的 Gnome 是一个 Linux 下的桌面环境, Ubuntu 18.04 使用的是 v3.28; Ubuntu 20.04 使用的是 v3.36.
+
+#### 4.1 安装 gnome-tweak-tool 和插件
+
+```bash
+sudo apt-get update
+sudo apt-get install gnome-tweak-tool
+```
+
+安装完成后, 按 Win 键, 输入 tweak 搜索到 Tweaks 工具 (可以右键添加到收藏, 即固定到任务栏), 打开. 
+
+此处 Tweaks 在 18.04 和 20.04 版本中略有不同, 但基本功能类似, 主要是用于调整任务栏和系统皮肤等等的属性, 读者可以自行探索. 我们重点推荐几个拓展(Extensions)
+
+Tweaks 的拓展是通过浏览器插件来安装的. 首先安装拓展工具:
+
+```bash
+sudo apt-get install gnome-shell-extensions
+```
+
+安装完成后打开 Tweaks 的 Extensions 菜单, 可以看到已有的插件. 
+
+现在我们要安装新的插件, 打开 Gnome 插件网址 [https://extensions.gnome.org/](https://extensions.gnome.org/), 搜索如下几个插件:
+
+* User Themes: 用于修改系统皮肤
+* Dash to Panel: 用于修改任务栏样式
+* Topicon plus: 用于 wine, 后面再说
+
+安装插件的方法很简单, 只需要打开每个插件页面的开关, 稍等片刻, 会弹出一个对话框, 点击 Install 即可. 安装完插件后在 Tweaks 的 Extensions 菜单可以看到.
+
+#### 4.2 安装新皮肤
+
+Ubuntu 的皮肤包含两部分, 主题和图标. 系统已有的主题存放在 `/usr/share/themes`, 图标存放在 `/usr/share/icons` 中. 我们要做的就是下载新的主题和皮肤, 把他们放入这两个系统文件夹. 
+
+首先打开 Gnome 皮肤网站 [https://www.pling.com/s/Gnome](https://www.pling.com/s/Gnome), 点击左侧的 GTK 3/4 Themes 分类, 点击 Rating 标签, 选择一款自己喜欢的皮肤, 比如这款 [Orchis](https://www.pling.com/s/Gnome/p/1357889/). 点击 Files 标签, 可以看到有多种样式可以选择: 普通样式, 带 dark 后缀的暗黑风, 带 light 后缀的明亮风. 任意选择一个, 点击下载按钮, 稍等片刻就会下载一个压缩包 `Orchis-light.tar.xz`. 
+
+```bash
+# 解压
+tar xvf Orchis-light.tar.xz
+
+# 移动到主题文件夹
+sudo mv Orchis-light /usr/share/themes
+```
+
+再打开 Gnome 皮肤网站, 点击左侧的 Full Icon Themes 分类, 点击 Score 标签, 选择一款自己喜欢的图标, 比如这款 [McMojave-circle](https://www.pling.com/p/1305429/), 任意选择一个图标样式下载. 
+
+```bash
+# 解压
+tar xvf 01-McMojave-circle.tar.xz
+
+# 移动到图标文件夹
+sudo mv McMojave-circle /usr/share/icons
+```
+
+在 Tweaks 的 Apperence 菜单, 我们可以看到 Themes 下面有一系列的皮肤选项, 其中 Applications 和 Shell 下就包括我们新增加的 Orchis-light 皮肤, 在 Icons 菜单包含新增的 McMojave-circle 图标, 可以自行选择.
+
+
+#### 4.3 开启夜灯 (护眼模式)
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-tab href="#tabContent1-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContent1-2">20.04 (focal)</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="tabContent1-1" markdown="block">
+在 GNOME Shell Extensions 市场中, 搜索 `night light slider` . 点击开关安装(注意点了开关后可能(后台)下载超级慢, 我的大概过了十几分钟才有反应. 他下载好安装的时候会弹出一个框, 所以点完了等着就行了, 可以做别的事情.)
+</div>
+<div class="tab-pane" id="tabContent1-2" markdown="block">
+在系统设置的显示器选项中, 开启夜灯即可.<br/><br/><br/>
+</div>
+</div>
+
+
+
+## C 代理设置
+
+```bash
+# 注意要安装最新版, 目前是2.8.2
+sudo pip3 install shadowsocks
+```
+
+填写ss配置文件 `~/tools/ssconfig/config.json` (路径无要求)
+
+```bash
+{
+    "server": "12.34.56.78",
+    "server_port": 6666,
+    "password": "123456",
+    "local_address": "127.0.0.1",
+    "local_port": 1080,
+    "method": "aes-256-cfb",
+    "timeout": 300
+}
+```
+
+然后开启 sslocal 客户端:
+
+```bash
+sudo sslocal -c ~/tools/ssconfig/config.json -d start
+```
+
+如果出现错误: 
+
+```
+libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup
+```
+
+这是由于在openssl 1.1.0中废弃了 `EVP_CIPHER_CTX_cleanup()`  函数而引入了 `EVE_CIPHER_CTX_reset()`  函数所导致的则需要对openssl做一些修改:
+
+* 根据错误信息定位到文件 ...../lib/python3.6/site-packages/shadowsocks/crypto/openssl.py
+* 搜索 cleanup 并将其替换为 reset
+* 重新启动 shadowsocks, 该问题解决
+
+
+### 1 proxychains 代理 (命令行配置)
+
+* 安装
+
+```bash
+sudo apt install proxychains-ng
+```
+
+修改 /etc/proxychains.conf 的最后一行
+
+```
+# 把
+socks4        127.0.0.1 9050
+# 修改为.
+socks5 127.0.0.1 1080
+```
+
+可以在 ~/.bashrc 中末尾添加别名方便运行 `alias fly="proxychains -q"`
+
+```bash
+fly curl www.google.com
+```
+
+### 2 privoxy 代理 (命令行配置)
+
+proxychains 是使用代理时才调用, 而 privoxy 可以以服务的方式在后台运行, 然后通过环境变量的方式指定是否使用代理. 
+
+* 安装
+
+```bash
+sudo apt install privoxy 
+```
+
+没有 root 权限时, 可以使用 [brew](#21-brew) 来安装.
+```bash
+brew install privoxy
+```
+
+* 配置
+
+编辑文件 `/etc/privoxy/config` (使用 brew 安装的话打开 `~/.linuxbrew/ETC/privoxy/config`), 首先搜索到 `forward-socks5t` 和 `listen-address` 这两行配置, 然后修改为如下的参数.
+
+```
+# 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理
+forward-socks5t / 127.0.0.1:1080 .
+# 可选，默认监听本地连接
+listen-address 127.0.0.1:8118
+```
+
+其中 `127.0.0.1:1080` 为 socks5 代理的地址, 最后的 `.` 不要丢掉. 而 `127.0.0.1:8118` 是 privoxy 的代理地址, 可以自定义端口, 也可指定为 `0.0.0.0:8118` 使其在局域网内可用. 
+
+* 开启
+
+```bash
+sudo systemctl start privoxy
+```
+
+没有 root 权限时:
+```bash
+privoxy ~/.linuxbrew/etc/privoxy/config
+```
+
+* 测试
+
+执行如下命令, 显示代理服务器的 ip 地址则表示配置成功.
+
+```bash
+http_proxy=http://127.0.0.1:8118 curl ip.gs
+```
+
+
+### 3 默认 PAC 模式(图形界面配置)
+
+由于需要持续代理, 因此接下来配置pac模式. 首先安装
+
+```bash
+sudo pip3 install genpac		# 产生用户规则文件
+touch ~/ssconfig/user-rules.txt
+```
+
+
+手动从 [https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt](https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt) 下载 `gfwlist.txt` 文件放在 `~/ssconfig/gfwlist.txt` . 接下来产生 `autoproxy.pac` 文件
+
+```bash
+genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-local=/home/<username>/ssconfig/gfwlist.txt --output="autoproxy.pac" --user-rule-from="user-rules.txt"
+```
+
+注意把上面的 `<username>` 替换为对应的值. 最后点击系统设置->网络->代理设置->自动，在输入框中输入`file:///home/<username>/ssconfig/autoproxy.pac` 即可实现pac代理模式. (注意替换`<username>`)
+
+* 可能的问题
+
+以Ubuntu系统为例，我们通过`genpac`生成`autoproxy.pac`文件，然后点击系统设置->网络->代理设置->自动，在输入框中输入`file://绝对路径/autoproxy.pac`。设置好以后，Chrome应当可以自动切换网络，但是Chrome无法访问google的搜索引擎，而火狐浏览器可以正常访问。
+
+* 解决方案
+
+出现上面问题的主要原因是：Chrome移除对`file://`和`data:`协议的支持，目前只能使用`http://`协议。因此，我们打算使用`nginx`实现对本地文件的`http`映射。
+
+安装 nginx
+
+```bash
+sudo apt install nginx
+```
+
+修改nginx.cnf配置文件 `/etc/nginx/nginx.conf`
+
+在 `http{...}` 代码块中加入如下代码
+
+
+```bash
+server{
+    listen 80;
+    server_name 127.0.0.1;
+    location /autoproxy.pac {
+        alias /home/<username>/tools/ssconfig/autoproxy.pac;
+    }
+}
+```
+
+ (注意替换`<username>`)
+
+重启 nginx
+
+```bash
+sudo nginx -s reload
+```
+
+最后把`http://127.0.0.1/autoproxy.pac`填写到系统设置->网络->代理设置->自动代理中
+
+
+* 后台运行客户端
+
+```bash
+sudo sslocal -c ~/tools/ssconfig/config.json -d start
+```
+
+
+
+## D. 修改系统设置
+
+### 1 双系统中 Ubuntu 与 Win 时间对齐
+
+打开 `/etc/default/rcS`, 找到**UTC=yes**这一行，改成**UTC=no**
+
+
+### 2 修改hostname
 
 ```bash
 # 1. 临时修改为abc, 修改后打开新终端显示, 重启系统失效
@@ -100,31 +550,7 @@ hostname abc
 ```
 
 
-### B.3 启用网卡，修改网络参数
-
-```bash
-# 启用eno1网卡
-sudo ifconfig eno1 up
-
-# 修改静态ip地址 (18.04.3 server 版本)
-sudo vim /etc/netplan/50-cloud-init.yaml
-```
-
-其中 `50-cloud-init.yaml`  内容为:
-
-```yaml
-network:
-    ethernets:
-        eno1:
-            addresses: [192.168.0.110/24]
-            gateway4: 192.168.0.101
-            nameservers:
-                addresses: [10.10.0.21]
-    version: 2
-```
-
-
-### B.4 添加开机启动程序
+### 3 开机启动程序
 
 参考资料: 
 
@@ -175,7 +601,7 @@ echo "hello" > /etc/test.log
 
 
 
-### B.5 开机连接 VPN
+### 4 开机连接 VPN
 
 开机连接 VPN 需要单独设置一节, 因为 VPN 在 root 状态下登录是需要输入密码的(因为VPN的密码是属于用户的, 而不属于root). 因此为了开机启动 VPN, 我们需要把 VPN 密码以明文的形式写在该 VPN 的配置文件中以便开机后 root 可以登录 VPN. 
 不妨假设 VPN 的名称为 ZJU. 
@@ -221,7 +647,7 @@ sudo nmcli connection up ZJU
 重启系统测试效果. (亲测可行)
 
 
-### B.6 修改开机默认系统
+### 5 (双系统) 修改开机默认系统
 
 * 打开 grub 文件: `sudo vim /etc/default/grub` , 内容如下
 
@@ -247,7 +673,7 @@ GRUB_CMDLINE_LINUX=""
 
 
 
-### B.7 增加登录启动项
+### 6 登录启动项
 
 需要区分以下概念:
 
@@ -263,7 +689,7 @@ GRUB_CMDLINE_LINUX=""
 
 
 
-### B.8 自定义锁屏/登录背景 (GDM)
+### 7 自定义锁屏/登录背景 (GDM)
 
 1. 从[这里](https://www.opendesktop.org/s/Gnome/p/1207015/)下载皮肤, 选择适合自己的系统, 如 "18.04 with asking password"
 2. 解压后, 阅读 readme, 然后按步骤先安装
@@ -284,16 +710,15 @@ sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubu
 
 
 
-### B.9 自定义 Grub 主题
+### 8 自定义 Grub 主题
 
 1. 从[这里](https://www.opendesktop.org/s/Gnome/p/1307852/)下载皮肤
 2. 解压后运行 `./install.sh` 安装
 
 
+### 9 挂载硬盘
 
-### B.10 挂载硬盘
-
-#### B.10.1 临时挂载
+#### 9.1 临时挂载
 
 * 系统重启之后，挂载将会失效
 
@@ -301,7 +726,7 @@ sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubu
 mount /dev/sda2 /media/disk1
 ```
 
-#### B.10.2 永久挂载
+#### 9.2 永久挂载
 
 * 先查看各个磁盘挂载的信息, 并确认目标硬盘的位置 `/dev/sd*` 
 
@@ -318,14 +743,16 @@ sudo blkid
 * 修改 `/etc/fstab` , 在最后增加以下内容, UUID替换为上一步查出来的, 第二个参数为挂载路径, 第三个参数为分区格式, 这个可以从第一步的命令中查看, 最后的三个参数的含义见[这里](https://blog.51cto.com/lspgyy/1297432).
 
 ```bash
-UUID=0A9AD66165F33762 /media/Win10OS ntfs defaults 0 0
+UUID=xxxxxxxxxxxxxxx /media/Win10OS ntfs defaults 0 0
+
+UUID=xxxxxxx-xxxxxx-xxxxxx-xxxxxxx /data ext4 defaults 0 0
 ```
 
-### B.11 安装中文字体
+### 10 安装中文字体
 
-#### B.11.1 Ubuntu 单系统 (TODO)
+* Ubuntu 单系统 (TODO) 
 
-* 直接安装 Microsoft 字体
+直接安装 Microsoft 字体
 
 ```bash
 sudo apt update
@@ -334,7 +761,7 @@ sudo apt install ttf-mscorefonts-installer
 sudo fc-cache -f -v
 ```
 
-#### B.11.2 Win10/Ubuntu 双系统:
+* Win10/Ubuntu 双系统:
 
 可以直接让 Ubuntu 系统读取 Win10 系统的字体: 
 
@@ -350,104 +777,42 @@ ln -s /media/Win10OS/Windows/Fonts /usr/share/fonts/WindowsFonts
 sudo fc-cache -f -v
 ```
 
-## C. 网络设置
 
-### C.1 安装并配置 L2TP-VPN
+## E. 常用软件和工具
 
-```bash
-apt install network-manager-l2tp
-apt install network-manager-l2tp-gnome
-```
+### 1 常用软件
 
-### C.2 双网卡设置
-
-* 主节点: 一张网卡设置为外网ip， 另一张设置为内网ip. 内网网卡不设置网关.
-
-```bash
-network:
-    ethernets:
-        eno1:
-            addresses: [10.76.2.232/21]
-            gateway4: 10.76.0.10
-            nameservers:
-                addresses: [10.10.0.21]
-            routes:
-            - to: 10.0.0.0/8
-              via: 10.76.0.1
-              metric: 0
-        eno2:
-            addresses: [192.168.0.101/24]
-    version: 2
-```
-
-#### C.2.1 设置内网的节点可以通过主节点访问外网
-
-* 开启ip_forward的内核转发, 重启后有效.
-
-```bash
-vim /etc/sysctl.conf
-```
-
-其中找到 `net.ipv4.ip_forward` , 赋值为 1.
-
-* 设置路由表
-
-```bash
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         _gateway        0.0.0.0         UG    0      0        0 eno1
-10.0.0.0        10.76.0.1       255.0.0.0       UG    0      0        0 eno1
-10.76.0.0       0.0.0.0         255.255.248.0   U     0      0        0 eno1
-192.168.0.0     0.0.0.0         255.255.255.0   U     0      0        0 eno2
-```
-
-由于内网的请求源地址是内网地址, 目标地址是外网地址, 请求返回时外网地址不知道内网地址, 因此需要做网络地址转换(network address translation, NAT), 把内网地址修改为外网知道的网关地址. 数据包返回后目标地址是网关, 需要进一步转换为内网地址. 因此需要在 iptables 中添加 NAT 转发规则.
-
-* 添加 iptables 的NAT转发规则
-
-```bash
-iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o enp1s0 -j MASQUERADE
-```
-
-该规则的意思是 来自 192.168.1.0/24 经由 enp1s0 的数据包需要做 NAT 转换
-
-### C.3 常用命令
-
-* 命令行开启 VPN
-
-```bash
-# 文件地址 /etc/NetworkManager/system-connections
-# ZJU 是 VPN 的名称
-nmcli connection up ZJU
-```
-
-
-## D. 常用软件和工具
-
-### D.1 常用软件(图形界面)
-
-* Chrome, GNOME Shell Extension 用于桌面修改
-* 搜狗拼音输入法 [https://pinyin.sogou.com/linux/?r=pinyin](https://pinyin.sogou.com/linux/?r=pinyin)
-* 网易云音乐 [https://music.163.com/#/download](https://music.163.com/#/download)
-* deepin-wine 用于安装 windows 软件 [https://www.cnblogs.com/zyrblog/p/11024194.html](https://www.cnblogs.com/zyrblog/p/11024194.html)
-* Powerline 终端美化 [https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
-* PyCharm
-* Filezilla (FTP 工具)
-* VSCode
-* WPS (Office 软件)
+* [Chrome](https://www.google.com/intl/zh-CN/chrome/)
+  ```bash
+  # 卸载火狐: 查找相关软件包
+  dpkg --get-selections | grep firefox
+  # 卸载
+  sudo apt purge firefox firefox-locale-en firefox-locale-zh-hans
+  ```
+* [搜狗拼音输入法](https://pinyin.sogou.com/linux/?r=pinyin)
+* [网易云音乐](https://music.163.com/#/download)
+* [deepin-wine](https://www.cnblogs.com/zyrblog/p/11024194.html) 用于安装 QQ 微信等
+* [Powerline 终端美化](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
+* [PyCharm](https://www.jetbrains.com/pycharm/)
+* Filezilla (FTP 工具) (应用商店安装)
+* VSCode (应用商店安装)
+* [WPS](https://linux.wps.cn/) (Office 软件)
 * PDF阅读器
-   * **福昕阅读器** (后面几个都不能很好的支持中文, 为避免折腾, 直接装福昕)
+   * [福昕阅读器](https://www.foxitsoftware.com/pdf-reader/) (后面几个都不能很好的支持中文, 为避免折腾, 直接装福昕)
    * Okular
    * Master PDF Editor 5 (安装正版, 百度网盘Crack)
    * PDF Studio Viewer
-* Zotero (文献管理工具)
-* Typora (Markdown 编辑器, 可实时渲染)
-* Dropbox (官网下载"下载器", 然后命令行里通过代理下载 dropbox: `proxychains dropbox start -i` )
-* Flameshot (截图/贴图工具)
-* gpick (屏幕取色软件)
+* [Zotero](https://www.zotero.org/) (文献管理工具)
+* [Typora](https://typora.io/) (Markdown 编辑器, 可实时渲染)
+* [Flameshot](https://github.com/flameshot-org/flameshot) (截图/贴图工具), 从 release 中下载
+* [gpick](https://github.com/thezbyg/gpick) (屏幕取色软件), 自行编译
+* [Dropbox](https://www.dropbox.com/) (官网下载"下载器", 然后命令行里通过代理下载 dropbox: `proxychains dropbox start -i` )
+* [Cascadia-Code](https://github.com/microsoft/cascadia-code) (微软提供的开源字体, 包含用于 Powerline 的字体和等宽字体)
+* [qBittorrent](https://www.qbittorrent.org/download.php) (BT 下载工具)
 
-### D.2 有用的工具
+### 2 有用的工具
 
-#### D.2.1 brew
+#### 2.1 Homebrew
 
 brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装它. 当我们使用没有 sudo 权限的服务器时, 用 brew 可以很方便的在用户目录下安装许多常用的 linux 工具或软件.
 
@@ -463,9 +828,9 @@ brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装�
 brew install privoxy
 ```
 
-#### D.2.2 node
+#### 2.2 Node.js
 
-node 是 javascript 在本地执行的工具, 可以使用 nvm 来管理版本和安装.
+Node.js 是 javascript 在本地执行的工具, 可以使用 nvm 来管理版本和安装.
 
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
@@ -480,7 +845,17 @@ npm install -g xxx --registry=https://registry.npm.taobao.org
 npm config set registry https://registry.npm.taobao.org
 ```
 
-#### D.2.3 tldr
+#### 2.3 Conda
+
+Conda 是 Python 的环境管理工具. 从[这里](https://docs.conda.io/en/latest/miniconda.html)下载软件包后, 直接安装. 安装时注意填写安装路径.
+
+```bash
+sh Miniconda3-latest-Linux-x86_64.sh
+```
+
+### 3 其他工具
+
+* tldr
 
 [tldr](https://github.com/tldr-pages/tldr) 是个命令行工具, 用于常用命令的用法速查. 安装方式
 
@@ -516,333 +891,16 @@ tldr tar
 #     tar xf source.tar --wildcards "*.html"
 ```
 
-#### D.2.4 bat
+* bat
 
 一种具有语法高亮和Git集成的cat命令. 参考[知乎文章](https://zhuanlan.zhihu.com/p/45853010).
 
 
-## E. 安装 Ubuntu
 
-优启通: 硬盘分区类型: DiskGenius 变为 GPT 类型
-Rufus: 写入U盘GPT分区类型, 用于UEFI模式启动. 写入完成后记得重命名 `./EFI/grubx64.efi`  为 `./EFI/mmx64.efi` 
-**最后记得把EFI分区所在的硬盘作为第一启动硬盘 (Hard Drive BBS Priorities)**
-现在假设总共有1T的硬盘, 8G内存
 
-* `ext4` `/`     分区: 100G
+## F. 有用的一些命令或脚本
 
-* `ext4` `/boot` 分区: 2G(实际上200M就够用了)
-
-* 交换分区:         16G(两倍内存)
-
-* `ext4` `/usr`  分区: 200G
-
-* `ext4` `/home` 分区: 剩余PC上一般不需要把/var和/tmp专门分区(不分区的话它们会自动和/home分区分在一起)
-
-**问题解决:**
-原来装了win + ubuntu双系统, 由ubuntu引导. 然后在win下直接删了ubuntu的分区, 导致开机无法启动, 进入了grub命令行. **解决方案: 可以制作一个U盘启动盘(比如老毛桃, 然后进入win8 PE系统, 使用引导修复工具修复win系统的引导, 之后就能正常回到win的引导界面并能正常开机了.)
-
-### E.1 联网
-
-以下方式依次考虑:
-
-* 直接有线固定ip联网
-
-* 使用PPTP VPN 联网
-
-* 使用带ubuntu驱动的无线网卡
-
-* L2TP VPN联网: 手机连接到电脑, 手机网络设置中开启usb以太网, 电脑共享手机网络, 然后apt安装 `network-manager-l2tp`  和 `network-manager-l2tp-gnome` 
-
-
-
-### E.2 安装常用工具
-
-```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install net-tools		# 安装完可以使用ifconfig, route
-sudo apt install vim, git
-```
-
-### E.3 修改默认文件夹
-
-**方法一：**打开 系统设置-》语言支持 将“english”拖动到最上端，重启系统。重启后，会提示更新文件名称，更新后在将语言”中文“拖动到顶部，重启系统 。
-
-**方法二：**
-
-编辑 `~/.config/user-dirs.dirs` 文件
-```bash
-XDG_DESKTOP_DIR="$HOME/Desktop"
-XDG_DOWNLOAD_DIR="$HOME/Download"
-XDG_TEMPLATES_DIR="$HOME/Templates"
-XDG_PUBLICSHARE_DIR="$HOME/Public"
-XDG_DOCUMENTS_DIR="$HOME/Documents"
-XDG_MUSIC_DIR="$HOME/Music"
-XDG_PICTURES_DIR="$HOME/Pictures"
-XDG_VIDEOS_DIR="$HOME/Videos"
-```
-
-**方法三：**打开终端，在终端中输入命令:
-
-```bash
-export LANG=en_US
-xdg-user-dirs-gtk-update
-```
-
-跳出对话框询问是否将目录转化为英文路径,同意并关闭。在终端中输入命令:
-
-```bash
-export LANG=zh_CN
-```
-
-重新启动系统，系统会提示更新文件名称，选择不再提示,并取消修改。
-
-
-### E.4 Ubuntu 界面修改
-
-参考文章
-[https://www.cnblogs.com/feipeng8848/p/8970556.html](https://www.cnblogs.com/feipeng8848/p/8970556.html)
-
-#### E.4.1 夜灯(护眼模式)
-
-在 GNOME Shell Extensions 市场中, 搜索 `night light slider` . 点击开关安装(注意点了开关后可能(后台)下载超级慢, 我的大概过了十几分钟才有反应. 他下载好安装的时候会弹出一个框, 所以点完了等着就行了, 可以做别的事情.)
-
-
-
-## F 代理设置
-
-```bash
-pip install shadowsocks
-# 注意要安装最新版, 目前是2.8.2
-```
-
-填写ss配置文件 `~/ssconfig/config.json` (路径无要求)
-
-```bash
-{
-    "server": "12.34.56.78",
-    "server_port": 6666,
-    "password": "123456",
-    "local_address": "127.0.0.1",
-    "local_port": 1080,
-    "method": "aes-256-cfb",
-    "timeout": 300
-}
-```
-
-然后开启 sslocal 客户端:
-
-```bash
-sslocal -c ~/ssconfig/config.json
-# 如果需要后台运行, 则需要管理员权限
-sudo sslocal -c ~/ssconfig/config.json -d start
-```
-
-如果出现错误: 
-
-```
-tools/miniconda3/lib/python3.8/lib-dynload/../../libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup
-```
-
-这是由于在openssl 1.1.0中废弃了 `EVP_CIPHER_CTX_cleanup()`  函数而引入了 `EVE_CIPHER_CTX_reset()`  函数所导致的则需要对openssl做一些修改:
-
-* 根据错误信息定位到文件 ...../lib/python3.6/site-packages/shadowsocks/crypto/openssl.py
-* 搜索 cleanup 并将其替换为 reset
-* 重新启动 shadowsocks, 该问题解决
-
-
-### F.1 proxychains 代理 (命令行配置)
-
-#### F.1.1 安装
-
-* 使用管理员权限
-
-```bash
-apt-get install proxychains
-```
-
-* 用户目录安装
-
-```bash
-# 源码编译
-git clone https://github.com/rofl0r/proxychains-ng.git
-cd proxychains-ng
-./configure --prefix=./ --sysconfdir=./
-make
-# sudo make install
-# sudo make install-config
-wget https://raw.githubusercontent.com/haad/proxychains/master/src/proxychains.conf
-```
-
-然后在 ~/.bashrc 中加入 
-
-```bash
-# 为 proxychains4 指定别名, 这里只能指定别名, 不能使用上面 make install 安装出来的 proxychains4 命令, 因为会找不到 libproxychains4.so (也就是说只能直接运行build目录下的那个可执行文件)
-alias pc4="/path/to/proxychains4"
-
-# 设置配置文件路径
-PROXYCHAINS_CONF_FILE="/path/to/proxychains-ng/proxychains.conf"
-```
-
-这里注意替换为上面 wget 下载到的文件路径. 然后 `source ~/.bashrc` 使配置生效.
-
-#### F.1.2 配置
-
-修改 `proxychains.conf` 中的最后一行
-
-```
-把 
-socks4  127.0.0.1 9050 
-修改为 
-socks5  127.0.0.1 1080
-```
-
-#### F.1.4 测试
-
-```bash
-pc4 curl www.google.com
-
-# 输出
-# [proxychains] config file found: xxxxxxx/proxychains-ng/proxychains.conf
-# [proxychains] preloading xxxxxxx/proxychains-ng/libproxychains4.so
-# [proxychains] DLL init: proxychains-ng 4.14-git-23-g7fe8139
-# [proxychains] Strict chain  ...  127.0.0.1:1080  ...  www.google.com:80  ...  OK
-# <html>
-# <head><title>302 Found</title></head>
-# <body bgcolor="white">
-# <center><h1>302 Found</h1></center>
-# <hr><center>nginx/1.14.2</center>
-# </body>
-# </html>
-```
-
-完工.
-
-### F.2 privoxy 代理 (命令行配置)
-
-proxychains 是使用代理时才调用, 而 privoxy 可以以服务的方式在后台运行, 然后通过环境变量的方式指定是否使用代理. 
-
-#### F.2.1 安装
-
-* 使用 root 权限
-
-```bash
-sudo apt install privoxy 
-```
-
-* 不使用 root 权限 (使用 brew)
-```bash
-brew install privoxy
-```
-
-#### F.2.2 配置
-
-编辑文件 `/etc/privoxy/config` (使用 brew 安装的话打开 `~/.linuxbrew/ETC/privoxy/config`), 首先搜索到 `forward-socks5t` 和 `listen-address` 这两行配置, 然后修改为如下的参数.
-
-```
-# 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理
-forward-socks5t / 127.0.0.1:1080 .
-# 可选，默认监听本地连接
-listen-address 127.0.0.1:8118
-```
-
-其中 `127.0.0.1:1080` 为 socks5 代理的地址, 最后的 `.` 不要丢掉. 而 `127.0.0.1:8118` 是 privoxy 的代理地址, 可以自定义端口, 也可指定为 `0.0.0.0:8118` 使其在局域网内可用. 
-
-#### F.2.3 开启
-
-* 使用 root 权限
-
-```bash
-sudo systemctl start privoxy
-```
-
-* 不使用 root 权限
-
-```bash
-privoxy ~/.linuxbrew/etc/privoxy/config
-```
-
-#### F.2.4 测试
-
-执行如下命令, 显示代理服务器的 ip 地址则表示配置成功.
-
-```bash
-http_proxy=http://127.0.0.1:8118 curl ip.gs
-```
-
-
-### F.3 默认 PAC 模式(图形界面配置)
-
-#### F.3.1 配置 PAC 模式
-
-由于需要持续代理, 因此接下来配置pac模式. 首先安装
-
-```bash
-sudo pip3 install genpac		# 产生用户规则文件
-touch ~/ssconfig/user-rules.txt
-```
-
-
-手动从 [https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt](https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt) 下载 `gfwlist.txt` 文件放在 `~/ssconfig/gfwlist.txt` . 接下来产生 `autoproxy.pac` 文件
-
-```bash
-genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-local=/home/<username>/ssconfig/gfwlist.txt --output="autoproxy.pac" --user-rule-from="user-rules.txt"
-```
-
-注意把上面的 `<username>` 替换为对应的值. 最后点击系统设置->网络->代理设置->自动，在输入框中输入`file:///home/<username>/ssconfig/autoproxy.pac` 即可实现pac代理模式. (注意替换`<username>`)
-
-#### F.3.2 可能的问题
-
-以Ubuntu系统为例，我们通过`genpac`生成`autoproxy.pac`文件，然后点击系统设置->网络->代理设置->自动，在输入框中输入`file://绝对路径/autoproxy.pac`。设置好以后，Chrome应当可以自动切换网络，但是Chrome无法访问google的搜索引擎，而火狐浏览器可以正常访问。
-
-#### F.3.3 解决方案
-
-出现上面问题的主要原因是：Chrome移除对`file://`和`data:`协议的支持，目前只能使用`http://`协议。因此，我们打算使用`nginx`实现对本地文件的`http`映射。
-
-* 安装 nginx
-
-```bash
-sudo apt-get install nginx
-```
-
-* 修改nginx.cnf配置文件
-
-```bash
-vim /etc/nginx/nginx.conf
-```
-
-在 `http{...}` 代码块中加入如下代码
-
-
-```bash
-server{
-    listen 80; #注意这里不用":"隔开，listen后面没有冒号
-    server_name 127.0.0.1; #注意这里不用":"隔开，server_name后面没有冒号
-    location /autoproxy.pac {
-        alias /home/<username>/ssconfig/autoproxy.pac;
-    }
-}
-```
-
- (注意替换`<username>`)
-
-* 重启 nginx
-
-```bash
-sudo nginx -s reload
-```
-
-* 最后把`[http://127.0.0.1/autoproxy.pac](http://127.0.0.1/autoproxy.pac)`填写到系统设置->网络->代理设置->自动代理中
-
-#### F.3.4 后台运行客户端
-
-```bash
-sudo sslocal -c ~/ssconfig/config.json -d start
-```
-
-## G. 有用的一些命令或脚本
-
-### G.1 Google Drive 下载
+### 1 Google Drive 下载
 
 ```bash
 # 从Google Drive获取文件的唯一ID
@@ -851,7 +909,7 @@ sudo sslocal -c ~/ssconfig/config.json -d start
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=FILEID" -O FILENAME && rm -rf /tmp/cookies.txt
 ```
 
-### G.2 代理链无法代理 nvm (bash 函数)
+### 2 代理链无法代理 nvm (bash 函数)
 
 ```bash
 # 解决方案
@@ -866,8 +924,17 @@ vim nvm2
 proxychains4 nvm install node
 ```
 
+### 3 Flameshot 设置快捷键
 
-## H. 系统快捷键
+在系统设置中, 进入键盘快捷键菜单, 点 + 自定义快捷键:
+* Name: Flameshot_Screenshot_gui
+* Command: flameshot gui
+* Short Cut: F1
+
+然后在系统托盘选择 Flameshot, 设置贴图快捷键为 F3
+
+
+## G. 系统快捷键
 
 | **按键** | **功能** |
 | --- | --- |

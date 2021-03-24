@@ -28,6 +28,10 @@ type: page
 * Email：<a href = "mailto:zjw.cs@zju.edu.cn">zjw.cs@zju.edu.cn</a>
 * [知乎](https://www.zhihu.com/people/lin-xi-1-1)
 
+## Changes Log
+
+[Changes Log](https://github.com/Jarvis73/jarvis73.github.io/blob/master/changes_log.md)
+
 ## Acknowledgement
 <p class="power">
     <span>
