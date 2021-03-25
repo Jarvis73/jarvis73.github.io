@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Ubuntu 18.04(bionic) | Ubuntu 20.04(focal) 教程"
+title: "Ubuntu 18.04+ 教程"
 date: 2020-11-06 10:11:00 +0800
 update: 2021-03-24
 categories: Config
 figure: /images/2020-11/ubuntu.png
 author: Jarvis
 meta: Post
+pin: True
 ---
 
 * content
@@ -554,12 +555,54 @@ hostname abc
 
 参考资料: 
 
-* 阮一峰: [Systemd 入门教程: 命令篇](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html) 
-* 阮一峰: [Systemd 入门教程: 实战篇](https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)
+* [阮一峰: Systemd 入门教程: 命令篇](http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html) 
+* [阮一峰: Systemd 入门教程: 实战篇](https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)
 
+#### 3.1 原理简述
 
+开机启动的服务分为两种, 系统服务和用户服务. 系统服务使用 root 权限启动, 用户服务使用用户权限启动. 在开机后登陆之前, 系统会扫描以下目录的服务并启动:
 
-1. 在 `/lib` 中添加设置: `sudo vim /lib/systemd/system/rc.local.service` , 添加最下面的一段话
+* [systemd/system 的服务](https://wiki.archlinux.org/index.php/Systemd_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)) (略去 `/run` 的)
+  * `/usr/lib/systemd/system/` 
+  * `/lib/systemd/system/` 
+  * `/usr/local/lib/systemd/system/` (默认不存在该目录)
+  * `/etc/systemd/system/` 
+
+* [systemd/user 的服务](https://wiki.archlinux.org/index.php/Systemd/User#How_it_works) (略去 `/run` 的)
+  * `/usr/lib/systemd/user/` 
+  * `/usr/local/lib/systemd/user/` (默认不存在该目录)
+  * `/usr/share/systemd/user/` (默认不存在该目录)
+  * `/usr/local/share/systemd/user/` (默认不存在该目录)
+  * `~/.local/share/systemd/user/` (默认不存在该目录)
+  * `/etc/systemd/user/` 
+  * `~/.config/systemd/user/` (默认不存在该目录)
+
+{% include card.html type="info" content="可以使用 <code class='language-plaintext highlighter-rouge'>systemctl show --property=UnitPath</code> 命令查看扫描顺序, 优先级从低到高" %}
+
+操作系统服务常用的命令如下:
+
+```bash
+# 启用系统服务
+sudo systemctl enable xxx.service
+# 禁用系统服务
+sudo systemctl disable xxx.service
+# 查看系统服务状态
+sudo systemctl status xxx.service
+# 启动系统服务
+sudo systemctl start xxx.service
+# 停止系统服务
+sudo systemctl stop xxx.service
+
+# 启用用户服务
+systemctl --user enable xxx.service
+# 其余命令类似: disable, status, start, stop
+```
+
+{% include card.html type="info" content="在操作<strong>用户服务</strong>时, 必须加 <code class='language-plaintext highlighter-rouge'>--user</code>, 否则会找不到服务, 并且必须去掉 <code class='language-plaintext highlighter-rouge'>sudo</code>, 否则会提示错误 Failed to connect to bus: No such file or directory. " %}
+
+#### 3.2 自动运行: rc-local 服务
+
+* 修改服务文件 `sudo vim /lib/systemd/system/rc-local.service`, 添加最下面的一段话
 
 ```
 [Unit]
@@ -567,38 +610,41 @@ Description=/etc/rc.local Compatibility
 Documentation=man:systemd-rc-local-generator(8)
 ConditionFileIsExecutable=/etc/rc.local
 After=syslog.target network.target remote-fs.target nss-lookup.target
- 
+
 [Service]
 Type=forking
 ExecStart=/etc/rc.local start
 TimeoutSec=0
 RemainAfterExit=no
 GuessMainPID=no
- 
+
 #这一段原文件没有，需要自己添加
 [Install]
 WantedBy=multi-user.target
-Alias=rc-local.service
 ```
 
-2. 添加软连接到 `/etc` , 开机后会去这里找
+这里的 `WantedBy=multi-user.target` 是把 `rc-local.service` 加入 `multi-user.target` 这一启动目标.
+
+* 启动服务
 
 ```
-sudo ln -s /lib/systemd/system/rc.local.service /etc/systemd/system/rc.local.service
+sudo systemctl enable rc-local.service
 ```
 
-3. 添加自启动命令: `sudo vim /etc/rc.local` . 要注意这个文件里使用的命令都要写全路径(因为执行该文件的时候 .bashrc 还没执行.)
+该命令实际上是根据我们新添加的依赖关系, 建立了 `/etc/systemd/system/multi-user.target.wants/rc-local.service` 符号链接指向 `/lib/systemd/system/rc-local.service`. 系统在启动时会扫描 `multi-user.target.wants` 目录并启动其中的服务.
+
+添加我们需要自启动命令到 `/etc/rc.local` 文件中 (与上面的配置中 `ExecStart` 的文件名对应), 该文件不存在时自己创建一个. 要注意这个文件里使用的命令都要写全路径(因为该文件是 root 执行的)
 
 ```
-#!/bin/bash                                                                                                                                                                                                                        
-# 
+#!/bin/bash
+#
 # rc.local
-# 
-echo "hello" > /etc/test.log
+#
+
+# 这里写要执行的命令
 ```
 
-4. 重启电脑
-
+* 重启以测试是否成功.
 
 
 ### 4 开机连接 VPN
@@ -691,54 +737,69 @@ GRUB_CMDLINE_LINUX=""
 
 ### 7 自定义锁屏/登录背景 (GDM)
 
-1. 从[这里](https://www.opendesktop.org/s/Gnome/p/1207015/)下载皮肤, 选择适合自己的系统, 如 "18.04 with asking password"
-2. 解压后, 阅读 readme, 然后按步骤先安装
+* 从[这里](https://www.opendesktop.org/s/Gnome/p/1207015/)下载皮肤, 选择适合自己的系统, 如 "18.04 with asking password"
+* 解压后, 阅读 readme, 然后按步骤先安装
 
-安装之前, 先自己备份一下 ubuntu.css :
+  安装之前, 先自己备份一下 ubuntu.css :
 
-```bash
-sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubuntu.css.backup
-```
+  ```bash
+  sudo cp /usr/share/gnome-shell/theme/ubuntu.css /usr/share/gnome-shell/theme/ubuntu.css.backup
+  ```
 
-接下来开始安装:
+  接下来开始安装:
 
-   1. 执行 `./install.sh` 
-   2. 寻找一个自己的喜欢的壁纸, 右键 -> script -> SetAsWallPaper (要输入密码), 这样, 程序 `~/.local/share/nautilus/scripts/SetAsWallpaper`  就会生成一张当前壁纸模糊后的版本放到 `/usr/share/backgrounds/gdmlock.jpg` , 可以自己检查一下是否正确. 
-   3. 重启电脑完成
-   4. 如果登录框的文字被遮挡了, 可以按照 readme 中的说明修改.
-3. 双屏的时候, 登录界面的背景图可能大小不正常, 此时使用 gnome-shell-extension 中的 `Lock screen background` 插件来修正, 开关在[这里](https://extensions.gnome.org/extension/1476/unlock-dialog-background/). 开关开启后(可能非常慢, 十几分钟), 从 Extension 中开启选项 `Open Unlock Dialog Background` 即可.
+  1. 执行 `./install.sh` 
+  2. 寻找一个自己的喜欢的壁纸, 右键 -> script -> SetAsWallPaper (要输入密码), 这样, 程序 `~/.local/share/nautilus/scripts/SetAsWallpaper`  就会生成一张当前壁纸模糊后的版本放到 `/usr/share/backgrounds/gdmlock.jpg` , 可以自己检查一下是否正确. 
+  3. 重启电脑完成
+  4. 如果登录框的文字被遮挡了, 可以按照 readme 中的说明修改.
+* 双屏的时候, 登录界面的背景图可能大小不正常, 此时使用 gnome-shell-extension 中的 `Lock screen background` 插件来修正, 开关在[这里](https://extensions.gnome.org/extension/1476/unlock-dialog-background/). 开关开启后(可能非常慢, 十几分钟), 从 Extension 中开启选项 `Open Unlock Dialog Background` 即可.
 
 
 
 ### 8 自定义 Grub 主题
 
-1. 从[这里](https://www.opendesktop.org/s/Gnome/p/1307852/)下载皮肤
-2. 解压后运行 `./install.sh` 安装
+* 从[这里](https://www.opendesktop.org/s/Gnome/p/1307852/)下载皮肤
+* 解压后运行 `./install.sh` 安装
 
 
-### 9 挂载硬盘
+### 9 硬盘操作
 
-#### 9.1 临时挂载
+#### 9.1 硬盘分区操作
+
+```bash
+# 查看已挂载磁盘
+df -h
+
+# 查看所有磁盘 (包括未挂载的磁盘)
+sudo fdisk -l
+
+# 查看某个磁盘
+sudo fdisk -l /dev/sda
+
+# 对某个磁盘操作
+sudo fdisk /dev/sda
+# 此时会进入操作模式, 按 m 显示所有可用命令
+
+# 查看磁盘和分区之间的关系
+sudo lsblk
+
+# 查看磁盘分区的 UUID 号
+sudo blkid
+```
+
+#### 9.2 临时挂载 {#TempMount}
 
 * 系统重启之后，挂载将会失效
 
 ```bash
-mount /dev/sda2 /media/disk1
+sudo mount /dev/sda2 /media/disk1
 ```
 
-#### 9.2 永久挂载
+#### 9.3 永久挂载
 
-* 先查看各个磁盘挂载的信息, 并确认目标硬盘的位置 `/dev/sd*` 
+* 先查看各个磁盘挂载的信息 `sudo fdisk -l`, 并确认目标硬盘的位置 `/dev/sd*` 
 
-```bash
-sudo fdisk -l
-```
-
-* 查看该硬盘的UUID号 (使用UUID号可以避免硬盘更换位置后 `/dev/sd*` 发生变化, 而UUID不会变.)
-
-```bash
-sudo blkid
-```
+* 查看该硬盘的UUID号 `sudo blkid` (使用UUID号可以避免硬盘更换位置后 `/dev/sd*` 发生变化, 而UUID不会变.)
 
 * 修改 `/etc/fstab` , 在最后增加以下内容, UUID替换为上一步查出来的, 第二个参数为挂载路径, 第三个参数为分区格式, 这个可以从第一步的命令中查看, 最后的三个参数的含义见[这里](https://blog.51cto.com/lspgyy/1297432).
 
@@ -747,6 +808,7 @@ UUID=xxxxxxxxxxxxxxx /media/Win10OS ntfs defaults 0 0
 
 UUID=xxxxxxx-xxxxxx-xxxxxx-xxxxxxx /data ext4 defaults 0 0
 ```
+
 
 ### 10 安装中文字体
 
@@ -765,7 +827,7 @@ sudo fc-cache -f -v
 
 可以直接让 Ubuntu 系统读取 Win10 系统的字体: 
 
-* 首先按照 [B.10.2](https://www.yuque.com/jarvis73/pukm54/avi2oa/edit#UXEv9) 的教程完成 Win10 硬盘的永久挂载(即开机自动挂载), 假设挂载的位置为 `/media/Win10OS` .
+* 首先按照[临时挂载](#TempMount)的教程完成 Win10 硬盘的永久挂载(即开机自动挂载), 假设挂载的位置为 `/media/Win10OS` .
 * 然后创建 Win10 字体文件夹在 Ubuntu 系统的软链接, 注意对应挂载位置.
 
 ```bash
@@ -783,15 +845,9 @@ sudo fc-cache -f -v
 ### 1 常用软件
 
 * [Chrome](https://www.google.com/intl/zh-CN/chrome/)
-  ```bash
-  # 卸载火狐: 查找相关软件包
-  dpkg --get-selections | grep firefox
-  # 卸载
-  sudo apt purge firefox firefox-locale-en firefox-locale-zh-hans
-  ```
 * [搜狗拼音输入法](https://pinyin.sogou.com/linux/?r=pinyin)
 * [网易云音乐](https://music.163.com/#/download)
-* [deepin-wine](https://www.cnblogs.com/zyrblog/p/11024194.html) 用于安装 QQ 微信等
+* [deepin-wine](https://www.cnblogs.com/zyrblog/p/11024194.html) 用于安装 [QQ 微信](https://github.com/zq1997/deepin-wine)等
 * [Powerline 终端美化](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
 * [PyCharm](https://www.jetbrains.com/pycharm/)
 * Filezilla (FTP 工具) (应用商店安装)
@@ -809,6 +865,9 @@ sudo fc-cache -f -v
 * [Dropbox](https://www.dropbox.com/) (官网下载"下载器", 然后命令行里通过代理下载 dropbox: `proxychains dropbox start -i` )
 * [Cascadia-Code](https://github.com/microsoft/cascadia-code) (微软提供的开源字体, 包含用于 Powerline 的字体和等宽字体)
 * [qBittorrent](https://www.qbittorrent.org/download.php) (BT 下载工具)
+* [FSearch](https://github.com/cboxdoerfer/fsearch) (Linux 下 Everything 的替代品)
+* [onedrive](https://github.com/abraunegg/onedrive) (Onedrive 的 第三方 Linux 客户端)
+* [Jellyfin](https://jellyfin.org/) (流媒体系统)
 
 ### 2 有用的工具
 
@@ -924,14 +983,6 @@ vim nvm2
 proxychains4 nvm install node
 ```
 
-### 3 Flameshot 设置快捷键
-
-在系统设置中, 进入键盘快捷键菜单, 点 + 自定义快捷键:
-* Name: Flameshot_Screenshot_gui
-* Command: flameshot gui
-* Short Cut: F1
-
-然后在系统托盘选择 Flameshot, 设置贴图快捷键为 F3
 
 
 ## G. 系统快捷键
@@ -951,3 +1002,33 @@ proxychains4 nvm install node
 | Ctrl + Alt + T | 打开一个新的终端 |
 | Ctrl + Alt + 箭头 | 切换工作区 |
 
+
+## H. 常见软件问题解决
+
+### 1 Flameshot 设置快捷键
+
+在系统设置中, 进入键盘快捷键菜单, 点 + 自定义快捷键:
+* Name: Flameshot_Screenshot_gui
+* Command: flameshot gui
+* Short Cut: F1
+
+然后在系统托盘选择 Flameshot, 设置贴图快捷键为 F3
+
+### 2 deepin-wine 微信
+
+* 无法直接粘贴截图
+
+安装 `libjpeg62:i386` 可解决
+
+```bash
+sudo apt install libjpeg62:i386
+```
+
+### 3 卸载自带的火狐浏览器
+
+```bash
+# 查找相关软件包
+dpkg --get-selections | grep firefox
+# 卸载
+sudo apt purge firefox firefox-locale-en firefox-locale-zh-hans
+```

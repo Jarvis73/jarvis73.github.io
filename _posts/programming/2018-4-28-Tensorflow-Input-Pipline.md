@@ -6,6 +6,7 @@ categories: Tensorflow
 figure: /images/2018-4-28/pipline.gif
 author: Jarvis
 meta: Post
+pin: True
 ---
 
 * content

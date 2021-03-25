@@ -11,6 +11,9 @@ meta: Post
 * content
 {:toc}
 
+
+
+
 论文题目: Focal Loss for Dense Object Detection
 
 作者: Tsung-Yi Lin Priya Goyal Ross Girshick Kaiming He Piotr Dollar
@@ -18,9 +21,6 @@ meta: Post
 研究机构: Facebook AI Research
 
 时间: 2017.08.07
-
-
-
 
 ---
 

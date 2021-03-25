@@ -45,26 +45,6 @@ layout: default
             {% endfor %}
         </ul>
 
-
-
-        <!-- Pagination links -->
-        <!-- <div class="pagination">
-          {% if paginator.previous_page %}
-            <a href="/index.html" class="previous"><i class="fa fa-angle-double-left"></i></a>
-            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous"><i class="fa fa-angle-left"></i></a>
-          {% else %}
-            <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
-            <span class="previous disable"><i class="fa fa-angle-left"></i></span>
-          {% endif %}
-          <span class="page_number">{{ paginator.page }} / {{ paginator.total_pages }}</span>
-          {% if paginator.next_page %}
-            <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-angle-right"></i></a>
-            <a href="{{ site.baseurl }}/page{{ paginator.total_pages }}" class="next"><i class="fa fa-angle-double-right"></i></a>
-          {% else %}
-            <span class="next disable"><i class="fa fa-angle-right"></i></span>
-            <span class="next disable"><i class="fa fa-angle-double-right"></i></span>
-          {% endif %}
-        </div> -->
         <div style="text-align: center;">
             <ul id="myPager" class="pager" data-page="{{ paginator.page }}" data-rec-total="{{ paginator.total_pages }}" data-elements="prev,nav,next" data-max-nav-count="9"></ul>
         </div>
@@ -72,6 +52,22 @@ layout: default
     <!-- <button class="anchor"><i class="fa fa-anchor"></i></button> -->
     <div class="right-jekyll">
         <div class="wrap">
+
+            <!-- 置顶文章 -->
+            <div class="side index-right-div">
+                <div>
+                    <i class="fa fa-anchor" aria-hidden="true"></i>
+                    Pined Articles
+                </div>
+                <ul class="content-ul" recent>
+                    {% for post in site.posts %}
+                        {% if post.pin %}
+                            <li><a href="{{ site.baseurl }}{{ post.url }}" class="index-right-recent">{{ post.title }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
             <div class="side index-right-div">
                 <div>
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -128,20 +124,6 @@ layout: default
                 </ul>
             </div>
 
-            <div class="side index-right-div">
-                <div>
-                    <i class="fa fa-external-link"></i>
-                    External Links
-                </div>
-                <ul  class="content-ul" link>
-                    <li><a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">Windows 下的 Python 模块库</a></li>
-                    <li><a href="http://detexify.kirelabs.org/classify.html">Latex手写识别</a></li>
-                    <li><a href="https://tensorflow.google.cn/api_docs/">Tensorflow API 文档</a></li>
-                    <li><a href="http://pytorch.org/docs/master/">Pytorch API 文档</a></li>
-                    <li><a href="https://msdn.itellyou.cn/">MSDN 我告诉你</a></li>
-                    <li><a href="https://www.vocabulary.com/dictionary/">Vocabulary 查单词</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>

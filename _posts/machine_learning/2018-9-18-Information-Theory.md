@@ -14,10 +14,9 @@ meta: Post
 {:toc}
 
 
+
+
 我们通常提到信息论(information theorey)时一般在谈论如何以更紧凑的方式表示数据(比如**数据压缩**或**源编码**), 或者在数据传输和存储时减少误差. 乍一看和机器学习及概率论并无关系, 但他们有着密切的联系. 比如在压缩数据时, 往往使用短的编码词编码高频词汇, 长的编码词编码低频词汇; 反之解码时需要一个好的概率模型来确定哪种原始组合的概率更高.
-
-
-
 
 {% include image.html class="polaroid" url="MLPP/Shannon.jpg" title="Claude Shannon 1916-2001" %}
 

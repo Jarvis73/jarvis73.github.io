@@ -129,7 +129,7 @@
                             &:hover {
                                 background-color: #dbdfee;
                                 .badge {
-                                    background-color: #dbdfee;
+                                    background-color: #878d9b;
                                     // transform: scale(1.2) rotate(360deg);
                                 }
                             }
@@ -159,7 +159,8 @@
                     }
                 }
                 .content-ul[recent]{
-                    padding-bottom: 16px;
+                    list-style: disc;
+                    padding-left: 25px;
                     li{
                         color:#aaa;
                         font-size: 16px;
@@ -179,7 +180,7 @@
                             &:hover {
                                 background-color: #dbdfee;
                                 .badge {
-                                    background-color: #dbdfee;
+                                    background-color: #878d9b;
                                     // transform: scale(1.2) rotate(360deg);
                                 }
                             }
@@ -206,13 +207,6 @@
                         &:last-of-type a {
                             border: none;
                         }
-                    }
-                }
-                .content-ul[link]{
-                    padding-bottom: 16px;
-                    li{
-                        color:rgb(72, 118, 216);
-                        font-size: 16px;
                     }
                 }
                 .tags-cloud {

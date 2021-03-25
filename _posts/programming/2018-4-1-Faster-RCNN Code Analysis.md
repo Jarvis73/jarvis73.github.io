@@ -11,15 +11,15 @@ meta: Post
 * content
 {:toc}
 
+
+
+
+
 以下代码来源于[Faster RCNN](https://github.com/endernewton/tf-faster-rcnn). 由于该代码太长, 所以这里做个注释, 即是为了自己理清思路, 也是为了改写时方便.
 
 源码运行入口在 `./tf-faster-rcnn/experiments/scripts/train_faster_rcnn.sh`  
 
 python 程序入口在 `./tf-faster-rcnn/tools/trainval_net.py`
-
-
-
-
 
 ## 1. 数据预处理 + 输入层
 

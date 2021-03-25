@@ -4,9 +4,9 @@ title: "数据增广 (Data Augmentation)"
 date: 2021-03-22 17:01:00 +0800
 categories: 深度学习
 mathjax: true
-# figure: /images/2020-12/WGAN-4.png
 author: Jarvis
 meta: Wiki_Deep Learning
+hidden: true
 ---
 
 * content

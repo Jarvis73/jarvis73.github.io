@@ -2,6 +2,7 @@
 layout: post
 title: "Convolution Arithmetic for Deep Learning"
 date: 2019-6-6 10:25:00 +0800
+update: 2020-10-28
 categories: 深度学习
 mathjax: true
 figure: /images/2019-6/conv-0.gif
@@ -9,15 +10,13 @@ author: Jarvis
 meta: Post
 ---
 
-**2020-10-28 更新: 增加了深度学习框架中 `im2col` 的卷积计算方法**
-
 * content
 {:toc}
 
+
+
+
 > 深度学习中主要的特征提取方式来源于离散卷积(convolution)操作, 至今为止卷积操作已经广泛应用于图像, 音频, 视频等的特征提取过程中, 同时为了适用于不同的任务或达到一定的目的, 卷积也产生了许多变种, 如: depthwise卷积, 分组卷积, 转置卷积, 膨胀卷积等等. 本文的目的有二, 一个是总结普通卷积核转置卷积的方式(填充, 步长)对输出图像大小的影响, 另一个是总结目前比较流行的卷积模块设计, 并尽量理清其思路.
-
-
-
 
 **注:** 本文部分内容, 图片和gif来源于Dumoulin和Visin的开源项目[Github:vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic).
 

@@ -12,10 +12,9 @@ meta: Post
 * content
 {:toc}
 
+
+
 > 机器学习从数据中自动学习规则/函数/对应关系. 随着可获取数据量的不断增多, 机器学习的算法也层出不穷并广泛地应用在实践中. 但是机器学习种类繁多, 技巧不容易掌握, 因此也给其应用带来了不少的麻烦. 因此本文 [A Few Useful Things to Know about Machine Learning](https://dl.acm.org/citation.cfm?id=2347755) 总结了12个机器学习中常见的问题并加以探讨.
-
-
-
 
 <div class="polaroid">
     <img class="cool-img" src="/images/2018-12/MLTips-1.jpg" MLTips/>

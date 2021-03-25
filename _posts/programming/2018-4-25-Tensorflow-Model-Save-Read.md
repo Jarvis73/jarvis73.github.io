@@ -7,6 +7,7 @@ categories: Tensorflow
 figure: /images/2018-4-25/tensor.png
 author: Jarvis
 meta: Post
+pin: True
 ---
 
 * content
