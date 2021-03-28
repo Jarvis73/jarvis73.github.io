@@ -133,7 +133,59 @@ fc-list :lang=zh
   nmcli connection up ZJU
   ```
 
-#### 1.2 双网卡设置
+#### 1.2 开机连接 VPN
+
+开机连接 VPN 需要单独设置一节, 因为 VPN 在 root 状态下登录是需要输入密码的(因为VPN的密码是属于用户的, 而不属于root). 因此为了开机启动 VPN, 我们需要把 VPN 密码以明文的形式写在该 VPN 的配置文件中以便开机后 root 可以登录 VPN. 
+不妨假设 VPN 的名称为 ZJU. 
+编辑文件: `sudo vim /etc/NetworkManager/system-connections/ZJU` , 可以找到如下的 `[vpn]` 段落.
+
+```
+[vpn]
+gateway=*******(Gateway)
+mru=1440
+mtu=1440
+no-vj-comp=yes
+noaccomp=yes
+nopcomp=yes
+password-flags=1
+user=<你的VPN用户名>
+service-type=org.freedesktop.NetworkManager.l2tp
+```
+
+然后需要做两处编辑:
+
+1. 把 `password-flags=1` 修改为 `password-flags=0`
+2. 在 `[vpn]` 段扩后面增加一段:
+
+```
+[vpn-secrets]
+password=<你的VPN密码>
+```
+
+Restart network-manager TODO
+
+```bash
+sudo systemctl restart network-manager.service
+```
+
+这样, 我们就可以在 root 下连接 VPN 了, 测试连接:
+
+```
+# 先手动断了 VPN
+# root 命令行连接
+sudo nmcli connection up ZJU
+```
+
+成功连接. 然后我们增加自动连接:
+
+* 运行 `nm-connection-editor` 打开网络连接编辑面板
+* 从 Ethernet(以太网) 列表中选择所使用的有线网或者从WLAN列表中选择所使用的无线网, 双击打开编辑面板
+* 在 General(常规) 选项卡中勾选 Automatically connect to VPN when using this connection(使用此连接时自动连接到VPN), 并选择要开启的 VPN 
+
+重启系统测试效果. (亲测可行)
+
+
+#### 1.3 双网卡设置
 
 * 主节点: 一张网卡设置为外网ip， 另一张设置为内网ip. 内网网卡不设置网关.
 
@@ -429,7 +481,7 @@ proxychains 是使用代理时才调用, 而 privoxy 可以以服务的方式在
 sudo apt install privoxy 
 ```
 
-没有 root 权限时, 可以使用 [brew](#21-brew) 来安装.
+没有 root 权限时, 可以使用 [brew](#homebrew) 来安装.
 ```bash
 brew install privoxy
 ```
@@ -477,13 +529,13 @@ touch ~/ssconfig/user-rules.txt
 ```
 
 
-手动从 [https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt](https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt) 下载 `gfwlist.txt` 文件放在 `~/ssconfig/gfwlist.txt` . 接下来产生 `autoproxy.pac` 文件
+手动从 [https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt](https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt) 下载 `gfwlist.txt` 文件放在 `~/tools/ssconfig/gfwlist.txt` . 接下来产生 `autoproxy.pac` 文件
 
 ```bash
-genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-local=/home/<username>/ssconfig/gfwlist.txt --output="autoproxy.pac" --user-rule-from="user-rules.txt"
+genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-local=/home/<username>/tools/ssconfig/gfwlist.txt --output="autoproxy.pac" --user-rule-from="user-rules.txt"
 ```
 
-注意把上面的 `<username>` 替换为对应的值. 最后点击系统设置->网络->代理设置->自动，在输入框中输入`file:///home/<username>/ssconfig/autoproxy.pac` 即可实现pac代理模式. (注意替换`<username>`)
+注意把上面的 `<username>` 替换为对应的值. 最后点击系统设置->网络->代理设置->自动，在输入框中输入`file:///home/<username>/tools/ssconfig/autoproxy.pac` 即可实现pac代理模式. (注意替换`<username>`)
 
 * 可能的问题
 
@@ -625,7 +677,7 @@ WantedBy=multi-user.target
 
 这里的 `WantedBy=multi-user.target` 是把 `rc-local.service` 加入 `multi-user.target` 这一启动目标.
 
-* 启动服务
+* 启用服务
 
 ```
 sudo systemctl enable rc-local.service
@@ -641,56 +693,17 @@ sudo systemctl enable rc-local.service
 # rc.local
 #
 
-# 这里写要执行的命令
+/usr/local/bin/sslocal -c /home/<username>/tools/ssconfig/config.json -d start
+```
+
+* 为 `rc.local` 增加执行权限
+
+```bash
+sudo chmod +x /etc/rc.local
 ```
 
 * 重启以测试是否成功.
 
-
-### 4 开机连接 VPN
-
-开机连接 VPN 需要单独设置一节, 因为 VPN 在 root 状态下登录是需要输入密码的(因为VPN的密码是属于用户的, 而不属于root). 因此为了开机启动 VPN, 我们需要把 VPN 密码以明文的形式写在该 VPN 的配置文件中以便开机后 root 可以登录 VPN. 
-不妨假设 VPN 的名称为 ZJU. 
-编辑文件: `sudo vim /etc/NetworkManager/system-connections/ZJU` , 可以找到如下的 `[vpn]` 段落.
-
-```
-[vpn]
-gateway=10.5.1.7
-mru=1440
-mtu=1440
-no-vj-comp=yes
-noaccomp=yes
-nopcomp=yes
-password-flags=1
-user=[你的VPN用户名]
-service-type=org.freedesktop.NetworkManager.l2tp
-```
-
-然后需要做两处编辑:
-
-1. 把 `password-flags=1` 修改为 `password-flags=1`
-2. 在 `[vpn]` 段扩后面增加一段:
-
-```
-[vpn-secrets]
-password=[你的VPN密码]
-```
-
-这样, 我们就可以在 root 下连接 VPN 了, 测试连接:
-
-```
-# 先手动断了 VPN
-# root 命令行连接
-sudo nmcli connection up ZJU
-```
-
-成功连接. 然后我们增加自动连接:
-
-* 运行 `nm-connection-editor` 打开网络连接编辑面板
-* 从 Ethernet(以太网) 列表中选择所使用的有线网或者从WLAN列表中选择所使用的无线网, 双击打开编辑面板
-* 在 General(常规) 选项卡中勾选 Automatically connect to VPN when using this connection(使用此连接时自动连接到VPN), 并选择要开启的 VPN 
-
-重启系统测试效果. (亲测可行)
 
 
 ### 5 (双系统) 修改开机默认系统
@@ -842,17 +855,14 @@ sudo fc-cache -f -v
 
 ## E. 常用软件和工具
 
-### 1 常用软件
+### 1 常用软件 (界面操作) {#softwares}
 
 * [Chrome](https://www.google.com/intl/zh-CN/chrome/)
 * [搜狗拼音输入法](https://pinyin.sogou.com/linux/?r=pinyin)
-* [网易云音乐](https://music.163.com/#/download)
-* [deepin-wine](https://www.cnblogs.com/zyrblog/p/11024194.html) 用于安装 [QQ 微信](https://github.com/zq1997/deepin-wine)等
-* [Powerline 终端美化](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
-* [PyCharm](https://www.jetbrains.com/pycharm/)
-* Filezilla (FTP 工具) (应用商店安装)
-* VSCode (应用商店安装)
-* [WPS](https://linux.wps.cn/) (Office 软件)
+* [网易云音乐](https://music.163.com/#/download), [QQ音乐](https://y.qq.com/download/download.html)
+* [deepin-wine](https://www.cnblogs.com/zyrblog/p/11024194.html) 用于安装 [QQ 微信](https://github.com/zq1997/deepin-wine) 等
+* [百度网盘](http://pan.baidu.com/download)
+* [WPS](https://linux.wps.cn/) (Office 软件),  [把语言修改为中文](https://zhuanlan.zhihu.com/p/149773169)
 * PDF阅读器
    * [福昕阅读器](https://www.foxitsoftware.com/pdf-reader/) (后面几个都不能很好的支持中文, 为避免折腾, 直接装福昕)
    * Okular
@@ -860,18 +870,29 @@ sudo fc-cache -f -v
    * PDF Studio Viewer
 * [Zotero](https://www.zotero.org/) (文献管理工具)
 * [Typora](https://typora.io/) (Markdown 编辑器, 可实时渲染)
+* [PyCharm](https://www.jetbrains.com/pycharm/)
+* Filezilla (FTP 工具) (应用商店安装)
+* VSCode (通过添加微软的源来安装, 见 [H.5](#vscode) 不要从应用商店安装, Ubuntu20.04应用商店安装的无法输入中文)
 * [Flameshot](https://github.com/flameshot-org/flameshot) (截图/贴图工具), 从 release 中下载
-* [gpick](https://github.com/thezbyg/gpick) (屏幕取色软件), 自行编译
+* [gpick](https://github.com/thezbyg/gpick) (屏幕取色软件), apt 安装
 * [Dropbox](https://www.dropbox.com/) (官网下载"下载器", 然后命令行里通过代理下载 dropbox: `proxychains dropbox start -i` )
 * [Cascadia-Code](https://github.com/microsoft/cascadia-code) (微软提供的开源字体, 包含用于 Powerline 的字体和等宽字体)
-* [qBittorrent](https://www.qbittorrent.org/download.php) (BT 下载工具)
+* [transmissionbt](https://www.mls-tech.info/linux/ubuntu-18-setup-transmission/), [qBittorrent](https://www.qbittorrent.org/download.php)  (BT 下载工具)
 * [FSearch](https://github.com/cboxdoerfer/fsearch) (Linux 下 Everything 的替代品)
+* [GitKraken](https://www.gitkraken.com/) ()
+
+### 2. 进阶软件 (终端操作)
+
+* htop (系统资源监控), apt 安装
+* [Powerline 终端美化](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
 * [onedrive](https://github.com/abraunegg/onedrive) (Onedrive 的 第三方 Linux 客户端)
-* [Jellyfin](https://jellyfin.org/) (流媒体系统)
+* [Docker](https://docs.docker.com/engine/install/ubuntu/) ([安装和使用教程](https://www.yuque.com/jarvis73/pukm54/rwfl73))
+* [Jellyfin](https://jellyfin.org/) (开源流媒体工具, 支持 Linux/Win10 部署, 全平台访问)
+* [NextCloud](https://nextcloud.com/) (开源云盘工具, 支持 Linux 部署, 全平台访问)
 
-### 2 有用的工具
+### 3 有用的工具
 
-#### 2.1 Homebrew
+#### 3.1 Homebrew {#homebrew}
 
 brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装它. 当我们使用没有 sudo 权限的服务器时, 用 brew 可以很方便的在用户目录下安装许多常用的 linux 工具或软件.
 
@@ -887,7 +908,7 @@ brew 是 MaxOS 上的一款包管理工具, 我们也可以在 Ubuntu 上安装�
 brew install privoxy
 ```
 
-#### 2.2 Node.js
+#### 3.2 Node.js
 
 Node.js 是 javascript 在本地执行的工具, 可以使用 nvm 来管理版本和安装.
 
@@ -904,7 +925,7 @@ npm install -g xxx --registry=https://registry.npm.taobao.org
 npm config set registry https://registry.npm.taobao.org
 ```
 
-#### 2.3 Conda
+#### 3.3 Conda
 
 Conda 是 Python 的环境管理工具. 从[这里](https://docs.conda.io/en/latest/miniconda.html)下载软件包后, 直接安装. 安装时注意填写安装路径.
 
@@ -912,7 +933,7 @@ Conda 是 Python 的环境管理工具. 从[这里](https://docs.conda.io/en/lat
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
 
-### 3 其他工具
+### 4 其他工具
 
 * tldr
 
@@ -1003,7 +1024,7 @@ proxychains4 nvm install node
 | Ctrl + Alt + 箭头 | 切换工作区 |
 
 
-## H. 常见软件问题解决
+## H. 常见问题及解决方案
 
 ### 1 Flameshot 设置快捷键
 
@@ -1015,6 +1036,21 @@ proxychains4 nvm install node
 然后在系统托盘选择 Flameshot, 设置贴图快捷键为 F3
 
 ### 2 deepin-wine 微信
+
+* 安装 
+
+Ubuntu 20.04 下通过我们在 [E.1](#softwares) 给出的链接安装后无法通过图标打开. 可以通过安装[旧版微信]()解决该问题.
+
+* 中文字体 (参考[deepin-wine 讨论区](https://github.com/zq1997/deepin-wine/issues/15))
+
+Deepin-WeChat 的中文字体默认用的是"文泉驿微米黑", 所以在系统里安装该字体即可. 首先从[Github仓库](https://github.com/anthonyfok/fonts-wqy-microhei/blob/master/wqy-microhei.ttc) 下载该字体, 然后复制到字体目录病刷新字体缓存:
+
+```bash
+sudo cp wqy-microhei.ttc /usr/share/fonts
+fc-cache -fv
+```
+
+重启微信. 
 
 * 无法直接粘贴截图
 
@@ -1032,3 +1068,62 @@ dpkg --get-selections | grep firefox
 # 卸载
 sudo apt purge firefox firefox-locale-en firefox-locale-zh-hans
 ```
+
+### 4. Zotero 添加启动图标
+
+解压下载的 Zotero 压缩包, 通过下面的命令为 Zotero 添加启动图标
+
+```bash
+mv Zotero_linux-x86_64 zotero
+mv zotero ~/tools
+cd ~/tools/zotero
+
+./set_launcher_icon
+
+sudo ln -s /home/<username>/tools/zotero/zotero.desktop /usr/share/applications/zotero.desktop
+```
+
+添加图标后稍等片刻即可从 Launcher 中搜索.
+
+### 5. VSCode {#vscode}
+
+* 安装
+
+Ubuntu 20.04 下应用商店里安装的 VSCode 无法输入中文. 此处我们添加微软的apt源来安装([参考](https://cyfeng.science/2020/05/20/vs-code-chinese-input/)):
+
+```bash
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update && sudo apt install code
+```
+
+### 6. 英文语言下中文目录的排序
+
+* 在系统语言设置为英文时, 中文目录的排序不是按拼音排的. 这时候我们需要修改 locale 中 `LC_COLLATE` 的值. 首先显示使用 `locale` 命令查看当前的语言配置(系统语言为英文, 区域设置为中国):
+
+```text
+LANG=en_US.UTF-8
+LANGUAGE=en_US:en
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC=zh_CN.UTF-8
+LC_TIME=zh_CN.UTF-8
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY=zh_CN.UTF-8
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER=zh_CN.UTF-8
+LC_NAME=zh_CN.UTF-8
+LC_ADDRESS=zh_CN.UTF-8
+LC_TELEPHONE=zh_CN.UTF-8
+LC_MEASUREMENT=zh_CN.UTF-8
+LC_IDENTIFICATION=zh_CN.UTF-8
+LC_ALL=
+```
+
+我们需要修改其中的 `LC_COLLATE="en_US.UTF-8"`.
+
+```bash
+sudo vim /etc/environment
+```
+
+在末尾添加 `LC_COLLATE=zh_CN.UTF-8`, 重启系统即可.
+
