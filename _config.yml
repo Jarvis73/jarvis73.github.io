@@ -63,12 +63,13 @@ tag_dir: tag/
 wiki_dir: wiki/
 
 # wiki list
-wiki_list: 
+wiki_list:
+  - Latex 
   - Python
-  - Latex
+  - Deep Learning
+  - Ubuntu
   - CUDA
   - CMake
-  - Deep Learning
 
 # excerpt
 excerpt_separator: "\n\n\n\n"
