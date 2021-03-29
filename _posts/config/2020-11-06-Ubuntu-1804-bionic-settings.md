@@ -2,7 +2,7 @@
 layout: post
 title: "Ubuntu 18.04+ 教程"
 date: 2020-11-06 10:11:00 +0800
-update: 2021-03-24
+update: 2021-03-29
 categories: Config
 figure: /images/2020-11/ubuntu.png
 author: Jarvis
@@ -881,10 +881,10 @@ sudo fc-cache -f -v
 * [FSearch](https://github.com/cboxdoerfer/fsearch) (Linux 下 Everything 的替代品)
 * [GitKraken](https://www.gitkraken.com/) ()
 
-### 2. 进阶软件 (终端操作)
+### 2 进阶软件 (终端操作)
 
 * htop (系统资源监控), apt 安装
-* [Powerline 终端美化](https://gist.github.com/Jarvis73/9a8aed3ed5175eb5aef3a2ff12bdf8b6)
+* [Powerline 终端美化](/2021/03/29/Powerline)
 * [onedrive](https://github.com/abraunegg/onedrive) (Onedrive 的 第三方 Linux 客户端)
 * [Docker](https://docs.docker.com/engine/install/ubuntu/) ([安装和使用教程](https://www.yuque.com/jarvis73/pukm54/rwfl73))
 * [Jellyfin](https://jellyfin.org/) (开源流媒体工具, 支持 Linux/Win10 部署, 全平台访问)
