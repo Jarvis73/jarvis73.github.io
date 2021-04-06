@@ -287,10 +287,8 @@ deb http://mirrors.aliyun.com/ubuntu/ focal-security multiverse
 * 更新系统, 安装常用工具
 
 ```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install net-tools		# 安装完可以使用ifconfig, route
-sudo apt install vim, git, curl, tmux
+sudo apt update; sudo apt upgrade
+sudo apt install vim, git, curl, tmux, mlocate, net-tools
 ```
 
 ### 3 (可选) 修改默认文件夹
@@ -937,10 +935,10 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
 * tldr
 
-[tldr](https://github.com/tldr-pages/tldr) 是个命令行工具, 用于常用命令的用法速查. 安装方式
+[tldr](https://github.com/tldr-pages/tldr) 是个命令行工具, 用于常用命令的用法速查. 我们通常看到的写法是 **TL;DR**, 它是 "Too Long; Don't Read" 缩写, 其含义就是字面意思, 很多工具的文档写的又臭又长, 对于新手并不实用, 因此 `tldr` 提供了这些命令最常用的用法和解释. 安装方式如下
 
 ```bash
-npm install -g tldr
+sudo apt install tldr
 ```
 
 使用方法:

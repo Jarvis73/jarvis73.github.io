@@ -6,7 +6,6 @@ categories: Config
 figure: /images/2021-03/bash.png
 author: Jarvis
 meta: Post
-pin: True
 ---
 
 * content

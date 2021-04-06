@@ -62,16 +62,6 @@
   }
 }());
 
-/////////////////////////////// 为代码块填入代码类型属性 //////////////////////////////////
-(function() {
-  var all_code = document.querySelectorAll("div.highlight");
-  for (var i = 0; i < all_code.length; i++) 
-  {
-    var code_type = all_code[i].parentElement.className;
-    all_code[i].setAttribute("data-content", code_type.split(" ")[0].split("-")[1]);
-  }
-}());
-
 ///////////////////////////////// 代码块的复制按钮逻辑 ////////////////////////////////////
 (function() {
   let codes = document.querySelectorAll('.highlight > pre > code');
@@ -80,18 +70,39 @@
   
     code.querySelector(".rouge-code").setAttribute("id", "code" + countID);
     
+    let spanLang = document.createElement('span');
+    spanLang.className = 'language';
+
     let btn = document.createElement('button');
-    btn.innerHTML = "copy";
+    btn.innerHTML = "<i class='fa fa-copy'></i> copy";
     btn.className = "btn-copy";
     btn.setAttribute("data-clipboard-action", "copy");
     btn.setAttribute("data-clipboard-target", "#code" + countID);
     
-    let div = document.createElement('div');
-    div.appendChild(btn);
+    let divCodeHeader = document.createElement('div');
+    divCodeHeader.className = 'codeHeader';
+    divCodeHeader.appendChild(spanLang);
+    divCodeHeader.appendChild(btn);
+
+    // let div = document.createElement('div');
+    // div.appendChild(btn);
     
-    code.parentElement.before(div);
+    code.parentElement.before(divCodeHeader);
   
     countID++;
   }); 
   let clipboard = new ClipboardJS('.btn-copy');
+}());
+
+
+/////////////////////////////// 为代码块填入代码类型属性 //////////////////////////////////
+(function() {
+  var allCode = document.querySelectorAll("div.highlight");
+  for (var i = 0; i < allCode.length; i++) 
+  {
+    var codeType = allCode[i].parentElement.className;
+    // allCode[i].setAttribute("data-content", codeType.split(" ")[0].split("-")[1]);
+    var codeLang = allCode[i].querySelector(".codeHeader > .language");
+    codeLang.innerHTML = codeType.split(" ")[0].split("-")[1];
+  }
 }());
