@@ -1,5 +1,8 @@
 # Changes Log
 
+* **2021-04-08**
+  * 改进的代码块样式，改进的复制按钮响应. 实现了[Microsoft官网文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/linq/)的样式和响应方式.
+
 * **2021-03-24**
   * 为目录增加可折叠按钮. [参考链接](https://jiangjingmin.github.io/2016/06/13/hexo-collapsible-toc/)
 

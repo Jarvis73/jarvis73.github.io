@@ -62,7 +62,7 @@
   }
 }());
 
-///////////////////////////////// 代码块的复制按钮逻辑 ////////////////////////////////////
+///////////////////////////////// 代码块的复制按钮 ////////////////////////////////////
 (function() {
   let codes = document.querySelectorAll('.highlight > pre > code');
   let countID = 0;
@@ -73,16 +73,26 @@
     let spanLang = document.createElement('span');
     spanLang.className = 'language';
 
+    let btnDiv = document.createElement('div');
+    btnDiv.className = "btnContainer";
+
     let btn = document.createElement('button');
     btn.innerHTML = "<i class='fa fa-copy'></i> copy";
     btn.className = "btn-copy";
     btn.setAttribute("data-clipboard-action", "copy");
     btn.setAttribute("data-clipboard-target", "#code" + countID);
     
+    let spanCopySuccess = document.createElement('button');
+    spanCopySuccess.innerHTML = "<i class='fa fa-check'></i>";
+    spanCopySuccess.className = "btn-copy-success";
+
+    btnDiv.appendChild(btn);
+    btnDiv.appendChild(spanCopySuccess)
+
     let divCodeHeader = document.createElement('div');
     divCodeHeader.className = 'codeHeader';
     divCodeHeader.appendChild(spanLang);
-    divCodeHeader.appendChild(btn);
+    divCodeHeader.appendChild(btnDiv);
 
     // let div = document.createElement('div');
     // div.appendChild(btn);
@@ -91,7 +101,21 @@
   
     countID++;
   }); 
+
+  // 复制按钮逻辑
   let clipboard = new ClipboardJS('.btn-copy');
+  clipboard.on('success', function (e) {
+    e.clearSelection();
+
+    let btnSuccess = e.trigger.nextSibling;
+    btnSuccess.className += ' show';
+    setTimeout(() => {
+      btnSuccess.className += ' hide';
+    }, 1000);
+    setTimeout(() => {
+      btnSuccess.className = btnSuccess.className.slice(0, btnSuccess.className.length - 10);
+    }, 1500);
+  });
 }());
 
 
