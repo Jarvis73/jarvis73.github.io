@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "关于少样本学习的思考 (二) (Thinking About FSL 2)"
-date: 2021-03-22 17:28:00 +0800
+date: 2021-03-22 20:42:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
 figure: /images/2021-03/FSL-1.png
@@ -51,4 +51,19 @@ $$
 
 ## 2. (ICLR 2020) Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML
 
+{% include image.html class="polaroid" url="2021-03/FSL-2.png" title="Rapid learning and feature reuse paradigms." %}
+
+本文分析了 MAML 算法在 meta-testing 时有效的原因是内循环的快速学习还是重用了 meta-training 时学到的特征, 得到了如下结论:
+
+* 在 MAML 训练完后, 测试时冻结 meta-learner (即禁用内循环); 然后使用特征相似度评估方法 (Canonical Correlation Analaysis, CCA) 检查内循环在测试时发生了多大的变动.
+
+  * 结果显示实际上只有最后的 head layer 参数有显著的变化, 其他层的参数变动非常小. 说明了 MAML 的效果来源于 meta-learner 的特征重用.
+
+* 基于该实验发现, 提出了 ANIL (Almost No Inner Loop) 的方法, 在训练和测试时移除绝大部分的内循环, 仅仅保留最后一层参数的内循环更新. 
+
+  * 结果显示 ANIL 实现了和 MAML 一样的精度, 而训练和推断速度有了显著的提升.
+
+  * <u>测试时</u> head layer 的内循环可以去掉而不影响精度, 称为 NIL (No Inner Loop).
+
+  * <u>训练时</u> head layer 的内循环**不**可以去掉, 否则会显著影响精度.
 

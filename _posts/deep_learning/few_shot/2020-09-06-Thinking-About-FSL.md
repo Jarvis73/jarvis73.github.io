@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "关于少样本学习的思考 (Thinking About FSL)"
+title: "关于少样本学习的思考 (一) (Thinking About FSL 1)"
 date: 2020-09-06 16:05:00 +0800
 categories: 深度学习 少样本学习
 mathjax: true
