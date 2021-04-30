@@ -105,15 +105,15 @@ def make_numerical_tex_string(step, input_size, output_size,
 
     if transposed:
         input_flat_string = ''.join(
-            ["\\draw[fill=cyan] (0,0) rectangle (1,{});\n".format(mh),
+            ["\\draw[fill=blue] (0,0) rectangle (1,{});\n".format(mh),
              "\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(mh),
         ] + ["\\node (node) at (0.5, {}) {{\large $ b_{{{}{}}} $}};\n".format(y + 0.5, ix, iy)
             for y, (ix, iy) in zip(range(mh - 1, -1, -1), itertools.product(range(fi), range(fi)))
         ])
 
         output_flat_string = ''.join(
-            ["\\draw[fill=blue] (0,0) rectangle (1,{});\n".format(half_cut_h),
-             "\\draw[fill=blue] (0,{}) rectangle (1,{});\n".format(half_cut_h + 2, total_h),
+            ["\\draw[fill=cyan] (0,0) rectangle (1,{});\n".format(half_cut_h),
+             "\\draw[fill=cyan] (0,{}) rectangle (1,{});\n".format(half_cut_h + 2, total_h),
         ] + ["\\draw[step=10mm, base03, thick] (0,0) grid (1,{});\n".format(half_cut_h),
              "\\draw[step=10mm, base03, thick] (0,{}) grid (1,{});\n".format(half_cut_h + 2, total_h),
         ] + [
