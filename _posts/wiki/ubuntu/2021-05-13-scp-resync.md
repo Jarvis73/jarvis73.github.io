@@ -25,19 +25,19 @@ hidden: true
 
 ```bash
 # 本地文件复制到远程
-scp {{path/to/local_file}} {{remote_host}}:{{path/to/remote_file}}
+scp <path/to/local_file> <remote_host>:<path/to/remote_file>
 
 # 指定远程端口
-scp -P {{port}} {{path/to/local_file}} {{remote_host}}:{{path/to/remote_file}}
+scp -P <port> <path/to/local_file> <remote_host>:<path/to/remote_file>
 
 # 远程文件复制到本地
-scp {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}
+scp <remote_host>:<path/to/remote_file> <path/to/local_directory>
 
 # 远程文件夹复制到本地
-scp -r {{remote_host}}:{{path/to/remote_directory}} {{path/to/local_directory}}
+scp -r <remote_host>:<path/to/remote_directory> <path/to/local_directory>
 
 # 以本地为桥梁, 在两个远程之间复制文件
-scp -3 {{host1}}:{{path/to/remote_file}} {{host2}}:{{path/to/remote_directory}}
+scp -3 <host1>:<path/to/remote_file> <host2>:<path/to/remote_directory>
 ```
 
 scp 也支持 ssh 的 config 文件中的 host, 以及 -i 参数.
@@ -46,22 +46,22 @@ scp 也支持 ssh 的 config 文件中的 host, 以及 -i 参数.
 
 ```bash
 # 本地文件复制到远程
-rsync {{path/to/local_file}} {{remote_host}}:{{path/to/remote_directory}}
+rsync <path/to/local_file> <remote_host>:<path/to/remote_directory>
 
 # 远程文件复制到本地
-rsync {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}
+rsync <remote_host>:<path/to/remote_file> <path/to/local_directory>
 
 # 复制文件, 以归档(a) (保护属性) 和压缩(z) 模式, 输出信息(v) 和 人类可读(h)的进度条(P):
-rsync -azvhP {{path/to/local_file}} {{remote_host}}:{{path/to/remote_directory}}
+rsync -azvhP <path/to/local_file> <remote_host>:<path/to/remote_directory>
 
 # 远程文件夹复制到本地
-rsync -r {{remote_host}}:{{path/to/remote_directory}} {{path/to/local_directory}}
+rsync -r <remote_host>:<path/to/remote_directory> <path/to/local_directory>
 
 # 远程文件夹的内容(不包括文件夹本身)复制到本地
-rsync -r {{remote_host}}:{{path/to/remote_directory}}/ {{path/to/local_directory}}
+rsync -r <remote_host>:<path/to/remote_directory>/ <path/to/local_directory>
 
 # 识别软连接(l), 忽略已经复制的文件, 除非更新(u):
-rsync -rauL {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}
+rsync -rauL <remote_host>:<path/to/remote_file> <path/to/local_directory>
 ```
 
 ## 4. 常用用法
@@ -70,5 +70,5 @@ rsync -rauL {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}
 
 ```bash
 # 通过 ssh 复制文件, 显示进度条
-rsync -P --rsh=ssh {{path/to/local_file}} {{path/to/remote_directory}}
+rsync -P --rsh=ssh <path/to/local_file> <path/to/remote_directory>
 ```
