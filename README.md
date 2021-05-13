@@ -16,7 +16,7 @@
     * [归档页 Archives](#归档页-archives)
     * [分类页 Categories](#分类页-categories)
     * [收藏页 Collections](#收藏页-collections)
-    * [维基页 Wiki](#维基页)
+    * [维基页 Wiki](#维基页-wiki)
     * [关于页 About](#关于页-about)
     * [移动端适配](#移动端适配)
     * [Footer](#footer)
