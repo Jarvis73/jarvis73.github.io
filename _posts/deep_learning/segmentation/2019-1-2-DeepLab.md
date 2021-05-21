@@ -120,8 +120,7 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 * **学习率策略**: 多项式学习率, $$ (1 - \frac{iter}{max_iter})^{power} $$, 其中 $$ power=0.9 $$.
 * **裁剪大小**: 为了使大的膨胀率仍然有效, 增大裁剪大小到 513 像素.
-* **批正则化**: 本文增加在 ResNet 头部的模块均包含批正则化结构. 首先使用 $$ output_stride=16, batch_size=16, decay=0.9997, learning_rate=0.007 $$ 在增广的 `trainaug` 数据集上训练 30K 步, 然后固定 BN 层, 使用 $output-stride
-=8, batch_size=8, learning_rate=0.001$ 在 PASVAL VOC 2012 数据集 `trainval` 上训练 30K 步. 先用输出步长 16 训练的好处是输出图片小, 可以加快训练速度, 然后再用步长为 8 的图片训练, 提高定位精度. 
+* **批正则化**: 本文增加在 ResNet 头部的模块均包含批正则化结构. 首先使用 `output_stride=16, batch_size=16, decay=0.9997, learning_rate=0.007` 在增广的 `trainaug` 数据集上训练 30K 步, 然后固定 BN 层, 使用 `output_stride=8, batch_size=8, learning_rate=0.001` 在 PASVAL VOC 2012 数据集 `trainval` 上训练 30K 步. 先用输出步长 16 训练的好处是输出图片小, 可以加快训练速度, 然后再用步长为 8 的图片训练, 提高定位精度. 
 * **上采样 logits**: 由于网络输出的大小缩小为 groundtruth 的 $$ 1/8 $$, 因此需要对齐, 本文发现训练时对输出上采样到原始图像大小要比把 groundtruth 下采样到 $$ 1/8 $$ 更好.
 * **数据增广**: 放缩($$ 0.5~2.0 $$), 随机左右翻转.
 

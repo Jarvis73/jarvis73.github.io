@@ -1002,6 +1002,13 @@ vim nvm2
 proxychains4 nvm install node
 ```
 
+### 3. ssh 断开后自动重连
+
+* 使用 while 循环, 使 ssh 在断开后 10 分钟尝试自动重连
+
+```
+while true; do ssh <host_name>; date; sleep 10m; done
+```
 
 
 ## G. 系统快捷键

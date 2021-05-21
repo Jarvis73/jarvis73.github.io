@@ -82,6 +82,8 @@ $$
 
 其中 $$ \gamma $$ 和 $$ \beta $$ 是可学习的参数, 对于所有的四种情况其形状均为 $$ C $$.
 
+注意 Group Normalization 相比于 Layer Normalization, 只在每个 group 内部进行 normalization 操作, 这实际上是减弱了假设的强度. Layer Normalization 是假设所有的 channel 共享相同的均值和方差, 这会限制 channel 的表达能力; 而 Group Normlization 把这种限制减弱到 $$ G $$ 个 group 中 (比如 32 个), 这样不同的 group 仍然可以学习不同的分布. 
+
 ### 实现
 
 论文给出的 Tensorflow 下的实现方法:
