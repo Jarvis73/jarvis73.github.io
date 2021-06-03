@@ -2,6 +2,7 @@
 layout: post
 title: "自监督学习(Self-Supervised Learning, SSL)"
 date: 2021-04-29 19:13:00 +0800
+update: 2021-06-03
 categories: 深度学习
 mathjax: true
 figure: ./images/2021-04/SSL-02.png
@@ -68,7 +69,7 @@ $$
 
 ## Deep InfoMax
 
-微软: **Learning deep representations by mutual information estimation and maximization**
+微软: **Learning deep representations by mutual information estimation and maximization**[^1]
 
 应用对比学习, 通过最大化 $$ h $$ 和 $$ x $$ 的互信息, 并且最小化 $$ h $$ 和负样本 $$ x' $$ 的互信息来训练.
 
@@ -80,7 +81,7 @@ $$
 
 ## MoCo
 
-FAIR: **Momentum Contrast for Unsupervised Visual Representation Learning**
+FAIR: **Momentum Contrast for Unsupervised Visual Representation Learning**[^2]
 
 作者假设从更多的负样本中可以学到更好的特征, 因此维护了个比 batch size 更大的查询字典, 并使用动量来保持字典中键的一致性.
 
@@ -98,7 +99,7 @@ $$
 
 ## SimCLR
 
-Google Brain: **A Simple Framework for Contrastive Learning of Visual Representations**
+Google Brain: **A Simple Framework for Contrastive Learning of Visual Representations**[^3]
 
 本文贡献: (1) 组合使用多种 data augmentation 很关键, (2) 表示层和对比学习损失层之间增加一个线性层很关键, (3) 大 batch size 和更多的 epochs 很关键.
 
@@ -110,7 +111,7 @@ $$
 
 ## SwAV
 
-FAIR: **Unsupervised Learning of Visual Features by Contrasting Cluster Assignments**
+FAIR: **Unsupervised Learning of Visual Features by Contrasting Cluster Assignments**[^4]
 
 基于聚类的自监督方法. 构造一个"交换的"预测问题:
 
@@ -126,7 +127,7 @@ $$
 
 ## BYOL
 
-DeepMind: **Bootstrap Your Own Latent A New Approach to Self-Supervised Learning**
+DeepMind: **Bootstrap Your Own Latent A New Approach to Self-Supervised Learning**[^5]
 
 不使用负样本. 有人发现实际还是隐式的用了负样本, 在 $$ q_{\theta} $$ 里面用了 Batch Normalization. 后来作者又发了一篇 arxiv, 把 BN 换成了 Group Normalization + Weights Standardization, 可以达到和 BYOL 接近的精度.
 
@@ -142,7 +143,7 @@ $$
 
 ## SimCLR V2
 
-Google Brain: **Big Self-Supervised Models are Strong Semi-Supervised Learners**
+Google Brain: **Big Self-Supervised Models are Strong Semi-Supervised Learners**[^6]
 
 1. ResNet-50 --> ResNet-50 (2x) --> ResNet-50 (4x) --> ResNet-152 (3x, Seletive Kernel)
 2. SimCLR 使用了两层 projection head, SimCLR V2 增加到三层, 并且使用第一层的输出作为最终的结果
@@ -150,7 +151,7 @@ Google Brain: **Big Self-Supervised Models are Strong Semi-Supervised Learners**
 
 ## MoCo V3
 
-FAIR: **An Empirical Study of Training Self-Supervised Vision Transformers**
+FAIR: **An Empirical Study of Training Self-Supervised Vision Transformers**[^7]
 
 使用了 Visual Transformers, 使用了 InfoNCE 损失：
 
@@ -163,9 +164,38 @@ $$
 
 
 ## 参考文献
-<!-- 
-[^1]:
-    **Going Deeper with Convolutions**<br />
-    Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, et al. <br />
-    [[link]](https://arxiv.org/abs/1409.4842). In CVPR[C], 2015: 1-9. -->
 
+[^1]:
+    **Learning deep representations by mutual information estimation and maximization**<br /> 
+    R Devon Hjelm, Alex Fedorov, Samuel Lavoie-Marchildon, Karan Grewal, Phil Bachman, Adam Trischler, Yoshua Bengio<br />
+    [[html]](https://openreview.net/forum?id=Bklr3j0cKX) In ICLR 2018
+
+[^2]:
+    **Momentum Contrast for Unsupervised Visual Representation Learning**<br />
+    Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, Ross Girshick<br />
+    [[html]](https://openaccess.thecvf.com/content_CVPR_2020/html/He_Momentum_Contrast_for_Unsupervised_Visual_Representation_Learning_CVPR_2020_paper.html) In CVPR, 2020
+
+[^3]:
+    **A Simple Framework for Contrastive Learning of Visual Representations**<br />
+    Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton<br />
+    [[html]](http://proceedings.mlr.press/v119/chen20j.html) In ICML, 2020
+
+[^4]:
+    **Unsupervised learning of visual features by contrasting cluster assignments**<br />
+    Mathilde Caron, Ishan Misra, Julien Mairal, Priya Goyal, Piotr Bojanowski, Armand Joulin<br /> 
+    [[pdf]](https://proceedings.neurips.cc/paper/2020/file/70feb62b69f16e0238f741fab228fec2-Paper.pdf) In NeurIPS, 2020
+
+[^5]:
+    **Bootstrap Your Own Latent - A New Approach to Self-Supervised Learning**<br />
+    Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre Richemond, Elena Buchatskaya, Carl Doersch, Bernardo Avila Pires, Zhaohan Guo, Mohammad Gheshlaghi Azar, Bilal Piot, koray kavukcuoglu, Remi Munos, Michal Valko<br />
+    [[html]](https://papers.nips.cc/paper/2020/hash/f3ada80d5c4ee70142b17b8192b2958e-Abstract.html) In NeurIPS, 2020
+
+[^6]:
+    **Big Self-Supervised Models are Strong Semi-Supervised Learners**<br /> 
+    Ting Chen, Simon Kornblith, Kevin Swersky, Mohammad Norouzi, Geoffrey Hinton<br />
+    [[pdf]](https://proceedings.neurips.cc/paper/2020/file/fcbc95ccdd551da181207c0c1400c655-Paper.pdf) In NeurIPS, 2020
+
+[^7]:
+    **An Empirical Study of Training Self-Supervised Vision Transformers**<br />
+    Xinlei Chen, Saining Xie, Kaiming He<br /> 
+    [[html]](http://arxiv.org/abs/2104.02057) In arXiv:2104.02057

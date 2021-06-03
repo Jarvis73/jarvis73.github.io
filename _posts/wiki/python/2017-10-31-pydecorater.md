@@ -2,6 +2,7 @@
 layout: post
 title: Python装饰器
 date: 2017-10-31 20:20:00 +0800
+update: 2021-05-27
 author: Jarvis
 meta: Wiki_Python
 hidden: true
@@ -10,11 +11,87 @@ hidden: true
 * content
 {:toc}
 
-## Python 的类装饰器
+
+## 1. 通用装饰器 (同时支持带/不带参数)
+
+通常如果我们想要一个装饰器同时支持带参数和不带参数, 需要编写两个函数来实现. 如下:
+
+```python
+def deco1(func):
+    def new_func(*args, **kwargs):
+        # do something
+        print("No prefix.")
+        return func(*args, **kwargs)
+    return new_func
+
+def deco2(prefix=None):
+    def inner_deco(func):
+        def new_func(*args, **kwargs):
+            # do something with `prefix`
+            print(f"Using prefix: {prefix}")
+            return func(*args, **kwargs)
+        return new_func
+    return inner_deco
+
+@deco1
+def foo1():
+    pass
+
+@deco2(prefix='AAA')
+def foo2():
+    pass
+
+foo1()
+foo2()
+```
+
+为了简化代码, 我们可以利用 `wrapt.decorator` 来简化上面的代码:
+
+```python
+import wrapt
+from functools import partial
+
+@wrapt.decorator
+def optional_kwargs_decorator(wrapped, instance=None, args=None, kwargs=None):
+    if args:
+        return wrapped(*args, **kwargs)
+    else:
+        return partial(wrapped, **kwargs)
+
+@optional_kwargs_decorator
+def deco(func, prefix=None):
+    def new_func(*args, **kwargs):
+        # do something with `prefix`
+        if prefix is not None:
+            print(f"Using prefix: {prefix}")
+        else:
+            print("No prefix.")
+        return func(*args, **kwargs)
+    return new_func
+
+# 不带参数的装饰器, 注意是不加括号的
+@deco
+def foo1():
+    pass
+
+# 带参数的装饰器, 以函数的形式调用并传入参数
+@deco(prefix='AAA')
+def foo2():
+    pass
+
+foo1()
+foo2()
+```
+
+注意上面这段代码中装饰器 `optional_kwargs_decorator` 如果被 `wrapt.decorator` 装饰了的话, 其签名是固定的. 
+
+虽然上面的代码看起来更复杂了, 但我们额外定义的装饰器 `optional_kwargs_decorator` 是可以复用的, 它的功能就是令被它装饰的装饰器(这个例子里是 `deco`)可以同时以带参数和不带参数的形式使用, 而不需要编写两个函数.
+
+{% include card.html type="info" title="提示" content="要注意区分不带参数的装饰器和带参数的装饰器. @deco 返回的是被装饰过的函数, 而 @deco(prefix='AAA') 实际上是个函数调用 deco(prefix='AAA'), 该函数返回一个装饰器." %}
+
+
+## 2. 常用装饰器
 通过在类的方法前面加装装饰器, 可以实现更丰富的类的方法和更简洁的用法.
-
-
-
 
 ### @property @name.setter
 
