@@ -110,7 +110,7 @@ gem install jekyll
 
 ### 2. 复制博客主题代码
 
-可以直接 clone 、下载 或 fork 这个仓库的代码即可
+可以直接 clone 下载或 fork 这个仓库的代码即可
 
 ### 3. 修改参数
 
@@ -255,18 +255,51 @@ excerpt_separator: "\n\n\n\n"
 支持卡片模板 `{% include card.html type="info" title="" content="" tail="" %}` 
 
 *   `type` 可以填入 `primary`, `danger`, `success`, `warning`, `info` 五种预定义类型, 也可以留空, 分别对应不同的提示信息. 
-*   `title` 是卡片的标题信息 (可删除 title="" 属性)
+*   `title` 是卡片的标题信息 (可删除)
 *   `content` 是卡片的第一部分主体内容
-*   `tail` 是卡片的第二部分主体内容 (可删除 tail="" 属性)
+*   `tail` 是卡片的第二部分主体内容 (可删除)
 
-卡片有什么用?
+`title, content, tail` 这三个属性支持 markdown 语法. 如果这几部分内容比较复杂, 需要写为多行, 可以采用 Liquid 的 `capture` 来实现:
+
+````liquid
+
+{% capture content_name %}
+I am plain text.   
+I am **Strong**.   
+I am `code`.  
+I am inline formula $$ \alpha $$ .
+
+I am block formula:
+
+$$
+\mathcal{L} = \frac12(a - b)^2
+$$
+
+Block code:
+
+```python
+from functools import partial
+```
+
+List:
+* 1
+* 2
+{% endcapture %}
+{% include card.html type='info' content=content_name %}
+
+````
+
+##### 卡片有什么用?
 
 *   卡片可以用来显示基本, 警告, 成功, 危险, 重要等信息
-*   卡片可以用来组织定理, 引理, 推论等数学内容.
 
 ![](Readme.Assets/fig-7.png)
 
+*   卡片可以用来组织定理, 引理, 推论等数学内容.
+
 ![](Readme.Assets/fig-8.png)
+
+
 
 #### 4.9 标题裁剪
 

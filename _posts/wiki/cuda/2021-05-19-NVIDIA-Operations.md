@@ -1,9 +1,11 @@
+---
 layout: post
 title: "NVIDIA 相关命令"
 date: 2021-05-19 11:01:00 +0800
 author: Jarvis
 meta: Wiki_CUDA
 hidden: true
+---
 
 * content
 {:toc}

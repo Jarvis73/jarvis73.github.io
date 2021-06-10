@@ -1,82 +1,94 @@
 {% if include.type == "primary" %}
 <div class="alert alert-primary with-icon">
-    <i class="icon-star"></i>
-    <div class="zui-card-content">
-        {% if include.title != null %}
-        <div><strong>{{ include.title }}</strong></div><hr>
-        {% endif %}
-        <div class="content">{{ include.content }}</div>
-        {% if include.tail != null %}
-        <hr><div>{{ include.tail }}</div>
-        {% endif %}
-    </div>
+<i class="icon-star"></i>
+<div class="zui-card-content">
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
+</div>
 </div>
 {% elsif include.type == "danger" %}
 <div class="alert alert-danger with-icon">
-    <i class="icon-remove-sign"></i>
-    <div class="zui-card-content">
-        {% if include.title != null %}
-        <div><strong>{{ include.title }}</strong></div><hr>
-        {% else %}
-        <div><strong>错误</strong></div><hr>
-        {% endif %}
-        <div class="content">{{ include.content }}</div>
-        {% if include.tail != null %}
-        <hr><div>{{ include.tail }}</div>
-        {% endif %}
-    </div>
+<i class="icon-remove-sign"></i>
+<div class="zui-card-content">
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% else %}
+<div><strong>错误</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
+</div>
 </div>
 {% elsif include.type == "success" %}
 <div class="alert alert-success with-icon">
-    <i class="icon-ok-sign"></i>
-    <div class="zui-card-content">
-        {% if include.title != null %}
-        <div><strong>{{ include.title }}</strong></div><hr>
-        {% endif %}
-        <div class="content">{{ include.content }}</div>
-        {% if include.tail != null %}
-        <hr><div>{{ include.tail }}</div>
-        {% endif %}
-    </div>
+<i class="icon-ok-sign"></i>
+<div class="zui-card-content">
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
+</div>
 </div>
 {% elsif include.type == "warning" %}
 <div class="alert alert-warning with-icon">
-    <i class="icon-warning-sign"></i>
-    <div class="zui-card-content">
-        {% if include.title != null %}
-        <div><strong>{{ include.title }}</strong></div><hr>
-        {% else %}
-        <div><strong>警告</strong></div><hr>
-        {% endif %}
-        <div class="content">{{ include.content }}</div>
-        {% if include.tail != null %}
-        <hr><div>{{ include.tail }}</div>
-        {% endif %}
-    </div>
+<i class="icon-warning-sign"></i>
+<div class="zui-card-content">
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% else %}
+<div><strong>警告</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
+</div>
 </div>
 {% elsif include.type == "info" %}
 <div class="alert alert-info with-icon">
-    <i class="icon-info-sign"></i>
-    <div class="zui-card-content">
-        {% if include.title != null %}
-        <div><strong>{{ include.title }}</strong></div><hr>
-        {% else %}
-        <div><strong>提示</strong></div><hr>
-        {% endif %}
-        <div class="content">{{ include.content }}</div>
-        {% if include.tail != null %}
-        <hr><div>{{ include.tail }}</div>
-        {% endif %}
-    </div>
+<i class="icon-info-sign"></i>
+<div class="zui-card-content">
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% else %}
+<div><strong>提示</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
+</div>
 </div>
 {% else %}
 <div class="alert">
-    {% if include.title != null %}
-    <div><strong>{{ include.title }}</strong></div><hr>
-    {% endif %}
-    <div class="content">{{ include.content }}</div>
-    {% if include.tail != null %}
-    <hr><div>{{ include.tail }}</div>
-    {% endif %}
+{% if include.title != null %}
+<div><strong>{{ include.title }}</strong></div><hr>
+{% endif %}
+<div class="content" markdown="1">
+{{ include.content }}
+</div>
+{% if include.tail != null %}
+<hr><div>{{ include.tail }}</div>
+{% endif %}
 </div>
 {% endif %}
