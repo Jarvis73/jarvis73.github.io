@@ -102,27 +102,3 @@ with timer.start(sync=True):
 
 print(f"Elapse: {timer.diff:.2f}s")
 ```
-
-{% capture content_name %}
-I am plain text.   
-I am **Strong**.   
-I am `code`.  
-I am inline formula $$ \alpha $$ .
-
-I am block formula:
-
-$$
-\mathcal{L} = \frac12(a - b)^2
-$$
-
-Block code:
-
-```python
-from functools import partial
-```
-
-List:
-* 1
-* 2
-{% endcapture %}
-{% include card.html type='info' content=content_name %}
