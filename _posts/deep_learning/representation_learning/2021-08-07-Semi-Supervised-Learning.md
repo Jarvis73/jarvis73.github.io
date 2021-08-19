@@ -20,9 +20,13 @@ meta: Post
 
 深度学习 (deep learning) 通过监督学习 (supervised learning) 在大量的机器学习任务上取得了瞩目的成就, 如 ImageNet 上超过 90% 的分类准确率, Cityscapes 上超过 85% 的分割准确率. 然而, 实现高精度的分类, 分割等任务需要大规模有标签的训练数据, 如 ImageNet 的百万张图像或是 Cityscapes 上数千张 1080p 分辨率图像的像素级标注, 都需要耗费大量的人力物力, 同时在这些数据上训练的模型往往在跨域的数据泛化上仍然具有挑战性 (如医学图像). 虽然数据标注难以获取, 但从多种渠道收集无标注数据是相对容易的, 因此研究者逐渐把目光转向如何利用少部分有标注数据和大规模的无标注数据来训练模型 (比如, 有标签数据占整体的 1-10%). 这种**同时利用少量有标注数据和大量无标注数据训练模型的方法称为半监督学习 (semi-supervised learning, SSL)**. 
 
-SSL 介于监督学习和无监督学习之间, 数据集 $$ X = \{x_i\} $$ 可以分为两部分, 有标签的数据集 $$ X_l = \{(x_1, y_1), \dots, (x_l, y_l)\} $$ 和无标签数据集 $$ X_u = \{x_{l+1}, \dots, x_{l+u}\} $$. 我们使用 $$ X_l $$ 来确定分类边界, 并期望使用 $$ X_u $$ 来更好地估计数据分布 $$ p(x) $$, 从而更准确的确定分类边界. 如图 1 所示, 我们可以通过大量的无标签数据寻找低密度区域, 以更好地确定分类边界. 
+SSL 介于监督学习和无监督学习之间, 数据集 $$ X = \{x_i\} $$ 可以分为两部分, 有标签的数据集 $$ X_l = \{(x_1, y_1), \dots, (x_l, y_l)\} $$ 和无标签数据集 $$ X_u = \{x_{l+1}, \dots, x_{l+u}\} $$. 我们可以从两个角度来看待半监督学习: 
 
-{% include image.html class="polaroid" url="2021-08/SSL-01.png" title="SSL toy example" %}
+* 我们使用 $$ X_l $$ 来确定分类边界, 并期望使用 $$ X_u $$ 来更好地估计数据分布 $$ p(x) $$, 从而更准确的确定分类边界. 如图 1 所示, 我们可以通过大量的无标签数据寻找低密度区域, 以更好地确定分类边界. 这类方法是比较经典的做法.
+
+  {% include image.html class="polaroid" url="2021-08/SSL-01.png" title="SSL toy example" %}
+
+* 我们首先使用 $$ X_u $$ 基于自监督方法训练一个大模型, 然后使用 $$ X_l $$ 对模型进行 finetune, 最后可以进一步蒸馏得到小模型以减少参数量[^18]. 这类方法是在自监督方法有了突破式的发展之后出现的.
 
 ### 1.2 分类
 
@@ -31,9 +35,9 @@ SSL 可以大致分类以下几类:
 |序号|分类|描述|
 |:--:|:--:|:--|
 |1|**Consistency Regularization**|**一致性约束方法**. 数据扰动后, 特征/预测结果不应有显著变化. 从而通过约束扰动前后的数据对应的特征来训练模型.|
-|2|**Entropy Minimization**|**熵极小化**. 强迫模型预测高置信度的结果.|
+|2|**Entropy Minimization**|**熵极小化**. 鼓励模型预测高置信度的结果.|
 |2|**Proxy-Label Method**|**伪标签方法**. 通过一个预训练模型对无标签数据打标签, 然后进一步利用打了伪标签的数据训练模型.|
-|3|**Generative Models**|**生成式模型**. 基于一个假设, 可以生成满足 $$ p(x) $$ 的生成式模型一定学到了可迁移到 $$ p(y\vert x) $$ 的特征.|
+|3|**Generative Models**|**生成式模型**. 结合 GAN 或 VAE, 从无标签数据中学习好的用于分类的判别器. |
 |4|**Graph-Based Methods**|**基于图的方法**. 有标签数据和无标签数据可以看做图的节点, 目标是通过节点之间的相似性把有标签节点的标签传播到无标签节点.|
 
 此外, 还可以通过学习模式分为:
@@ -44,31 +48,31 @@ SSL 可以大致分类以下几类:
 
 SSL 需要一些假设来保证从大规模无标签数据中学习知识是有效的. 
 
-1. 光滑性假设 (Smoothness): 如何高密度区域的两个点 $$ x_1 $$ 和 $$ x_2 $$ 距离很近, 那么他们的标签 $$ y_1 $$ 和 $$ y_2 $$ 也应该很近. 该假设对于分类问题是有用的, 但对于回归问题不然.
-2. 聚类假设 (Cluster): 如果两个点在同一个聚类, 那么它们很可能属于同一个类别. (聚类假设也可以看做是低密度分离假设, 即分类边界应当落在低密度区域.) 基于该假设, 我们就可以要求数据在局部扰动时, 其预测分类保持不变.
-3. 流形假设 (Manifold): 高维数据分布在一个低维流形上. 由于空间大小随着维度指数增长, 这对于建模来说是灾难性的. 然而有了流形假设, 我们可以寻找低维映射来建模数据. 
+1. **光滑性假设 (Smoothness)**: 如果高密度区域的两个点 $$ x_1 $$ 和 $$ x_2 $$ 距离很近, 那么他们的预测结果 $$ y_1 $$ 和 $$ y_2 $$ 也应该很近. 反过来, 如果两个点被低密度区域分离, 那么他们的标签应当不同. 该假设对于分类问题是有用的, 但对于回归问题不然.
+2. **聚类假设 (Cluster)**: 如果两个点在同一个聚类, 那么它们很可能属于同一个类别. (聚类假设也可以看做是低密度分离假设, 即分类边界应当落在低密度区域.) 基于该假设, 我们就可以要求数据在局部扰动时, 其预测分类保持不变.
+3. **流形假设 (Manifold)**: 高维数据分布在一个低维流形上. 由于空间大小随着维度指数增长, 这对于建模来说是灾难性的. 然而有了流形假设, 我们可以寻找低维映射来建模数据. 
 
 这三个假设来源于 Chapelle 等人的 Semi-Supervised Learning 一书[^1]. 
 
 ### 1.4 SSL 与其他任务的联系
 
-* SSL 和无监督域适应 (unsupervised domain adaptation, UDA) 是十分接近的任务, 他们都使用有标签和无标签的数据, 区别在于 SSL 的两类数据属于同一个域, 而 UDA 是源域是有标签数据, 目标域是无标签数据. 同时, 如果我们可以在 UDA 中通过一些方法 (如生成式方法) 把源域数据变成目标域数据, 此时我们就可以把众多 SSL 方法应用到 UDA 方法中. 
+* SSL 和**无监督域适应 (unsupervised domain adaptation, UDA)** 是十分接近的任务, 他们都使用有标签和无标签的数据, 区别在于 SSL 的两类数据属于同一个域, 而 UDA 是源域是有标签数据, 目标域是无标签数据. 同时, 如果我们可以在 UDA 中通过一些方法 (如生成式方法) 把目标域数据变成源域数据, 此时我们就可以把众多 SSL 方法应用到 UDA 方法中. 
 
-* SSL 与 learning from noisy labels 的任务有密切联系. 基于伪标签的 SSL 方法势必会遇到伪标签存在大量噪声的问题, 此时 SSL (包括基于伪标签的 UDA 方法) 可以应用 noisy labels 任务的方法. 
+* SSL 与 **learning from noisy labels** 的任务有密切联系. 基于伪标签的 SSL 方法势必会遇到伪标签存在大量噪声的问题, 此时 SSL (包括基于伪标签的 UDA 方法) 可以应用 noisy labels 任务的方法. 
 
-* SSL 还可以利用自监督学习, 通过自监督学习获得好的 warm-up model; 或在半监督学习的过程中, 引入自监督损失来对模型进行正则化 (一致性约束).
+* SSL 还可以利用**自监督学习**, 通过自监督学习获得好的 warm-up model; 或在半监督学习的过程中, 引入自监督损失来对模型进行正则化 (一致性约束).
 
-* SSL 不同于弱监督学习 (weakly-supervised learning), 后者所有数据都有标签, 强调的是标签为弱标签. 比如分割任务只提供分类标签, 这与 SSL 的目标是不同的. 
+* SSL 不同于**弱监督学习 (weakly-supervised learning)**, 后者所有数据都有标签, 强调的是标签为弱标签. 比如分割任务只提供分类标签, 这与 SSL 的目标是不同的. 
 
 ## 2. Consistency Regularization
 
-一致性约束是对模型的一种正则化. 根据流形假设, 高维数据分布在一个低维流形上, 我们希望模型对于流形上相近数据点能给出相同的预测结果. 这一点是很自然的, 但是简单扰动后的数据并不一定能落在流形上, 而且我们实际上无法有效的去建模数据流形. 过去的诸多实验证明, 一致性约束是 SSL 一种有效的方法. Ghosh 等人[^2]提出我们可以用 Manifold Tangent Classifier (MTC) 来近似数据流形, 也就是说, 给定流形上的一个数据点 $$ x $$, 我们可以做过该点关于流形的切平面, 切平面是可以用一组正交基 $$ \mathbf{e}_1^x,\dots,\mathbf{e}_d^x $$ 表示的, 这意味着
+一致性约束是对模型的一种正则化. 根据流形假设, 高维数据分布在一个低维流形上, 我们希望模型对于流形上相近数据点能给出相似的预测结果. 这一点是很自然的, 但是简单扰动后的数据并不一定能落在流形上, 而且我们实际上无法有效的去建模数据流形. 过去的诸多实验证明, 一致性约束是 SSL 一种有效的方法. Ghosh 等人[^2]提出我们可以用 Manifold Tangent Classifier (MTC) 来近似数据流形, 也就是说, 给定流形上的一个数据点 $$ x $$, 我们可以做过该点关于流形的切平面, 切平面是可以用一组正交基 $$ \mathbf{e}_1^x,\dots,\mathbf{e}_d^x $$ 表示的, 这意味着
 
 $$
 \hat{x} = x + \underbrace{\sum_{j=1}^d \omega_j\textbf{e}_j^x}_{V_{\omega}}
 $$
 
-中系数 $$ w_j $$ 足够小时, 切平面可以充分地近似流形. 因此当我们迫使 $$ x \rightarrow f_{\theta}(x) $$ 在局部沿着流形近似为常数的时候, 我们实际上是在惩罚 $$ f_{\theta}(x) $$ 在 $$ x $$ 处的梯度, 可以表示为
+中系数 $$ w_j $$ 足够小时, 切平面可以充分地近似流形. 因此当我们迫使 $$ f_{\theta}(x) $$ 在 $$ x $$ 的附近沿着流形近似为常数的时候, 我们实际上是在惩罚 $$ f_{\theta}(x) $$ 在 $$ x $$ 处的梯度. 具体地,
 
 $$
 \mathbb{E}_{\omega}[\Vert f_{\theta}(x+V_{\omega}) - f_{\theta}(x)\Vert^2] \approx \mathbb{E}_{\omega}[\Vert \mathbf{J}_x V_{\omega}\Vert^2]
@@ -82,7 +86,7 @@ $$
 \begin{align}
 d_{\text{MSE}}(f_{\theta}(x), f_{\theta}(\hat{x})) &= \frac1{C}\sum_{k=1}^C(f_{\theta}(x)_k - f_{\theta}(\hat{x})_k)^2 \\
 d_{\text{KL}}(f_{\theta}(x), f_{\theta}(\hat{x})) &= \frac1{C}\sum_{k=1}^C f_{\theta}(x)_k \log\frac{f_{\theta}(x)_k}{f_{\theta}(\hat{x})_k}  \\
-d_{\text{JS}}(f_{\theta}(x), f_{\theta}(\hat{x})) &= \frac12 d_{\text{KL}}(f_{\theta}(x)_k, m) + d_{\text{KL}}(f_{\theta}(\hat{x})_k, m) \\
+d_{\text{JS}}(f_{\theta}(x), f_{\theta}(\hat{x})) &= \frac12 d_{\text{KL}}(f_{\theta}(x)_k, m) + \frac12 d_{\text{KL}}(f_{\theta}(\hat{x})_k, m) \\
 \end{align}
 $$
 
@@ -109,13 +113,15 @@ $$
 
 {% include image.html class="polaroid" url="2021-08/SSL-03.png" title=" $$ \Pi\text{-Model} $$" %}
 
-Laine 等人提出的 $$ \Pi\text{-Model}[^4] $$ 简化了 $$ \Gamma\text{-Model} $$, 去除了加噪的 encoder, 只使用一个网络, 利用 augmentation 的输入和 dropout 来实现预测结果的扰动, 并进行约束:
+Laine 等人提出的 $$ \Pi\text{-Model} $$ [^4]简化了 $$ \Gamma\text{-Model} $$, 去除了加噪的 encoder, 只使用一个网络, 利用 augmentation 的输入和 dropout 来实现预测结果的扰动, 并进行约束:
 
 $$
 \mathcal{L} = w\frac1{\vert \mathcal{D}_u\vert}\sum_{x\in\mathcal{D}_u}d_{\text{MSE}}(\tilde{y}_1,\tilde{y}_2) + \frac1{\vert\mathcal{D}_l\vert}\sum_{x,y\in\mathcal{D}_l}H(y, f(x))
 $$
 
 其中 $$ w $$ 是权重函数, 在训练的前一阶段 (如 20%) 从 0 增加到一个固定值 $$ \lambda $$ (如 30), 以避免训练初期随机初始化的权重导致的不稳定的输出. 
+
+{% include card.html type="info" content="对于 $$ \Gamma\text{-Model} $$ 和 $$ \Pi\text{-Model} $$, 我们发现前者是只对模型做扰动, 后者是同时对模型和输入数据做扰动." %}
 
 ### 2.3 Temporal Ensembling
 
@@ -184,13 +190,26 @@ $$
 
 单独使用熵极小化并不能带来精度上的提升, 因为该约束并不能让模型修正潜在的错误. 但是该方法与其他方法结合之后可以实现 SOTA 的效果.
 
+{% include card.html type="info" title="Confidence Regularization" content="与 Entropy Minimization 相反的一个概念是 Confidence Regularization. 有时我们不能获得准确的标签 (比如伪标签方法, 带噪声的标签等等). 在这种情况下由于不确定标签的正确性, 因此我们希望模型预测的类别概率是留有余地的, 即任何类别都不应该预测出过高的概率, 这时候使用 Confidence Regularization 会更加有效. 比如对熵的正则化: 
+
+$$
+\sum_{k=1}^Cf_{\theta}(x)_k\log f_{\theta}(x)_k
+$$
+
+或者使用 KL 散度让预测概率倾向于 uniform distribution:
+
+$$
+-\sum_{k=1}^C\frac1K\log f_{\theta}(x)_k
+$$
+" %}
+
 ## 4. Proxy-Label Methods
 
 Proxy-Label 方法通常也称为伪标签 (pseudo-label) 方法, 是利用预训练模型对无标签数据打伪标签后, 和有标签数据结合起来训练模型的一类方法. 这类方法的典型实现有 self-training 和 multi-view training.
 
 ### 4.1 Self-Training
 
-在 self-training 中, 首先使用有标签的 $$ \mathcal{D}_l $$ 数据集训练一个分类器 $$ f_{\theta} $$, 然后用该分类器对无标签数据 $$ x\in\mathcal{D}_u $$ 打伪标签. 给定一个阈值 $$ \tau $$, 如果 $$ \max f_{\theta}(x) > \tau $$, 则把 $$ (x, \argmax f_{\theta}(x)) $$ 加入训练集, 进一步训练模型. 迭代打伪标签和训练模型的步骤, 直到模型无法再产生 confident predictions. 当然, 为了进一步提高伪标签的质量, 可以对设置动态阈值, 或根据不同的类别设置不同的阈值等. 
+在 self-training 中, 首先使用有标签的 $$ \mathcal{D}_l $$ 数据集训练一个分类器 $$ f_{\theta} $$, 然后用该分类器对无标签数据 $$ x\in\mathcal{D}_u $$ 打伪标签. 给定一个阈值 $$ \tau $$, 如果 $$ \max f_{\theta}(x) > \tau $$, 则把 $$ (x, \arg\max f_{\theta}(x)) $$ 加入训练集, 进一步训练模型. 迭代打伪标签和训练模型的步骤, 直到模型无法再产生 confident predictions. 当然, 为了进一步提高伪标签的质量, 可以对设置动态阈值, 或根据不同的类别设置不同的阈值等. 
 
 其他:
 
@@ -382,3 +401,9 @@ $$
     **FixMatch: Simplifying semi-supervised learning with consistency and confidence**<br />
     K. Sohn<br />
     [[pdf]](https://proceedings.neurips.cc/paper/2020/file/06964dce9addb1c5cb5d6e3d9838f733-Paper.pdf) In NeurIPS 2020
+
+[^18]:
+    **Big Self-Supervised Models are Strong Semi-Supervised Learners**<br />
+    T. Chen, S. Kornblith, K. Swersky, M. Norouzi, and G. Hinton<br />
+    [[pdf]](https://proceedings.neurips.cc/paper/2020/file/fcbc95ccdd551da181207c0c1400c655-Paper.pdf) In NeurIPS 2020
+
