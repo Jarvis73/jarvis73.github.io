@@ -798,7 +798,15 @@ sudo lsblk
 sudo blkid
 ```
 
-#### 9.2 临时挂载 {#TempMount}
+#### 9.2 格式化硬盘
+
+如果是刚分好区的硬盘, 则在需要先格式化分区, 否则既无法查看UUID, 也无法挂载到某一个目录下.
+
+```bash
+sudo mkfs.ext4 /dev/sda1
+```
+
+#### 9.3 临时挂载 {#TempMount}
 
 * 系统重启之后，挂载将会失效
 
@@ -806,7 +814,7 @@ sudo blkid
 sudo mount /dev/sda2 /media/disk1
 ```
 
-#### 9.3 永久挂载
+#### 9.4 永久挂载
 
 * 先查看各个磁盘挂载的信息 `sudo fdisk -l`, 并确认目标硬盘的位置 `/dev/sd*` 
 
