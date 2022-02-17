@@ -614,7 +614,7 @@ hostname abc
 
 * [systemd/system 的服务](https://wiki.archlinux.org/index.php/Systemd_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)) (略去 `/run` 的)
   * `/usr/lib/systemd/system/` 
-  * `/lib/systemd/system/` 
+  * `/lib/systemd/system/` (软链接, 实际指向 `/usr/lib/systemd/system/`)
   * `/usr/local/lib/systemd/system/` (默认不存在该目录)
   * `/etc/systemd/system/` 
 

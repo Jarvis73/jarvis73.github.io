@@ -17,7 +17,7 @@ meta: Post
 
 **2020-11-20 更新**
 
-## 1. (ICLR 2015) Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs
+## 1. (ICLR 2015) Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs[^1]
 
 **作者**: Liang-Chieh Chen(UCLA), George Papandreou(Google Inc.), Iasonas Kokkinos(CentraleSuplec and INRIA), Kevin Murphy(Google Inc.), Alan L. Yuille(UCLA)
 
@@ -47,14 +47,14 @@ $$
 在分类精度和定位精度上有一个自然的 trade-off, 网络越深, 下采样的次数越多, 分类的精度就越高, 同时损失的位置信息也越多. 目前文献中针对该问题有三类主流的方法:
 1. 利用多个网络层的信息
 2. 采用超像素表示
-3. 全连接 CRFs<sup>5</sup> (这也是本文使用的方法)
+3. 全连接 CRFs[^5] (这也是本文使用的方法)
 
 ### 实验结果
 
 最终实验中最好的配置 `DeepLab-CRF-LargeFOV` (val set: mIOU = 67.64%)为 $$ 3\times3 $$ 的卷积核, $$ 12\times $$ 的膨胀卷积, 参数量最少, 精度与 $$ 7\times7 $$ 的卷积核相同, 速度接近前者的 3.5 倍. 此外本文实验中还引入了 multi-scale 的策略(FCN 的做法, 把多个层次的特征图上采样后), 也提升了一定的精度(`DeepLab-MSc-CRF-LargeFOV` val set: mIOU=68.70%).
 
 
-## 2. TPAMI 2017: DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs
+## 2. TPAMI 2017: DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs[^2]
 
 **作者**: Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille
 
@@ -90,7 +90,7 @@ $$
 仍然在最后增加 CRFs 修整边界, 以 Resnet-101 作为主干网络, `DeepLab-ASPP-CRFs` 达到了 mIOU=79.7% 的精度.
 
 
-## 3. arXiv 1706: Rethinking Atrous Convolution for Semantic Image Segmentation
+## 3. arXiv 1706: Rethinking Atrous Convolution for Semantic Image Segmentation[^3]
 
 **作者**: Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam
 
@@ -127,7 +127,7 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 `DeepLab V3` 在 PASVAL VOC 2012 测试集上达到 85.7% 的精度, 接近当时最好的水平. 如果使用在 ImageNet 和 JFT-300M 数据集上预训练的 ResNet-101 作为主干网络, 则可以达到 86.9% 的精度.
 
 
-## 4. ECCV 2018: Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation
+## 4. ECCV 2018: Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation[^4]
 
 **作者**: Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, Hartwig Adam
 
@@ -167,23 +167,27 @@ DeepLab V2 中的 ASPP 直接接在了网络头部, 那么特征图大小和卷�
 
 ## Reference
 
-1. **Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs**<br />
-   Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. <br />
-   [[PDF]](https://arxiv.org/abs/1412.7062). In ICLR, 2015.
+[^1]:
+    **Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs**<br />
+    Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. <br />
+    [[html]](https://arxiv.org/abs/1412.7062). In ICLR, 2015.
 
-2. **DeepLab: Semantic Image Segmentation with Deep Convolutional Nets,**
-   **Atrous Convolution, and Fully Connected CRFs** <br />
-   Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, and Alan L Yuille. <br />
-    [[PDF]](http://arxiv.org/abs/1606.00915). TPAMI 2017.
+[^2]:
+    **DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully  Connected CRFs** <br />
+    Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, and Alan L Yuille. <br />
+    [[html]](http://arxiv.org/abs/1606.00915). TPAMI 2017.
 
-3. **Rethinking Atrous Convolution for Semantic Image Segmentation**<br />
-   Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.<br />
-   [[PDF]](http://arxiv.org/abs/1706.05587). arXiv: 1706.05587, 2017.
+[^3]:
+    **Rethinking Atrous Convolution for Semantic Image Segmentation**<br />
+    Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.<br />
+    [[html]](http://arxiv.org/abs/1706.05587). arXiv: 1706.05587, 2017.
 
-4. **Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation**<br />
-   Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, Hartwig Adam.<br />
-   [[PDF]](https://arxiv.org/abs/1802.02611). In ECCV, 2018.
+[^4]:
+    **Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation**<br />
+    Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, Hartwig Adam.<br />
+    [[html]](https://arxiv.org/abs/1802.02611). In ECCV, 2018.
 
-5. **Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials**<br />
-   Philipp Krähenbüh, Vladlen Koltun. <br />
-   [[PDF]](https://arxiv.org/abs/1210.5644)
+[^5]:
+    **Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials**<br />
+    Philipp Krähenbüh, Vladlen Koltun. <br />
+    [[html]](https://arxiv.org/abs/1210.5644)
