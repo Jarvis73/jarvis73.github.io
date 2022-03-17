@@ -5,7 +5,7 @@ date: 2021-04-29 19:13:00 +0800
 update: 2021-06-03
 categories: 深度学习
 mathjax: true
-figure: ./images/2021-04/SSL-02.png
+figure: /images/2021-04/SSL-02.png
 author: Jarvis
 meta: Post
 ---
