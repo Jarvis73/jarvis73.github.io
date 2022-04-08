@@ -3,7 +3,7 @@ layout: post
 title: "Powerline 设置"
 date: 2021-03-29 14:36:00 +0800
 categories: Config
-figure: /images/2021-03/bash.png
+figure: /images/2021/03/bash.png
 author: Jarvis
 meta: Post
 ---

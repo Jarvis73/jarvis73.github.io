@@ -5,7 +5,7 @@ date: 2018-01-24 19:03:00 +0800
 update: 2019-11-18
 categories: 深度学习
 mathjax: true
-figure: /images/2018-1-24/LSTM.png
+figure: /images/2018/01/LSTM.png
 author: Jarvis
 meta: Post
 ---

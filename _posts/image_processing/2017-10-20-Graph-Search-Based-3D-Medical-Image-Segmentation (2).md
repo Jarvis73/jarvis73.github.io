@@ -36,7 +36,7 @@ meta: Post
 由于我们分割的是树状的气管和支气管, 所以不能再按照前文的想法基于类"地形图"的方法来构建图, 而是要按照前文提到的柱形的方法来构建, 前文中的 $$ (x, y) $$ --列也不再使用, 而是变成了以气管中轴线为参照的轴向体素列. 如图1(a)所示.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-20/fig1.png" fig1/>
+    <img class="cool-img" src="/images/2017/10/fig1.png" fig1/>
     <div class="container">
         <p>图1: 以气管中轴线为参照的轴向体素列和可能存在的问题</p>
     </div>
@@ -60,7 +60,7 @@ meta: Post
 * 体素列的长度由体素到中轴线的距离决定. 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-20/fig2.png" fig2/>
+    <img class="cool-img" src="/images/2017/10/fig2.png" fig2/>
     <div class="container">
         <p>图2: 图像重采样和图的构建. (a)不合适的体素列长导致的冲突. (b) 使用中轴线确定体素列长避免冲突</p>
     </div>
@@ -83,7 +83,7 @@ $$
 其中 $$ M_{Sobel_i} $$ 表示[Sobel算子](https://en.wikipedia.org/wiki/Sobel_operator),  $$ M_{Marr} $$ 表示[Marr算子](https://en.wikipedia.org/wiki/Marr-Hildreth_algorithm), 且均为二维滤波器, 如图3所示.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-20/fig3.png" fig3/>
+    <img class="cool-img" src="/images/2017/10/fig3.png" fig3/>
     <div class="container">
         <p>图3: 损失函数</p>
     </div>

@@ -5,7 +5,7 @@ date: 2019-6-6 10:25:00 +0800
 update: 2020-10-28
 categories: 深度学习
 mathjax: true
-figure: /images/2019-6/conv-0.gif
+figure: /images/2019/06/conv-0.gif
 author: Jarvis
 meta: Post
 ---
@@ -62,9 +62,9 @@ $$
 
 |例子|记号|可视化|
 |:--:|:--|:--:|
-|一维连续卷积|$$ f(\tau)=1,\;\tau\in[-0.5, 0.5] $$ <br/> $$ g(\tau)=\sqrt{r^2-\tau^2},\;\tau\in[-r, r] $$ <br/> $$ f\star g=\int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau $$ |![conv](/images/2019-6/conv-0.gif)|
-|一维离散卷积|$$ f(m)=a_m, m\in\{0, 1, 2, 3, 4\} $$<br/>$$ g(m)=w_m, m\in\{0, 1, 2\} $$<br />$$ (f\star g)(n) $$|<img src="/images/2019-6/conv-2.gif" width="200" /><img src="/images/2019-6/conv-3.gif" width="200" />|
-|二维离散卷积|$$ f(m, n)=a_{m, n}, m, n\in\{0, 1, 2, 3, 4\} $$<br/>$$ g(m, n)=w_{m, n}, m, n\in\{0, 1, 2\} $$<br />$$ (f\star g)(n) $$|![conv](/images/2019-6/conv-1.gif)|
+|一维连续卷积|$$ f(\tau)=1,\;\tau\in[-0.5, 0.5] $$ <br/> $$ g(\tau)=\sqrt{r^2-\tau^2},\;\tau\in[-r, r] $$ <br/> $$ f\star g=\int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau $$ |![conv](/images/2019/06/conv-0.gif)|
+|一维离散卷积|$$ f(m)=a_m, m\in\{0, 1, 2, 3, 4\} $$<br/>$$ g(m)=w_m, m\in\{0, 1, 2\} $$<br />$$ (f\star g)(n) $$|<img src="/images/2019/06/conv-2.gif" width="200" /><img src="/images/2019/06/conv-3.gif" width="200" />|
+|二维离散卷积|$$ f(m, n)=a_{m, n}, m, n\in\{0, 1, 2, 3, 4\} $$<br/>$$ g(m, n)=w_{m, n}, m, n\in\{0, 1, 2\} $$<br />$$ (f\star g)(n) $$|![conv](/images/2019/06/conv-1.gif)|
 
 一维和二维离散卷积的例子如上表所示. 下面我们重点讨论二维离散卷积, 这也是在深度学习中使用最为广泛的卷积方式. 我们首先列出一些基本概念:
 
@@ -89,13 +89,13 @@ $$
 
 |配置|目标|记号|可视化|
 |:---|:---|:---|:---:|
-|无填充, 单位步长|valid, $$ p=0 $$|$$ p=0, s=1 $$<br/>$$ o=(i-k)+1 $$|<img src="/images/2019-6/no_padding_no_strides.gif" width="220" />|
-|填充, 单位步长||$$ s=1 $$<br/>$$ o=(i-k)+2p+1 $$|<img src="/images/2019-6/arbitrary_padding_no_strides.gif" width="220" />|
-|半填充($$ k $$ 为奇数)<br/>单位步长|same, $$ o=i $$|$$ p=\left\lfloor k/2\right\rfloor, s=1 $$<br/>$$ o=i $$|<img src="/images/2019-6/same_padding_no_strides.gif" width="220" />|
-|全填充, 单位步长|full, $$ o>i $$|$$ p=k-1, s=1 $$<br/>$$ o=i+(k-1) $$|<img src="/images/2019-6/full_padding_no_strides.gif" width="220" />|
-|无填充, 非单位步长|valid, $$ p=0 $$|$$ p=0 $$<br/>$$ \displaystyle o=\left\lfloor\frac{i-k}{s}\right\rfloor+1 $$|<img src="/images/2019-6/no_padding_strides.gif" width="220" />|
-|填充, 非单位步长||$$ \displaystyle o=\left\lfloor\frac{i+2p-k}{s}\right\rfloor+1 $$|<img src="/images/2019-6/padding_strides.gif" width="220" />|
-|卷积核未覆盖<br/>末行末列|||<img src="/images/2019-6/padding_strides_odd.gif" width="220" />|
+|无填充, 单位步长|valid, $$ p=0 $$|$$ p=0, s=1 $$<br/>$$ o=(i-k)+1 $$|<img src="/images/2019/06/no_padding_no_strides.gif" width="220" />|
+|填充, 单位步长||$$ s=1 $$<br/>$$ o=(i-k)+2p+1 $$|<img src="/images/2019/06/arbitrary_padding_no_strides.gif" width="220" />|
+|半填充($$ k $$ 为奇数)<br/>单位步长|same, $$ o=i $$|$$ p=\left\lfloor k/2\right\rfloor, s=1 $$<br/>$$ o=i $$|<img src="/images/2019/06/same_padding_no_strides.gif" width="220" />|
+|全填充, 单位步长|full, $$ o>i $$|$$ p=k-1, s=1 $$<br/>$$ o=i+(k-1) $$|<img src="/images/2019/06/full_padding_no_strides.gif" width="220" />|
+|无填充, 非单位步长|valid, $$ p=0 $$|$$ p=0 $$<br/>$$ \displaystyle o=\left\lfloor\frac{i-k}{s}\right\rfloor+1 $$|<img src="/images/2019/06/no_padding_strides.gif" width="220" />|
+|填充, 非单位步长||$$ \displaystyle o=\left\lfloor\frac{i+2p-k}{s}\right\rfloor+1 $$|<img src="/images/2019/06/padding_strides.gif" width="220" />|
+|卷积核未覆盖<br/>末行末列|||<img src="/images/2019/06/padding_strides_odd.gif" width="220" />|
 
 ### 2.2 转置卷积
 
@@ -115,17 +115,17 @@ $$
 
 下面的示意图展示了构造的过程核这种转换的关系.
 
-![fig](/images/2019-6/conv-flat.gif)
+![fig](/images/2019/06/conv-flat.gif)
 
 把卷积看作矩阵核向量的乘法运算之后, 转置卷积核FC的逆运算就完全一样了, 即把上图中间的大矩阵做一个转置即可, 此时转置卷积就是把 $$ 3\times3 $$ 的特征图映射为 $$ 5\times5 $$ 的特征图. 需要注意的是, 转置卷积本质上还是卷积, 只不过它在输入输出特征图的尺寸与某一个卷积互逆. 因此要完成卷积操作我们需要<u>计算出</u>相应的填充数, 步长, 同时对卷积核在水平和垂直方向翻转(即旋转180度). 在这个例子中, 填充数 $$ p=2 $$, 步长 $$ s=1 $$, 下面的示意图是上图对应的转置卷积.
 
-![fig](/images/2019-6/conv-flat-transpose.gif)
+![fig](/images/2019/06/conv-flat-transpose.gif)
 
 ### 2.3 再看卷积
 
 注意到我们在上面讨论的卷积看做矩阵乘法的提法会出现较大的卷积核构成的稀疏矩阵. 我们也可以把特征图进行展开, 从而可以形成一个稠密的向量. 这个过程在现在深度学习框架中称为 `im2col`. 其具体操作过程是: 把卷积核看做掩模矩阵, 按照既定规则在特征图上进行滑窗, 把每次掩模矩阵覆盖的特征图的矩形区域展成向量; 然后把所有的向量组成一个新的矩阵; 最后用这个新的矩阵与卷积核执行矩阵乘法. 如下图所示.
 
-![fig](/images/2019-6/conv_v2-flat.gif)
+![fig](/images/2019/06/conv_v2-flat.gif)
 
 
 ## 动图生成

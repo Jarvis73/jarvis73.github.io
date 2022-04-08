@@ -2,8 +2,8 @@
 layout: demo
 title: "机器学习实验管理 (ML Experiment Management)"
 date: 2020-11-19 22:59:00 +0800
-categories: Tools 可视化
-figure: /images/2020-11/MLM-1.png
+categories: Framework
+figure: /images/2020/11/MLM-1.png
 author: Jarvis
 meta: Post
 ---
@@ -67,7 +67,7 @@ meta: Post
     <tbody>
         <tr>
             <td>1</td>
-            <td><div class="logo"><a target="_blank" href="https://www.tensorflow.org/tensorboard/get_started?hl=zh-cn"><img src="/images/2020-11/tensorboard.svg" alt="TensorBoard" /></a></div></td>
+            <td><div class="logo"><a target="_blank" href="https://www.tensorflow.org/tensorboard/get_started?hl=zh-cn"><img src="/images/2020/11/tensorboard.svg" alt="TensorBoard" /></a></div></td>
             <td>2017</td>
             <td><a href="https://github.com/tensorflow/tensorboard">Github</a></td>
             <td>Google Inc.</td>
@@ -75,7 +75,7 @@ meta: Post
         </tr>
         <tr>
             <td>2</td>
-            <td><div class="logo"><a target="_blank" href="https://github.com/IDSIA/sacred"><img src="/images/2020-11/sacred.png" alt="Sacred" style="padding: 10px;" /></a></div></td>
+            <td><div class="logo"><a target="_blank" href="https://github.com/IDSIA/sacred"><img src="/images/2020/11/sacred.png" alt="Sacred" style="padding: 10px;" /></a></div></td>
             <td>2014</td>
             <td><a href="https://github.com/IDSIA/sacred">Github</a></td>
             <td>IDSIA</td>
@@ -83,7 +83,7 @@ meta: Post
         </tr>
         <tr>
             <td>3</td>
-            <td><div class="logo"><a target="_blank" href="https://neptune.ai/"><img src="/images/2020-11/neptune.png" alt="Neptune" /></a></div></td>
+            <td><div class="logo"><a target="_blank" href="https://neptune.ai/"><img src="/images/2020/11/neptune.png" alt="Neptune" /></a></div></td>
             <td>2016</td>
             <td><a href="https://github.com/neptune-ai">Github</a></td>
             <td>Neptune Labs Inc.</td>
@@ -91,7 +91,7 @@ meta: Post
         </tr>
         <tr>
             <td>4</td>
-            <td><div class="logo"><a target="_blank" href="https://losswise.com/"><img src="/images/2020-11/losswise.svg" alt="LossWise" style="padding: 10px;" /></a></div></td>
+            <td><div class="logo"><a target="_blank" href="https://losswise.com/"><img src="/images/2020/11/losswise.svg" alt="LossWise" style="padding: 10px;" /></a></div></td>
             <td>2018</td>
             <td>-</td>
             <td>Mathpix Inc.</td>
@@ -99,7 +99,7 @@ meta: Post
         </tr>
         <tr>
             <td>5</td>
-            <td><div class="logo" style="background-color: #1e2388; border-radius: 5px;"><a target="_blank" href="https://guild.ai/"><img src="/images/2020-11/guild.svg" alt="Guild" style="padding: 15px; background-color: #1e2388;" /></a></div></td>
+            <td><div class="logo" style="background-color: #1e2388; border-radius: 5px;"><a target="_blank" href="https://guild.ai/"><img src="/images/2020/11/guild.svg" alt="Guild" style="padding: 15px; background-color: #1e2388;" /></a></div></td>
             <td>2019</td>
             <td><a href="https://github.com/guildai/guildai">Github</a></td>
             <td>TensorHub Inc.</td>
@@ -107,7 +107,7 @@ meta: Post
         </tr>
         <tr>
             <td>6</td>
-            <td><div class="logo" style="background-color: #010029; border-radius: 5px;"><a target="_blank" href="https://allegro.ai/"><img src="/images/2020-11/allegro.svg" alt="Allegro" style="padding: 11px; background-color: #010029;"  /></a></div></td>
+            <td><div class="logo" style="background-color: #010029; border-radius: 5px;"><a target="_blank" href="https://allegro.ai/"><img src="/images/2020/11/allegro.svg" alt="Allegro" style="padding: 11px; background-color: #010029;"  /></a></div></td>
             <td>2019</td>
             <td><a href="https://github.com/allegroai/trains">Github</a></td>
             <td>Allegro AI</td>
@@ -115,7 +115,7 @@ meta: Post
         </tr>
         <tr>
             <td>7</td>
-            <td><div class="logo" style="background-color: #0a2240; border-radius: 5px;"><a target="_blank" href="https://mlflow.org/"><img src="/images/2020-11/mlflow.png" alt="mlflow" style="padding: 12px; background-color: #0a2240;"  /></a></div></td>
+            <td><div class="logo" style="background-color: #0a2240; border-radius: 5px;"><a target="_blank" href="https://mlflow.org/"><img src="/images/2020/11/mlflow.png" alt="mlflow" style="padding: 12px; background-color: #0a2240;"  /></a></div></td>
             <td>2018</td>
             <td><a href="https://github.com/mlflow/mlflow/">Github</a></td>
             <td>LF Proj. LLC.</td>
@@ -123,7 +123,7 @@ meta: Post
         </tr>
         <tr>
             <td>8</td>
-            <td><div class="logo" style="background-color: #000; border-radius: 5px;"><a target="_blank" href="https://www.wandb.com/"><img src="/images/2020-11/wandb-logo.svg" alt="Weights & Biases" style="padding: 10px; background-color: #000;"/></a></div></td>
+            <td><div class="logo" style="background-color: #000; border-radius: 5px;"><a target="_blank" href="https://www.wandb.com/"><img src="/images/2020/11/wandb-logo.svg" alt="Weights & Biases" style="padding: 10px; background-color: #000;"/></a></div></td>
             <td>2017</td>
             <td>-</td>
             <td>Weights and Biases Inc.</td>
@@ -131,7 +131,7 @@ meta: Post
         </tr>
         <tr>
             <td>9</td>
-            <td><div class="logo" style="background-color: #2a2564; border-radius: 5px;"><a target="_blank" href="https://www.comet.ml/site/"><img src="/images/2020-11/comet.png" alt="Comet" style="padding: 8px; background-color: #2a2564;"/></a></div></td>
+            <td><div class="logo" style="background-color: #2a2564; border-radius: 5px;"><a target="_blank" href="https://www.comet.ml/site/"><img src="/images/2020/11/comet.png" alt="Comet" style="padding: 8px; background-color: #2a2564;"/></a></div></td>
             <td>2017</td>
             <td>-</td>
             <td>Comet ML Inc.</td>
@@ -469,22 +469,22 @@ Tensorboard 是谷歌在推出 Tensorflow 之后发布的一款用于展示实�
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-2.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-3.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-3.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-4.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-4.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-5.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-5.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/tensorboard-6.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/tensorboard-6.png" %}
     </div>
   </div>
 </div>
@@ -510,16 +510,16 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/sacred-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/sacred-2.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/sacred-5.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/sacred-5.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/sacred-3.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/sacred-3.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/sacred-4.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/sacred-4.png" %}
     </div>
   </div>
 </div>
@@ -537,13 +537,13 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/neptune-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/neptune-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/neptune-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/neptune-2.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/neptune-3.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/neptune-3.png" %}
     </div>
   </div>
 </div>
@@ -552,7 +552,7 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
 
 * 支持与 Github 集成, 使用私有 GPU 直接运行 Github 的分支. 
 
-{% include image.html class="polaroid-center" url="2020-11/losswise-1.png" %}
+{% include image.html class="polaroid-center" url="2020/11/losswise-1.png" %}
 
 ## 5. Guild
 
@@ -568,10 +568,10 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/guild-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/guild-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/guild-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/guild-2.png" %}
     </div>
   </div>
 </div>
@@ -595,19 +595,19 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/allegro-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/allegro-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/allegro-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/allegro-2.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/allegro-3.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/allegro-3.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/allegro-4.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/allegro-4.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/allegro-5.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/allegro-5.png" %}
     </div>
   </div>
 </div>
@@ -626,10 +626,10 @@ Sacred是可帮助研究人员配置、组织、记录和复制实验的工具. 
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/mlflow-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/mlflow-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/mlflow-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/mlflow-2.png" %}
     </div>
   </div>
 </div>
@@ -654,19 +654,19 @@ Weights & Biases 帮助你记录机器学习项目的过程。利用我们的工
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/wb-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/wb-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/wb-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/wb-2.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/wb-3.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/wb-3.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/wb-4.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/wb-4.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/wb-5.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/wb-5.png" %}
     </div>
   </div>
 </div>
@@ -689,10 +689,10 @@ Weights & Biases 帮助你记录机器学习项目的过程。利用我们的工
   <!-- 轮播项目 -->
   <div class="carousel-inner">
     <div class="item active">
-      {% include image.html class="polaroid-center" url="2020-11/comet-1.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/comet-1.png" %}
     </div>
     <div class="item">
-      {% include image.html class="polaroid-center" url="2020-11/comet-2.png" %}
+      {% include image.html class="polaroid-center" url="2020/11/comet-2.png" %}
     </div>
   </div>
 </div>

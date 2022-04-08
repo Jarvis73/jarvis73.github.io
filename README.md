@@ -176,7 +176,7 @@ title: "训练 GAN 的理论分析和实践 (Wasserstein GAN)"
 date: 2020-12-28 13:31:00 +0800
 categories: Math 深度学习
 mathjax: true
-figure: /images/2020-12/WGAN-4.png
+figure: /images/2020/12/WGAN-4.png
 author: Jarvis
 meta: Post	# 文章类型, 可选有 Post, Wiki_XXX
 ---
@@ -216,7 +216,7 @@ excerpt_separator: "\n\n\n\n"
 
 *   新增图片模板, 支持图片大小调整和图片标题显示
 
-    `{% include image.html class="polaroid" url="2020-08/tSNE-5.png" title="t-viSNE 系统概览" %}` 
+    `{% include image.html class="polaroid" url="2020/08/tSNE-5.png" title="t-viSNE 系统概览" %}` 
 
     *   `class` 可选的预定义样式有 `polaroid`, `polaroid-small`, `polaroid-script`, `polaroid-script-less`, `polaroid-tiny` 五种图片大小, 依次分别为 原始图片大小的 95%, 75%, 60%, 50%, 40%. 
     *   `url` 为图片的路径, 图片路径可以使互联网上的绝对网址(http/https协议), 也可以是基于 `<project_path>/images/`  的相对路径.

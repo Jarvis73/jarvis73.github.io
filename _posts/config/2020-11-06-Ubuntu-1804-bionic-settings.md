@@ -4,7 +4,7 @@ title: "Ubuntu 18.04/20.04 教程 (Ubuntu 18.04/20.04 Tutorials)"
 date: 2020-11-06 10:11:00 +0800
 update: 2021-03-29
 categories: Config
-figure: /images/2020-11/ubuntu.png
+figure: /images/2020/11/ubuntu.png
 author: Jarvis
 meta: Post
 pin: True

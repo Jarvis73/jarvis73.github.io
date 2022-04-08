@@ -40,7 +40,7 @@ meta: Post
 在一阶段检测器中通常每张图片会产生大约 100k 的候选目标, 而通常仍然使用 bootstraping、hard example mining (HEM) 来选择训练样本, 这样就会导致训练过程很大程度上被负样本主宰.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-12-13/focal-loss.png" />
+    <img class="cool-img" src="/images/2017/12/focal-loss.png" />
     <div class="container">
         <p>​图 1: Cross Entropy 和 Focal Loss</p>
     </div>
@@ -100,7 +100,7 @@ $$
 本文设计了一个简单的网络用来检验 Focal Loss 的效果, 网络结构如图 2 所示. 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-12-13/RetinaNet.png" />
+    <img class="cool-img" src="/images/2017/12/RetinaNet.png" />
     <div class="container">
         <p>图 2: RetinaNet 网络结构</p>
     </div>

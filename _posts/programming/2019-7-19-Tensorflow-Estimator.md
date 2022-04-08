@@ -2,8 +2,8 @@
 layout: post
 title: Tensorflow Estimator 详解
 date: 2019-07-19 10:13:00 +0800
-categories: Tensorflow
-figure: /images/2019-7/tf_programming.png
+categories: Framework
+figure: /images/2019/07/tf_programming.png
 author: Jarvis
 meta: Post
 ---

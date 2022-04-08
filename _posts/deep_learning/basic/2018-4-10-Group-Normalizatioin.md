@@ -4,7 +4,7 @@ title: Group Normalization 阅读笔记
 date: 2018-04-10 10:49:00 +0800
 categories: 深度学习
 mathjax: true
-figure: /images/2018-4-10/normalization.png
+figure: /images/2018/04/normalization.png
 author: Jarvis
 meta: Post
 ---
@@ -29,7 +29,7 @@ meta: Post
 但是 BN 也存在一些问题. 顾名思义, BN 的效果是依赖于**批**的, 批比较大时, 数据标准化的结果会与整个数据集更为接近; 批比较小时, 仍然会存在较大的局部偏差. 如图 1 所示, 随着批大小的减小, BN 的误差会快速增大, 尤其是极小的批(batch size = 1 ~ 4). 
 
 <div class="polaroid-small">
-    <img class="cool-img" src="/images/2018-4-10/error.png" />
+    <img class="cool-img" src="/images/2018/04/error.png" />
     <div class="container">
         <p>图1: <strong>ImageNet 分类误差 vs. 批大小.</strong> 这是一个在 ImageNet 上使用 8 个 GPUs 训练的 ResNet-50 的模型, 在验证集上评估.</p>
     </div>
@@ -45,7 +45,7 @@ meta: Post
 如图 2 所示. 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2018-4-10/normalization.png" />
+    <img class="cool-img" src="/images/2018/04/normalization.png" />
     <div class="container">
         <p>图 2: <strong>标准化方法</strong>. N 表示 batch 轴, C 表示通道轴, H,W 表示空间轴</p>
     </div>

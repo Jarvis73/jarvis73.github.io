@@ -37,7 +37,7 @@ meta: Post
 这一小节我们首先介绍一系列的概念, 有些概念容易混淆, 应当注意区分.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-18/single-surface.png" single-surface/>
+    <img class="cool-img" src="/images/2017/10/single-surface.png" single-surface/>
     <div class="container">
         <p>图1: 单表面问题, 虚线表示可选择的边(按文章中的意思是都包含在了边集中)</p>
     </div>
@@ -65,7 +65,7 @@ $$
 
 定义一个加权有向图 $$  G=(V, E)  $$ , 每个顶点 $$  V(x,y,z)  $$ 代表唯一的体素 $$  \mathcal{A}(x,y,z)\in\mathcal{A}  $$ , 顶点的权重(损失)为
 
-![eq01](/images/2017-10-18/eq1.png)
+![eq01](/images/2017/10/eq1.png)
 
 **注意:** 这里有几个点需要区分, 我们把原始的3D图像称为**图像**, 而把由顶点和边组成的称为**图**; 图像中的点称为**体素**, 每个体素对应的值称为**损失**; 图中的点称为**顶点**, 每个顶点对应的值称为**权重**, 图中的边就称为**边**, 要注意区分.
 
@@ -92,7 +92,7 @@ $$
 从图1(b)可以看到列内边和列间边的区别. 直观上, 如果体素 $$  \mathcal{A}(x,y,z)  $$ 在可行面 $$  \mathcal{N}  $$ 上, 那么它的4个相邻体素不会低于 $$  \mathcal{A}(x,y,\max(0,z-\Delta_x))  $$ . 根据 $$  E^r  $$ 的构造规则, 顶点集 $$  V(\mathbf{x,y}, 0)  $$ 是强连通的(这里是因为保留了虚线边), 同时也是定义于 $$  G  $$ 上的最低的可行面, 我们称之为*基础集*, 记作 $$  V^B  $$ .
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-18/image-unfolding.png" image-unfolding/>
+    <img class="cool-img" src="/images/2017/10/image-unfolding.png" image-unfolding/>
     <div class="container">
         <p>图2: 图像展开</p>
     </div>
@@ -117,7 +117,7 @@ $$
 * 加入 $$  V_1(0,0,\delta_l)\rightarrow V_2(0,0,0)  $$ 使得 $$  V^B  $$ 强连通(图 $$  V_1  $$ 和 $$  V_2  $$ 单独均为强连通图,  $$  \delta^l  $$ 保证了存在从 $$  V_2  $$ 到 $$  V_1  $$ 的边, 为了保强连通性需要至少一条从 $$  V_1  $$ 到 $$  V_2  $$ 的边). 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-10-18/multi-surface.png" multi-surface/>
+    <img class="cool-img" src="/images/2017/10/multi-surface.png" multi-surface/>
     <div class="container">
         <p>图3: (a)不相交; (b)相交</p>
     </div>
@@ -126,7 +126,7 @@ $$
 
 面间边表示如下:  
 
-![eq04](/images/2017-10-18/eq04.png)
+![eq04](/images/2017/10/eq04.png)
 
 另外, 两个曲面可能相交,(比如追踪运动的表面时), 此时 $$  \delta^l  $$ 和 $$  \delta^u  $$ 代表一个曲面可以到达另一个曲面下面或者上面的最大距离. 这种情况下的面间边包括 $$  V_1(x,y,z) \rightarrow V_2(x,y,\max(0,z-\delta^l))  $$ 和 $$  V_2(x,y,z) \rightarrow V_1(x,y,\max(0,z-\delta^u))  $$ . 
 

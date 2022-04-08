@@ -2,7 +2,7 @@
 layout: post
 title: Mask R-CNN 阅读笔记
 date: 2017-12-9 18:49:00 +0800
-categories: 深度学习
+categories: 图像分割
 mathjax: true
 author: Jarvis
 meta: Post
@@ -26,7 +26,7 @@ meta: Post
 本文在 Faster RCNN [[3]](#3)的基础上, 增加了一个在感兴趣区域 (region of interest, RoI) 上预测分割的 mask 的分支, 如图 1 所示:
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-12-9/mask-rcnn.png" figure/>
+    <img class="cool-img" src="/images/2017/12/mask-rcnn.png" figure/>
     <div class="container">
         <p>图1. 用于实例分割的 Mask R-CNN 框架.</p>
     </div>
@@ -73,7 +73,7 @@ $$ $L = L_{cls} + L_{box} + L_{mask} $$$
 我们结合图 2 来给出第三点的细节:
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-12-9/roialign.png" figure/>
+    <img class="cool-img" src="/images/2017/12/roialign.png" figure/>
     <div class="container">
         <p>图2. RoIAlign 实现细节.</p>
     </div>
@@ -101,7 +101,7 @@ $$ $L = L_{cls} + L_{box} + L_{mask} $$$
 具体结构参考图 3:
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2017-12-9/head_arch.png" figure/>
+    <img class="cool-img" src="/images/2017/12/head_arch.png" figure/>
     <div class="container">
         <p>图 3. <b>头部结构: </b>数字表示分辨率或通道数, 箭头表示卷积、反卷积、全连接层. 所有的卷积都是 3×3 的, 输出层的卷积除外 (是 1×1 的), 反卷积是 2×2 的, 步长为 2, 使用 ReLU 激活. 左边: 'res5' 表示 ResNet 的第五个阶段, 右边: '×4' 表示 4 个连续的卷积.</p>
     </div>

@@ -23,7 +23,7 @@
   * 代码块增加了行号显示, 换了代码高亮方式, 调整了代码块背景色.
 
 * **2019-07-28**
-  * 简化了图片容器, 通过 `{% raw %}{% include image.html class="polaroid" url="2020-08/tSNE-5.png" title="t-viSNE 系统概览" %}{% endraw %}` 引入图片(注意替换 url 和 title).
+  * 简化了图片容器, 通过 `{% raw %}{% include image.html class="polaroid" url="2020/08/tSNE-5.png" title="t-viSNE 系统概览" %}{% endraw %}` 引入图片(注意替换 url 和 title).
   * Wiki 的类别加入了 `_config.yml`, 从而可以自动筛选
   * 修复了首页博文数量计算错误的bug(由于wiki文章被隐藏导致的)
   * 修改为使用kramdown

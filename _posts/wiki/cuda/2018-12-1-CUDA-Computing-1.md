@@ -44,14 +44,14 @@ hidden: true
 * 均需要外部存储(外部 RAM, 如常说的"内存")
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/CUDA/CPU1.jpg" CPU1/>
+    <img class="cool-img" src="/images/2018/12/CPU1.jpg" CPU1/>
     <div class="container">
         <p>Multicore Chip</p>
     </div>
 </div>
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/CUDA/CPU2.jpg" CPU2/>
+    <img class="cool-img" src="/images/2018/12/CPU2.jpg" CPU2/>
     <div class="container">
         <p>Manycore Chip</p>
     </div>
@@ -71,7 +71,7 @@ GPU的特点:
 下面以 Fermi 架构为例解释:
 
 <div class="polaroid-script">
-    <img class="cool-img" src="/images/CUDA/GPU1.jpg" GPU1/>
+    <img class="cool-img" src="/images/2018/12/GPU1.jpg" GPU1/>
     <div class="container">
         <p>GPU 的 Fermi 微架构</p>
     </div>

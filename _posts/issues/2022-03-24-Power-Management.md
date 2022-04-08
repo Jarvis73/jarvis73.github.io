@@ -2,9 +2,10 @@
 layout: post
 title: "Thinkpad X1C 睡眠耗电很快"
 date: 2022-03-24 14:20:00 +0800
-categories: Config
+categories: Issue
 author: Jarvis
 meta: Post
+excerpt: "TL;DR. 在 BIOS 中把电源管理从 Windows 10 修改为 Linux."
 ---
 
 * content

@@ -2,9 +2,9 @@
 layout: post
 title: "跨域少样本学习 (Cross-Domain Few Shot Learning)"
 date: 2020-05-28 22:01:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2020-05/CDFSL-1.png
+figure: /images/2020/05/CDFSL-1.png
 author: Jarvis
 meta: Post
 ---
@@ -19,7 +19,7 @@ meta: Post
 
 深度神经网络(DNN)的泛化性能相当依赖于训练集的规模(size)和丰富性(variations). 但是在很多场景下无法搜集到如此多的数据, 如皮肤病, 卫星图片(飞机残骸). **尽管每种特殊的情况发生的概率很低, 人为处理的成本也很低, 但当我们有大量的"特殊情况"时, 问题就变得复杂了起来.** 
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-1.png" title="不同数据集的域差异" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-1.png" title="不同数据集的域差异" %}
 
 与DNN相比, 人类在<u>某些情况下</u>可以快速地从少量样本中学习新的类别, 如:
 
@@ -101,7 +101,7 @@ meta-testing 阶段: 希望模型可以快速适应于新的 task $$ T_j\sim P_t
     $$
     其中 $$ \mathbf{W}_k $$ 为代表第 k 个类别向量, 可以看作原型, 但是是通过反向传播学出来的. 
 
-    {% include image.html class="polaroid" url="2020-05/CDFSL-2.png" title="元学习分类器" %}
+    {% include image.html class="polaroid" url="2020/05/CDFSL-2.png" title="元学习分类器" %}
 
 #### 3.2.2 多模型方法 (论文提出的方法)
 
@@ -126,21 +126,21 @@ $$ I $$ 的筛选方法:
 
 *   元学习
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-3.png" title="元学习实验" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-3.png" title="元学习实验" %}
 
 *   单模型迁移
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-4.png" title="单模型迁移实验" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-4.png" title="单模型迁移实验" %}
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-5.png" title="单模型迁移实验 分类器" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-5.png" title="单模型迁移实验 分类器" %}
 
 *   多模型迁移
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-6.png" title="多模型迁移实验" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-6.png" title="多模型迁移实验" %}
 
 ### 4.2 单模型迁移方法, 微调对参数的影响
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-7.png" title="不同层对参数重新初始化的敏感性" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-7.png" title="不同层对参数重新初始化的敏感性" %}
 
 *   第一层的参数变化最大: 说明跨域学习所需要的低级特征是相当不同的
 *   有一些层的参数变化很小
@@ -152,7 +152,7 @@ $$ I $$ 的筛选方法:
 
 ### 4.3 多模型迁移方法, 预训练模型的选择性
 
-{% include image.html class="polaroid" url="2020-05/CDFSL-8.png" title="预训练模型对不同数据集的影响" %}
+{% include image.html class="polaroid" url="2020/05/CDFSL-8.png" title="预训练模型对不同数据集的影响" %}
 
 使用前面提到的模型选择的方法重复每个实验600个episodes, 并统计模型被选择的频率.
 

@@ -4,7 +4,7 @@ title: "GNNs: Graph Neural Networks"
 date: 2019-3-7 21:04:00 +0800
 categories: 机器学习
 mathjax: true
-figure: /images/2019-3/GNNs-head.jpg
+figure: /images/2019/03/GNNs-head.jpg
 author: Jarvis
 meta: Post
 ---

@@ -4,7 +4,7 @@ title: "机器学习: 12个提示"
 date: 2018-12-26 21:28:00 +0800
 categories: 机器学习
 mathjax: true
-figure: /images/2018-12/MLTips-1.jpg
+figure: /images/2018/12/MLTips-1.jpg
 author: Jarvis
 meta: Post
 ---
@@ -17,7 +17,7 @@ meta: Post
 > 机器学习从数据中自动学习规则/函数/对应关系. 随着可获取数据量的不断增多, 机器学习的算法也层出不穷并广泛地应用在实践中. 但是机器学习种类繁多, 技巧不容易掌握, 因此也给其应用带来了不少的麻烦. 因此本文 [A Few Useful Things to Know about Machine Learning](https://dl.acm.org/citation.cfm?id=2347755) 总结了12个机器学习中常见的问题并加以探讨.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2018-12/MLTips-1.jpg" MLTips/>
+    <img class="cool-img" src="/images/2018/12/MLTips-1.jpg" MLTips/>
     <div class="container">
         <p>Machine Learning</p>
     </div>
@@ -68,7 +68,7 @@ meta: Post
 一种理解过拟合的方法是把泛化误差分解为偏差(bias)和方差(variance). 偏差和方差的含义下图可以清楚的表现:
 
 <div class="polaroid-tiny">
-    <img class="cool-img" src="/images/2018-12/MLTips-2.jpg" MLTips/>
+    <img class="cool-img" src="/images/2018/12/MLTips-2.jpg" MLTips/>
     <div class="container">
         <p>Bias and variance in dart-throwing.</p>
     </div>
@@ -79,7 +79,7 @@ meta: Post
 </span>假设对于该数据集是错误的. 
 
 <div class="polaroid-script">
-    <img class="cool-img" src="/images/2018-12/MLTips-3.jpg" MLTips/>
+    <img class="cool-img" src="/images/2018/12/MLTips-3.jpg" MLTips/>
     <div class="container">
         <p>Naive Bayes can outperform C4.5rules.</p>
     </div>
@@ -98,7 +98,7 @@ meta: Post
 幸运的是, 绝大部分数据集的数据点并非均匀的分布在整个数据空间中(blessing of non-uniformly), 而是嵌在某个低维[流形](https://en.wikipedia.org/wiki/Manifold)上. 比如手写数字数据集, 假设每个数字都是一张$$ 28\times 28 $$的图像, 那么数据空间是 $$ 784 $$ 维的, 但实际上目前的多种分类器都能够利用较少的维度即可实现高精度(>99%)的分类.
 
 <div class="polaroid-script">
-    <img class="cool-img" src="/images/2018-12/MLTips-4.png" MLTips/>
+    <img class="cool-img" src="/images/2018/12/MLTips-4.png" MLTips/>
     <div class="container">
         <p>手写数字嵌入低维流形</p>
     </div>

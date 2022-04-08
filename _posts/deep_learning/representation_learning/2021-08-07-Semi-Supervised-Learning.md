@@ -2,11 +2,11 @@
 layout: post
 title: "半监督学习(Semi-Supervised Learning, SSL)"
 date: 2021-08-07 14:51:00 +0800
-categories: 深度学习
+categories: 表示学习
 mathjax: true
-figure: ./images/2021-08/SSL-01.png
 author: Jarvis
 meta: Post
+excerpt: "深度学习 (deep learning) 通过监督学习 (supervised learning) 在大量的机器学习任务上取得了瞩目的成就. 然而, 实现高精度的分类, 分割等任务需要大规模有标签的训练数据, 如 ImageNet 的百万张图像或是 Cityscapes 上数千张 1080p 分辨率图像的像素级标注, 都需要耗费大量的人力物力, 同时在这些数据上训练的模型往往在跨域的数据泛化上仍然具有挑战性 (如医学图像). 虽然数据标注难以获取, 但从多种渠道收集无标注数据是相对容易的, 因此研究者逐渐把目光转向如何利用少部分有标注数据和大规模的无标注数据来训练模型 (比如, 有标签数据占整体的 1-10%). 这种同时利用少量有标注数据和大量无标注数据训练模型的方法称为半监督学习 (semi-supervised learning, SSL). "
 ---
 
 * content
@@ -24,7 +24,7 @@ SSL 介于监督学习和无监督学习之间, 数据集 $$ X = \{x_i\} $$ 可�
 
 * 我们使用 $$ X_l $$ 来确定分类边界, 并期望使用 $$ X_u $$ 来更好地估计数据分布 $$ p(x) $$, 从而更准确的确定分类边界. 如图 1 所示, 我们可以通过大量的无标签数据寻找低密度区域, 以更好地确定分类边界. 这类方法是比较经典的做法.
 
-  {% include image.html class="polaroid" url="2021-08/SSL-01.png" title="SSL toy example" %}
+  {% include image.html class="polaroid" url="2021/08/SSL-01.png" title="SSL toy example" %}
 
 * 我们首先使用 $$ X_u $$ 基于自监督方法训练一个大模型, 然后使用 $$ X_l $$ 对模型进行 finetune, 最后可以进一步蒸馏得到小模型以减少参数量[^18]. 这类方法是在自监督方法有了突破式的发展之后出现的.
 
@@ -94,7 +94,7 @@ $$
 
 ### 2.1 Ladder Network
 
-{% include image.html class="polaroid" url="2021-08/SSL-02.png" title="Ladder Network" %}
+{% include image.html class="polaroid" url="2021/08/SSL-02.png" title="Ladder Network" %}
 
 Rasmus 等人提出使用 Ladder Network[^3], 最右侧的 encoder 对 $$ x $$ 进行编码, 最左侧的 encoder 在编码过程中加入噪声, 然后通过 decoder 去噪, 同时在每一层的解码输出和右侧 encoder 的编码输出进行一致性约束.
 
@@ -111,7 +111,7 @@ $$
 
 ### 2.2 $$ \Pi\text{-Model} $$
 
-{% include image.html class="polaroid" url="2021-08/SSL-03.png" title=" $$ \Pi\text{-Model} $$" %}
+{% include image.html class="polaroid" url="2021/08/SSL-03.png" title=" $$ \Pi\text{-Model} $$" %}
 
 Laine 等人提出的 $$ \Pi\text{-Model} $$ [^4]简化了 $$ \Gamma\text{-Model} $$, 去除了加噪的 encoder, 只使用一个网络, 利用 augmentation 的输入和 dropout 来实现预测结果的扰动, 并进行约束:
 
@@ -125,7 +125,7 @@ $$
 
 ### 2.3 Temporal Ensembling
 
-{% include image.html class="polaroid" url="2021-08/SSL-04.png" title="Temporal Ensembling" %}
+{% include image.html class="polaroid" url="2021/08/SSL-04.png" title="Temporal Ensembling" %}
 
 在 $$ \Pi\text{-Model} $$ 中, 每个训练 step 可以分为两步: (1) 对数据进行 inference, 获得 prediction, (2) 把 prediction 作为无监督样本的 target, 利用不同的 augmentation 和 dropout 应该产生相同结果来目标来施加一致性约束. 但是, 考虑到单次 inference 的结果是不稳定的, 因此 Laine 等人[^4]提出第二个版本的 $$ \Pi\text{-Model} $$, 称为 Temporal Ensembling, 其中 target $$ y_{\text{ema}} $$ 通过对所有前面预测结果的指数滑动平均 (exponential moving average, EMA) 来获得, 这样每个 step 只需要 inference 一次就能计算损失. 当前步的预测结果 $$ \tilde{y} $$ 和 ensemble 的历史加权求和:
 
@@ -143,7 +143,7 @@ $$
 
 ### 2.4 Mean Teachers
 
-{% include image.html class="polaroid" url="2021-08/SSL-05.png" title="Mean Teachers" %}
+{% include image.html class="polaroid" url="2021/08/SSL-05.png" title="Mean Teachers" %}
 
 Temporal Ensembling 为每一个样本都记录了一个预测结果的 EMA, 但是最新学到的信息也会因为 EMA 模型而被以极其缓慢的速度加入到模型训练的过程中, 每个 epoch 只会更新一次. 同时, 在 $$ \Pi\text{-Model} $$ 和 Temporal Ensembling 中, 同一个模型既当老师又当学生, 这样很容易让模型陷入 confirmation bias (即错误被自己放大). 因此, Mean Teacher 方法[^5]被提出来解决这个问题. 与 Temporal Ensembling 不同的是, Mean Teacher 是对模型参数做 EMA, 而非样本的 predictions. 这样的好处是, 每一个 step 模型参数都会更新, 因此 EMA 模型作为 Teacher, 使用梯度更新的模型作为 Student, 可以提供更准确的 targets. 令 $$ \theta_t' $$ 是 Teacher Model $$ f_{\theta'} $$ 在 step $$ t $$ 的参数, 则其更新方法为:
 
@@ -159,7 +159,7 @@ $$
 
 ### 2.5 Dual Students
 
-{% include image.html class="polaroid" url="2021-08/SSL-06.png" title="Dual Students" %}
+{% include image.html class="polaroid" url="2021/08/SSL-06.png" title="Dual Students" %}
 
 Mean Teacher 模型的一个主要的缺点是当训练时间足够长时, Teacher Model 的参数会收敛到 Student Model (假设 Student Model 最后是收敛的), 这样 Teacher 的作用就会随着训练的过程而弱化. Ke 等人提出了 Dual Students[^6] 来解决该问题, 即训练两个独立初始化的模型. 但是, 单纯训练两个独立的模型可能会导致结果相差较大, 而直接施加一致性约束的话又会导致两个模型交换错误的信息而形成模式坍缩变成一个模型, 因此 Dual Students 定义了 stable sample 的概念, 即 $$ x $$ 和扰动点 $$ \tilde{x} $$ 预测结果相同且离决策边界有一定距离的点. 定义 
 
@@ -230,7 +230,7 @@ Holistic 方法是把 SSL 已有的的不同路线的 SOTA 方法集成起来的
 
 ### 5.1 MixMatch
 
-{% include image.html class="polaroid" url="2021-08/SSL-07.png" title="MixMatch" %}
+{% include image.html class="polaroid" url="2021/08/SSL-07.png" title="MixMatch" %}
 
 MixMatch[^15] 方法如下:
 
@@ -288,7 +288,7 @@ $$
 
 ### 5.2 ReMixMatch
 
-{% include image.html class="polaroid" url="2021-08/SSL-08.png" title="ReMixMatch: distribution alignment and augmentation anchoring" %}
+{% include image.html class="polaroid" url="2021/08/SSL-08.png" title="ReMixMatch: distribution alignment and augmentation anchoring" %}
 
 ReMixMatch[^16] 在 MixMatch 的基础上, 引入了两个新技术:
 
@@ -298,7 +298,7 @@ ReMixMatch[^16] 在 MixMatch 的基础上, 引入了两个新技术:
 
 ### 5.3 FixMatch
 
-{% include image.html class="polaroid" url="2021-08/SSL-09.png" title="FixMatch" %}
+{% include image.html class="polaroid" url="2021/08/SSL-09.png" title="FixMatch" %}
 
 FixMatch[^17]: 对于无标签数据, 如果模型 weakly-augmentated 样本的预测类别的置信度大于一个阈值, 则该类别当做伪标签用于训练 strongly-augmentated 的样本. 
 

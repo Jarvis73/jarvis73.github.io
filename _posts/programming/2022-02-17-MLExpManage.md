@@ -2,7 +2,7 @@
 layout: post
 title: "MongoDB + Omniboard 实验管理"
 date: 2022-02-17 16:27:00 +0800
-categories: Tools
+categories: Framework
 author: Jarvis
 meta: Post
 pin: True

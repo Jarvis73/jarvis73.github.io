@@ -2,7 +2,7 @@
 layout: post
 title: "PyTorch 训练慢的问题"
 date: 2021-06-09 17:25:00 +0800
-categories: PyTorch
+categories: Framework
 author: Jarvis
 meta: Post
 mathjax: true

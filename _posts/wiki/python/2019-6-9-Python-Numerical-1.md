@@ -5,6 +5,7 @@ date: 2019-6-9 12:15:00 +0800
 author: Jarvis
 meta: Wiki_Python
 hidden: true
+mathjax: true
 ---
 
 * content

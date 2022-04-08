@@ -4,7 +4,7 @@ title: "机器学习(四): 混合模型和EM算法 (Mixture Models and EM Algori
 date: 2020-08-20 10:39:00 +0800
 categories: 机器学习
 mathjax: true
-figure: /images/2020-08/MM-0.png
+figure: /images/2020/08/MM-0.png
 author: Jarvis
 meta: Post
 ---
@@ -28,13 +28,13 @@ meta: Post
 * 优点: 通常来说参数更少
 * 缺点: 拟合起来更困难 (因为包含不可观测的变量)
 
-{% include image.html class="polaroid" url="2020-08/MM-0.png" title="潜变量模型和图模型的参数量对比" %}
+{% include image.html class="polaroid" url="2020/08/MM-0.png" title="潜变量模型和图模型的参数量对比" %}
 
 如上图所示, 假设所有节点都是二值的, 那么左侧的模型有 17 个自由参数, 右侧的模型有 59 个自由参数. 计算参数数量的方式如下: 1) 当前变量为二值变量, 所以根据归一化原则只需要一个自由参数 $$2 - 1=1$$; 2) 当前变量存在条件变量时, 相应的自由参数数量随条件变量的数量呈指数增长 $$2^n$$. 比如上图左侧中间的 H 节点, 有三个条件变量 (入度), 那么其自由参数的数量为 $$(2 - 1)\times 2^3=8$$ 个.
 
 利用潜变量, 我么可以得到丰富的 LVM, 如下图所示, 有 (a) 多对多模型, (b) 一对多模型, (c) 多对一模型 和 (d) 一对一模型.
 
-{% include image.html class="polaroid" url="2020-08/MM-1.png" title="潜变量模型表示为 DGM" %}
+{% include image.html class="polaroid" url="2020/08/MM-1.png" title="潜变量模型表示为 DGM" %}
 
 
 ## 2. 混合模型
@@ -58,7 +58,7 @@ $$
 
 下图是包含 3 个分量的 GMM 的例子. 
 
-{% include image.html class="polaroid" url="2020-08/MM-2.png" title="3 个高斯分布的混合模型" %}
+{% include image.html class="polaroid" url="2020/08/MM-2.png" title="3 个高斯分布的混合模型" %}
 
 >   在高斯分布的数量足够大的情况下, GMM 可以用来近似 $$\mathbb{R}^D$$ 中的任意密度分布.
 
@@ -106,7 +106,7 @@ $$
 
 这里给出二值数据聚类的一个例子, MNIST 手写数字数据集, 我们忽略类别标签, 拟合一个 Multinoullis  的混合模型, 使用 $$K=10$$ , 并可视化出聚类中心 $$\hat{\mub_k}$$ , 如下图所示.
 
-{% include image.html class="polaroid" url="2020-08/MM-3.png" title="MNIST 混合模型聚类中心" %}
+{% include image.html class="polaroid" url="2020/08/MM-3.png" title="MNIST 混合模型聚类中心" %}
 
 注意这 10 个聚类中心和数字的 10 个类别标签并不一致, 这是因为模型潜在的变量不止 10 个, 比如数字 7 就可以有带把和不带把两种写法, 因此如果要区分开 10 个数字类别, 就需要大于 10 个的聚类数. **这告诉我们, 聚类的结果不一定是可靠的, 在实际应用中需要小心斟酌.** 
 

@@ -5,7 +5,7 @@ date: 2018-09-18 21:28:00 +0800
 update: 2019-04-08
 categories: 机器学习
 mathjax: true
-figure: /images/MLPP/Shannon.jpg
+figure: /images/2018/09/Shannon.jpg
 author: Jarvis
 meta: Post
 ---

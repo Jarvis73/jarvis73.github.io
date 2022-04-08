@@ -54,7 +54,7 @@ hidden: true
 可以下载这本书和配套代码, [链接附上](https://developer.nvidia.com/cuda-example). 
 
 <div class="polaroid-tiny">
-    <img class="cool-img" src="/images/CUDA/0cuda_by_example.jpg" Shannon/>
+    <img class="cool-img" src="/images/2018/09/0cuda_by_example.jpg" Shannon/>
     <div class="container">
         <p>NVIDIA 官方提供的入门书: CUDA by Example</p>
     </div>

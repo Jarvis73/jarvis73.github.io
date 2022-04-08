@@ -2,11 +2,11 @@
 layout: post
 title: "多尺度上下文信息 (Multi-Scale Context)"
 date: 2022-02-14 10:57:00 +0800
-categories: 深度学习
+categories: 图像分割
 mathjax: true
-figure: /images/2022-02/OCRNet.png
 author: Jarvis
 meta: Post
+excerpt: "上下文信息 (context), 长期依赖 (long-range dependencies), 注意力 (attention) 这些概念提出的目的都是希望我们的特征能够在卷积等局部操作的基础上, 更多的吸收图像全局的信息, 从而提高特征的判别性. 这些概念一开始在 NLP 任务中得到了广泛的思考, 比如 LSTM, Attention 机制 (因为自然语言是天然的序列, 长距离的特征依赖尤为明显), 而近年来人们发现在 CV 中对这些概念的扩展和应用也能极大的提高特征的表达能力. "
 ---
 
 * content
@@ -88,7 +88,7 @@ $$
 
 OCR[^1] 的 motivation 是表示图像中不同的 object, 然后每个 pixel 从 objects 的表示中吸收信息.
 
-{% include image.html class="polaroid" url="2022-02/OCRNet.png" title="Illustrating the pipeline of OCR. (i) form the soft object regions in the pink dashed box. (ii) estimate the object region representations in the purple dashed box; (iii) compute the object contextual representations and the augmented representations in the orange dashed box." %}
+{% include image.html class="polaroid" url="2022/02/OCRNet.png" title="Illustrating the pipeline of OCR. (i) form the soft object regions in the pink dashed box. (ii) estimate the object region representations in the purple dashed box; (iii) compute the object contextual representations and the augmented representations in the orange dashed box." %}
 
 #### 5.1 Object 区域的表示
 
@@ -126,7 +126,7 @@ $$
 
 由于 Self-Attention 需要计算特征图中所有 pixel 之间的关系, 所以需要 $$\mathcal{O}(N^2)$$ 的复杂度, $$N$$ 为特征图的大小. CCNet[^3] 为降低计算复杂度, 提出了 CCA, 只在目标 pixel 的水平和垂直两个方向计算 attention, 然后循环两个 CCA 模块来实现全图的 attention. 
 
-{% include image.html class="polaroid-script" url="2022-02/CCNet.png" title="Illustrating the pipeline of CCA." %}
+{% include image.html class="polaroid-script" url="2022/02/CCNet.png" title="Illustrating the pipeline of CCA." %}
 
 CCA 的复杂度为 $$\mathcal{O}(N\sqrt{N})$$.
 

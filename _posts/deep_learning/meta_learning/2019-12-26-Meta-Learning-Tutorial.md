@@ -2,9 +2,9 @@
 layout: post
 title: "元学习简介 (Meta-Learning: Tutorial)"
 date: 2019-12-26 22:01:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2019-12/Meta-Learner.svg
+figure: /images/2019/12/Meta-Learner.svg
 author: Jarvis
 meta: Post
 ---
@@ -21,9 +21,9 @@ meta: Post
 
 *   ImageNet (Russakovsky et al., IJCV 2014)[^1] 数据集上, Efficient Net (Tan and Le, ICML 2019)[^2] 使用 88M 参数达到了 **SOTA** 84.4% top-1 / 97.1% top-5 的准确率 (监督学习, supervised learning).
 
-{% include image.html class="polaroid" url="2019-12/imagenet.jpg" title="Imagenet" %}
+{% include image.html class="polaroid" url="2019/12/imagenet.jpg" title="Imagenet" %}
 
-{% include image.html class="polaroid" url="2019-12/image-20191226104720144.png" title="Efficientnet" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226104720144.png" title="Efficientnet" %}
 
 **Q: 如果没有这样的大规模数据集呢?**
 
@@ -37,7 +37,7 @@ meta: Post
 *   需要不断地大量搜集新的数据, 学习并应用到新的任务上.
 *   上个栗子: 
 
-{% include image.html class="polaroid" url="2019-12/image-20191226105714344.png" title="乔治·布拉克 vs 保罗·塞尚" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226105714344.png" title="乔治·布拉克 vs 保罗·塞尚" %}
 
 
 
@@ -109,7 +109,7 @@ $$
 
 我们希望元学习器 (meta-learner) 可以学会学习 (learning to learn), 即一个成熟的元学习器在少量样本的前提下拥有快速泛化到不同任务的能力, 如下图所示. 
 
-{% include image.html class="polaroid" url="2019-12/Meta-Learner.svg" title="元学习过程" %}
+{% include image.html class="polaroid" url="2019/12/Meta-Learner.svg" title="元学习过程" %}
 
 那么如何训练这样的元学习器呢? 以分类任务为例:
 
@@ -124,7 +124,7 @@ $$
 
 #### 2.2 Meta-Learning Terminology
 
-{% include image.html class="polaroid" url="2019-12/image-20191226154235046.png" title="元学习术语" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226154235046.png" title="元学习术语" %}
 
 
 
@@ -132,11 +132,11 @@ $$
 
 *   Omniglot dataset: 50 个字母表中的 1623 字符
 
-{% include image.html class="polaroid" url="2019-12/image-20191226154616618.png" title="Omniglot 数据集" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226154616618.png" title="Omniglot 数据集" %}
 
 *   MiniImageNet: 例如 5-way, 1-shot 图像分类
 
-{% include image.html class="polaroid" url="2019-12/image-20191226154748086.png" title="Mini-Imagenet 数据集" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226154748086.png" title="Mini-Imagenet 数据集" %}
 
 
 
@@ -149,7 +149,7 @@ $$
 
 **Idea:** 训练一个神经网络来表示 <span>$$ p(\phi_i\vert\mathcal{D}^{tr}_i, \theta) $$</span>. 我们先抛弃 <span>$$ \phi_i $$</span> 的概率分布, 用神经网络来预测一个固定 <span>$$ \phi_i=f_{\theta}(\mathcal{D}^{tr}_i) $$</span>. 
 
-{% include image.html class="polaroid" url="2019-12/image-20191226155646735.png" title="Black-Box Adaption" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226155646735.png" title="Black-Box Adaption" %}
 
 Q: 函数 $$ f_{\theta} $$ 的形式?
 
@@ -197,7 +197,7 @@ $$
 
 其中 $$ \mathcal{D}^{tr} $$ 是新任务的训练数据, $$ \theta $$ 是预训练的参数, 也是元学习器的参数. 这种基于优化的方式从元学习器获取分类器的方法成为 **M**odel-**A**gnostic **M**eta-**L**earning, **MAML (Finn et al., ICML 2017)**[^3]. 
 
-{% include image.html class="polaroid" url="2019-12/image-20191226161144638.png" title="MAML" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226161144638.png" title="MAML" %}
 
 ### 4.3 Non-parametric methods / Metric learning
 
@@ -208,19 +208,19 @@ $$
 
 非参方法最直接的做法就是把测试图像同训练图像**作比较**.
 
-{% include image.html class="polaroid" url="2019-12/image-20191226162618520.png" title="Comparison" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226162618520.png" title="Comparison" %}
 
 **Q: 如何训练非参方法的元学习器?**
 
-{% include image.html class="polaroid" url="2019-12/Few-shot-train.svg" title="训练元学习器 / Few-Shot Learning 训练" %}
+{% include image.html class="polaroid" url="2019/12/Few-shot-train.svg" title="训练元学习器 / Few-Shot Learning 训练" %}
 
 **Q: 在什么样的空间中比较? 用什么度量比较?**
 
-{% include image.html class="polaroid" url="2019-12/image-20191226170203078.png" title="特征空间中的样本点" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226170203078.png" title="特征空间中的样本点" %}
 
 *   Siamese Network (Gregory Koch, ICML Deep Learning Workshop 2015)[^4]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226171452670.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226171452670.png" %}
 
 Meta-training: 2-way classification
 
@@ -228,7 +228,7 @@ Meta-test: N-way classification. 比较测试点和支撑集中所有的样本�
 
 *   Matching Networks (Vinyals et al., NeurIPS 2016)[^5]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226171609849.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226171609849.png" %}
 
 $$
 \hat{y}=\sum_{i=1}^k a(\hat{x}, x)y_i
@@ -240,13 +240,13 @@ $$
 
 *   Prototypical Networks (Snell et al., NeurIPS 2017)[^6]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226182859424.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226182859424.png" %}
 
 支撑集中每个类别的样本计算一个原型, 测试样本和原型计算距离进行分类.
 
 *   Relation Network (Sung et al., CVPR 2018)[^7]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226183448312.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226183448312.png" %}
 
 用什么度量比较: 欧氏距离, Cosine 距离, **更复杂的非线性函数(神经网络)** 
 
@@ -261,7 +261,7 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 *   参数化方法: 使用 $$ p(\phi_i\vert\mathcal{D}_i^{tr}, \theta) $$ 的点估计
 *   贝叶斯方法: 学习参数的分布 $$ p(\phi_i\vert\mathcal{D}_i^{tr}, \theta) $$ , 然后从分布中采样, 变分推断. 
 
-{% include image.html class="polaroid" url="2019-12/image-20191226190624233.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226190624233.png" %}
 
 ## 5. Meta-Learning Application
 
@@ -276,19 +276,19 @@ Position-Aware Relation Network (Wu et al., ICCV 2019)[^14]
 
 *   One-Shot Semantic Segmentation (Shaban et al., arxiv 2017)[^8]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226192139561.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226192139561.png" %}
 
 支撑集编码为特征向量, 与预测图像做像素级相似度对比. 本质上是 **channel selection**.
 
 *   Similarity guidance (Zhang et al., arxiv 2018)[^9]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226192729575.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226192729575.png" %}
 
 提出 masked average pooling (MAP), 对前景像素提取特征向量.
 
 *   Adaptive masked proxies (Siam et al., ICCV 2019)[^10]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226192946111.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226192946111.png" %}
 
 提出使用指数平均的方式更新 proxy / prototype. 
 
@@ -305,7 +305,7 @@ PS: 这篇都没有跟上一篇(MAP)比较.
 
 *   Attention-based multi-context (Hu et al., AAAI 2019)[^12]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226212155348.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226212155348.png" %}
 
 采用 ConvLSTM 融合 K-shot 的特征向量
 
@@ -315,7 +315,7 @@ PS: 这篇都没有跟上一篇(MAP)比较.
 
 *   Prototype alighment, PANet (Wang et al., ICCV 2019)[^13]
 
-{% include image.html class="polaroid" url="2019-12/image-20191226212327714.png" %}
+{% include image.html class="polaroid" url="2019/12/image-20191226212327714.png" %}
 
 Sup --> Que 检索 + Que --> Sup 检索
 

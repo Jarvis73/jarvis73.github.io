@@ -2,9 +2,9 @@
 layout: post
 title: "关于少样本学习的思考 (二) (Thinking About FSL 2)"
 date: 2021-03-22 20:42:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2021-03/FSL-1.png
+figure: /images/2021/03/FSL-1.png
 author: Jarvis
 meta: Post
 ---

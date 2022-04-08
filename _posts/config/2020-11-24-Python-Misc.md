@@ -3,7 +3,7 @@ layout: post
 title: "Python 相关配置"
 date: 2020-11-24 16:33:00 +0800
 categories: Config
-figure: /images/2020-11/python.png
+figure: /images/2020/11/python.png
 author: Jarvis
 meta: Post
 ---

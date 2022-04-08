@@ -2,9 +2,9 @@
 layout: post
 title: "DeepLab: Segmentation Network"
 date: 2019-1-2 21:04:00 +0800
-categories: 深度学习
+categories: 图像分割
 mathjax: true
-figure: /images/2019-1/DeepLabv2-1.jpg
+figure: /images/2019/01/DeepLabv2-1.jpg
 author: Jarvis
 meta: Post
 ---

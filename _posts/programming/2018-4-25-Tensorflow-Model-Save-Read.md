@@ -3,8 +3,8 @@ layout: post
 title: Tensorflow 模型的保存、读取和冻结、执行
 date: 2018-04-25 17:26:00 +0800
 update: 2018-12-26
-categories: Tensorflow
-figure: /images/2018-4-25/tensor.png
+categories: Framework
+figure: /images/2018/04/tensor.png
 author: Jarvis
 meta: Post
 pin: True
@@ -121,7 +121,7 @@ for op in sess.graph.get_operations():
 函数 `get_operations()` 返回一个列表, 列表的每个元素均为计算图中的一个 `Operation` 对象. 举个栗子, 当我们使用 `reshape()` 函数时 `tf.reshape(x, [-1, 28, 28, -1])` 在计算图中会产生这样的计算节点
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2018-4-25/reshape.png" />
+    <img class="cool-img" src="/images/2018/04/reshape.png" />
     <div class="container">
         <p>图 1: Tensorboard 中操作 tf.reshape(x, shape) 的计算图</p>
     </div>
@@ -130,7 +130,7 @@ for op in sess.graph.get_operations():
 其中 `x` 就是上图中左下角的 `input` , 右侧的小柱状图表示我对 `Reshape` 的输出做了 `summary` 并命名为 `input` .  Tensorboard 中类似于 `shape` 这样的小圆点表示常数(类型仍然是 `Operation`), 点击后可以看到该操作的属性
 
 <div class="polaroid-tiny">
-    <img class="cool-img" src="/images/2018-4-25/attr.png" />
+    <img class="cool-img" src="/images/2018/04/attr.png" />
     <div class="container">
         <p>图 2: Tensorboard 中常量 shape 的属性</p>
     </div>
@@ -276,7 +276,7 @@ y_target_tensor = graph.get_tensor_by_name("MyGraph/accuracy/accuracy:0")
 注意 TF 中的张量名均是 `op:num` 的形式, 其中的 `op` 表示产生该张量的操作名(可由 `tensor.op.name` 获取), 而冒号后面的数字表示该张量是其对应操作的第几个输出, 下面的图给出了张量和操作名的关系
 
 <div class="polaroid-small">
-    <img class="cool-img" src="/images/2018-4-25/tensor.png" />
+    <img class="cool-img" src="/images/2018/04/tensor.png" />
     <div class="container">
         <p>图 3: Tensorflow 中张量和相应操作的命名关系</p>
     </div>

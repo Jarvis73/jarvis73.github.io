@@ -4,7 +4,7 @@ title: "机器学习(三): 有向图模型 (Directed Graphical Models)"
 date: 2020-08-19 11:17:00 +0800
 categories: 机器学习
 mathjax: true
-figure: /images/2020-08/DGM-6.png
+figure: /images/2020/08/DGM-6.png
 author: Jarvis
 meta: Post
 ---
@@ -66,7 +66,7 @@ $$
 
 图 $$G=(\mathcal{V}, \mathcal{E})$$ 包含一族**节点 (nodes/vertices)** $$\mathcal{V}=\{1,\dots,V\}$$ 和一族**边 (edges)** $$\mathcal{E}=\{(s,t):s,t\in\mathcal{V}\}$$ . 我们可以使用**邻接矩阵 (adjacency matrix)** 表示图, 其中 $$G(s,t)=1$$ 用来表示 $$(s,t)\in\mathcal{E}$$ . 如果 $$G(s,t)=1\Leftrightarrow G(t,s)=1$$ , 那么我们说图是**无向的 (undirected)** , 否则图是 **有向的 (directed)** , 如下图所示.
 
-{% include image.html class="polaroid" url="2020-08/DGM-0.png" title="有向图和无向图" %}
+{% include image.html class="polaroid" url="2020/08/DGM-0.png" title="有向图和无向图" %}
 
 我们通常假设 $$G(s,s)=0$$ , 即没有自循环. 以下列举一下其他术语:
 
@@ -126,7 +126,7 @@ $$
 
 **朴素贝叶斯分类器 (naive Bayes classifier)** 假设在给定类别标签时特征是相互独立的, 如下图 (a) 所示. 
 
-{% include image.html class="polaroid" url="2020-08/DGM-1.png" title="(a) 朴素贝叶斯分类器表示为 DGM, X 为观测变量, Y 为隐藏变量. (b) 树增广的朴素贝叶斯分类器" %}
+{% include image.html class="polaroid" url="2020/08/DGM-1.png" title="(a) 朴素贝叶斯分类器表示为 DGM, X 为观测变量, Y 为隐藏变量. (b) 树增广的朴素贝叶斯分类器" %}
 
 从而联合分布可以写为:
 
@@ -140,21 +140,21 @@ $$
 
 前面我们介绍过一阶马尔可夫模型. 如果当前状态依赖于前面两个节点的状态, 那么我们就得到了二阶马尔可夫模型, 如下图所示. 
 
-{% include image.html class="polaroid" url="2020-08/DGM-2.png" title="(a) 一阶马尔可夫链. (b) 二阶马尔可夫链" %}
+{% include image.html class="polaroid" url="2020/08/DGM-2.png" title="(a) 一阶马尔可夫链. (b) 二阶马尔可夫链" %}
 
 但二阶马尔可夫模型仍然难以建模链上变量的长期依赖. 另一种办法就是假设有一个潜在的随机过程, 可以通过一阶马尔可夫链建模, 而数据是该随机过程的观测值, 如下图所示. $$z_t$$ 是潜变量, $$x_t$$ 是观测变量. $$p(z_t\vert z_{t-1})$$ 是变换模型, $$p(\x_t\vert z_t)$$ 是观测模型. 
 
-{% include image.html class="polaroid" url="2020-08/DGM-3.png" title="隐马尔可夫模型" %}
+{% include image.html class="polaroid" url="2020/08/DGM-3.png" title="隐马尔可夫模型" %}
 
 ### 2.3 医疗诊断
 
 *   ICU 中的**报警网络 (alarm network)** 
 
-{% include image.html class="polaroid" url="2020-08/DGM-4.png" title="alarm network" %}
+{% include image.html class="polaroid" url="2020/08/DGM-4.png" title="alarm network" %}
 
 *   诊断时的**快速医疗参考 (quick medical reference)**网络
 
-{% include image.html class="polaroid" url="2020-08/DGM-5.png" title="quick medical reference" %}
+{% include image.html class="polaroid" url="2020/08/DGM-5.png" title="quick medical reference" %}
 
 详见第 10.2.3 节的内容.
 
@@ -214,7 +214,7 @@ $$
 
 **贝叶斯球 (Bayes ball algorithm)** 算法是一种简便的判断在 $$E$$ 下 $$A$$ 是否 d-可分于 $$B$$ 的算法. 其要点在于, 我们遮住 $$E$$ 中的节点, 即他们被观测到了, 我们然后把"球"放到 $$A$$ 中的每一个节点处, 让他们按照一定的规则四处弹, 然后考察是否有球可以到达 $$B$$ 中的节点, 规则有三条, 如下图所示:
 
-{% include image.html class="polaroid" url="2020-08/DGM-6.png" title="贝叶斯球算法的三条规则 (a-c) 为存在观察变量的规则, (e-f) 为无观察变量时的规则" %}
+{% include image.html class="polaroid" url="2020/08/DGM-6.png" title="贝叶斯球算法的三条规则 (a-c) 为存在观察变量的规则, (e-f) 为无观察变量时的规则" %}
 
 三条规则描述如下 (小球运动时不考虑边的方向):
 
@@ -284,11 +284,11 @@ $$
 
 贝叶斯球也需要边界条件, 下图 (a), (b).
 
-{% include image.html class="polaroid" url="2020-08/DGM-7.png" title="边界条件" %}
+{% include image.html class="polaroid" url="2020/08/DGM-7.png" title="边界条件" %}
 
 为了理解边界条件的含义, 如上图 (c) 所示. 假设 $$Y'$$ 是 $$Y$$ 的一个无噪声的副本, 那么这就意味着如果我们观测到了 $$Y'$$ , 那么我们就知道了 $$Y$$ , 这样两个父节点 $$X$$ 和 $$Y$$ 就需要耦合起来解释该观测变量. 所以, 如果我们让小球沿着 $$X\rightarrow Y\rightarrow Y'$$ 的路径滚动, 它就应当沿着 $$Y'\rightarrow Y\rightarrow Z$$ 的路径反弹回来. 然而, 如果 $$Y$$ 和 $$Y'$$ 都是隐藏变量 (即无法观测的), 那么小球就不会反弹.
 
-{% include image.html class="polaroid" url="2020-08/DGM-8.png" title="DGM 的例子 (对原书的图做了修改)" %}
+{% include image.html class="polaroid" url="2020/08/DGM-8.png" title="DGM 的例子 (对原书的图做了修改)" %}
 
 比如上图. 
 

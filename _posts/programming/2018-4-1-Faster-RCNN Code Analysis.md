@@ -3,7 +3,7 @@ layout: post
 title: Faster R-CNN(Tensorflow) 源码解析
 date: 2018-04-01 18:24:00 +0800
 categories: 深度学习
-figure: /images/2018-4-1/faster-rcnn.png
+figure: /images/2018/04/faster-rcnn.png
 author: Jarvis
 meta: Post
 ---

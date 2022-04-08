@@ -2,9 +2,9 @@
 layout: post
 title: "少样本学习中的度量函数 (Metrics in FSL)"
 date: 2020-07-09 22:01:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2020-07/TADAM.png
+figure: /images/2020/07/TADAM.png
 author: Jarvis
 meta: Post
 ---
@@ -69,7 +69,7 @@ $$
 
 第一个公式是 trivial 的, 第二个公式的证明过程如下.
 
-{% include image.html class="polaroid" url="2020-07/TADAM-1.png" title="第二个公式的证明" %}
+{% include image.html class="polaroid" url="2020/07/TADAM-1.png" title="第二个公式的证明" %}
 
 * 当 $$ \alpha $$ 很小时, 第一个式子右侧第一项是使得极小化了查询样本 $$ z $$ 和对应类别的原型 $$ \mathbf{c}_k $$ 之间的距离, 第二项极大化了 $$ z $$ 和不同类别原型之间的距离.
 
@@ -79,19 +79,19 @@ $$
 
 进行特征调整 (feature modulation), 引入一组 $$ \gamma $$ 和 $$ \beta $$ 参数对主干网络进行 task-specific 的调整, 从而把 task-agnostic 的主干网络变为 task-related 的主干网络. 老规矩, 插入 BN 层之后. 本文构造了个 task embedding network (TEN) 来生成 task-specific 的 $$ \gamma $$ 和 $$ \beta $$, 结构如下.
 
-{% include image.html class="polaroid" url="2020-07/TADAM-2.png" title="TEN 的结构" %}
+{% include image.html class="polaroid" url="2020/07/TADAM-2.png" title="TEN 的结构" %}
 
 首先用一个网络提取支撑集样本的特征, 通过 Residual-FC 网络编码为相应的 task-related 的特征, 引入两个可学习的参数 $$ \gamma_0 $$ 和 $$ \beta_0 $$ 控制该层 TEN 模块的起作用程度. $$ \gamma $$ 后面加了个 $$ 1 $$, 表明 $$ \gamma $$ 学习的是增量, 有利于稳定训练. 由于支撑集特征需要先提取出来, 才能返回去嵌入网络, 因此最终模型训练包含一个循环结构, 如下图所示.
 
-{% include image.html class="polaroid" url="2020-07/TADAM.png" title="本文提出的用于 FSL 网络结构" %}
+{% include image.html class="polaroid" url="2020/07/TADAM.png" title="本文提出的用于 FSL 网络结构" %}
 
 然而, 通常来说网络中包含大规模循环结构的基本都训练不成, 或者精度反而下降了 (包含小循环的 RNN 都很难训练). 因此本文还得再对模型做一点修改: 加一个辅助的分类任务, 并应用退火的手段逐渐减弱辅助训练的影响, 最后才训练成功. 与其他方法的对比结果如下表.
 
-{% include image.html class="polaroid" url="2020-07/TADAM-3.png" title="本文的结果与其他方法的比较" %}
+{% include image.html class="polaroid" url="2020/07/TADAM-3.png" title="本文的结果与其他方法的比较" %}
 
 消融实验如下.
 
-{% include image.html class="polaroid" url="2020-07/TADAM-4.png" title="消融实验" %}
+{% include image.html class="polaroid" url="2020/07/TADAM-4.png" title="消融实验" %}
 
 
 ## 参考文献

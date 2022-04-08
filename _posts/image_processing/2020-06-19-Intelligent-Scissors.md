@@ -4,7 +4,7 @@ title: "智能剪刀 (Intelligent Scissors)"
 date: 2020-07-09 22:01:00 +0800
 categories: 图像处理
 mathjax: true
-figure: /images/2020-06/cost_matrix.png
+figure: /images/2020/06/cost_matrix.png
 author: Jarvis
 meta: Post
 ---
@@ -23,7 +23,7 @@ meta: Post
 ## 1. 概念
 我们可以把二维**图像(image)**看作**有向图(directed graph)**, **像素点(pixel)**作为**节点(node)**, 相邻的像素点有**边(edge)**相连, 边上根据一定的规则赋以不同的**权重(weight)/损失(cost)**以表示从一点到边的另一点所需要的**能量(energy)**. 由于看作了有向图, 同时考虑八联通, 那么每个像素都有指向相邻八个像素的边. 如图所示.
 
-{% include image.html class="polaroid" url="2020-06/image_graph.png" title="图像 vs 图" %}
+{% include image.html class="polaroid" url="2020/06/image_graph.png" title="图像 vs 图" %}
 
 
 智能剪刀的操作流程如下:
@@ -64,7 +64,7 @@ $$
 ### 2.1 Lapacian zero-crossing 拉普拉斯交叉零点
 引入拉普拉斯交叉零点的主要目的是获取图像中物体轮廓的信息. 拉普拉斯算子实际上是二阶导数算子, 用于检测在图像梯度发生剧烈变化的地方. 下图展示了沿着图中红色直线上图像密度的变化, 以及相应的一阶导数和二阶导数的变化. 在图像中寻找边界, 可以从一阶导数中找极值(极大/极小值), 也可以从二阶导数中找零交叉点.
 
-{% include image.html class="polaroid" url="2020-06/Laplacian.png" title="拉普拉斯滤波器" %}
+{% include image.html class="polaroid" url="2020/06/Laplacian.png" title="拉普拉斯滤波器" %}
 
 由于拉普拉斯算子是二阶导数, 对图像中的噪声更为敏感(一阶导已经很敏感了), 因此我们先对图像做高斯滤波, 然后再应用拉普拉斯算子得到边界. 而该过程等价于把拉普拉斯算子应用于高斯函数后, 再对图像进行卷积, 从而得到基于 Laplacian of Gaussion (LoG) 滤波的方法:
 
@@ -78,7 +78,7 @@ $$
 
 下图展示了使用 LoG 作用域图像的结果. 可以看到要得到分离性好的边界, 高斯平滑是必不可少的.
 
-{% include image.html class="polaroid" url="2020-06/LoG.png" title="LoG 算子的效果 (某开源代码的做法)" %}
+{% include image.html class="polaroid" url="2020/06/LoG.png" title="LoG 算子的效果 (某开源代码的做法)" %}
 
 最后我们把 LoG 的结果转化为损失函数:
 
@@ -94,7 +94,7 @@ $$
 1. (某开源代码的方式) 判断点 q 的八个邻接点的 LoG, 如果这八个值中既有正数, 也有负数, 那么我们认为 q 是一个零交叉点, 把 $$ f_Z(\mathbf{q}) $$ 的值设为0, 其他为1. 这种方式的结果如上图所示.
 1. (论文中的方式) 判断点 q 及其相邻的下一个点 (x 和 y 方向分别做), 如果两点的 LoG 异号, 那么选择两点中绝对值小的那个作为零交叉点. 这种方式的结果如下图所示.
 
-{% include image.html class="polaroid" url="2020-06/LoG_v2.png" title="LoG 算子的效果 (论文的做法)" %}
+{% include image.html class="polaroid" url="2020/06/LoG_v2.png" title="LoG 算子的效果 (论文的做法)" %}
 
 可以看到两种方式的差别在于第1种把边界上的内侧和外侧点都作为零交叉点(边界厚度为2), 第2种只把内侧和外侧点种更接近0的点作为零交叉点(边界厚度为1).
 此外, 论文中使用了两种大小的高斯核: 5x5 和 9x9 的, 最终两个核分别计算 LoG, 并以 0.45 和 0.55 的权重进行加权得到最终的 fz 损失. (此处需要进一步解释.)
@@ -116,7 +116,7 @@ $$
 
 下图展示了不同大小的核得到的一阶梯度大小:
 
-{% include image.html class="polaroid" url="2020-06/magnitude.png" title="图像梯度" %}
+{% include image.html class="polaroid" url="2020/06/magnitude.png" title="图像梯度" %}
 
 考虑多核梯度大小的时候, 合并多核结果有两种策略, 这里不再使用加权, 而是取最大值:
 
@@ -168,7 +168,7 @@ $$
 
 如下图所示. 图中有个笔误, 第三幅图的 dq(p, q) = -0.957.
 
-{% include image.html class="polaroid" url="2020-06/direction.png" title="梯度方向损失的计算" %}
+{% include image.html class="polaroid" url="2020/06/direction.png" title="梯度方向损失的计算" %}
 
 - 梯度方向损失的尺寸: [3, 3, h, w], 基于边 p--q 的
 - 以上三个损失中, 前两个损失需要统一做一个 unfold 的操作, 把 [h, w] 的尺寸变为(复制为) [3, 3, h, w], 最终得到一个四维张量 i,j,k,l, 其中 k 和 l 维度指代像素 p 的绝对坐标, 而 i 和 j 指代像素 p 的邻居 q 在 3x3 的小网格内的坐标.
@@ -193,7 +193,7 @@ $$
 
 - 因为有些图像中, 梯度"强"的边未必是用户需要的边, 而"强"边附近的"弱"边可能是需要的. 在2.1-2.3中的三个静态损失下, 弱边是没有发言权的. 比如论文中的下图.
 
-{% include image.html class="polaroid" url="2020-06/heart_ct.png" title="心脏 CT 的例子" %}
+{% include image.html class="polaroid" url="2020/06/heart_ct.png" title="心脏 CT 的例子" %}
 
 以上三个基于像素值的损失和梯度大小的损失都是可以动态计算的, 要根据用于训练的一段边界上的像素点, 计算直方图 $$ $h_G $$$. 由于点不多( t=32/64 个像素点), 因此计算出来的直方图可能噪声比较多, 因此对直方图应用一维高斯平滑来抑制噪声. 然后对直方图进行归一化并取补, 从而满足边界点的损失低的要求:
 
@@ -219,7 +219,7 @@ $$
 
 三种情况如下图所示. 第一列是 $$ m_G(x) $$, 第二列是上面公式中min函数内的第二项, 第三列是 min 函数的结果. (注意 $$ t_s $$ 是样本点的数量, 不同的 $$ t_s $$ 对应的第一列 $$ m_G(x) $$ 实际上是不同的, 要根据实际的点计算直方图, 这里是偷懒用了同一幅图来表示了).
 
-{% include image.html class="polaroid" url="2020-06/gradient_magnitude.png" title="梯度大小的动态损失" %}
+{% include image.html class="polaroid" url="2020/06/gradient_magnitude.png" title="梯度大小的动态损失" %}
 
 此外, 对于梯度大小损失, 由于水平垂直的邻点和斜对角的邻点到中心的 p 点的距离是不同的, 因此梯度大小损失需要额外乘一个常数项:
 

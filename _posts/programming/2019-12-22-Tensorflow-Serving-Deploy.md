@@ -2,8 +2,8 @@
 layout: post
 title: "Tensorflow 模型部署"
 date: 2019-12-22 13:36:00 +0800
-categories: Tensorflow
-figure: /images/2019-12/tfx-hero.svg
+categories: Framework
+figure: /images/2019/12/tfx-hero.svg
 author: Jarvis
 meta: Post
 ---
@@ -16,7 +16,7 @@ meta: Post
 
 
 
-{% include image.html class="polaroid" url="2019-12/tfx-hero.svg" title="Tensowflow Extended (TFX)" %}
+{% include image.html class="polaroid" url="2019/12/tfx-hero.svg" title="Tensowflow Extended (TFX)" %}
 
 ## 1. 导出模型 (TF-1.13 API)
 

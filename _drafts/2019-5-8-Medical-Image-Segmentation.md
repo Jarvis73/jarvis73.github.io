@@ -4,7 +4,7 @@ title: "Medical Image Segmentation"
 data: 2019-5-9 9:50:00
 categories: 图像处理
 mathjax: true
-figure: /images/2019-5/Graph-Cuts-0.png
+figure: /images/2019/05/Graph-Cuts-0.png
 author: Jarvis
 meta: Post
 ---
@@ -26,7 +26,7 @@ meta: Post
 
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2019-5/Graph-Cuts-2.png" Graph-Cuts/>
+    <img class="cool-img" src="/images/2019/05/Graph-Cuts-2.png" Graph-Cuts/>
     <div class="container">
         <p>Graph-Cuts 示例</p>
     </div>

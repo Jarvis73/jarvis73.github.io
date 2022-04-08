@@ -2,8 +2,8 @@
 layout: post
 title: "Tensorflow 自定义数据集 (Tensorflow-Datasets Customization, TFDS)"
 date: 2020-11-25 10:57:00 +0800
-categories: Tensorflow
-figure: /images/2020-11/tensorflow-datasets.jpg
+categories: Framework
+figure: /images/2020/11/tensorflow-datasets.jpg
 author: Jarvis
 meta: Post
 ---

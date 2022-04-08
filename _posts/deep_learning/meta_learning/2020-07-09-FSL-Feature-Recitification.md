@@ -2,9 +2,9 @@
 layout: post
 title: "少样本学习中的特征修正 (Feature Rectification in FSL)"
 date: 2020-07-09 22:01:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2020-07/TapNet.png
+figure: /images/2020/07/TapNet.png
 author: Jarvis
 meta: Post
 ---
@@ -36,7 +36,7 @@ $$
 
 TapNet 包含三个部分, 特征提取网络 $$ f_{\theta} $$, 一族类别相关的向量 $$ \Phi $$ 和 task-specific 的自适应的映射 $$ M $$ 用于进行特征映射. 其中 $$ \Phi=[\phi_1;\phi_2,\cdots;\phi_{N_c}] $$ 是一个矩阵, 其中的每一行都是一个类别相关的参考向量 $$ \phi_k $$ (默认都是行向量), 这个矩阵是参数化的, 即其中的值是通过反向传播来学习的. 
 
-{% include image.html class="polaroid" url="2020-07/TapNet.png" title="TapNet 结构示意图" %}
+{% include image.html class="polaroid" url="2020/07/TapNet.png" title="TapNet 结构示意图" %}
 
 模型结构如上图所示. 给定一个新的 episode, 对于上一步训练后的 $$ f_{\theta} $$ 和 $$ \Phi $$, 首先构造映射矩阵 $$ M $$ (体现了 task-specific), 要使得原始嵌入空间的特征 $$ f_{\theta}(x_k) $$ 和参考向量非常接近. 然后把查询向量和参考向量在映射空间中的欧氏距离作为优化目标, 在欧氏距离上使用 softmax 函数进行标准化, 如下式所示.
 
@@ -75,7 +75,7 @@ $$
 
 算法流程如下.
 
-{% include image.html class="polaroid" url="2020-07/TapNet-2.png" title="TapNet 算法流程" %}
+{% include image.html class="polaroid" url="2020/07/TapNet-2.png" title="TapNet 算法流程" %}
 
 ### 3. 分析
 
@@ -87,7 +87,7 @@ $$
 
 结果如下图.
 
-{% include image.html class="polaroid" url="2020-07/TapNet-3.png" title="TapNet 实验结果" %}
+{% include image.html class="polaroid" url="2020/07/TapNet-3.png" title="TapNet 实验结果" %}
 
 
 

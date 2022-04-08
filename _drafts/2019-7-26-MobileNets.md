@@ -4,7 +4,7 @@ title: "Inception & Xception: Going Faster and Lighter"
 date: 2019-07-26 16:13:00 +0800
 categories: 深度学习
 mathjax: true
-figure: ./images/2019-7/ception.png
+figure: ./images/2019/07/ception.png
 author: Jarvis
 meta: Post
 ---

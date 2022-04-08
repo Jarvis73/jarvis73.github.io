@@ -2,9 +2,9 @@
 layout: post
 title: "关于少样本学习的思考 (一) (Thinking About FSL 1)"
 date: 2020-09-06 16:05:00 +0800
-categories: 深度学习 少样本学习
+categories: 少样本学习
 mathjax: true
-figure: /images/2020-09/FSL-2.png
+figure: /images/2020/09/FSL-2.png
 author: Jarvis
 meta: Post
 ---
@@ -52,7 +52,7 @@ $$
 
 **微调阶段:** 通过微调模型使其可以识别新的类别. 固定与训练参数 $$\theta$$ , 使用新类的标注数据 (即支撑集 $$\X_n$$) 训练新的分类器 $$C(\cdot\vert\wn)$$ .
 
-{% include image.html class="polaroid" url="2020-09/FSL-1.png" title="Baseline 和 Baseline++ 模型" %}
+{% include image.html class="polaroid" url="2020/09/FSL-1.png" title="Baseline 和 Baseline++ 模型" %}
 
 #### 1.2.2 Baseline++
 
@@ -73,7 +73,7 @@ $$
 
 元学习的流程如下图所示.
 
-{% include image.html class="polaroid" url="2020-09/FSL-2.png" title="Meta-learning 模型" %}
+{% include image.html class="polaroid" url="2020/09/FSL-2.png" title="Meta-learning 模型" %}
 
 ### 1.3 实验
 
@@ -89,7 +89,7 @@ $$
 
 #### 1.3.2 标准配置的实验结果
 
-{% include image.html class="polaroid" url="2020-09/FSL-3.png" title="Baseline 和 FSL 方法在相同配置下的重实现" %}
+{% include image.html class="polaroid" url="2020/09/FSL-3.png" title="Baseline 和 FSL 方法在相同配置下的重实现" %}
 
 整体上, 重实现的结果比原始论文报告的结果低两个点不到. 其中, 
 
@@ -103,7 +103,7 @@ $$
 
 *   尽管 ProtoNet# 要差于 ProtoNet, 但论文中提到使用更深的 backbone 可以解决该问题.
 
-{% include image.html class="polaroid" url="2020-09/FSL-4.png" title="同配置下不同方法的比较" %}
+{% include image.html class="polaroid" url="2020/09/FSL-4.png" title="同配置下不同方法的比较" %}
 
 这两组实验最显著结果就是:
 
@@ -115,7 +115,7 @@ $$
 
 #### 1.3.3. 增加网络深度的影响
 
-{% include image.html class="polaroid" url="2020-09/FSL-5.png" title="增加网络深度的影响" %}
+{% include image.html class="polaroid" url="2020/09/FSL-5.png" title="增加网络深度的影响" %}
 
 增加网络深度后训练得到的特征拥有更小的类内方差. 这个结论是论文附录 A6 通过实验来说明的, 其中使用到了 Davies-Bouldin 指数[^3]来衡量类内方差. 本文使用了五种深度的网络 Conv-4, Conv-6, ResNet-10, ResNet-18, ResNet-34. 图 5 的结果显示,
 
@@ -135,7 +135,7 @@ CUB 和 mini-ImageNet 最大的差别就是前者是细粒度的图像分类, �
 
 本文进行了 cross-domain 的实验: mini-ImageNet --> CUB, 使用 ResNet-18 作为 backbone. 实验结果如下左图.
 
-{% include image.html class="polaroid" url="2020-09/FSL-6.png" title="跨域 FSL 的结果分析" %}
+{% include image.html class="polaroid" url="2020/09/FSL-6.png" title="跨域 FSL 的结果分析" %}
 
 *   Baseline 方法超过了其他所有的方法. 这说明现有的 FSL 方法对跨域 FSL 效果比微调要差. 而上右图的对比表明,
 
@@ -147,7 +147,7 @@ CUB 和 mini-ImageNet 最大的差别就是前者是细粒度的图像分类, �
 
 为了使元学习方法像 Baseline 方法那样适应, 本文尝试对输入 softmax 层的特征进行微调. MatchingNet 和 ProtoNet 可以直接进行微调; MAML 方法本来就需要在支撑集上训练, 所以把迭代次数提高到与 Baseline 方法一致即可; RelationNet 的特征是二维特征图, 不方便改为 softmax 层, 所以本文随机把支撑集划分为 3 个支撑和 2 个查询数据来微调关系模块. 结果如下图.
 
-{% include image.html class="polaroid" url="2020-09/FSL-7.png" title="元学习方法进一步微调" %}
+{% include image.html class="polaroid" url="2020/09/FSL-7.png" title="元学习方法进一步微调" %}
 
 我们发现 
 

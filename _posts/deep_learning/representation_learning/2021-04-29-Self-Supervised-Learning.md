@@ -3,9 +3,9 @@ layout: post
 title: "自监督学习(Self-Supervised Learning, SSL)"
 date: 2021-04-29 19:13:00 +0800
 update: 2021-06-03
-categories: 深度学习
+categories: 表示学习
 mathjax: true
-figure: /images/2021-04/SSL-02.png
+figure: /images/2021/04/SSL-02.png
 author: Jarvis
 meta: Post
 ---
@@ -77,7 +77,7 @@ $$
 \min - T(x, h) + \log\sum_{x'}e^{T(x', h)}
 $$
 
-{% include image.html class="polaroid" url="2021-04/SSL-01.png" title="Deep InfoMax"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-01.png" title="Deep InfoMax"  %}
 
 ## MoCo
 
@@ -94,7 +94,7 @@ $$
 
 其中 $$ \theta_k, \theta_q $$ 分别是字典分支和查询分支的编码器参数.
 
-{% include image.html class="polaroid" url="2021-04/SSL-02.png" title="MoCo"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-02.png" title="MoCo"  %}
 
 
 ## SimCLR
@@ -107,7 +107,7 @@ $$
 \min-\log\frac{\exp(s_{i,j}/\tau)}{\sum_{k=1}^{2N}\mathbf{1}_{[k\neq i]}\exp(s_{i,j}/\tau)}
 $$
 
-{% include image.html class="polaroid" url="2021-04/SSL-03.png" title="SimCLR"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-03.png" title="SimCLR"  %}
 
 ## SwAV
 
@@ -123,7 +123,7 @@ $$
 \ell(z_t, q_s) = -\sum_k q_s^{(k)}\log p_t^{(k)}, \qquad p_t^{(k)}=\frac{\exp\left(\frac{1}{\tau}z_t^Tc_k\right)}{\sum_{k'}\exp\left(\frac{1}{\tau}z_t^Tc_{k'}\right)}
 $$
 
-{% include image.html class="polaroid" url="2021-04/SSL-04.png" title="SwAV"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-04.png" title="SwAV"  %}
 
 ## BYOL
 
@@ -139,7 +139,7 @@ $$
 \theta \leftarrow \text{Optimizer}(\theta, \nabla_{\theta}\mathcal{L}, \eta) \qquad \xi \leftarrow \xi + (1 − \tau)\theta
 $$
 
-{% include image.html class="polaroid" url="2021-04/SSL-05.png" title="BYOL"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-05.png" title="BYOL"  %}
 
 ## SimCLR V2
 
@@ -160,7 +160,7 @@ $$
 $$
 
 
-{% include image.html class="polaroid" url="2021-04/SSL-06.png" title="Visual Transformers, ViT"  %}
+{% include image.html class="polaroid" url="2021/04/SSL-06.png" title="Visual Transformers, ViT"  %}
 
 
 ## 参考文献

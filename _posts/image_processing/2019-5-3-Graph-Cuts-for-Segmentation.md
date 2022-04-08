@@ -5,7 +5,7 @@ date: 2019-5-1 16:10:00 +0800
 update: 2019-05-12
 categories: 图像处理
 mathjax: true
-figure: /images/2019-5/Graph-Cuts-0.png
+figure: /images/2019/05/Graph-Cuts-0.png
 author: Jarvis
 meta: Post
 ---
@@ -86,7 +86,7 @@ $$
 的全局最优解. 从图像构建图如下图所示.
 
 <div class="polaroid-small">
-    <img class="cool-img" src="/images/2019-5/Graph-Cuts.png" Graph-Cuts/>
+    <img class="cool-img" src="/images/2019/05/Graph-Cuts.png" Graph-Cuts/>
     <div class="container">
         <p>A simple 2D segmentation example for a 3x3 image.</p>
     </div>
@@ -218,7 +218,7 @@ $$
 如图所示:
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2019-5/Graph-Cuts-1.png" Graph-Cuts/>
+    <img class="cool-img" src="/images/2019/05/Graph-Cuts-1.png" Graph-Cuts/>
     <div class="container">
         <p>Example of the search tree S(read nodes) and T(blue nodes) at the end of the growth stage when a path(yellow line) from the source s to the sink t is found. Active and passive nodes are labeled by letters A and P, correspondingly. Free nodes appear in black.</p>
     </div>
@@ -246,7 +246,7 @@ $$
 示例图片:
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2019-5/Graph-Cuts-2.png" Graph-Cuts/>
+    <img class="cool-img" src="/images/2019/05/Graph-Cuts-2.png" Graph-Cuts/>
     <div class="container">
         <p>Graph-Cuts 示例</p>
     </div>
@@ -263,7 +263,7 @@ GrabCut 是 OpenCV 中标准的交互式图割算法.
 本文基于文献[1], 为了简化交互负担, 允许用户开始只需要用矩形框框出目标物体即可. 在某些图像上可以达到和用户使用画笔涂抹一样甚至更好的效果. 此外, GrabCut 还允许用户在对风格结果不满意时进一步使用 Graph Cuts 的交互方式补全. 同时 GrabCut 支持彩色图像的分割. GrabCut 的分割例子如图所示.
 
 <div class="polaroid">
-    <img class="cool-img" src="/images/2019-5/Graph-Cuts-3.png" Graph-Cuts/>
+    <img class="cool-img" src="/images/2019/05/Graph-Cuts-3.png" Graph-Cuts/>
     <div class="container">
         <p>GrabCut 示例</p>
     </div>
