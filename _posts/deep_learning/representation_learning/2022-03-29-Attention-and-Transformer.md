@@ -24,7 +24,7 @@ Self-Attention 和 Transformer[^Transformer] 自从问世就成为了自然语�
 
 {% include image.html class="polaroid" url="2022/03/self-attention.png" %}
 
-Self-Attention 在空间维度做全局吸收. 假设输入特征 $$F\in\mathbb{R}^{b\times l\times d_0}$$, 其中 $$b$$ 是批大小 (batch size), $$l$$ 是空间维度 (NLP 中是序列长度, CV 中是图像长宽的乘积 $$h\times w$$), $$d$$ 是特征维度.
+Self-Attention 在空间维度做全局吸收. 假设输入特征 $$F\in\mathbb{R}^{b\times l\times d_0}$$, 其中 $$b$$ 是批大小 (batch size), $$l$$ 是空间维度 (NLP 中是序列长度, CV 中是图像长宽的乘积 $$h\times w$$), $$d_0$$ 是特征维度.
 
 1. 首先对 $$F$$ 做线性变化得到 $$Q=FW_Q, K=FW_K, V=FW_V \in\mathbb{R}^{b\times l\times d}$$  
 2. 计算 $$Q, K$$ 的相似度矩阵 $$S = QK^T \in\mathbb{R}^{b\times l\times l}$$  
