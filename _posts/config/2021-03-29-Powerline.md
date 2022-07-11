@@ -64,7 +64,7 @@ fi
 
 配置结果如下图所示:
 
-{% include image.html class="polaroid" url="2021-03/bash.png" title="Bash Powerline" %}
+{% include image.html class="polaroid" url="2021/03/bash.png" title="Bash Powerline" %}
 </div>
 <div class="tab-pane" id="tabContent00-2" markdown="block">
 把以下内容填入 `~/.vimrc` 的末尾:
@@ -79,7 +79,7 @@ set t_Co=256
 
 配置结果如下图所示:
 
-{% include image.html class="polaroid" url="2021-03/vim.png" title="Vim Powerline" %}
+{% include image.html class="polaroid" url="2021/03/vim.png" title="Vim Powerline" %}
 </div>
 <div class="tab-pane" id="tabContent00-3" markdown="block">
 把以下内容填入 `~/.tmux.conf` 的末尾:
@@ -90,7 +90,7 @@ set-option -g default-terminal "screen-256color"
 ```
 配置结果如下图所示:
 
-{% include image.html class="polaroid" url="2021-03/tmux.png" title="Tmux Powerline" %}
+{% include image.html class="polaroid" url="2021/03/tmux.png" title="Tmux Powerline" %}
 </div>
 </div>
 
@@ -188,7 +188,7 @@ sudo pip3 install powerline-gitstatus
 * 重新载入配置
 
 ```bash
-powerline-daemon --replcae
+powerline-daemon --replace
 ```
 
 ## 4. 安装 Powerline 字体

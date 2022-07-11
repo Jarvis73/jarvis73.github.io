@@ -20,7 +20,7 @@ meta: Post
 
 本文指出, 当前的 FSL 方法尽管通过复杂的设计来提取特征, 但都没有从本质上提高 FSL 的精度, 如下图所示. SOTA 方法尽管看起来在提高平均精度, 但并没有缩小 95% 置信区间的范围. 本文提出了一个非常简单的基于 transductive fine-tuneing 的方法, 超过了其他复杂设计的 SOTA 方法, 并希望作为 FSL 新的 baseline 方法.
 
-{% include image.html class="polaroid" url="2021-03/FSL-1.png" title="Are we making progress?" %}
+{% include image.html class="polaroid" url="2021/03/FSL-1.png" title="Are we making progress?" %}
 
 **Transductive learning (直推学习)** 是相对于 **inductive learning (归纳学习)** 来说的. 
 * Inductive learning 是指从训练集中归纳出一定的规则(模型), 然后把该规则应用到测试数据上得到结果; 
@@ -51,7 +51,7 @@ $$
 
 ## 2. (ICLR 2020) Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML
 
-{% include image.html class="polaroid" url="2021-03/FSL-2.png" title="Rapid learning and feature reuse paradigms." %}
+{% include image.html class="polaroid" url="2021/03/FSL-2.png" title="Rapid learning and feature reuse paradigms." %}
 
 本文分析了 MAML 算法在 meta-testing 时有效的原因是内循环的快速学习还是重用了 meta-training 时学到的特征, 得到了如下结论:
 
