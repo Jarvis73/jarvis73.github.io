@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python装饰器
+title: Python 装饰器
 date: 2017-10-31 20:20:00 +0800
 update: 2021-05-27
 author: Jarvis

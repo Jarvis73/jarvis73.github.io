@@ -24,7 +24,7 @@ Tensorflow 中目前主推的科研向API为 `tf.keras`, 而另一个封装性�
 
 由于 Estimator 的封装性太高, 导致定制性较差. 因此本文的目的是解剖 Estimator 的内部结构, 从而可以让我们在需要时既能使用到 Estimator 的简化性和分布式训练等功能, 也能随心所欲的添加我们额外需要的功能(通过仿照源码重写 `Estimator` 类, 本文写作时使用的 `Tensorflow` 版本为 1.13, 此版本中 `Estimator` 类不允许继承, 因此我们要添加复杂的功能只能重写, 这部分会在后面讲到). 
 
-{% include image.html class="polaroid" url="2019-7/tf_programming.png" title="Tensorflow 多级API编程堆栈" %}
+{% include image.html class="polaroid" url="2019/07/tf_programming.png" title="Tensorflow 多级API编程堆栈" %}
 
 ## 1. Estimator 基本结构
 

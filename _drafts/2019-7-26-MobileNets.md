@@ -24,7 +24,7 @@ Inception结构(V1)来自于论文[^1] , 该论文提出的 GoogLeNet 是2014年
 
 GoogLeNet中使用的Inception结构如下图所示.
 
-{% include image.html class="polaroid" url="2019-7/inception.png" title="Inception module with dimensionality reduction" %}
+{% include image.html class="polaroid" url="2019/07/inception.png" title="Inception module with dimensionality reduction" %}
 
 核心操作是把普通的卷积层变成了四路计算, 包含 $$ 1\times1 $$ , $$ 3\times3 $$ 和 $$ 5\times5 $$ 的卷积和一个最大池化的操作. $$ 1\times1 $$ 卷积用于整合细粒度信息(小感受野), 而 $$ 3\times3 $$ 和 $$ 5\times5 $$ 卷积用于抓取偏语义的信息(大感受野). 而叠加额外的 $$ 1\times1 $$ 卷积的目的是压缩中间层的通道数, 从而可以减少模型参数. 文中提到这里使用 $$ 1\times1 $$ 卷积的目的恰好和 Network in Network文中的用法相反.
 
@@ -32,7 +32,7 @@ GoogLeNet中使用的Inception结构如下图所示.
 
 GoogLeNet 是该论文中单独设计的神经网络模型, 包含了 2-5-2 共 9 个 Inception 模块, 同时在训练过程中使用深度监督策略, 第 3 和第 5 个 Inception 模块的输出各接一个分类器, 这两个分类器以 0.3 的权重加入到总的损失函数中训练. 推断时这两个额外的分类器弃去不用. 模型结构如下图所示.
 
-{% include image.html class="polaroid" url="2019-7/googlenet.png" title="GoogLeNet Architecture" %}
+{% include image.html class="polaroid" url="2019/07/googlenet.png" title="GoogLeNet Architecture" %}
 
 ### 3. Inception V2
 

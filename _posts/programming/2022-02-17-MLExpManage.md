@@ -145,6 +145,21 @@ ex.observers.append(observer_mongo)
       }
   )
   ```
+  查看所有用户
+  ```
+  db.system.users.find().pretty()
+  ```
+  创建新的(非管理员)用户并赋予权限
+  ```
+  use myDB
+  db.grantRolesToUser("jarvis", [{role: "readWrite", db: "myDB"}])
+  ```
+  删除某个权限
+  ```
+  use myDB
+  db.revokeRolesFromUser("jarvis", [{role: "readWrite", db: "myDB"}])
+  ```
+
 
 4. 关闭刚刚的两个终端, 再重新启动 mongodb (同时开启访问控制)
   * 如果使用命令行启动, 则需要指定 `--auth` 参数, 否则会报错.
@@ -159,7 +174,9 @@ ex.observers.append(observer_mongo)
   
 5. 现在连接到该数据库的客户端必须通过用户名和密码进行认证, 同时访问权限会受限制在指定的范围内.
   ```bash
-  mongo --port 27017 --dbpath /data/mongo/db --authenticationDatabase "admin" -u myUserAdmin -p
+  mongo --port 27017 --authenticationDatabase "admin" -u myUserAdmin -p
+  # 或者
+  mongo mongodb://myUserAdmin:xxxxxx@localhost:27017
   ```
   输入密码以登录数据库.
 

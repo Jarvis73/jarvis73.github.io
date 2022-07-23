@@ -6,6 +6,7 @@ categories: Issue
 author: Jarvis
 meta: Post
 excerpt: "TL;DR. 在 BIOS 中把电源管理从 Windows 10 修改为 Linux."
+hidden: true
 ---
 
 * content

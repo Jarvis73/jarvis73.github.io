@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python库函数 (一) logging
+title: Python 库函数 (一) logging
 date: 2017-10-31 20:26:00 +0800
 update: 2018-4-14
 author: Jarvis

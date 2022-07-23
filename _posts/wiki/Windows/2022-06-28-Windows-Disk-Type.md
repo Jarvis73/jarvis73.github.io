@@ -4,7 +4,8 @@ title: "GPT 分区设置"
 date: 2022-06-28 11:35:00 +0800
 categories: Config
 author: Jarvis
-meta: Post
+meta: Wiki_Windows
+hidden: true
 ---
 
 * content

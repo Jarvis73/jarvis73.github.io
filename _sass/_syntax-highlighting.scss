@@ -34,15 +34,17 @@
     border: 1px solid #e3e3e3;
     margin: -1px;
     cursor: pointer;
-    width: 74px;
+    width: 84px;
   
     .btn-copy {
       color: #171717;
       background-color: #f2f2f2;
       position: absolute;
       z-index: 1;
-      padding: 0 12px;
+      padding: 0 14px;
       height: 32px;
+      word-break: keep-all;
+      white-space: nowrap;
     
       &:hover {
         background-color: #fafafa;

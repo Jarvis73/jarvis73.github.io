@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python库函数 (三) functools, itertools
+title: Python 库函数 (三) functools, itertools
 date: 2018-11-29 19:15:00 +0800
 author: Jarvis
 meta: Wiki_Python

@@ -109,7 +109,7 @@ $$
 
 这意味着数据集越大, 可以尽可能地降低估计误差的影响. 但这恰恰是 FSL 的短板——缺乏数据. 这使得 $$ R_I(h) $$ 对与 $$ R(h^*) $$ 的估计非常不准确, 这是 **FSL 的核心问题: 经验风险最小值点 $$ h_I $$ 变得不可靠**. 因此 FSL 比常规的学习任务变得更难. 下图很直观的表现了这种差别.
 
-{% include image.html class="polaroid" url="2019-8/pic-1.jpg" title="大数据集和小数据集上的误差" %}
+{% include image.html class="polaroid" url="2019/08/pic-1.jpg" title="大数据集和小数据集上的误差" %}
 
 #### 2.3.3 FSL 方法的分类
 
@@ -123,7 +123,7 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 
 三类先验信息的使用效果可以由以下示意图来反映:
 
-{% include image.html class="polaroid" url="2019-8/pic-2.jpg" title="FSL 方法从数据(左), 模型(中)和算法(右)三个方面来减小误差. 图(a)中数据集被增广到 $$ \tilde{I} $$ , 因此得到更大的数据集使得 ERM 可以得到更可靠的假设 $$ h_{\tilde{I}} $$ . 图(b)中的假设空间被先验信息约束到了更小的范围. 图(c)中根据先验信息优化策略有所改变." %}
+{% include image.html class="polaroid" url="2019/08/pic-2.jpg" title="FSL 方法从数据(左), 模型(中)和算法(右)三个方面来减小误差. 图(a)中数据集被增广到 $$ \tilde{I} $$ , 因此得到更大的数据集使得 ERM 可以得到更可靠的假设 $$ h_{\tilde{I}} $$ . 图(b)中的假设空间被先验信息约束到了更小的范围. 图(c)中根据先验信息优化策略有所改变." %}
 
 ## 3. 基于数据的方法
 
@@ -183,7 +183,7 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 * 训练样本的嵌入函数 $$ g(\cdot) $$
 * 度量 $$ s(\cdot, \cdot) $$
 
-{% include image.html class="polaroid" url="2019-8/embedding_learning.png" title="FSL 问题的嵌入学习图示" %}
+{% include image.html class="polaroid" url="2019/08/embedding_learning.png" title="FSL 问题的嵌入学习图示" %}
 
 最简单的一种思路就是在训练集上训练模型, 在测试集上测试. 但在小样本的前提下这样训练模型势必导致严重的过拟合. 因此在 FSL 中通常训练任务无关 (task-invariant) 的模型, 再泛化到测试集的类别上, 即元学习 (meta-learning) 的思路. 因此在这种思路下嵌入函数从其他任务中学习先验知识, 而嵌入函数的参数中*不明显包含*任务有关的信息, 即我们*一般不会*在少样本的训练集上训练模型的参数(尤其是在 $$ D^{train} $$ 特别小的时候, 如每类仅有一个有标签样本). 下文为了清晰, 我们把测试集上带标签的少样本数据集称为**支撑集 (support sets)**, 表示为 $$ x_i\in D^{sup} $$, 把用于训练任务无关模型的大规模数据集称为训练集, 该大规模训练集中包含标签, 但不包含测试集中的类别. 
 
@@ -209,7 +209,7 @@ FSL 必须使用先验信息来辅助任务的解决, 因此根据先验信息�
 
 如下图所示.
 
-{% include image.html class="polaroid" url="2019-8/memory.png" title="FSL 问题的嵌入学习图示" %}
+{% include image.html class="polaroid" url="2019/08/memory.png" title="FSL 问题的嵌入学习图示" %}
 
 ### 4.4 生成式建模 (Generative Modeling)
 
