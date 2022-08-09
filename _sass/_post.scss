@@ -2,6 +2,18 @@
     display: none;
 }
 .page[post] {
+    h1 {
+        color: #FF6100;
+        font-size: 21pt;
+        font-weight: bold;
+    }
+    h2 {
+        font-weight: bold;
+        // color: #FF6100;
+    }
+    h3 {
+        font-weight: bold;
+    }
     .label-custom {
         margin-top: 16px;
         overflow: hidden;

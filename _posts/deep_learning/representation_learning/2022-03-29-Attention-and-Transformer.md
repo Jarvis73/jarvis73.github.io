@@ -6,15 +6,17 @@ categories: 表示学习
 mathjax: true
 author: Jarvis
 meta: Post
-excerpt: "Self-Attention 和 Transformer 自从问世就成为了自然语言处理领域的新星. 得益于全局的注意力机制和并行化的训练, 基于 Transformer 的自然语言模型能够方便的编码的长距离依赖关系, 同时在大规模自然语言数据集上并行训练成为可能."
+figure: /images/2022/03/transformers.jpg
 ---
 
 * content
 {:toc}
 
+Self-Attention 和 Transformer 自从问世就成为了自然语言处理领域的新星. 得益于全局的注意力机制和并行化的训练, 基于 Transformer 的自然语言模型能够方便的编码的长距离依赖关系, 同时在大规模自然语言数据集上并行训练成为可能.
+
+
 
 {% include image.html class="polaroid" url="2022/03/transformers.jpg" %}
-
 
 ## 1. 基本概念
 

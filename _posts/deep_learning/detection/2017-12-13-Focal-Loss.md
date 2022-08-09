@@ -2,7 +2,7 @@
 layout: post
 title: Focal Loss 阅读笔记
 date: 2017-12-13 20:31:00 +0800
-categories: 深度学习
+categories: 目标检测
 mathjax: true
 author: Jarvis
 meta: Post
