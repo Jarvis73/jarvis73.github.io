@@ -96,12 +96,16 @@ layout: default
 /**
  * target _blank
  */
-// (function() {
-//     var aTags = document.querySelectorAll('article a:not([id]):not([class])')
-//     for (var i = 0; i < aTags.length; i++) {
-//         aTags[i].setAttribute('target', '_blank')
-//     }
-// }());
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id]):not([class])')
+    for (var i = 0; i < aTags.length; i++) {
+        if (aTags[i].getAttribute('href').startsWith('#'))
+        {
+            continue
+        }
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
 </script>
 <script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script>
 <script>
