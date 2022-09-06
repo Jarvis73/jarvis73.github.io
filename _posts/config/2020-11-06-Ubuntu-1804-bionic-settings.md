@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Ubuntu 18.04/20.04 教程 (Ubuntu 18.04/20.04 Tutorials)"
+title: "Ubuntu 18.04/20.04/22.04 教程 (Ubuntu 18.04/20.04/22.04 Tutorials)"
 date: 2020-11-06 10:11:00 +0800
-update: 2021-03-29
+update: 2022-09-06
 categories: Config
 figure: /images/2020/11/ubuntu.png
 author: Jarvis
@@ -15,18 +15,22 @@ pin: True
 
 
 
-本文统一整理 Ubuntu 18.04 和 20.04 的系统安装和设置方法. 其中两代系统有差别的设置会通过标签分别介绍, 如下所示, 请读者务必注意.
+本文统一整理 Ubuntu 18.04, 20.04 和 22.04 的系统安装和设置方法. 其中三代系统有差别的设置会通过标签分别介绍, 如下所示, 请读者务必注意.
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-tab href="#tabContent00-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContent00-1">18.04 (bionic)</a></li>
   <li><a data-tab href="#tabContent00-2">20.04 (focal)</a></li>
+  <li class="active"><a data-tab href="#tabContent00-3">22.04 (jammy)</a></li>
 </ul>
 <div class="tab-content">
-<div class="tab-pane active" id="tabContent00-1" markdown="block">
+<div class="tab-pane" id="tabContent00-1" markdown="block">
 Ubuntu 18.04
 </div>
 <div class="tab-pane" id="tabContent00-2" markdown="block">
 Ubuntu 20.04
+</div>
+<div class="tab-pane active" id="tabContent00-3" markdown="block">
+Ubuntu 22.04
 </div>
 </div>
 
@@ -48,32 +52,22 @@ cat /proc/cpuinfo| grep "cpu cores"| uniq
 cat /proc/cpuinfo| grep "processor"| wc -l
 ```
 
-* 查看操作系统内核信息
+* 查看操作系统信息
 
 ```bash
+# 查看操作系统内核信息
 uname -a
-```
 
-* 查看操作系统发行版本
-
-```bash
+# 查看操作系统发行版本
 cat /etc/issue
-
 lsb_release -a
-```
 
-* 查看hostname
-
-```bash
+# 查看hostname
 hostname
-```
 
-* 网卡信息
-
-```bash
+# 网卡信息
 ip a
 ```
-
 
 * 安装的字体
 
@@ -95,95 +89,327 @@ fc-list :lang=zh
 
 {% include card.html type="danger" title="启动时报错" content="Failed to open \EFI\BOOT\mmx64.efi: Not Found" tail="<strong>解决方案:</strong> 在安装介质中把 `./EFI/grubx64.efi` 重命名为 `./EFI/mmx64.efi` 即可." %}
 
-现在假设总共有256G的硬盘, 8G内存
+我们创建两个挂载点 `/boot` 和 `/`. 
 
 |分区类型|挂载点|分区大小|
 |:--|:--:|:--:|
-| EFI 分区|  | 1G |
 | ext4 | /boot | 2G |
-| 交换分区 |  | 16G(两倍内存) |
 | ext4 | / | 剩余所有的 |
 
 
 {% include card.html type="danger" title="双系统报错" content="原来装了 win + ubuntu 双系统, 由 ubuntu 引导. 然后在 win 下直接删了 ubuntu 的分区, 导致开机无法启动, 进入了 grub 命令行." tail="<strong>解决方案:</strong> 使用优启通制作一个U盘启动盘, 进入Win PE系统, 使用引导修复工具修复 win 系统的引导, 之后就能正常回到 win 的引导界面并能正常开机了." %}
+
+### 0 配置下载源
+
+使用 `vim` 编辑 `/etc/apt/sources.list` 文件, 注释掉原来所有的内容, 新增以下源 (不同的源选一个即可, 但注意版本 18.04/20.04/22.04 必须选对):
+
+* 浙大源
+
+<ul class="nav nav-tabs">
+  <li><a data-tab href="#tabContentB0-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContentB0-2">20.04 (focal)</a></li>
+  <li class="active"><a data-tab href="#tabContentB0-3">22.04 (jammy)</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane" id="tabContentB0-1" markdown="block">
+```
+deb https://mirrors.zju.edu.cn/ubuntu/ bionic main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
+```
+</div>
+<div class="tab-pane" id="tabContentB0-2" markdown="block">
+```
+deb https://mirrors.zju.edu.cn/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+```
+</div>
+<div class="tab-pane active" id="tabContentB0-3" markdown="block">
+```
+deb https://mirrors.zju.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.zju.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+```
+</div>
+</div>
+
+
+* 阿里云源
+
+<ul class="nav nav-tabs">
+  <li><a data-tab href="#tabContentB1-1">18.04 (bionic)</a></li>
+  <li><a data-tab href="#tabContentB1-2">20.04 (focal)</a></li>
+  <li class="active"><a data-tab href="#tabContentB1-3">22.04 (jammy)</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane" id="tabContentB1-1" markdown="block">
+```
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+</div>
+<div class="tab-pane" id="tabContentB1-2" markdown="block">
+```
+deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+```
+</div>
+<div class="tab-pane active" id="tabContentB1-3" markdown="block">
+```
+deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+```
+</div>
+</div>
 
 
 ### 1 网络设置
 
 #### 1.1 联网
 
-依次考虑以下方式联网:
+如果使用 **Ubuntu Desktop**, 那么联网可以通过 GUI 的方式填写 IP 等信息. 此处略去不表.
 
-* 连接路由器, 自动获取 IP 地址
+如果使用 **Ubuntu Server**, 那么有两种网络管理工具, `netplan` 和 `NetworkManager`. 二者我们需要选择其一. 
 
-* 手机连接到电脑, 手机网络设置中开启 usb 以太网, 电脑共享手机网络
+* 如果通过动态 IP 联网, 则什么也不需要配置
 
-* L2TP VPN 联网: 先通过手机联网, 然后安装 l2tp 
+* 如果只配置静态 IP , 则使用 `netplan` 或者 `NetworkManager` 均可, 推荐前者.
 
-  ```bash
-  sudo apt install network-manager-l2tp
-  sudo apt install network-manager-l2tp-gnome
-  ```
+* 如果需要配置 L2TP VPN, 则必须选择 `NetworkManager`
 
-  在网络设置中配置 VPN, 并开启 VPN. 也可以通过命令行开启:
-  
-  ```bash
-  # 文件地址 /etc/NetworkManager/system-connections
-  # ZJU 是 VPN 的名称
-  nmcli connection up ZJU
-  ```
+* 还可以使用安卓手机的网络共享功能临时上网. 安卓手机通过数据线连接到 Ubuntu 服务器, 手机移动网络设置中开启 `usb 网络共享`, 电脑共享手机网络
 
-#### 1.2 开机连接 VPN
 
-开机连接 VPN 需要单独设置一节, 因为 VPN 在 root 状态下登录是需要输入密码的(因为VPN的密码是属于用户的, 而不属于root). 因此为了开机启动 VPN, 我们需要把 VPN 密码以明文的形式写在该 VPN 的配置文件中以便开机后 root 可以登录 VPN. 
-不妨假设 VPN 的名称为 ZJU. 
-编辑文件: `sudo vim /etc/NetworkManager/system-connections/ZJU` , 可以找到如下的 `[vpn]` 段落.
+##### 1.1.1 使用 netplan 联网
+
+如果有固定 IP, 则使用 netplan 来配置. 编辑 `/etc/netplan/*.yaml` 文件, 写入以下内容:
 
 ```
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    eno1:                           # 网卡名称, 需要填写自己机器的, 通过 `ip a` 命令查看, 
+      addresses: [192.168.1.2/24]   # 静态 IP 地址, 斜杠后面的是子网掩码, 24 表示 24 个 1, 即 255.255.255.0
+      gateway4: 192.168.1.1         # 网关地址, 在 22.04 版本中不再需要这一行, 只需要指定下面的路由网关地址即可
+      nameservers:
+        addresses: [8.8.8.8]        # DNS 服务器地址
+      routes:
+      - to: 0.0.0.0/0               # 路由目标地址
+        via: 192.168.1.1            # 路由网关地址
+        metric: 0
+  renderer: networkd                # 网络服务, networkd 和 NetworkManager 二选一, 使用 netplan 时需要指定为 networkd
+  version: 2
+```
+
+{% include card.html type="info" content="我们编辑的文件 `/etc/netplan/*.yaml`, 在不同的系统中可能有不同的文件名." %}
+
+使用以下命令应用配置:
+
+```bash
+# 检查配置的正确性
+sudo netplan try
+
+# 应用配置
+sudo netplan apply
+```
+
+##### 1.1.2 使用 NetworkManager 联网
+
+NetworkManager (简称 NM) 是另一种网络管理工具, 它支持更复杂的配置, 特别是 L2TP VPN. 我们首先介绍配置静态 IP 的方法. 使用 NM 之前, 我们修改 `/etc/netplan/*.yaml` 文件使用 NM 管理网络:
+
+```
+# This is the network config written by 'subiquity'
+network:
+  renderer: NetworkManager
+  version: 2
+```
+
+然后编辑 `/etc/NetworkManager/NetworkManager.conf`, 修改为 `managed=true`:
+
+```
+[main]
+plugins=ifupdown,keyfile
+
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=no
+```
+
+配置修改后我们需要重启网络服务
+
+```bash
+sudo systemctl restart NetworkManager
+```
+
+{% include card.html type="info" content="`NetworkManager` 使用命令行工具 `nmcli` 来管理配置. 有关 `nmcli` 的使用方法, 可以参考 `nmcli --help` 查看. " %}
+
+接下来通过创建配置文件:
+
+```bash
+sudo nmcli c add type ethernet con-name wired ifname eno1 ipv4.addr 192.168.1.2/24 ipv4.gateway 192.168.1.1 ipv4.method manual
+```
+
+其中 `wired` 为自定义的连接名称, `eno1` 为网卡名称 (需要填写自己的). 注意修改自己的 IP 地址, 子网掩码和网关. 然后就会有个新的文件 `/etc/NetworkManager/system-connections/wired.nmconnection` 创建出来. 接下来我们编辑该文件, 并使得最终内容如下 (注意 uuid 值使用原本的就可以):
+
+```
+[connection]
+id=wired
+uuid=5de8cdc3-0595-4739-bf43-24f4ec666976   # 使用原来创建的默认值即可
+type=ethernet                               # 有线网
+autoconnect-priority=-998
+interface-name=eno1                         # 网卡名称
+permissions=
+timestamp=1644651104
+
+[ethernet]
+mac-address-blacklist=
+
+[ipv4]
+address1=192.168.1.2/24,192.168.1.1         # IP 地址, 子网掩码和网关
+dns=8.8.8.8;                                # DNS 服务器地址
+dns-search=
+ignore-auto-dns=true
+method=manual
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+method=auto
+
+[proxy]
+```
+
+完成后启动该配置:
+
+```bash
+sudo nmcli connection up wired
+
+# 可以使用缩写 c 代表 connection, nmcli --help 见详细用法
+sudo nmcli c up wired
+
+# 查看当前的配置
+nmcli c
+```
+
+#### 1.2 L2TP VPN 连接 (校园网连外网)
+
+在浙大内网的话, 按 [1.1 联网](#11-联网)的方法配置好 IP, 使用浙大源就可以直接通过 `apt` 从校园网直接安装软件了. 
+
+但此时还没有外网, 还需要配置 L2TP VPN 才能连接外网. 我们使用 `NetworkManager` 提供的 L2TP 模块. 首先安装该模块:
+
+```bash
+# ubuntu server/desktop 需要安装
+sudo apt install network-manager-l2tp
+
+# ubuntu desktop 需要安装
+sudo apt install network-manager-l2tp-gnome
+```
+
+**使用 Ubuntu Desktop**:
+
+新建 L2TP VPN
+
+* Name: ZJUVPN
+* Gateway: <VPN 网关>
+* User name: <用户名>
+* Password: <密码>
+* PPP Settings: 
+  * 勾选 Allow BSD data compression
+  * 勾选 Allow Deflate data compression
+  * 取消勾选 Use TCP header compression
+  * 取消勾选 User protocol field compression negotiation
+  * 取消勾选 Use Address/Control compression
+
+**使用 Ubuntu Server**: 
+
+需要在终端中配置 VPN. 使用以下命令新建一个连接
+
+```bash
+sudo nmcli c add connection.id ZJUVPN type vpn vpn-type l2tp
+```
+
+其中 `ZJUVPN` 为自定义 VPN 名称. 然后编辑文件 `/etc/NetworkManager/system-connections/ZJUVPN.nmconnection`, 
+
+```
+[connection]
+id=ZJUVPN
+uuid=1fe18117-cbca-4f3e-9f3d-80664859b2f2   # 使用原来创建的默认值即可
+type=vpn                                    # 连接类型为 vpn
+autoconnect=false
+permissions=
+timestamp=1593424178
+
 [vpn]
-gateway=*******(Gateway)
-mru=1440
-mtu=1440
+gateway=<vpn_address>                       # VPN 地址
+mru=1400
+mtu=1400
 no-vj-comp=yes
 noaccomp=yes
 nopcomp=yes
-password-flags=1
-user=<你的VPN用户名>
+password-flags=0                            # 这里设置为 0, 这样密码可以写在配置文件里, 方便自动连接
+user=<username>                             # 用户名
 service-type=org.freedesktop.NetworkManager.l2tp
-```
 
-然后需要做两处编辑:
-
-1. 把 `password-flags=1` 修改为 `password-flags=0`
-2. 在 `[vpn]` 段扩后面增加一段:
-
-```
 [vpn-secrets]
-password=<你的VPN密码>
+password=<password>                         # 密码
+
+[ipv4]
+dns-search=
+method=auto
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+method=auto
+
+[proxy]
 ```
 
-Restart network-manager TODO
+启动 VPN 服务
 
 ```bash
-sudo systemctl restart network-manager.service
+sudo nmcli c up ZJUVPN
+
+# 查看
+nmcli c
 ```
 
-这样, 我们就可以在 root 下连接 VPN 了, 测试连接:
+我们希望开机后可以自动连接 VPN
 
-```
-# 先手动断了 VPN
-# root 命令行连接
-sudo nmcli connection up ZJU
-```
-
-成功连接. 然后我们增加自动连接:
-
+**使用 Ubuntu Desktop**:
 * 运行 `nm-connection-editor` 打开网络连接编辑面板
 * 从 Ethernet(以太网) 列表中选择所使用的有线网或者从WLAN列表中选择所使用的无线网, 双击打开编辑面板
 * 在 General(常规) 选项卡中勾选 Automatically connect to VPN when using this connection(使用此连接时自动连接到VPN), 并选择要开启的 VPN 
 
-重启系统测试效果. (亲测可行)
+**使用 Ubuntu Server**:
 
+编辑 `/etc/NetworkManager/system-connections/wired.nmconnection` 文件, 在下面的段落中增加一行 ZJUVPN 的 uuid 号:
+
+```
+[connection]
+id=wired
+uuid=5de8cdc3-0595-4739-bf43-24f4ec666976
+type=ethernet
+autoconnect-priority=-998
+interface-name=eno1
+permissions=
+secondaries=1fe18117-cbca-4f3e-9f3d-80664859b2f2    # 这里填入 ZJUVPN 的 uuid 号即可.
+timestamp=1644651104
+```
+
+重启系统测试效果. (亲测可行)
 
 #### 1.3 双网卡设置
 
@@ -235,54 +461,7 @@ iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o enp1s0 -j MASQUERADE
 该规则的意思是 来自 192.168.1.0/24 经由 enp1s0 的数据包需要做 NAT 转换
 
 
-### 2 切换下载源 & 安装常用工具
-
-* 换为阿里云的源
-
-```bash
-# 备份原有的源
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
-# 换源
-sudo gedit /etc/apt/sources.list
-```
-
-按系统填入新的源
-
-<ul class="nav nav-tabs">
-  <li class="active"><a data-tab href="#tabContent0-1">18.04 (bionic)</a></li>
-  <li><a data-tab href="#tabContent0-2">20.04 (focal)</a></li>
-</ul>
-<div class="tab-content">
-<div class="tab-pane active" id="tabContent0-1" markdown="block">
-```text
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-```
-</div>
-<div class="tab-pane" id="tabContent0-2" markdown="block">
-```text
-deb http://mirrors.aliyun.com/ubuntu/ focal main restricted
-deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted
-deb http://mirrors.aliyun.com/ubuntu/ focal universe
-deb http://mirrors.aliyun.com/ubuntu/ focal-updates universe
-deb http://mirrors.aliyun.com/ubuntu/ focal multiverse
-deb http://mirrors.aliyun.com/ubuntu/ focal-updates multiverse
-deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted
-deb http://mirrors.aliyun.com/ubuntu/ focal-security universe
-deb http://mirrors.aliyun.com/ubuntu/ focal-security multiverse
-```
-</div>
-</div>
+### 2 安装常用工具
 
 * 更新系统, 安装常用工具
 
@@ -408,9 +587,12 @@ sudo mv McMojave-circle /usr/share/icons
 
 ## C 代理设置
 
+### 1 安装代理工具
+
+安装 `shadowsocks-libev` (支持 `chacha20-ietf-poly1305` 加密方式, Python 版的 ss 不支持这个)
+
 ```bash
-# 注意要安装最新版, 目前是2.8.2
-sudo pip3 install shadowsocks
+sudo apt install shadowsocks-libev
 ```
 
 填写ss配置文件 `~/tools/ssconfig/config.json` (路径无要求)
@@ -422,7 +604,7 @@ sudo pip3 install shadowsocks
     "password": "123456",
     "local_address": "127.0.0.1",
     "local_port": 1080,
-    "method": "aes-256-cfb",
+    "method": "chacha20-ietf-poly1305",
     "timeout": 300
 }
 ```
@@ -430,23 +612,12 @@ sudo pip3 install shadowsocks
 然后开启 sslocal 客户端:
 
 ```bash
-sudo sslocal -c ~/tools/ssconfig/config.json -d start
+sudo ss-local -c ~/tools/ssconfig/config.json
 ```
 
-如果出现错误: 
+这就开启了 socks 代理. 但是我们终端一般使用 http/https 代理, 接下来新开一个终端完成后续配置. [2 proxychains 代理](#2-proxychains-代理-命令行配置) 和 [3 privoxy 代理](#3-privoxy-代理-命令行配置) 选一个配置即可.
 
-```
-libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup
-```
-
-这是由于在openssl 1.1.0中废弃了 `EVP_CIPHER_CTX_cleanup()`  函数而引入了 `EVE_CIPHER_CTX_reset()`  函数所导致的则需要对openssl做一些修改:
-
-* 根据错误信息定位到文件 ...../lib/python3.6/site-packages/shadowsocks/crypto/openssl.py
-* 搜索 cleanup 并将其替换为 reset
-* 重新启动 shadowsocks, 该问题解决
-
-
-### 1 proxychains 代理 (命令行配置)
+### 2 proxychains 代理 (命令行配置)
 
 * 安装
 
@@ -454,41 +625,35 @@ libcrypto.so.1.1: undefined symbol: EVP_CIPHER_CTX_cleanup
 sudo apt install proxychains-ng
 ```
 
-修改 /etc/proxychains.conf 的最后一行
+修改 /etc/proxychains.conf 的最后一行, 把 `socks4 127.0.0.1 9050` 修改为
 
-```
-# 把
-socks4        127.0.0.1 9050
-# 修改为.
+```conf
 socks5 127.0.0.1 1080
 ```
 
-可以在 ~/.bashrc 中末尾添加别名方便运行 `alias fly="proxychains -q"`
+可以在 ~/.bashrc 中末尾添加别名方便运行 `alias fly="proxychains4 -q"`
 
 ```bash
 fly curl www.google.com
 ```
 
-### 2 privoxy 代理 (命令行配置)
+### 3 privoxy 代理 (命令行配置)
 
 proxychains 是使用代理时才调用, 而 privoxy 可以以服务的方式在后台运行, 然后通过环境变量的方式指定是否使用代理. 
 
-* 安装
+* 安装 `privoxy`
 
 ```bash
 sudo apt install privoxy 
 ```
 
-没有 root 权限时, 可以使用 [brew](#homebrew) 来安装.
-```bash
-brew install privoxy
-```
+{% include card.html type="info" content="没有 root 权限时, 可以使用 [brew](#homebrew) 来安装 `brew install privoxy`." %}
 
 * 配置
 
 编辑文件 `/etc/privoxy/config` (使用 brew 安装的话打开 `~/.linuxbrew/ETC/privoxy/config`), 首先搜索到 `forward-socks5t` 和 `listen-address` 这两行配置, 然后修改为如下的参数.
 
-```
+```conf
 # 把本地 HTTP 流量转发到本地 1080 SOCKS5 代理
 forward-socks5t / 127.0.0.1:1080 .
 # 可选，默认监听本地连接
@@ -497,7 +662,7 @@ listen-address 127.0.0.1:8118
 
 其中 `127.0.0.1:1080` 为 socks5 代理的地址, 最后的 `.` 不要丢掉. 而 `127.0.0.1:8118` 是 privoxy 的代理地址, 可以自定义端口, 也可指定为 `0.0.0.0:8118` 使其在局域网内可用. 
 
-* 开启
+* 使用 `systemctl` 开启 privoxy 服务
 
 ```bash
 sudo systemctl start privoxy
@@ -517,7 +682,7 @@ http_proxy=http://127.0.0.1:8118 curl ip.gs
 ```
 
 
-### 3 默认 PAC 模式(图形界面配置)
+### 4 默认 PAC 模式(图形界面配置)
 
 由于需要持续代理, 因此接下来配置pac模式. 首先安装
 
@@ -551,8 +716,7 @@ sudo apt install nginx
 
 修改nginx.cnf配置文件 `/etc/nginx/nginx.conf`
 
-在 `http{...}` 代码块中加入如下代码
-
+在 `http{...}` 代码块中加入如下代码 (注意替换`<username>`)
 
 ```bash
 server{
@@ -564,30 +728,35 @@ server{
 }
 ```
 
- (注意替换`<username>`)
-
 重启 nginx
 
 ```bash
-sudo nginx -s reload
+sudo systemctl reload nginx
 ```
 
 最后把`http://127.0.0.1/autoproxy.pac`填写到系统设置->网络->代理设置->自动代理中
 
 
-* 后台运行客户端
-
-```bash
-sudo sslocal -c ~/tools/ssconfig/config.json -d start
-```
-
-
 
 ## D. 修改系统设置
 
-### 1 双系统中 Ubuntu 与 Win 时间对齐
+### 1 时间设置
 
-打开 `/etc/default/rcS`, 找到**UTC=yes**这一行，改成**UTC=no**
+* 修改时区. 时区是从 `/etc/localtime` 读取的, 而默认这是个软链接, 链接到哪个时区文件就是哪个时区.
+
+```bash
+# 查看时间, 发现时区是 UTC 的
+date
+
+# 删除原有的链接
+sudo rm /etc/localtime
+
+# 新建到上海时区的软链接
+sudo ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# 再次查看时区, 发现是 CST 即正确
+date
+```
 
 
 ### 2 修改hostname
@@ -640,8 +809,12 @@ sudo systemctl disable xxx.service
 sudo systemctl status xxx.service
 # 启动系统服务
 sudo systemctl start xxx.service
+# 重启系统服务
+sudo systemctl restart xxx.service
 # 停止系统服务
 sudo systemctl stop xxx.service
+# 重新加载配置
+sudo systemctl reload xxx.service
 
 # 启用用户服务
 systemctl --user enable xxx.service
