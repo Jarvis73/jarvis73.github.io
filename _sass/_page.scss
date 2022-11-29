@@ -333,3 +333,11 @@ a.footnote:before {
 a.footnote:after {
     content: "]";
 }
+
+.alert.with-icon>[class*=icon-], .alert.with-icon>[class*=icon-]+.content {
+    vertical-align: top;
+}
+
+.card {
+    border: 1.5px solid #ddd;
+}

@@ -47,25 +47,35 @@
 {% endif %}
 
 {% if page.mathjax %}
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    tex2jax: { inlineMath: [["$$ "," $$"],["\\(","\\)"]],
-               processEscapes: true 
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [["$$ "," $$"],["\\(","\\)"]],
+    processEscapes: true,
+    tags: "all",
+    macros: {
+      bm: ["{\\boldsymbol #1}",1]
     },
-    TeX: { equationNumbers: { autoNumber: "all" } },
-    "HTML-CSS": {
-      linebreaks: { automatic: true, width: "container" }
-    }
-});
+    autoload: {
+      color: [],
+      colorv2: ['color']
+    },
+    packages: {'[+]': ['noerrors']}
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/noerrors']
+  }
+};
 </script>
-<!-- <script type="text/javascript"
-  async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script> -->
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" id="MathJax-script">
 </script>
+<!-- src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"> -->
 {% endif %}
-  <!-- async src="//cdn.bootcdn.net/ajax/libs/mathjax/3.0.5/es5/a11y/assistive-mml.js"> -->
 
 
 <!-- {% if page.title == "Demo" %}
