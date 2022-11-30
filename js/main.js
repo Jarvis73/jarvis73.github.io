@@ -130,3 +130,20 @@
     codeLang.innerHTML = codeType.split(" ")[0].split("-")[1];
   }
 }());
+
+/////////////////////////////// 为 head 添加锚点 //////////////////////////////////
+(function() {
+  var allHead = document.querySelectorAll("article > h2");
+  for (var i = 0; i < allHead.length; i++)
+  {
+    var tagName = "tag" + allHead[i]['id'];
+    if(!document.getElementById(tagName)) {
+      var aTag = document.createElement('a');
+      aTag.setAttribute('href', "#" + allHead[i]['id']);
+      aTag.setAttribute('id', tagName);
+      aTag.setAttribute('style', "margin: 0 0 0 5px");
+      aTag.innerText = '#';
+      allHead[i].appendChild(aTag);
+    }
+  }
+}());

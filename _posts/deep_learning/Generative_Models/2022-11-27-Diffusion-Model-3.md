@@ -75,7 +75,7 @@ $$
 
 ## 训练模型
 
-训练模型需要一个损失函数, 我们可以极大化模型的对数似然 (log likelihood), 它相当于搜索能使得当前的观测样本出现概率最大的参数. $$N$$ 个观测变量 $$\{\bm{x}^{(i)}\}_{i=1}^N$$ 的对数似然计算方式如下:
+训练模型需要一个损失函数, 我们可以<u>极大化模型的对数似然 (log likelihood)</u>, 它相当于搜索能使得当前的观测样本出现概率最大的参数. $$N$$ 个观测变量 $$\{\bm{x}^{(i)}\}_{i=1}^N$$ 的对数似然计算方式如下:
 
 $$
     \log \prod_{i=1}^N p_{\theta}(\bm{x}^{(i)}) = \sum_{i=1}^N\log  p_{\theta}(\bm{x}^{(i)})
@@ -107,8 +107,13 @@ $$
     \phi\left(\int_{\infty}^{\infty}dx f(x)g(x)\right) \leq \int_{\infty}^{\infty}dx f(x)\phi(g(x)).
 $$
 
+写成期望的形式为:
+
+$$
+    \phi\left(\mathbb{E}_{f(x)}[g(x)]\right) \leq \mathbb{E}_{f(x)}[\phi(g(x))]
+$$
 {% endcapture %}
-{% include card.html type="info" title="琴生不等式 (Jensen's inequality)" content=jensen_inequality %}
+{% include card.html type="info" title="琴生不等式 (Jensen's inequality) <a href=\"#jensen_inequality\">#</a>" content=jensen_inequality id="jensen_inequality" %}
 
 我们对式 \eqref{eq:log_likelihood} 下划线的部分应用琴生不等式, 注意 $$\log$$ 是凹函数, 因此不等号要反过来. 从而我们有
 
@@ -157,13 +162,13 @@ $$
 然后我们可以把式 \eqref{eq:tmp2} 中 $$t=1$$ 的项分离出来:
 
 $$
-    \begin{flalign}
+    \begin{align}
         &\int d\bm{x}_0 d\bm{x}_1\,q(\bm{x}_0,\bm{x}_1)\log\left[\frac{p(\bm{x}_0\vert\bm{x}_1)}{q(\bm{x}_1\vert \bm{x}_0)}\right] \\
         =& \int d\bm{x}_0 d\bm{x}_1\,q(\bm{x}_0,\bm{x}_1)\log\left[\frac{q(\bm{x}_0)}{p(\bm{x}_1)}\right] &  {\small 根据式 \eqref{eq:item1}} \\
         =& \int d\bm{x}_0\,q(\bm{x}_0)\log q(\bm{x}_0) - \int d\bm{x}_1\,q(\bm{x}_1)\log p(\bm{x}_1) \log  \\
         =& \mathbb{H}_p(\bm{x}_T) - \mathbb{H}_p(\bm{x}_T) & {\small 根据式 \eqref{eq:assumption}} \\
         =& 0
-    \end{flalign}
+    \end{align}
 $$
 
 **第三部分: 重写后验概率 $$q(\bm{x}_{t-1}\vert\bm{x}_0)$$**

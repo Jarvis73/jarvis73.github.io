@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "正态分布相关结论 (Conclusion of Gaussian distributions)"
+title: "正态分布的若干结论 (Conclusions of Gaussian distributions)"
 date: 2022-09-05 17:03:00 +0800
 categories: 数学
 mathjax: true
@@ -13,9 +13,7 @@ meta: Post
 
 本文记录一些遇到的有关正态分布的计算和结论.
 
-* 正态分布的形式
-* 正态分布的 KL 散度
-
+正态分布的形式, 正态分布的 KL 散度, 正态分布随机变量的和, 重参数化技巧
 
 
 
@@ -84,3 +82,23 @@ D(P_1\Vert P_2) &= \mathbb{E}_{P_1}[\log P_1 - \log P_2] \\ \nonumber
 &= \frac12\left(\log\frac{\vert\pmb{\Sigma}_2\vert}{\vert\pmb{\Sigma}_1\vert} - n + \text{tr}(\pmb{\Sigma}_2^{-1}\pmb{\Sigma}_1) + (\pmb{\mu}_2-\pmb{\mu}_1)^T\pmb{\Sigma}_2^{-1}(\pmb{\mu}_2-\pmb{\mu}_1)\right)
 \end{align}
 $$
+
+## 正态分布随机变量的和
+
+令 $$X\sim\mathcal{N}(\mu_X,\sigma_X^2)$$ 和 $$Y\sim\mathcal{N}(\mu_Y,\sigma_Y^2)$$ 是两个服从正态分布的随机变量, 且相互独立, 那么它们的和 $$Z=X+Y$$ 也是一个正态分布, 且 
+
+$$
+    Z\sim\mathcal{N}(\mu_X+\mu_Y,\sigma_X^2+\sigma_Y^2).
+$$
+
+该事实可以通过特征函数或者函数卷积来证明. 详见 [《Sum of normally distributed random variables》](https://en.wikipedia.org/wiki/Sum_of_normally_distributed_random_variables) 此处略去.
+
+## 重参数化技巧
+
+Kingma 等人在 [《Auto-Encoding Variational Bayes》](https://arxiv.org/abs/1312.6114) 提出了一种重参数化技巧, 可以简化建模过程的计算. 
+
+令 $$\bm{z}$$ 是一个连续随机变量, 且 $$\bm{z}\sim q_{\phi}(\bm{z}\vert\bm{x})$$ 是一个条件分布, 那么可以把随机变量 $$\bm{z}$$ 表示为一个确切的变量 $$\bm{z}=g_{\phi}(\bm{\epsilon},\bm{x})$$, 亦即从随机变量 $$\bm{z}$$ 中剥离出其随机性, 赋予一个辅助随机变量 $$\bm{\epsilon}\sim p(\bm{\epsilon})$$, 其中 $$g_{\phi}(\cdot)$$ 是个向量值函数. 
+
+这种重参数化在某些情境下是十分有用的. 比如我们可以用这种方法重写 $$q_{\phi}(\bm{z}\vert\bm{x})$$ 的期望, 这样关于该期望的蒙特卡洛估计关于 $$\phi$$ 就是可微的. 
+
+再比如: 令 $$z\sim p(z\vert x) = \mathcal{N}(\mu, \sigma^2)$$, 这样 $$z$$ 可以重参数化为 $$z=\mu+\sigma\epsilon$$, 其中 $$\epsilon\sim\mathcal{N}(0, 1)$$. 

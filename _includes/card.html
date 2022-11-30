@@ -1,5 +1,9 @@
 {% if include.type == "primary" %}
+{% if include.id != null %}
+<div class="alert alert-primary with-icon card" id="{{ include.id }}">
+{% else %}
 <div class="alert alert-primary with-icon card">
+{% endif %}
 <i class="icon-star"></i>
 <div class="zui-card-content notitle">
 {% if include.title != null %}
@@ -14,7 +18,11 @@
 </div>
 </div>
 {% elsif include.type == "danger" %}
+{% if include.id != null %}
+<div class="alert alert-danger with-icon card" id="{{ include.id }}">
+{% else %}
 <div class="alert alert-danger with-icon card">
+{% endif %}
 <i class="icon-remove-sign"></i>
 <div class="zui-card-content">
 {% if include.title != null %}
@@ -31,7 +39,11 @@
 </div>
 </div>
 {% elsif include.type == "success" %}
+{% if include.id != null %}
+<div class="alert alert-success with-icon card" id="{{ include.id }}">
+{% else %}
 <div class="alert alert-success with-icon card">
+{% endif %}
 <i class="icon-ok-sign"></i>
 <div class="zui-card-content">
 {% if include.title != null %}
@@ -46,7 +58,11 @@
 </div>
 </div>
 {% elsif include.type == "warning" %}
+{% if include.id != null %}
+<div class="alert alert-warning with-icon card" id="{{ include.id }}">
+{% else %}
 <div class="alert alert-warning with-icon card">
+{% endif %}
 <i class="icon-warning-sign"></i>
 <div class="zui-card-content">
 {% if include.title != null %}
@@ -63,7 +79,11 @@
 </div>
 </div>
 {% elsif include.type == "info" %}
+{% if include.id != null %}
+<div class="alert alert-info with-icon card" id="{{ include.id }}">
+{% else %}
 <div class="alert alert-info with-icon card">
+{% endif %}
 <i class="icon-info-sign"></i>
 <div class="zui-card-content">
 {% if include.title != null %}
@@ -80,7 +100,11 @@
 </div>
 </div>
 {% else %}
+{% if include.id != null %}
+<div class="alert card" id="{{ include.id }}">
+{% else %}
 <div class="alert card">
+{% endif %}
 {% if include.title != null %}
 <div class="title"><strong>{{ include.title }}</strong></div><hr>
 {% endif %}
