@@ -237,6 +237,6 @@ $$
 
 > $$\xx_T\sim\mathcal{N}(\bm{0},\bm{I})$$  
 > $$\text{for } t \text{ in range} (T, 0):$$  
-> $$\quad \bm{z}\sim\mathcal{N}(\bm{0},\bm{I}) \text{ if } t > 1, \text{ else } \xx_z=0$$   
+> $$\quad \bm{z}\sim\mathcal{N}(\bm{0},\bm{I}) \text{ if } t > 1, \text{ else } \bm{z}=0$$   
 > $$\quad \xx_{t-1} = \frac1{\sqrt{\alpha}_t}\left(\xx_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\bm{\epsilon}_{\theta}(\xx_t,t)\right) + \sigma_t\bm{z} \qquad$$   (式 \eqref{eq:sampling})   
 > $$\text{Return } \xx_0$$ 
