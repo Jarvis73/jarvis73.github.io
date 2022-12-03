@@ -198,7 +198,7 @@ $$
 
 现在我们需要的结论都有了, 再看一下和去噪得分匹配的关系. 我们考虑反向过程, 在给定 $$\xx_t$$ 时, 我们采样 $$\xx_{t-1}\sim \pt(\xx_{t-1}\vert\xx_t)$$ 的过程 (经过重参数化) 其实就是计算式 \eqref{eq:before_sampling} 加上一个高斯噪声, 即
 
-$$
+$$ \label{eq:sampling}
     \xx_{t-1} = \frac1{\sqrt{\alpha}_t}\left(\xx_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\bm{\epsilon}_{\theta}(\xx_t,t)\right) + \sigma_t\bm{z},\quad \bm{z}\sim\mathcal{N}(\bm{0},\bm{I}).
 $$
 
@@ -219,3 +219,24 @@ $$
 其中 $$t=1,2,\cdots,T$$. 那么 $$t=1$$ 的情况就对应了 $$L_0$$ 中的复杂的近似方案; $$1<t\leq T$$ 就对应了 $$L_{1:T-1}$$ 的情况, 而 $$L_T$$ 由于没有可训练的参数, 直接略去了. 
 
 注意式子 \eqref{eq:loss} 相比于 \eqref{eq:L_tm1_final} 还去掉了系数 $$\frac{\beta_t^2}{2\sigma^2_t\alpha_t(1-\bar{\alpha}_t)}$$, 这样带来的效果就相当于使用 $$\bm{\epsilon}_{\theta}$$ 重构 $$\bm{\epsilon}$$ 时对不同的时间步 $$t$$ 使用了不同的权重. DDPM 中对这些参数的设置使得, 在 $$t$$ 较小时权重也较小, 从而可以让模型重点优化更困难的去噪步 ($$t$$ 比较大的时候, 即模型从高斯噪声初步生成目标轮廓的时候). 
+
+## 算法总结
+
+* 准备数据集: 相当于准备了 $$q(\xx_0)$$ 的一组子集
+* 构建模型, 论文中采用改进的 U-Net 结构: 相当于建模了 $$\bm{\epsilon}_{\theta}(\cdot, \cdot)$$ 
+* 执行训练循环:
+
+> $$\text{for } \_ \text{ in range(total_steps)}:$$  
+> $$\quad \xx_0\sim q(\xx_0)$$   
+> $$\quad t\sim \text{Uniform}(\{1,\dots,T\})$$   
+> $$\quad \bm{\epsilon}\sim\mathcal{N}(\bm{I},\bm{I})$$   
+> $$\quad $$ 梯度更新:  
+> $$\qquad \nabla_{\theta}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2 \qquad$$   (式 \eqref{eq:loss})   
+
+* 生成模型采样:
+
+> $$\xx_T\sim\mathcal{N}(\bm{0},\bm{I})$$  
+> $$\text{for } t \text{ in range} (T, 0):$$  
+> $$\quad \bm{z}\sim\mathcal{N}(\bm{0},\bm{I}) \text{ if } t > 1, \text{ else } \xx_z=0$$   
+> $$\quad \xx_{t-1} = \frac1{\sqrt{\alpha}_t}\left(\xx_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\bm{\epsilon}_{\theta}(\xx_t,t)\right) + \sigma_t\bm{z} \qquad$$   (式 \eqref{eq:sampling})   
+> $$\text{Return } \xx_0$$ 
