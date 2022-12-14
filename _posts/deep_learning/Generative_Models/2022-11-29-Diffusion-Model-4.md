@@ -229,7 +229,7 @@ $$
 > $$\text{for } \_ \text{ in range(total_steps)}:$$  
 > $$\quad \xx_0\sim q(\xx_0)$$   
 > $$\quad t\sim \text{Uniform}(\{1,\dots,T\})$$   
-> $$\quad \bm{\epsilon}\sim\mathcal{N}(\bm{I},\bm{I})$$   
+> $$\quad \bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})$$   
 > $$\quad $$ 梯度更新:  
 > $$\qquad \nabla_{\theta}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2 \qquad$$   (式 \eqref{eq:loss})   
 
