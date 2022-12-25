@@ -11,7 +11,7 @@ meta: Post
 * content
 {:toc}
 
-我们在[《生成扩散模型(三): 灵活性和易处理性》](/2022/11/27/Diffusion-Model-3/)一文中讨论了生成扩散模型对前向过程和反向过程的建模, 以及训练模型时所使用的极大化似然函数的推导. 然而先前的扩散模型的生成效果仍然有限, Ho 等人在 DDPM 一文 [《Denoising Deffision Probabilistic Models》](https://arxiv.org/abs/2006.11239) 中指出扩散模型实际上可以生成更高质量的样本. 同时, 扩散模型在选择特定超参数的情况下与 [去噪得分匹配 (denoising score matching)]() 的训练过程和基于 [退火的朗之万动力学(annealed Langevin dynamics)]() 的采样过程是等价的.
+我们在[《生成扩散模型(三): 灵活性和易处理性》](/2022/11/27/Diffusion-Model-3/)一文中讨论了生成扩散模型对前向过程和反向过程的建模, 以及训练模型时所使用的极大化似然函数的推导. 然而先前的扩散模型的生成效果仍然有限, Ho 等人在 <span style="color:blue">DDPM</span> 一文 [《Denoising Deffision Probabilistic Models》](https://arxiv.org/abs/2006.11239) 中指出扩散模型实际上可以生成更高质量的样本. 同时, 扩散模型在选择特定超参数的情况下与 [去噪得分匹配 (denoising score matching)]() 的训练过程和基于 [退火的朗之万动力学(annealed Langevin dynamics)]() 的采样过程是等价的.
 
 
 
@@ -88,7 +88,7 @@ $$
         =\;& \mathbb{E}_{q(\xx_0)}\left[-\log\int\frac{\pt(\xx_{0:T})}{q(\xx_{1:T}\vert\xx_0)}\cdot q(\xx_{1:T}\vert\xx_0)d\xx_{1:T}\right] & {\small 分子分母同乘以前向过程} \\
         =\;& \mathbb{E}_{q(\xx_0)}\left[-\log\mathbb{E}_{q(\xx_{1:T}\vert\xx_0)}\left[\frac{\pt(\xx_{0:T})}{q(\xx_{1:T}\vert\xx_0)}\right] \right] & {\small 积分写成期望} \\
         \leq\;& \mathbb{E}_{q(\xx_0)}\left[\mathbb{E}_{q(\xx_{1:T}\vert\xx_0)}\left[-\log\frac{\pt(\xx_{0:T})}{q(\xx_{1:T}\vert\xx_0)}\right] \right] & {\small 琴生不等式} \\
-        =\;& \mathbb{E}_{q(\xx_{1:T})}\left[-\log\frac{\pt(\xx_{0:T})}{q(\xx_{1:T}\vert\xx_0)}\right]
+        =\;& \mathbb{E}_{q(\xx_{0:T})}\left[-\log\frac{\pt(\xx_{0:T})}{q(\xx_{1:T}\vert\xx_0)}\right]
     \end{align}
 $$
 
@@ -121,9 +121,9 @@ $$
     \begin{align}
         & q(\xx_{t-1}\vert\xx_t,\xx_0) = \frac{q(\xx_t\vert\xx_{t-1})q(\xx_{t-1}\vert\xx_0)}{q(\xx_t\vert\xx_0)} \\ \label{eq:density}
         &= C_1\cdot\exp\left(-\frac12\left(
-            \frac{\Vert\xx_t-\sqrt{1-\beta_t}\xx_{t-1}\Vert^2}{\beta_t}
-            + \frac{\Vert\xx_{t-1}-\sqrt{\bar{\alpha}_{t-1}}\xx_0\Vert^2}{1-\bar{\alpha}_{t-1}}
-            - \frac{\Vert\xx_t-\sqrt{\bar{\alpha}_t}\xx_0\Vert^2}{1-\bar{\alpha}_t}
+            \frac{\Vert\xx_t-\sqrt{1-\beta_t}\xx_{t-1}\Vert^2_2}{\beta_t}
+            + \frac{\Vert\xx_{t-1}-\sqrt{\bar{\alpha}_{t-1}}\xx_0\Vert^2_2}{1-\bar{\alpha}_{t-1}}
+            - \frac{\Vert\xx_t-\sqrt{\bar{\alpha}_t}\xx_0\Vert^2_2}{1-\bar{\alpha}_t}
         \right)\right) \\
         &\triangleq C_2\cdot\exp\left(-\frac{(\xx_{t-1} - \tilde{\bm{\mu}}_t)^2}{2\tilde{\beta}_t}\right)
     \end{align}
@@ -159,7 +159,7 @@ DDPM 中固定了方差序列 $$\beta_t$$ 为常量 (Sohl-Dickstein 使用的是
 其次, 我们考虑均值向量 $$\mt(\xx_t,t)$$. 由于 $$q(\xx_{t-1}\vert\xx_t,\xx_0)$$ 和 $$\pt(\xx_{t-1}\vert\xx_t))$$ 都是正态分布, 根据 [《正态分布的 KL 散度》](/2022/09/05/Normal-Distribution/#正态分布的-kl-散度), 我们有
 
 $$ \label{eq:L_tm1}
-    L_{t-1} = \mathbb{E}_{q(\xx_0,\xx_t)}\left[\frac1{2\sigma^2_t}\Vert \tilde{\bm{\mu}}_t(\xx_t,\xx_0) - \mt(\xx_t,t) \Vert^2\right] + C
+    L_{t-1} = \mathbb{E}_{q(\xx_0,\xx_t)}\left[\frac1{2\sigma^2_t}\Vert \tilde{\bm{\mu}}_t(\xx_t,\xx_0) - \mt(\xx_t,t) \Vert^2_2\right] + C
 $$
 
 其中 $$C$$ 是只跟方差有关的一个常数, 不依赖于 $$\theta$$. 所以我们可以把模型定义为 $$\mt$$, 然后来预测 $$\tilde{\bm{\mu}}_t$$. 但是这样我们需要同时采样 $$\xx_0$$ 和 $$\xx_t$$ 才能得到 $$\tilde{\bm{\mu}}_t$$ (式 \eqref{eq:tilde_mu_t}), 涉及到两次随机采样, 这样会使得模型训练变得困难. 我们注意到 $$\xx_0$$ 可以用 $$\xx_t$$ 表示, 因此把式 \eqref{eq:xt_x0} 做个变形得到 
@@ -183,13 +183,13 @@ $$
 那么式 \eqref{eq:L_tm1} 就可以变成:
 
 $$
-    L_{t-1} = \mathbb{E}_{q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\frac{\beta_t^2}{2\sigma^2_t\alpha_t(1-\bar{\alpha}_t)}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\xx_t,t) \Vert^2\right] + C.
+    L_{t-1} = \mathbb{E}_{q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\frac{\beta_t^2}{2\sigma^2_t\alpha_t(1-\bar{\alpha}_t)}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\xx_t,t) \Vert^2_2\right] + C.
 $$
 
 从而这一项损失可以变为
 
 $$ \label{eq:L_tm1_final}
-    \mathbb{E}_{q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\frac{\beta_t^2}{2\sigma^2_t\alpha_t(1-\bar{\alpha}_t)}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2\right].
+    \mathbb{E}_{q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\frac{\beta_t^2}{2\sigma^2_t\alpha_t(1-\bar{\alpha}_t)}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2_2\right].
 $$
 
 注意上式中的两处 $$\bm{\epsilon}$$ 都是从 $$\xx_0$$ 生成 $$\xx_t$$ 时加的随机噪声, 因此它们可以用一次相同的采样. 
@@ -213,7 +213,7 @@ $$
 DDPM 把最终的训练损失函数简化为
 
 $$ \label{eq:loss}
-    L_{\text{simple}}(\theta) \triangleq \mathbb{E}_{t,q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2\right]
+    L_{\text{simple}}(\theta) \triangleq \mathbb{E}_{t,q(\xx_0),\bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})}\left[\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2_2\right]
 $$
 
 其中 $$t=1,2,\cdots,T$$. 那么 $$t=1$$ 的情况就对应了 $$L_0$$ 中的复杂的近似方案; $$1<t\leq T$$ 就对应了 $$L_{1:T-1}$$ 的情况, 而 $$L_T$$ 由于没有可训练的参数, 直接略去了. 
@@ -231,7 +231,7 @@ $$
 > $$\quad t\sim \text{Uniform}(\{1,\dots,T\})$$   
 > $$\quad \bm{\epsilon}\sim\mathcal{N}(\bm{0},\bm{I})$$   
 > $$\quad $$ 梯度更新:  
-> $$\qquad \nabla_{\theta}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2 \qquad$$   (式 \eqref{eq:loss})   
+> $$\qquad \nabla_{\theta}\Vert \bm{\epsilon} - \bm{\epsilon}_{\theta}(\sqrt{\bar{\alpha}_t}\xx_0 + \sqrt{1-\bar{\alpha}_t}\bm{\epsilon},t) \Vert^2_2 \qquad$$   (式 \eqref{eq:loss})   
 
 * 生成模型采样:
 

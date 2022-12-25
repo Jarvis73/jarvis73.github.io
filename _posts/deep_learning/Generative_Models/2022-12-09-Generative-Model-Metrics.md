@@ -82,3 +82,18 @@ IS = np.exp(H(p_y) - H(p_yx).mean(0))
 ```
 
 可以看到以上的结果等于 $$1$$, 即为 $$\text{IS}(N=3)$$ 的最小值.
+
+
+## Fréchet Inception Distance, FID
+
+区别于 IS 是在 Inception-V3 输出的分布上计算的, FID 是在高层特征上计算真假图片之间的距离. FID 是 Heusel 等人在 2017 年 [《GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium》](https://papers.nips.cc/paper/2017/hash/8a1d694707eb0fefe65871369074926d-Abstract.html) 一文中提出的用于衡量生成样本质量的指标. 其计算方式如下：
+
+$$
+    \text{FID} = \Vert \mu_r - \mu_g \Vert^2 + Tr\left( \Sigma_r + \Sigma_g - 2(\Sigma_r\Sigma_g)^{\frac12} \right)
+$$
+
+其中 $$\mu$$ 是经验均值, $$\Sigma$$ 是经验协方差, $$Tr$$ 为矩阵的迹, $$r$$ 是真实数据集, $$g$$ 是生成的数据集. 
+
+实际操作中, 我们使用原始数据集中的 $$M$$ 张图片, 经过 Inception-V3 模型得到 $$M\times 2048$$ 的特征向量组成的矩阵. 然后用生成模型生成 $$N$$ 张图片, 经过 Inception-V3 模型得到 $$N\times 2048$$ 的特征向量组成的矩阵. 用这两个矩阵就可以计算 $$\mu_r, \Sigma_r, \mu_g, \Sigma_g$$, 然后套用上面的公式计算 FID 了. 
+
+相比 IS 是用生成的数据跟 ImageNet 做比较, FID 是用生成的数据跟训练集做比较, 更合理一些. 
