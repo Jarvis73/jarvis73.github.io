@@ -169,7 +169,15 @@ $$ \label{eq:sampling}
     \xx_{t-1} = \sqrt{\bar{\alpha}_{t-1}}\underbrace{\left(\frac{\xx_t-\sqrt{1-\bar{\alpha}_t}\bm{\epsilon}_{\theta}(\xx_t,t)}{\sqrt{\bar{\alpha}_t}}\right)}_{\text{predicted } \xx_0} + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2}\cdot\bm{\epsilon}_{\theta}(\xx_t,t) + \underbrace{\sigma_t\bm{\epsilon}_t}_{\text{random noise}}
 $$
 
-上式就是一个更一遍的生成模型的采样方法, 取不同的 $$\sigma_t$$, 就可以得到不同的生成模型. 
+上式就是一个更一般的生成模型的采样方法 (参数化 $$\bm{\epsilon}$$), 取不同的 $$\sigma_t$$, 就可以得到不同的生成模型. 
+
+我们还可以参数化 $$\xx_0$$, 从而得到另一个递推公式:
+
+$$ \label{eq:sampling-by-x0}
+    \xx_{t-1} = \sqrt{\bar{\alpha}_{t-1}}\xx_{\theta}(\xx_t,t) + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2}\underbrace{\left(\frac{\xx_t-\sqrt{\bar{\alpha}_t}\xx_{\theta}(\xx_t,t)}{\sqrt{1-\bar{\alpha}_t}}\right)}_{\text{predicted } \bm{\epsilon}} + \underbrace{\sigma_t\bm{\epsilon}_t}_{\text{random noise}}
+$$
+
+其中 $$\xx_{\theta}(\xx_t,t)$$ 是通过神经网络 (比如 UNet) 来预测 $$\xx_0$$ 的.
 
 **DDPM 是一个特例**
 
