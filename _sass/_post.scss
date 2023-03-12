@@ -242,3 +242,16 @@ div.card-content {
     padding: 10px;
     background-color: #eee;
 }
+
+.pub {
+    margin-top: 15px;
+    a {
+        text-decoration: underline;
+        color: #52adc8 !important;
+        transition: 0.5s ease !important;
+        &:hover {
+            color: #223253;
+            background-color: #f4efeb;
+        }
+    }
+}
