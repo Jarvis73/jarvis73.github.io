@@ -589,13 +589,13 @@ sudo mv McMojave-circle /usr/share/icons
 
 ### 1 安装代理工具
 
-安装 `shadowsocks-libev` (支持 `chacha20-ietf-poly1305` 加密方式, Python 版的 ss 不支持这个)
+安装 `shadowsocks-libev` (支持 `chacha20-ietf-poly1305` 加密方式, Python 版的 ss 不支持这个). 这里需要 Root 权限来安装.
 
 ```bash
 sudo apt install shadowsocks-libev
 ```
 
-填写ss配置文件 `~/tools/ssconfig/config.json` (路径无要求)
+填写ss配置文件 `~/tools/ssconfig/config.json` (路径无要求). 这个配置文件的内容需要由你的代理服务提供商来提供, 下面的仅为示例.
 
 ```bash
 {
@@ -612,29 +612,37 @@ sudo apt install shadowsocks-libev
 然后开启 sslocal 客户端:
 
 ```bash
-sudo ss-local -c ~/tools/ssconfig/config.json
+ss-local -c ~/tools/ssconfig/config.json
 ```
 
-这就开启了 socks 代理. 但是我们终端一般使用 http/https 代理, 接下来新开一个终端完成后续配置. [2 proxychains 代理](#2-proxychains-代理-命令行配置) 和 [3 privoxy 代理](#3-privoxy-代理-命令行配置) 选一个配置即可.
+这就开启了 socks 代理, 他会停留在终端前台. 但是我们终端一般使用 http/https 代理, 接下来**新开一个终端**完成后续配置. [2 proxychains 代理](#2-proxychains-代理-命令行配置)(推荐) 和 [3 privoxy 代理](#3-privoxy-代理-命令行配置) 选一个配置即可.
 
 ### 2 proxychains 代理 (命令行配置)
 
-* 安装
+* 安装, 需要 Root 权限.
 
 ```bash
 sudo apt install proxychains-ng
 ```
 
-修改 /etc/proxychains.conf 的最后一行, 把 `socks4 127.0.0.1 9050` 修改为
+把默认配置文件 /etc/proxychains.conf 复制到 ~/tools/ssconfig/proxychains4.conf, 然后打开该文件, 修改最后一行配置项:
 
 ```conf
+# 把下一行的内容注释掉
+# socks4 127.0.0.1 9050
+
+# 增加如下一行内容, 使用 socks5, 同时端口 1080 和 config.json 里的 local_port 对应
 socks5 127.0.0.1 1080
 ```
 
-可以在 ~/.bashrc 中末尾添加别名方便运行 `alias fly="proxychains4 -q"`
+接下来可以在想要使用代理的命令前加一个前缀 `proxychains4 -q -f /home/zjw_11821014/tools/proxychains4.conf`, 即可实现代理:
 
 ```bash
-fly curl www.google.com
+# 使用 curl 命令获取 `www.google.com` 的内容
+proxychains4 -q -f /home/zjw_11821014/tools/proxychains4.conf curl www.google.com
+
+# python 程序里访问互联网的程序实现代理
+proxychains4 -q -f /home/zjw_11821014/tools/proxychains4.conf python main.py
 ```
 
 ### 3 privoxy 代理 (命令行配置)

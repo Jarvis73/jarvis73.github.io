@@ -17,7 +17,7 @@ pin: True
 
 本文假设读者已经懂得了 Tensorflow 的一些基础概念, 如果不懂, 则移步 TF [官网](https://www.tensorflow.org/get_started) .
 
-{% include image.html class="polaroid" url="2018-4-28/pipline.gif" title="Tensorflow 数据输入管线" %}
+{% include image.html class="polaroid" url="2018/04/pipline.gif" title="Tensorflow 数据输入管线" %}
 
 ## 1. 数据预处理: Data ---> TFRecord
 
