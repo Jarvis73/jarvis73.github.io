@@ -247,8 +247,9 @@ div.card-content {
     margin-top: 15px;
     a {
         text-decoration: underline;
-        color: #52adc8 !important;
+        color: #5273c8 !important;
         transition: 0.5s ease !important;
+        font-weight: bold;
         &:hover {
             color: #223253;
             background-color: #f4efeb;
