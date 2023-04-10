@@ -72,7 +72,7 @@ ssh-keygen -t rsa -b 2048 -f /home/<用户名>/.ssh/mykey
 
 * `-t rsa`: 指定密钥类型为 RSA
 * `-b 2048`: 指定密钥的位数为 2048
-* `-f C:\Users\<用户名>\.ssh/mykey`: 指定密钥名称为 `mykey` (可以自定义), 放在用户的 `.ssh` 目录下.
+* `-f /home/<用户名>/.ssh/mykey`: 指定密钥名称为 `mykey` (可以自定义), 放在用户的 `.ssh` 目录下.
 
 这个命令会生成 `mykey` 和 `mykey.pub` 两个文本文件. 获取公钥 `mykey.pub` 的内容:
 
@@ -109,6 +109,10 @@ chmod 600 ~/.ssh/mykey
 ```bash
 ssh <用户名>@<服务器地址> -p <端口> -i ~\.ssh\mykey
 ```
+
+{% include card.html type="info" title="登录时显示 Permission denied" content="如果确保上面的秘钥和权限配置无误, 仍然显示 `Permission denied (publickey)` 的话, 可能是管理员开启了 ssh 登录白名单, 新建的账户不在白名单里所以无法登录. 找管理员编辑 `/etc/ssh/sshd_config` 文件, 如果其中的 `AllowUsers` 设置是启用的, 则在末尾加上当前用户即可." %}
+
+
 
 ### 2.3 使用配置文件
 
