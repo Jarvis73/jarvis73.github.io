@@ -22,11 +22,11 @@ meta: Post
 在机器学习中, 数据表示为 $$ n $$ 维特征向量 $$ \mathbf{x}\in\mathbb{R}^n $$ 或 $$ h\times w $$ 维特征矩阵(如图片), 多层感知机 (multilayer perceptron, MLP) 和卷积神经网络 (convolutional neural network, CNN) 可以提取数据中的特征以进行分类回归等任务.
 但通常的 MLP 或 CNN 处理的数据通常认为是独立同分布的, 因此当数据之间存在关联关系时, 这类模型则无法很好的编码数据间的依赖关系, 导致模型的表现较差. 一种典型的数据间依赖关系就是*时序关系*. 比如话说一半时对方可能就知道了你的意思, 一句话中的代词"他"指代的目标需要分析上下文后才能得到. 时序数据如下图所示, 一列向量则表示一个字的编码.
 
-{% include image.html class="polaroid" url="2018-1-24/time-series.png" title="时序数据" %}
+{% include image.html class="polaroid" url="2018/01/time-series.png" title="时序数据" %}
 
 循环神经网络的提出就是为了解决数据中这种典型的时序依赖关系. RNN 是内部包含循环的神经网络 (普通 CNN 不包含循环), RNN 的一个循环单元如下图所示[^1].
 
-{% include image.html class="polaroid" url="2018-1-24/RNN-rolled.png" title="RNN 的循环单元" %}
+{% include image.html class="polaroid" url="2018/01/RNN-rolled.png" title="RNN 的循环单元" %}
 
 其中 $$ x_t $$ 表示输入序列中时刻 $$ t $$ 时的值, $$ h_t $$ 为该层在时刻 $$ t $$ 的输出. 方块 $$ A $$ 是一个操作符, 把前一时刻的输出 $$ h_{t-1} $$ 和当前时刻的输入 $$ x_t $$ 映射为当前时刻的输出. 注意, $$ h_t $$ 通常扮演两个角色, 既是循环单元在当前时刻的输出, 又是当前时刻循环单元的*状态*. 公式表示如下:
 
@@ -36,12 +36,12 @@ $$
 
 其中 $$ W $$ 为权重参数, $$ \sigma $$ 表示激活函数, 常用的是 $$ \tanh(\cdot) $$ 函数, 可以把输出的值域控制在 $$ [-1, 1] $$ 之间, 避免在循环过程中不收敛. 我们可以沿着时间轴把上面的循环单元展开, 更加直观.
 
-{% include image.html class="polaroid" url="2018-1-24/RNN-unrolled.png" title="RNN 循环单元展开示意图" %}
+{% include image.html class="polaroid" url="2018/01/RNN-unrolled.png" title="RNN 循环单元展开示意图" %}
 
 循环神经网络可以由多层循环单元堆叠而成, 前一个循环单元的输出作为下一循环单元的输入, 如下图所示. 
 <!-- 在训练过程中, ... -->
 
-{% include image.html class="polaroid" url="2018-1-24/multilayer-RNN.png" title="多层循环单元堆叠" %}
+{% include image.html class="polaroid" url="2018/01/multilayer-RNN.png" title="多层循环单元堆叠" %}
 
 RNN 的输入通常表示成**嵌入 (embedding)**的形式, 即构造一个**查询表 (lookup table)**, 把输入序列的每个时刻的特征向量通过查询表转为一个等长的向量. 从而一个序列的形状变为 `[num_time_steps, embedding_size]`. 
 
@@ -70,11 +70,11 @@ RNN 也存在一些缺陷:
 
 LSTM 和通常的 CNN 一样为一个循环单元的结构, 但是与 RNN 仅有一个 tanh 激活层不同, LSTM 中包含了更复杂的四层网络的结构设计, 并且四层网络相互耦合, 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM.png" title="LSTM 循环单元展开示意图" %}
+{% include image.html class="polaroid" url="2018/01/LSTM.png" title="LSTM 循环单元展开示意图" %}
 
 上图中的圆角矩形框, 操作符, 分支箭头的含义如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM2-notation.png" title="图例" %}
+{% include image.html class="polaroid" url="2018/01/LSTM2-notation.png" title="图例" %}
 
 下面详细介绍 LSTM 单元的内部结构. 
 
@@ -82,11 +82,11 @@ LSTM 和通常的 CNN 一样为一个循环单元的结构, 但是与 RNN 仅有
 
 LSTM 相比于 RNN, 关键在于引入了单元状态(state) $$ C $$ —— 横穿下图顶部的直线. 
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-C-line.png" title="单元状态" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-C-line.png" title="单元状态" %}
 
 LSTM 可以通过**门(gate)**来控制向单元状态中增加信息或减少信息. 门由一个 $$ sigmoid $$ 函数和一个乘法运算符组成, 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-gate.png" title="门" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-gate.png" title="门" %}
 
 $$ sigmoid $$ 层输出的值在 $$ [0, 1] $$ 之间, 控制了信息的通过量. 越接近 0, 则表明不允许信息通过(从而形成*遗忘*); 越接近 1, 则表明允许信息全部通过(从而形成*记忆*). 
 
@@ -101,29 +101,29 @@ LSTM 单元在每个时间步需要注意三个向量:
 
 **遗忘门(forget gate).** 每循环一步时, 首先根据上一步的输出 $$ h_{t-1} $$ 和当前步的输入 $$ x_t $$ 来决定要遗忘掉上一步的什么信息(从单元状态 $$ C_{t-1} $$ 中遗忘). 因此只需要计算一个遗忘系数 $$ f_t $$ 乘到单元状态上即可. 如下图所示, 公式中的方括号表示 $$ concat $$ 操作.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-focus-f.png" title="遗忘门" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-focus-f.png" title="遗忘门" %}
 
 **输入门(input gate).** 这一步来决定当前新的输入 $$ x_t $$ 我们应该把多少信息储存在单元状态中. 这部分有两步, 首先一个输入门计算要保留哪些信息, 得到过滤系数 $$ i_t $$, 然后使用一个全连接层来从上一步的输出 $$ h_{t-1} $$ 和当前步的输入 $$ x_t $$ 中提取特征 $$ \tilde{C}_t $$. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-focus-i.png" title="输入门" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-focus-i.png" title="输入门" %}
 
 **新旧信息合并.** 计算好了遗忘系数, 输入系数, 以及新的要记忆的特征, 现在就可以在单元状态 $$ C_{t-1} $$ 上执行遗忘操作 $$ f_t\ast C_{t-1} $$ 和记忆操作 $$ +i_t\ast\tilde{C}_t $$. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-focus-C.png" title="新旧信息合并" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-focus-C.png" title="新旧信息合并" %}
 
 **输出门(output gate).** 最后我们要决定输出什么信息了. 这需要从当前的单元状态 $$ C_t $$ 来获取要输出的信息. 但显然我们并不会在这一个时间步输出所有记忆的信息, 而是只要输出当前需要的信息, 因此我们用一个输出门来过滤输出的信息, 过滤系数为 $$ o_t $$. 此外我们希望输出的特征的取值能够介于 $$ [-1, 1] $$ 之间, 因此使用一个 $$ tanh $$ 函数把单元状态 $$ C_t $$ 映射到相应的范围, 最后乘上过滤系数得到当前步的输出. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-focus-o.png" title="输出门" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-focus-o.png" title="输出门" %}
 
 ### 2.3 LSTM 单元变体
 
 **变体一.** [^7]让所有的门控单元在输出门控系数的时候都可以"看到"当前的单元状态. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-var-peepholes.png" title="让门控单元可以看到单元状态" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-var-peepholes.png" title="让门控单元可以看到单元状态" %}
 
 **变体二.** 让遗忘门的遗忘系数 $$ f_t $$ 和输入门的输入系数 $$ i_t $$ 耦合, 即令 $$ i_t = 1-f_t $$, 从而同时做出哪些信息遗忘以及哪些信息记忆的决策. 这个变体可以让新的有用的记忆"覆盖"老的无用的记忆. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-var-tied.png" title="遗忘系数和记忆系数耦合" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-var-tied.png" title="遗忘系数和记忆系数耦合" %}
 
 **变体三(GRU).** [^8]第三种变体更为有名, 称为**门控循环单元(Gated Recurrent Unit, GRU)**. 下一节介绍.
 
@@ -137,7 +137,7 @@ LSTM 单元在每个时间步需要注意三个向量:
 
 GRU[^8] 是一种比 LSTM 稍简单一些的循环单元. GRU 把 LSTM 中的隐藏状态 $$ h $$ 和单元状态 $$ C $$ 合并为单个的隐藏状态. 如下图所示. 
 
-{% include image.html class="polaroid" url="2018-1-24/LSTM3-var-GRU.png" title="门控循环单元(GRU)" %}
+{% include image.html class="polaroid" url="2018/01/LSTM3-var-GRU.png" title="门控循环单元(GRU)" %}
 
 **更新门(update gate).** 更新门系数 $$ z_t $$ 控制了 $$ h_{t-1} $$ 中保存的信息(如长期记忆)在当前步保留多少. $$ z_t $$ 接近 0 时上一步的隐藏状态中的信息 $$ h_{t-1} $$ 得以保留, 新输入的信息 $$ \tilde{h}_t $$ 会被忽略; $$ z_t $$ 接近 1 时则丢弃已有的信息, 并填入新输入的信息. 
 
@@ -161,7 +161,7 @@ $$
 
 编码器的示意图如下图[^2]所示:
 
-{% include image.html class="polaroid" url="2018-1-24/encoder.png" title="编码器. 输出的中间状态(语义向量) $$ c $$ 可以通过不同的计算公式构造, 形成不同的模型结构." %}
+{% include image.html class="polaroid" url="2018/01/encoder.png" title="编码器. 输出的中间状态(语义向量) $$ c $$ 可以通过不同的计算公式构造, 形成不同的模型结构." %}
 
 解码器 RNN 每个时间步使用前一步的输出 $$ y_{t-1} $$ 和当前状态 $$ g_t $$ 产生一个输出 $$ y_t\in Y $$:
 
@@ -180,11 +180,11 @@ $$
 
 使用解码器对语义向量解码. 如果把语义向量只输入解码器的第一个循环时间步, 则形成了 Cho et al.[^3] 提出的结构.
 
-{% include image.html class="polaroid" url="2018-1-24/decoder-1.png" title="解码器-1" %}
+{% include image.html class="polaroid" url="2018/01/decoder-1.png" title="解码器-1" %}
 
 如果把语义向量在每一个时间步都输入解码器, 则形成了 Sutskever et al.[^4] 提出的结构.
 
-{% include image.html class="polaroid" url="2018-1-24/decoder-2.png" title="解码器-2" %}
+{% include image.html class="polaroid" url="2018/01/decoder-2.png" title="解码器-2" %}
 
 ### 4.1 编码-解码器模型的局限性
 
@@ -211,11 +211,11 @@ $$
 
 沿用编码-解码器模型的结构, 注意力机制通过引入一组归一化的系数 $$ \{\alpha_1, \alpha_2, \dots, \alpha_n \} $$ 来对输入的信息进行选择, 来解决编码-解码器的不合理性. 这里输入的信息就是指输入序列在 RNN 中的单元输出 $$ \mathbf{h}_s $$. 归一化的系数 $$ \alpha_s $$ 用来决定输入信息的重要性, 是编码器输出时对单元输出加权求和系数. 注意力机制在计算不同时间步的输出时, 实时构造编码器输出的语义向量 $$ \mathbf{c}_t $$, 从而解决了普通编码-解码器信息丢失的问题. 注意力机制如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/attention-1.png" title="注意力机制" %}
+{% include image.html class="polaroid" url="2018/01/attention-1.png" title="注意力机制" %}
 
 下面讨论加权系数是如何计算的. 考虑到加权系数要反映**输入信息**在当前**时间步**上的重要性, 因此需要把输入信息和时间信息结合起来计算加权系数. 因此通常使用一个 MLP 接收输入信息 $$ \mathbf{h}_1, \mathbf{h}_2, \dots, \mathbf{h}_n $$ 和解码器上一时刻的状态 $$ \mathbf{s}_{t-1} $$ 作为输入, 输出归一化的加权系数 $$ \alpha_{t1}, \alpha_{t2}, \dots, \alpha_{tn} $$. 如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/attention-2.png" title="注意力机制" %}
+{% include image.html class="polaroid" url="2018/01/attention-2.png" title="注意力机制" %}
 
 注意: 编码-解码器的结构只是注意力机制的一个载体, 注意力机制的核心在于加权系数, 因此可以用于非 RNN 的结构.
 
@@ -223,7 +223,7 @@ $$
 
 自注意力是一个神经网络模块, 它仍然是使用了注意力机制, 与编码-解码器结构不同的是, 自注意力模块只使用输入的信息计算加权系数, 而不需要上一个时间步的信息, 因此可以实现更大规模的并行计算. Google 在 2017 年提出的 Transformer 实现了可并行的自注意力模块[^9]. 其结构如下图所示.
 
-{% include image.html class="polaroid" url="2018-1-24/self-attention.png" title="语言翻译任务中的自注意力" %}
+{% include image.html class="polaroid" url="2018/01/self-attention.png" title="语言翻译任务中的自注意力" %}
 
 自注意力模块工作方式如下[^10]:
 
