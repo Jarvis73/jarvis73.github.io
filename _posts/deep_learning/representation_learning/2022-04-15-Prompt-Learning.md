@@ -252,8 +252,3 @@ $$
     **Domain Adaptation via Prompt Learning** <br />
     Chunjiang Ge, Rui Huang, Mixue Xie, Zihang Lai, Shiji Song, Shuang Li, Gao Huang <br />
     [[html]](https://arxiv.org/abs/2202.06687) In arXiv 2022
-
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
-</script>

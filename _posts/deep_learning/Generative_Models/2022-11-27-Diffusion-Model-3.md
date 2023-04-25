@@ -165,7 +165,7 @@ $$
     \begin{align}
         &\int d\bm{x}_0 d\bm{x}_1\,q(\bm{x}_0,\bm{x}_1)\log\left[\frac{p(\bm{x}_0\vert\bm{x}_1)}{q(\bm{x}_1\vert \bm{x}_0)}\right] \\
         =& \int d\bm{x}_0 d\bm{x}_1\,q(\bm{x}_0,\bm{x}_1)\log\left[\frac{q(\bm{x}_0)}{p(\bm{x}_1)}\right] &  {\small 根据式 \eqref{eq:item1}} \\
-        =& \int d\bm{x}_0\,q(\bm{x}_0)\log q(\bm{x}_0) - \int d\bm{x}_1\,q(\bm{x}_1)\log p(\bm{x}_1) \log  \\
+        =& \int d\bm{x}_0\,q(\bm{x}_0)\log q(\bm{x}_0) - \int d\bm{x}_1\,q(\bm{x}_1)\log p(\bm{x}_1)  \\
         =& \mathbb{H}_p(\bm{x}_T) - \mathbb{H}_p(\bm{x}_T) & {\small 根据式 \eqref{eq:assumption}} \\
         =& 0
     \end{align}
