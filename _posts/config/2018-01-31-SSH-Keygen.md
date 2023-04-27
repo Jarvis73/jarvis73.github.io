@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ssh 工具教程 (Tutorial of ssh tools)
+title: SSH 工具教程 (Tutorial of SSH tools)
 date: 2022-09-17 21:33:00 +0800
 categories: Tools
 author: Jarvis

@@ -99,9 +99,12 @@ Publications: <a href="#2022">2022</a>, <a href="#2021">2021</a>, <a href="#2020
 
 ## Contact Me
 
-* GitHub：[Jarvis73](https://github.com/Jarvis73)
-* Email：<a href = "mailto:zjw.cs@zju.edu.cn">zjw.cs@zju.edu.cn</a>
-* [Zhihu (知乎)](https://www.zhihu.com/people/lin-xi-1-1)
+
+* <img src="https://nav.jarvis73.com/images/zjumail.ico" width="16" height="16" style="margin-bottom: 2pt;"> Email：<a href = "mailto:zjw.cs@zju.edu.cn">zjw.cs@zju.edu.cn</a>
+* <img src="https://nav.jarvis73.com/images/zhihu.ico" width="16" height="16" style="margin-bottom: 2pt;"> Zhihu (知乎): [Jarvis73](https://www.zhihu.com/people/lin-xi-1-1)
+* <img src="https://nav.jarvis73.com/images/github.ico" width="16" height="16" style="margin-bottom: 2pt;"> GitHub：[Jarvis73](https://github.com/Jarvis73)
+
+  ![Jarvis73' Profile](https://github-readme-stats.vercel.app/api?username=Jarvis73&count_private=true&show_icons=true)
 
 
 <style>
