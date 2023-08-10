@@ -280,7 +280,7 @@ netstat -tnlp
 为了能从 host1 和 host2 上通过 10.76.1.101 访问, 需要在 host2 的 sshd 配置文件中, 把 `GatewayPorts=no` 改为 `GatewayPorts=yes`. 启用该项之后, 无论【远程地址】设置为什么都会绑定在所有地址 (0.0.0.0) 上.
 
 ```bash
-# host2
+# host3
 ssh -g -R *:10001:192.168.1.4:9000 host2
 ssh -g -R 10001:192.168.1.4:9000 host2
 
