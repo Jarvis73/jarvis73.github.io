@@ -17,16 +17,37 @@ type: page
 </div>
 <div style="width: auto; height:auto; float:left; display:inline">
 <div style="text-align: center; font-size: 25px; padding-bottom: 10px"><strong>Hello, I'm Jian-Wei Zhang (张建伟)</strong><br /></div>
-<div style="padding-bottom: 10px">I am a Ph.D student at State Key Lab of CAD&CG of Zhejiang University advised by <a href="https://scholar.google.com/citations?hl=zh-CN&user=EgQyYGUAAAAJ" target="_blank">Prof. Wei Chen</a>.</div>
-My work focuses on image segmentation, few-shot learning, and image generation under a low-data scenario (i.e., few-shot or few labels).
-</div>
+<div style="padding-bottom: 10px">I started working at Tencent in 2023, focusing on foundation models of image generation and multimodal learning. I got my Ph.D. in 2023 at State Key Lab of CAD&CG of Zhejiang University advised by <a href="https://scholar.google.com/citations?hl=zh-CN&user=EgQyYGUAAAAJ" target="_blank">Prof. Wei Chen</a>. 
+During my Ph.D., I worked on image segmentation, few-shot learning, and image generation under a low-data scenario (i.e., few-shot or few labels) during my Ph.D.
+</div></div>
 <div style="clear:both"></div> 
+
 
 ## Publications
 
 You can also find my articles on my <a href="https://scholar.google.com/citations?user=nF_klRIAAAAJ&hl=zh-CN" taregt="_blank">Google Scholar profile</a>.
 
-Publications: <a href="#2022">2022</a>, <a href="#2021">2021</a>, <a href="#2020">2020</a>, <a href="#2018">2018</a>
+Publications: <a href="#2023">2023</a>, <a href="#2022">2022</a>, <a href="#2021">2021</a>, <a href="#2020">2020</a>, <a href="#2018">2018</a>
+
+<h3 id="2023">2023</h3>
+
+<div class="pub">
+<u><a href="https://openreview.net/forum?id=hBaI5MY0CBz">Pull and concentrate: improving unsupervised semantic segmentation adaptation with cross-and intra-domain consistencies</a></u>
+<p><strong>Jian-Wei Zhang</strong>, Yifan Sun, Wei Chen</p>
+<p><i>Multimedia Systems</i>, 29(5), 2633-2650, 2023 [<a href="https://link.springer.com/article/10.1007/s00530-023-01131-9">html</a>] [<a href="https://github.com/Jarvis73/PuCo">PyTorch</a>] </p>
+</div>
+
+<div class="pub">
+<u><a href="https://openreview.net/forum?id=hBaI5MY0CBz">ScrollTimes: Tracing the Provenance of Paintings as a Window into History</a></u>
+<p>Wei Zhang, Jason K Wong, Yitian Chen, Ailing Jia, Luwei Wang, <strong>Jian-Wei Zhang</strong>, Lechao Cheng, Wei Chen</p>
+<p><i>arXiv preprint arXiv:2306.08834</i>, 2023 [<a href="https://arxiv.org/pdf/2306.08834">pdf</a>] </p>
+</div>
+
+<div class="pub">
+<u><a href="https://openreview.net/forum?id=hBaI5MY0CBz">Computational Approaches for Traditional Chinese Painting: From the" Six Principles of Painting" Perspective</a></u>
+<p>Wei Zhang, <strong>Jian-Wei Zhang</strong>, Kam Kwai Wong, Yifang Wang, Yingchaojie Feng, Luwei Wang, Wei Chen</p>
+<p><i>arXiv preprint arXiv:2307.14227</i>, 2023 [<a href="https://arxiv.org/pdf/2307.14227">pdf</a>] </p>
+</div>
 
 <h3 id="2022">2022</h3>
 
